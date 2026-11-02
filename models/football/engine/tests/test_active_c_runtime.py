@@ -258,6 +258,165 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertEqual(result["board_state"], "WATCH")
         self.assertFalse(result["goal3_funded"])
 
+    def test_verified_current_structure_quarter_trap_is_not_a_hard_g3_veto(self):
+        row = c_row()
+        row.update(
+            match_id="verified-current-structure-quarter-trap",
+            home_route="STRONG",
+            away_route="USABLE",
+            carrier="USABLE",
+            carrier_self_fund=False,
+            carrier_self_fund_basis="verified distributed route, no solo-three carrier",
+            completion_mode="MIXED",
+            route_reliability="MEDIUM",
+            independent_route_quality="MEDIUM",
+            chance_quality="MEDIUM",
+            failure_resistance="MEDIUM",
+            evidence_confidence="HIGH",
+            burden_protection="MEDIUM",
+            burden_completion_quality="MEDIUM",
+            continuation_quality="MEDIUM",
+            opponent_leakage="MEDIUM",
+            burden_stall_risk="MEDIUM",
+            independent_upper_tail=False,
+            independent_upper_tail_basis="no independent fourth-goal proof",
+            upper_tail_transferability="LOW",
+            upper_tail_transferability_basis="upper tail not transferable",
+            upper_tail_comparable_context_signal="UNAVAILABLE",
+            upper_tail_comparable_context_basis="no comparable upper-tail evidence",
+            goal_signal_priority_score=48,
+            goal_signal_mean_over_two_rate=0.50,
+            goal_signal_mean_over_three_rate=0.40,
+            goal_signal_low_draw_trap_rate=0.25,
+            g3_current_structure_verified=True,
+            g3_current_structure_basis=(
+                "Two independent frozen sources verify a STRONG primary route and "
+                "a separate USABLE reply path with all G3 controls at least MEDIUM."
+            ),
+            g3_current_structure_source_refs=[
+                "https://example.com/current-primary-route",
+                "https://example.org/current-reply-route",
+            ],
+        )
+        result = run_board(payload("c", row))["matches"][0]
+        self.assertTrue(result["goal3_funded"])
+        self.assertEqual(result["board_state"], "FOCUS")
+        self.assertNotEqual(result["g3_endpoint_control_pressure"], "HIGH")
+        self.assertEqual(result["direct_act_ceiling"], 2.5)
+        self.assertFalse(result["goal4_funded"])
+
+    def test_verified_current_structure_thirty_percent_trap_remains_hard_veto(self):
+        row = c_row()
+        row.update(
+            match_id="verified-current-structure-hard-trap",
+            home_route="STRONG",
+            away_route="USABLE",
+            carrier="USABLE",
+            carrier_self_fund=False,
+            carrier_self_fund_basis="verified distributed route, no solo-three carrier",
+            completion_mode="MIXED",
+            route_reliability="MEDIUM",
+            independent_route_quality="MEDIUM",
+            chance_quality="MEDIUM",
+            failure_resistance="MEDIUM",
+            evidence_confidence="HIGH",
+            burden_protection="MEDIUM",
+            burden_completion_quality="MEDIUM",
+            continuation_quality="MEDIUM",
+            opponent_leakage="MEDIUM",
+            burden_stall_risk="MEDIUM",
+            independent_upper_tail=False,
+            independent_upper_tail_basis="no independent fourth-goal proof",
+            upper_tail_transferability="LOW",
+            upper_tail_transferability_basis="upper tail not transferable",
+            upper_tail_comparable_context_signal="UNAVAILABLE",
+            upper_tail_comparable_context_basis="no comparable upper-tail evidence",
+            goal_signal_priority_score=48,
+            goal_signal_mean_over_two_rate=0.50,
+            goal_signal_mean_over_three_rate=0.40,
+            goal_signal_low_draw_trap_rate=0.30,
+            g3_current_structure_verified=True,
+            g3_current_structure_basis=(
+                "Two independent frozen sources verify a STRONG primary route and "
+                "a separate USABLE reply path with all G3 controls at least MEDIUM."
+            ),
+            g3_current_structure_source_refs=[
+                "https://example.com/current-primary-route",
+                "https://example.org/current-reply-route",
+            ],
+        )
+        result = run_board(payload("c", row))["matches"][0]
+        self.assertTrue(result["goal3_funded"])
+        self.assertEqual(result["board_state"], "FOCUS")
+        self.assertEqual(result["g3_endpoint_control_pressure"], "HIGH")
+        self.assertIsNone(result["direct_act_ceiling"])
+        self.assertFalse(result["goal4_funded"])
+
+    def test_verified_current_structure_priority_is_distinct_from_generic_mechanism_rank(self):
+        verified = c_row()
+        verified.update(
+            match_id="verified-current-structure-priority",
+            home_route="STRONG",
+            away_route="USABLE",
+            carrier="USABLE",
+            carrier_self_fund=False,
+            carrier_self_fund_basis="verified distributed route, no solo-three carrier",
+            completion_mode="MIXED",
+            route_reliability="MEDIUM",
+            independent_route_quality="MEDIUM",
+            chance_quality="MEDIUM",
+            failure_resistance="MEDIUM",
+            evidence_confidence="HIGH",
+            burden_protection="MEDIUM",
+            burden_completion_quality="MEDIUM",
+            continuation_quality="MEDIUM",
+            opponent_leakage="MEDIUM",
+            burden_stall_risk="MEDIUM",
+            independent_upper_tail=False,
+            independent_upper_tail_basis="no independent fourth-goal proof",
+            upper_tail_transferability="LOW",
+            upper_tail_transferability_basis="upper tail not transferable",
+            upper_tail_comparable_context_signal="UNAVAILABLE",
+            upper_tail_comparable_context_basis="no comparable upper-tail evidence",
+            goal_signal_priority_score=48,
+            goal_signal_mean_over_two_rate=0.50,
+            goal_signal_mean_over_three_rate=0.40,
+            goal_signal_low_draw_trap_rate=0.20,
+            g3_current_structure_verified=True,
+            g3_current_structure_basis=(
+                "Two independent frozen sources verify a STRONG primary route and "
+                "a separate USABLE reply path with all G3 controls at least MEDIUM."
+            ),
+            g3_current_structure_source_refs=[
+                "https://example.com/current-primary-route",
+                "https://example.org/current-reply-route",
+            ],
+        )
+        carrier = c_row()
+        carrier.update(
+            match_id="ordinary-strong-carrier",
+            kickoff_ict="2026-10-04T19:00:00+07:00",
+        )
+        board = payload("c", verified)
+        board["matches"] = [carrier, verified]
+        result = run_board(board)
+        by_id = {row["match_id"]: row for row in result["matches"]}
+
+        self.assertLess(
+            by_id["verified-current-structure-priority"]["rank"],
+            by_id["ordinary-strong-carrier"]["rank"],
+        )
+        self.assertEqual(
+            by_id["verified-current-structure-priority"]["goal3_mechanism_class"],
+            "DISTRIBUTED",
+        )
+        self.assertTrue(
+            by_id["verified-current-structure-priority"]["g3_current_structure_verified"]
+        )
+        self.assertFalse(
+            by_id["verified-current-structure-priority"]["goal4_funded"]
+        )
+
     def test_retired_c2_board_is_rejected(self):
         retired = payload("c2", {
             k: v for k, v in c_row().items()
