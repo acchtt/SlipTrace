@@ -382,30 +382,67 @@ The active champion ranking is price-blind and deterministic.
 Comparison order:
 
 1. current G3 execution-floor authorization;
-2. highest funded certificate: G6 > G5 > G4 > G3 > none;
-3. frozen V4 high-total strength, led by the independently observed 4+ rate,
-   then 3+ rate, aggregate goal priority and low-draw resistance;
-4. funded G3 mechanism strength: self-funded carrier > two-route > leakage >
-   distributed-only;
-5. burden-normalized clearability;
-6. certificate robustness: ROBUST > CONDITIONAL > FRAGILE;
-7. endpoint/control risk;
-8. remaining C football-mechanism quality.
+2. funded G3 mechanism strength: self-funded carrier > matchup leakage >
+   two-route = distributed-only; route count itself has no ranking bonus;
+3. burden-normalized clearability;
+4. certificate robustness: ROBUST > CONDITIONAL > FRAGILE;
+5. highest funded certificate: G6 > G5 > G4 > G3 > none;
+6. endpoint/control risk;
+7. continuation and burden-completion quality;
+8. frozen V4 quantitative goal signal as corroboration;
+9. remaining current football-mechanism quality.
 
-This precedence applies only after the execution floor clears. It changes no
-G3/G4/G5/G6 funding threshold and cannot rescue a fixture blocked by endpoint
-control, material suppression or route destruction.
+A deeper certificate or stronger historical high-total sample cannot outrank
+stronger current execution structure merely by nominal burden. This changes no
+G3/G4/G5/G6 threshold and cannot rescue a fixture blocked by endpoint control,
+material suppression or route destruction.
 
-This order prevents the Mynavi/Urawa defect class: a distributed-only G3 with
-broad MEDIUM predictive grades cannot jump above a stronger self-funded carrier
-because `evidence_confidence=HIGH` crossed the robustness boundary. Evidence
-confidence remains sourcing-quality metadata and is not a predictive HIGH
-dimension for active C execution robustness.
+### G3 borderline discrimination — mandatory prospectively
 
-The clearability challenger remains available for audit, but its former core
-principle—clearability before certificate depth—is now part of the champion
-because the previous certificate-first ordering created a demonstrated
-same-timeline ranking inversion.
+From the `G3_BORDERLINE_DISCRIMINATION_V2` activation, a Grade-A REVIEW_ONLY
+row cannot be treated as a completed negative qualification when it has:
+
+- one STRONG current scoring route and the other route at least USABLE;
+- carrier at least USABLE;
+- route reliability, chance creation, failure resistance, burden protection,
+  burden completion, continuation and opponent leakage all at least MEDIUM;
+- stall risk no worse than MEDIUM; and
+- no material suppression or route-destroying failure.
+
+Run one bounded source-backed second pass. Freeze `selection_recheck` with the
+primary third-goal path, independent reply/completion route, 0-0/1-1/2-0 stop
+risk, continuation after goal two, principal failure, exact missing G3
+requirement and grade reconciliation. At least two football evidence references
+are required. The pass never auto-promotes a match: new facts may update the
+grades, after which the unchanged Football C compiler decides again. If the
+proof is incomplete, checkpoint as `G3_BORDERLINE_RESEARCH_PENDING`; do not
+launder uncertainty into REVIEW_ONLY/PASS.
+
+### Block discrimination — mandatory prospectively
+
+`BLOCK_DISCRIMINATION_V2` makes the former block-comparison instruction
+fail-closed. Grade-A FOCUS/REVIEW_ONLY candidates in a deterministic nearby
+kickoff block are researched to equal depth and each freezes:
+
+- exact candidate IDs and block rank;
+- G3 and G4 strength bases;
+- carrier/self-funding and reply-dependence bases;
+- 0-0/1-1/2-0 endpoint exposure;
+- continuation and tournament-incentive bases;
+- supported-burden basis;
+- a substantive beats-next basis; and
+- at least two football evidence references.
+
+The declared football order has **no override authority**. It must reconcile
+with the deterministic engine order. If the football comparison says a lower
+engine row is stronger, correct/research the underlying source-backed grades
+until the two agree or checkpoint the entire block as
+`BLOCK_COMPARISON_PENDING`. Do not simply rewrite the declared block rank to
+match the engine without resolving the factual disagreement.
+
+This prevents the previous failure mode where several individually plausible
+cards were assessed in isolation and the final FOCUS order was accepted without
+ever proving why one candidate was superior to the others.
 
 Execution-quality note: a distributed-only G3 with broad MEDIUM current
 football grades may retain its funded O2.50 execution floor when ordinary floor
