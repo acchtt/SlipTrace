@@ -46,8 +46,6 @@ require(
     "15:00 ICT -> 03:00 ICT",
     "Slate Rank",
     "Current Rank",
-    "G3_BORDERLINE_DISCRIMINATION_V2",
-    "BLOCK_DISCRIMINATION_V2",
 )
 require(
     "models/football/stages_v4/RANK.md",
@@ -87,6 +85,8 @@ require(
     "15:00->03:00 ICT",
     "Slate Rank",
     "Current Rank",
+    "G3_BORDERLINE_DISCRIMINATION_V2",
+    "BLOCK_DISCRIMINATION_V2",
 )
 require(
     "models/football/engine/core.py",
