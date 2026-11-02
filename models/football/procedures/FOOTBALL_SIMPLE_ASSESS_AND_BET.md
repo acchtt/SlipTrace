@@ -3,6 +3,7 @@
 ## Principle
 
 Football comes first. Price is optional. Football C is the only active model.
+Apply `FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md` to every new assessment epoch.
 
 ## Football assessment
 
