@@ -60,6 +60,7 @@ class BlockDiscriminationTests(unittest.TestCase):
             compiled("b", 2, "WATCH"),
             compiled("c", 3),
         ]
+        outs[1]["operational_viability_grade"] = "B"
         blocks = comparison_blocks(raws, outs)
         self.assertEqual(len(blocks), 1)
         self.assertEqual(blocks[0]["candidate_match_ids"], ["a", "b", "c"])
