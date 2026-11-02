@@ -46,6 +46,8 @@ require(
     "15:00 ICT -> 03:00 ICT",
     "Slate Rank",
     "Current Rank",
+    "G3_BORDERLINE_DISCRIMINATION_V2",
+    "BLOCK_DISCRIMINATION_V2",
 )
 require(
     "models/football/stages_v4/RANK.md",
@@ -113,6 +115,10 @@ require(
     "PENDING_FULL_COHORT_RESEARCH",
     "REVIEW_PARETO_DOMINANCE_GUARD_V1",
     "priority_review_board",
+    "G3_BORDERLINE_DISCRIMINATION_V2",
+    "BLOCK_DISCRIMINATION_V2",
+    "G3_BORDERLINE_RESEARCH_PENDING",
+    "BLOCK_COMPARISON_PENDING",
 )
 forbid(
     "models/football/stages_v4/stage.py",
@@ -256,6 +262,8 @@ require(
     "0-0 stall",
     "1-1 stall",
     "continuation from 2-0",
+    "G3_BORDERLINE_DISCRIMINATION_V2",
+    "BLOCK_DISCRIMINATION_V2",
 )
 for rel in (
     "models/football/CURRENT_MODEL.md",
