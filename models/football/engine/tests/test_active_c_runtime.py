@@ -117,6 +117,61 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertEqual(result["goal3_mechanism_class"], "DISTRIBUTED")
         self.assertFalse(result["goal4_funded"])
 
+    def test_verified_current_structure_reopens_legacy_g4_not_applicable(self):
+        row = c_row()
+        row.update(
+            match_id="verified-g3-reopens-g4",
+            home_route="STRONG",
+            away_route="USABLE",
+            carrier="USABLE",
+            carrier_self_fund=False,
+            carrier_self_fund_basis="distributed current structure; no solo-three carrier",
+            completion_mode="MIXED",
+            route_reliability="MEDIUM",
+            independent_route_quality="MEDIUM",
+            chance_quality="MEDIUM",
+            failure_resistance="MEDIUM",
+            evidence_confidence="HIGH",
+            burden_protection="MEDIUM",
+            burden_completion_quality="MEDIUM",
+            continuation_quality="MEDIUM",
+            opponent_leakage="MEDIUM",
+            burden_stall_risk="MEDIUM",
+            independent_upper_tail=False,
+            independent_upper_tail_basis="no completed fourth-goal proof",
+            upper_tail_transferability="MEDIUM",
+            upper_tail_transferability_basis="upper tail investigation exists but is incomplete",
+            upper_tail_comparable_context_signal="MIXED",
+            upper_tail_comparable_context_basis="comparable context is mixed",
+            g3_current_structure_verified=True,
+            g3_current_structure_basis=(
+                "Independent frozen sources verify strong primary plus usable reply."
+            ),
+            g3_current_structure_source_refs=[
+                "https://example.com/current-primary-route",
+                "https://example.org/current-reply-route",
+            ],
+            g4_research_status="G4_NOT_APPLICABLE",
+            g4_carrier_path="NOT_APPLICABLE",
+            g4_distributed_path="NOT_APPLICABLE",
+            g4_reply_path="NOT_APPLICABLE",
+            g4_continuation_after_g3="NOT_APPLICABLE",
+            g4_research_basis="G4 was not applicable before the bounded G3 repair.",
+        )
+        for field in (
+            "goal_signal_priority_score",
+            "goal_signal_mean_over_two_rate",
+            "goal_signal_mean_over_three_rate",
+            "goal_signal_low_draw_trap_rate",
+        ):
+            row.pop(field, None)
+
+        result = run_board(payload("c", row))["matches"][0]
+        self.assertTrue(result["goal3_funded"])
+        self.assertEqual(result["board_state"], "FOCUS")
+        self.assertEqual(result["g4_research_status"], "G4_RESEARCH_INCOMPLETE")
+        self.assertFalse(result["goal4_funded"])
+
     def test_unverified_strong_primary_plus_usable_reply_still_needs_rate_gate(self):
         row = c_row()
         row.update(
