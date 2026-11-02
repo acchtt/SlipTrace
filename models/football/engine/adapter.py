@@ -1084,16 +1084,62 @@ def _check_envelope(payload: dict[str, Any], expected_stage: str) -> None:
         raise ContractError(f"stage must be {expected_stage!r}")
 
 
+def _review_challenger_dominates_focus(
+    review: dict[str, Any],
+    focus: dict[str, Any],
+) -> bool:
+    """Return whether a non-qualified review row Pareto-dominates FOCUS workload.
+
+    This is a selection-order guard only.  REVIEW_ONLY never gains a G3
+    certificate, FOLLOW lane, /xi execution authority or automatic promotion.
+    The guard simply prevents scarce FOLLOW capacity being spent on a FOCUS row
+    that is weaker on both existing burden-normalized clearability and scoring
+    ceiling than a source-backed REVIEW_ONLY candidate with no hard G3-control
+    veto.
+    """
+
+    if review.get("board_state") != "WATCH" or focus.get("board_state") != "FOCUS":
+        return False
+    if review.get("operational_viability_grade") != "A":
+        return False
+    if review.get("g3_endpoint_control_pressure") == "HIGH":
+        return False
+    if review.get("material_suppression") or review.get("failure_attacks_route"):
+        return False
+
+    try:
+        review_clear = int(review["follow_clearability_score"])
+        review_ceiling = int(review["follow_ceiling_score"])
+        focus_clear = int(focus["follow_clearability_score"])
+        focus_ceiling = int(focus["follow_ceiling_score"])
+    except (KeyError, TypeError, ValueError):
+        return False
+
+    return (
+        review_clear >= focus_clear
+        and review_ceiling >= focus_ceiling
+        and (review_clear > focus_clear or review_ceiling > focus_ceiling)
+    )
+
+
 def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
     """Allocate scarce FOLLOW capacity from the official global C rank.
 
     Football C certificates and global rank are frozen before this allocator
-    runs.  FOLLOW is an operational state for the already-ranked top-N, never a
-    second predictive ordering.  Kickoff time is deliberately absent from the
-    selection key and may be used only after selection for presentation.
+    runs. FOLLOW remains restricted to qualified FOCUS rows. A REVIEW_ONLY row
+    can never acquire execution authority here.
+
+    Selection now has one fail-safe against the observed inversion class: a
+    FOCUS row that is Pareto-dominated by an A-grade REVIEW_ONLY candidate on
+    both existing clearability and scoring-ceiling scores is not allowed to
+    consume scarce FOLLOW capacity. The review candidate is surfaced as a
+    challenger for bounded re-research instead of being silently buried.
     """
 
     for row in rows:
+        row["selection_dominated_by_review_ids"] = []
+        row["selection_review_challenger"] = False
+        row["selection_review_challenger_over_focus_ids"] = []
         if row.get("board_state") != "FOCUS":
             row["follow_lane"] = FollowLane.STOP.value
             row["follow_portfolio_role"] = "NOT_FOCUS"
@@ -1103,7 +1149,7 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
             row["follow_portfolio_role"] = "UNALLOCATED"
             row["follow_portfolio_score"] = None
 
-    candidates = sorted(
+    focus_pool = sorted(
         (
             row for row in rows
             if row.get("board_state") == "FOCUS"
@@ -1111,6 +1157,42 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
         ),
         key=lambda row: (int(row["rank"]), str(row["match_id"])),
     )
+    review_pool = [
+        row for row in rows
+        if row.get("board_state") == "WATCH"
+        and row.get("operational_viability_grade") == "A"
+    ]
+
+    for focus in focus_pool:
+        dominators = [
+            review for review in review_pool
+            if _review_challenger_dominates_focus(review, focus)
+        ]
+        if not dominators:
+            continue
+        dominators.sort(
+            key=lambda row: (
+                int(row.get("follow_clearability_score", 0)),
+                int(row.get("follow_ceiling_score", 0)),
+                str(row.get("match_id") or ""),
+            ),
+            reverse=True,
+        )
+        focus["selection_dominated_by_review_ids"] = [
+            str(row["match_id"]) for row in dominators
+        ]
+        focus["selection_order_status"] = "DOMINATED_BY_REVIEW_CHALLENGER"
+        for review in dominators:
+            review["selection_review_challenger"] = True
+            review["selection_order_status"] = "REVIEW_CHALLENGER"
+            review["selection_review_challenger_over_focus_ids"].append(
+                str(focus["match_id"])
+            )
+
+    candidates = [
+        row for row in focus_pool
+        if not row["selection_dominated_by_review_ids"]
+    ]
     selected = candidates[:MAX_FOLLOW]
 
     for row in selected:
@@ -1119,6 +1201,7 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
         row["follow_portfolio_score"] = int(
             row.get("follow_clearability_score", 0)
         )
+        row["selection_order_status"] = "FOLLOW_SELECTED"
 
     reserve_pool = [
         row for row in rows
@@ -1132,6 +1215,7 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
         row["follow_portfolio_score"] = int(
             row.get("follow_balanced_score", row.get("follow_priority_score", 0))
         )
+        row.setdefault("selection_order_status", "RESERVE")
 
     for row in rows:
         if (
@@ -1142,6 +1226,9 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
             row["follow_portfolio_score"] = int(
                 row.get("follow_balanced_score", row.get("follow_priority_score", 0))
             )
+            row.setdefault("selection_order_status", "FOCUS_UNFOLLOWED")
+        elif row.get("board_state") == "WATCH":
+            row.setdefault("selection_order_status", "REVIEW_ONLY")
 
 def _apply_c_semantic_axes(rows: list[dict[str, Any]]) -> None:
     """Separate qualification, priority and execution diagnostics.
@@ -1440,7 +1527,18 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         result["reserve_capacity"] = MAX_RESERVE
         result["max_follow_per_exact_kickoff"] = MAX_FOLLOW_PER_KICKOFF
         result["follow_selection_policy"] = "GLOBAL_C_RANK_TOP_N"
+        result["selection_dominance_policy"] = (
+            "REVIEW_PARETO_DOMINANCE_GUARD_V1"
+        )
+        result["review_priority_challenger_count"] = sum(
+            row.get("selection_review_challenger") is True for row in output
+        )
+        result["dominated_focus_count"] = sum(
+            bool(row.get("selection_dominated_by_review_ids")) for row in output
+        )
         qa_flags: list[str] = []
+        if result["dominated_focus_count"]:
+            qa_flags.append("REVIEW_CHALLENGER_DOMINATES_FOCUS")
         if len(output) >= 5 and all(
             row.get("operational_viability_grade") == "B" for row in output
         ):
