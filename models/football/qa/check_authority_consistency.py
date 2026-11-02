@@ -97,6 +97,7 @@ require(
     "match_context_review_status",
     "3.25: 2.00",
     "mixed_medium_corroborated",
+    "Selection priority is execution-first and burden-normalized",
 )
 require(
     "models/football/stages_v4/stage.py",
@@ -110,6 +111,8 @@ require(
     "SECONDARY_0300_1100_ICT",
     "FULL_COHORT_FREEZE_PLUS_ROLLING_CURRENT_V1",
     "PENDING_FULL_COHORT_RESEARCH",
+    "REVIEW_PARETO_DOMINANCE_GUARD_V1",
+    "priority_review_board",
 )
 forbid(
     "models/football/stages_v4/stage.py",
