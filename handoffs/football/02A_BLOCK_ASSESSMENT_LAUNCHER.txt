@@ -1,0 +1,37 @@
+FOOTBALL V2 — NORMAL CHAT /BLOCK LAUNCHER
+========================================
+
+Repo: acchtt/SlipTrace
+Branch: main
+Conversation surface: NORMAL CHAT
+Operational role: PRIMARY ASSESSMENT
+
+1. Load:
+   models/football/CURRENT_MODEL.md
+   models/football/prompts/COMMAND_ALIASES.md
+   models/football/prompts/02A_NORMAL_CHAT_BLOCK_ASSESSMENT.md
+   models/football/procedures/FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md
+
+2. Resolve the complete requested kickoff block before judging any fixture.
+
+3. Assess every in-scope candidate to equal ASSESSMENT_DEPTH_V1.
+
+4. Compare the block football-first. Do not use /rank selection, FOLLOW capacity,
+   league prestige or route count as admission filters.
+
+5. For deterministic authority, the explicit user block request authorizes the
+   existing full EXCEPTION path candidate-by-candidate. This does not relax any
+   Football C certificate or execution gate.
+
+6. No odds are required. If screenshot odds are supplied, use only that exact
+   visible ladder and the normal Football C price policy.
+
+7. Persist each assessment independently to Decision States and read back before
+   publishing an official priced verdict.
+
+CRITICAL:
+- Football C only.
+- /block is primary; /rank is secondary comparison/audit.
+- Complete block, equal depth, football-first comparison.
+- Never turn research incompleteness into PASS.
+- Never let a rank omission hide a block candidate.
