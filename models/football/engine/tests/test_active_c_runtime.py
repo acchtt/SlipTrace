@@ -412,7 +412,7 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertEqual(len(displaced), 1)
         self.assertEqual(displaced[0]["follow_lane"], "RESERVE")
 
-    def test_global_selection_follows_funded_depth_after_execution_floor(self):
+    def test_global_selection_prefers_clearability_before_funded_depth(self):
         strong_g3 = c_row()
         strong_g3.update(
             match_id="strong-lower-burden-g3",
@@ -436,12 +436,75 @@ class ActiveCRuntimeTests(unittest.TestCase):
 
         self.assertFalse(by_id["strong-lower-burden-g3"]["goal4_funded"])
         self.assertTrue(by_id["later-g4-depth"]["goal4_funded"])
-        # Since the 31 Oct ranking repair, funded certificate depth precedes
-        # clearability once both rows clear the execution floor.
+        # Certificate prestige cannot outrank a materially easier protected
+        # burden when the current G3 mechanism is equally strong.
         self.assertLess(
-            by_id["later-g4-depth"]["rank"],
             by_id["strong-lower-burden-g3"]["rank"],
+            by_id["later-g4-depth"]["rank"],
         )
+
+    def test_review_candidate_that_pareto_dominates_focus_blocks_follow_quota(self):
+        weak_focus = c_row()
+        weak_focus.update(
+            match_id="funded-but-controlled-focus",
+            kickoff_ict="2026-10-26T20:00:00+07:00",
+            route_reliability="MEDIUM",
+            independent_route_quality="MEDIUM",
+            chance_quality="MEDIUM",
+            failure_resistance="MEDIUM",
+            evidence_confidence="MEDIUM",
+            burden_protection="MEDIUM",
+            burden_completion_quality="MEDIUM",
+            continuation_quality="MEDIUM",
+            burden_stall_risk="HIGH",
+            independent_upper_tail=False,
+            independent_upper_tail_basis="upper tail rejected",
+            upper_tail_transferability="LOW",
+            upper_tail_transferability_basis="upper tail does not transfer",
+            upper_tail_comparable_context_signal="UNAVAILABLE",
+            upper_tail_comparable_context_basis="no comparable upper-tail support",
+        )
+
+        review = c_row()
+        review.update(
+            match_id="strong-review-challenger",
+            kickoff_ict="2026-10-26T20:00:00+07:00",
+            carrier="USABLE",
+            carrier_self_fund=False,
+            carrier_self_fund_basis="no independent carrier-three proof",
+            completion_mode="CARRIER_LED",
+            opponent_leakage="MEDIUM",
+        )
+
+        result = run_board({
+            "schema_version": "football-engine-v1",
+            "stage": "board",
+            "model": "c",
+            "matches": [weak_focus, review],
+        })
+        by_id = {row["match_id"]: row for row in result["matches"]}
+
+        self.assertEqual(by_id["funded-but-controlled-focus"]["board_state"], "FOCUS")
+        self.assertEqual(by_id["strong-review-challenger"]["board_state"], "WATCH")
+        self.assertGreaterEqual(
+            by_id["strong-review-challenger"]["follow_clearability_score"],
+            by_id["funded-but-controlled-focus"]["follow_clearability_score"],
+        )
+        self.assertGreaterEqual(
+            by_id["strong-review-challenger"]["follow_ceiling_score"],
+            by_id["funded-but-controlled-focus"]["follow_ceiling_score"],
+        )
+        self.assertNotEqual(
+            by_id["funded-but-controlled-focus"]["follow_lane"], "FOLLOW"
+        )
+        self.assertTrue(
+            by_id["strong-review-challenger"]["selection_review_challenger"]
+        )
+        self.assertIn(
+            "strong-review-challenger",
+            by_id["funded-but-controlled-focus"]["selection_dominated_by_review_ids"],
+        )
+        self.assertIn("REVIEW_CHALLENGER_DOMINATES_FOCUS", result["qa_flags"])
 
 
 if __name__ == "__main__":
