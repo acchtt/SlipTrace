@@ -56,7 +56,7 @@ def comparison_blocks(
             continue
         if out.get("board_state") not in {"FOCUS", "WATCH"}:
             continue
-        if out.get("operational_viability_grade") != "A":
+        if out.get("operational_viability_grade") not in {"A", "B"}:
             continue
         credible.append((raw, out, _kickoff(raw)))
 
