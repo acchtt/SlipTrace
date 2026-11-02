@@ -6,6 +6,8 @@ requirement. Source discovery and Google Sheets refetch are explicit operations 
 the caller; this code never claims to browse sites or publish by itself.
 Actual model assessments are computed by the single active Football C
 engine. C2/C3/C4 are retired; frozen historical receipts remain immutable.
+Bounded G3 discrimination may freeze explicit source-backed current-structure
+verification, but never by inflating predictive grades or borrowing outcomes.
 """
 from __future__ import annotations
 
@@ -1676,8 +1678,11 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
              if mid in goal_route_incomplete_set else
              "Run G3_BORDERLINE_DISCRIMINATION_V2: verify the STRONG primary route, "
              "independent reply/completion path, 0-0/1-1/2-0 stop risk, continuation "
-             "after goal two and the exact missing G3 requirement; update grades only "
-             "when source-backed, otherwise freeze a substantive REVIEW_ONLY basis"
+             "after goal two and the exact missing G3 requirement. If at least two "
+             "frozen sources independently verify STRONG-primary + USABLE-reply current "
+             "structure with every G3 control axis at least MEDIUM and no hard veto, "
+             "freeze g3_current_structure_verified=true with basis/source refs; otherwise "
+             "freeze a substantive REVIEW_ONLY basis. Never inflate grades to force G3."
              if mid in selection_recheck_incomplete_set else
              "Complete BLOCK_DISCRIMINATION_V2 for the entire kickoff block at equal "
              "research depth; compare G3/G4, carrier self-funding, reply dependence, "
