@@ -145,7 +145,10 @@ def execute(request: dict[str, Any]) -> dict[str, Any]:
             "runtime_commit": os.environ.get("GITHUB_SHA"),
             "input_sha256": hashlib.sha256(_canonical(request)).hexdigest(),
             "status": (
-                "EXCEPTION_RESEARCH_REQUIRED"
+                "ASSESSMENT_RESEARCH_INCOMPLETE"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("ASSESSMENT_RESEARCH_INCOMPLETE:")
+                else "EXCEPTION_RESEARCH_REQUIRED"
                 if isinstance(exc, RankAuthorityError)
                 and str(exc).startswith("EXCEPTION_RESEARCH_REQUIRED:")
                 else "RANK_ENGINE_POLICY_DRIFT"
@@ -161,7 +164,10 @@ def execute(request: dict[str, Any]) -> dict[str, Any]:
                 else "XI RUNTIME: EXECUTION FAILED"
             ),
             "failure_class": (
-                "EXCEPTION_RESEARCH"
+                "ASSESSMENT_DEPTH"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("ASSESSMENT_RESEARCH_INCOMPLETE:")
+                else "EXCEPTION_RESEARCH"
                 if isinstance(exc, RankAuthorityError)
                 and str(exc).startswith("EXCEPTION_RESEARCH_REQUIRED:")
                 else "RANK_AUTHORITY"

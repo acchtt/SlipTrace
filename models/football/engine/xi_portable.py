@@ -787,7 +787,10 @@ def main() -> int:
         print(json.dumps({
             "ok": False,
             "status": (
-                "EXCEPTION_RESEARCH_REQUIRED"
+                "ASSESSMENT_RESEARCH_INCOMPLETE"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("ASSESSMENT_RESEARCH_INCOMPLETE:")
+                else "EXCEPTION_RESEARCH_REQUIRED"
                 if isinstance(exc, RankAuthorityError)
                 and str(exc).startswith("EXCEPTION_RESEARCH_REQUIRED:")
                 else "RANK_RECEIPT_REQUIRED"
@@ -797,7 +800,10 @@ def main() -> int:
                 else "XI RUNTIME: EXECUTION FAILED"
             ),
             "failure_class": (
-                "EXCEPTION_RESEARCH"
+                "ASSESSMENT_DEPTH"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("ASSESSMENT_RESEARCH_INCOMPLETE:")
+                else "EXCEPTION_RESEARCH"
                 if isinstance(exc, RankAuthorityError)
                 and str(exc).startswith("EXCEPTION_RESEARCH_REQUIRED:")
                 else "RANK_AUTHORITY"

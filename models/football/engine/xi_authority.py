@@ -45,6 +45,30 @@ VERIFIED_RANK_STATUSES = {
 }
 
 POLICY_LOCK_EFFECTIVE_UTC = datetime.fromisoformat("2026-10-24T18:00:00+00:00")
+ASSESSMENT_DEPTH_EFFECTIVE_UTC = datetime.fromisoformat("2026-11-02T01:45:00+00:00")
+ASSESSMENT_DEPTH_CONTRACT = "ASSESSMENT_DEPTH_V1"
+ASSESSMENT_DEPTH_REQUIRED_CHECKS = frozenset({
+    "primary_scoring_route",
+    "secondary_reply_route",
+    "carrier_capacity",
+    "current_chance_creation",
+    "goal3_mechanism",
+    "goal4_mechanism",
+    "stall_0_0",
+    "stall_1_1",
+    "continuation_2_0",
+    "opponent_leakage",
+    "named_failure_mechanism",
+    "availability_replacements",
+    "h2h_transferability",
+    "tournament_incentive",
+    "match_context",
+    "supported_burden_basis",
+})
+ASSESSMENT_DEPTH_THIN_TOKENS = frozenset({
+    "CHECKED", "OK", "YES", "NO", "MEDIUM", "HIGH", "LOW",
+    "UNKNOWN", "UNCHECKED", "NOT_CHECKED", "TBD", "N/A", "NA",
+})
 AUTHORITY_OWNED_FIELDS = {
     "board_state",
     "follow_lane",
@@ -368,6 +392,114 @@ def _assessment_at_utc(payload: dict[str, Any]) -> datetime:
     return parsed
 
 
+def _validate_assessment_depth(supplied: dict[str, Any]) -> dict[str, Any]:
+    """Fail closed on thin post-activation Football C assessments."""
+
+    assessment_at = _assessment_at_utc(supplied)
+    if assessment_at < ASSESSMENT_DEPTH_EFFECTIVE_UTC:
+        return {
+            "required": False,
+            "contract": "LEGACY_PRE_ASSESSMENT_DEPTH_V1",
+            "assessment_at_utc": assessment_at.isoformat(),
+        }
+
+    depth = supplied.get("assessment_depth")
+    if not isinstance(depth, dict):
+        raise RankAuthorityError(
+            "ASSESSMENT_RESEARCH_INCOMPLETE: assessment_depth object missing"
+        )
+    if depth.get("contract") != ASSESSMENT_DEPTH_CONTRACT:
+        raise RankAuthorityError(
+            "ASSESSMENT_RESEARCH_INCOMPLETE: assessment_depth.contract must be "
+            + ASSESSMENT_DEPTH_CONTRACT
+        )
+    if depth.get("completed") is not True:
+        raise RankAuthorityError(
+            "ASSESSMENT_RESEARCH_INCOMPLETE: assessment_depth.completed must be true"
+        )
+    if depth.get("market_independent") is not True:
+        raise RankAuthorityError(
+            "ASSESSMENT_RESEARCH_INCOMPLETE: assessment_depth.market_independent must be true"
+        )
+
+    epoch = depth.get("evidence_epoch_id")
+    supplied_epoch = supplied.get("evidence_epoch_id")
+    if not isinstance(epoch, str) or not epoch.strip():
+        raise RankAuthorityError(
+            "ASSESSMENT_RESEARCH_INCOMPLETE: assessment_depth.evidence_epoch_id required"
+        )
+    if not isinstance(supplied_epoch, str) or epoch.strip() != supplied_epoch.strip():
+        raise RankAuthorityError(
+            "ASSESSMENT_RESEARCH_INCOMPLETE: assessment-depth epoch must equal "
+            "c_football.evidence_epoch_id"
+        )
+
+    assessed_at = depth.get("assessed_at_utc")
+    context = supplied.get("context")
+    context_at = context.get("assessment_at_utc") if isinstance(context, dict) else None
+    if not isinstance(assessed_at, str) or assessed_at.strip() != str(context_at or "").strip():
+        raise RankAuthorityError(
+            "ASSESSMENT_RESEARCH_INCOMPLETE: assessment_depth.assessed_at_utc "
+            "must equal context.assessment_at_utc"
+        )
+
+    refs = depth.get("evidence_refs")
+    if (
+        not isinstance(refs, list)
+        or len(refs) < 2
+        or any(not isinstance(x, str) or not x.strip() for x in refs)
+    ):
+        raise RankAuthorityError(
+            "ASSESSMENT_RESEARCH_INCOMPLETE: assessment_depth.evidence_refs "
+            "must contain at least two non-empty football references"
+        )
+    normalized_refs = [x.strip() for x in refs]
+    if len(set(normalized_refs)) != len(normalized_refs):
+        raise RankAuthorityError(
+            "ASSESSMENT_RESEARCH_INCOMPLETE: assessment_depth.evidence_refs "
+            "must not contain duplicates"
+        )
+
+    checks = depth.get("checks")
+    if not isinstance(checks, dict):
+        raise RankAuthorityError(
+            "ASSESSMENT_RESEARCH_INCOMPLETE: assessment_depth.checks object missing"
+        )
+    missing = sorted(ASSESSMENT_DEPTH_REQUIRED_CHECKS - set(checks))
+    if missing:
+        raise RankAuthorityError(
+            "ASSESSMENT_RESEARCH_INCOMPLETE: missing substantive checks: "
+            + ", ".join(missing)
+        )
+
+    thin: list[str] = []
+    for key in sorted(ASSESSMENT_DEPTH_REQUIRED_CHECKS):
+        value = checks.get(key)
+        if not isinstance(value, str):
+            thin.append(key)
+            continue
+        normalized = value.strip()
+        token = normalized.upper().replace("-", "_").replace(" ", "_")
+        if len(normalized) < 16 or token in ASSESSMENT_DEPTH_THIN_TOKENS:
+            thin.append(key)
+    if thin:
+        raise RankAuthorityError(
+            "ASSESSMENT_RESEARCH_INCOMPLETE: thin/non-substantive assessment "
+            "conclusions: " + ", ".join(thin)
+        )
+
+    return {
+        "required": True,
+        "contract": ASSESSMENT_DEPTH_CONTRACT,
+        "completed": True,
+        "market_independent": True,
+        "evidence_epoch_id": epoch.strip(),
+        "assessment_at_utc": assessment_at.isoformat(),
+        "evidence_ref_count": len(normalized_refs),
+        "checks": sorted(ASSESSMENT_DEPTH_REQUIRED_CHECKS),
+    }
+
+
 def _normalize_board_state(value: Any) -> str:
     text = str(value or "").strip().upper().replace("-", "_")
     if text.startswith("C_"):
@@ -395,6 +527,8 @@ def authorize_c_football(
         raise ValueError("c_football object required")
     if not isinstance(authority, dict):
         raise RankAuthorityError("RANK_RECEIPT_REQUIRED: explicit authority missing")
+
+    assessment_depth_trace = _validate_assessment_depth(supplied)
 
     mode = authority.get("mode")
     if mode == "EXCEPTION":
@@ -429,6 +563,7 @@ def authorize_c_football(
             "rank_state_internal": None,
             "rank_state_display": "EXCEPTION",
             "exception_research": research_trace,
+            "assessment_depth": assessment_depth_trace,
         }
 
     if mode != "RANKED":
@@ -603,4 +738,5 @@ def authorize_c_football(
         "frozen_supported_line": board_row.get("supported_line"),
         "frozen_g4_research_status": frozen_g4,
         "material_evidence_updates": sorted(declared_set),
+        "assessment_depth": assessment_depth_trace,
     }
