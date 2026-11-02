@@ -1100,7 +1100,7 @@ def _review_challenger_dominates_focus(
 
     if review.get("board_state") != "WATCH" or focus.get("board_state") != "FOCUS":
         return False
-    if review.get("operational_viability_grade") != "A":
+    if review.get("operational_viability_grade") not in {"A", "B"}:
         return False
     if review.get("g3_endpoint_control_pressure") == "HIGH":
         return False
@@ -1129,8 +1129,12 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
     runs. FOLLOW remains restricted to qualified FOCUS rows. A REVIEW_ONLY row
     can never acquire execution authority here.
 
-    Selection now has one fail-safe against the observed inversion class: a
-    FOCUS row that is Pareto-dominated by an A-grade REVIEW_ONLY candidate on
+    Operational Grade B is an execution-readiness caution, not a football
+    selection veto. Grade A and B qualified rows therefore compete on the same
+    football rank; their observability grade remains visible for /xi.
+
+    Selection also has one fail-safe against the observed inversion class: a
+    FOCUS row that is Pareto-dominated by an A/B REVIEW_ONLY candidate on
     both existing clearability and scoring-ceiling scores is not allowed to
     consume scarce FOLLOW capacity. The review candidate is surfaced as a
     challenger for bounded re-research instead of being silently buried.
@@ -1140,6 +1144,13 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
         row["selection_dominated_by_review_ids"] = []
         row["selection_review_challenger"] = False
         row["selection_review_challenger_over_focus_ids"] = []
+        row["follow_operational_readiness"] = (
+            "READY_A"
+            if row.get("operational_viability_grade") == "A"
+            else "CONDITIONAL_B_RECHECK_AT_XI"
+            if row.get("operational_viability_grade") == "B"
+            else "NOT_OPERATIONALLY_ELIGIBLE"
+        )
         if row.get("board_state") != "FOCUS":
             row["follow_lane"] = FollowLane.STOP.value
             row["follow_portfolio_role"] = "NOT_FOCUS"
@@ -1153,14 +1164,14 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
         (
             row for row in rows
             if row.get("board_state") == "FOCUS"
-            and row.get("operational_viability_grade") == "A"
+            and row.get("operational_viability_grade") in {"A", "B"}
         ),
         key=lambda row: (int(row["rank"]), str(row["match_id"])),
     )
     review_pool = [
         row for row in rows
         if row.get("board_state") == "WATCH"
-        and row.get("operational_viability_grade") == "A"
+        and row.get("operational_viability_grade") in {"A", "B"}
     ]
 
     for focus in focus_pool:
@@ -1202,6 +1213,11 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
             row.get("follow_clearability_score", 0)
         )
         row["selection_order_status"] = "FOLLOW_SELECTED"
+        row["follow_operational_readiness"] = (
+            "READY_A"
+            if row.get("operational_viability_grade") == "A"
+            else "CONDITIONAL_B_RECHECK_AT_XI"
+        )
 
     reserve_pool = [
         row for row in rows
