@@ -214,7 +214,16 @@ The active price-blind champion ranking order is:
 8. remaining current football-mechanism quality.
 
 Compiled burden magnitude is not an independent bonus. A deeper certificate
-cannot outrank stronger current execution structure merely by depth.
+cannot outrank stronger current execution structure merely by depth. Frozen
+high-total history is corroboration after the current mechanism/clearability
+ordering, not a leading selection key.
+
+FOLLOW allocation also applies `REVIEW_PARETO_DOMINANCE_GUARD_V1`: a
+non-qualified REVIEW_ONLY row with no hard G3-control veto cannot be promoted
+automatically, but if it Pareto-dominates a qualified FOCUS row on both the
+existing burden-normalized clearability and scoring-ceiling scores, that FOCUS
+row is barred from scarce FOLLOW capacity and the review row is surfaced for a
+bounded re-review. Qualification and execution authority remain unchanged.
 
 `evidence_confidence` measures trust in the evidence. For active C it cannot,
 by itself, supply the genuinely HIGH predictive dimension needed to upgrade an
