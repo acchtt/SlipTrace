@@ -45,8 +45,10 @@ VERIFIED_RANK_STATUSES = {
 }
 
 POLICY_LOCK_EFFECTIVE_UTC = datetime.fromisoformat("2026-10-24T18:00:00+00:00")
-ASSESSMENT_DEPTH_EFFECTIVE_UTC = datetime.fromisoformat("2026-11-02T01:45:00+00:00")
-ASSESSMENT_DEPTH_CONTRACT = "ASSESSMENT_DEPTH_V1"
+ASSESSMENT_DEPTH_V1_EFFECTIVE_UTC = datetime.fromisoformat("2026-11-02T01:45:00+00:00")
+ASSESSMENT_DEPTH_V2_EFFECTIVE_UTC = datetime.fromisoformat("2026-11-04T00:00:00+00:00")
+ASSESSMENT_DEPTH_V1_CONTRACT = "ASSESSMENT_DEPTH_V1"
+ASSESSMENT_DEPTH_V2_CONTRACT = "ASSESSMENT_DEPTH_V2"
 ASSESSMENT_DEPTH_REQUIRED_CHECKS = frozenset({
     "primary_scoring_route",
     "secondary_reply_route",
@@ -396,22 +398,28 @@ def _validate_assessment_depth(supplied: dict[str, Any]) -> dict[str, Any]:
     """Fail closed on thin post-activation Football C assessments."""
 
     assessment_at = _assessment_at_utc(supplied)
-    if assessment_at < ASSESSMENT_DEPTH_EFFECTIVE_UTC:
+    if assessment_at < ASSESSMENT_DEPTH_V1_EFFECTIVE_UTC:
         return {
             "required": False,
             "contract": "LEGACY_PRE_ASSESSMENT_DEPTH_V1",
             "assessment_at_utc": assessment_at.isoformat(),
         }
 
+    expected_contract = (
+        ASSESSMENT_DEPTH_V2_CONTRACT
+        if assessment_at >= ASSESSMENT_DEPTH_V2_EFFECTIVE_UTC
+        else ASSESSMENT_DEPTH_V1_CONTRACT
+    )
+
     depth = supplied.get("assessment_depth")
     if not isinstance(depth, dict):
         raise RankAuthorityError(
             "ASSESSMENT_RESEARCH_INCOMPLETE: assessment_depth object missing"
         )
-    if depth.get("contract") != ASSESSMENT_DEPTH_CONTRACT:
+    if depth.get("contract") != expected_contract:
         raise RankAuthorityError(
             "ASSESSMENT_RESEARCH_INCOMPLETE: assessment_depth.contract must be "
-            + ASSESSMENT_DEPTH_CONTRACT
+            + expected_contract
         )
     if depth.get("completed") is not True:
         raise RankAuthorityError(
@@ -488,15 +496,69 @@ def _validate_assessment_depth(supplied: dict[str, Any]) -> dict[str, Any]:
             "conclusions: " + ", ".join(thin)
         )
 
+    activation_trace = None
+    if expected_contract == ASSESSMENT_DEPTH_V2_CONTRACT:
+        match = supplied.get("match")
+        if not isinstance(match, dict):
+            raise RankAuthorityError(
+                "ASSESSMENT_RESEARCH_INCOMPLETE: V2 requires c_football.match"
+            )
+        activation_quality = str(
+            match.get("activation_quality") or ""
+        ).strip().upper()
+        if activation_quality not in {"LOW", "MEDIUM", "HIGH"}:
+            raise RankAuthorityError(
+                "ASSESSMENT_RESEARCH_INCOMPLETE: activation_quality must be "
+                "LOW/MEDIUM/HIGH"
+            )
+        activation_basis = match.get("activation_basis")
+        if not isinstance(activation_basis, str) or len(activation_basis.strip()) < 24:
+            raise RankAuthorityError(
+                "ASSESSMENT_RESEARCH_INCOMPLETE: activation_basis must be substantive"
+            )
+        activation_refs = match.get("activation_evidence_refs")
+        normalized_activation_refs = (
+            [
+                ref.strip()
+                for ref in activation_refs
+                if isinstance(ref, str) and ref.strip()
+            ]
+            if isinstance(activation_refs, list)
+            else []
+        )
+        if len(set(normalized_activation_refs)) < 2:
+            raise RankAuthorityError(
+                "ASSESSMENT_RESEARCH_INCOMPLETE: activation_evidence_refs "
+                "must contain at least two distinct football references"
+            )
+        missing_activation_refs = sorted(
+            set(normalized_activation_refs) - set(normalized_refs)
+        )
+        if missing_activation_refs:
+            raise RankAuthorityError(
+                "ASSESSMENT_RESEARCH_INCOMPLETE: activation evidence refs must "
+                "also be present in assessment_depth.evidence_refs: "
+                + ", ".join(missing_activation_refs)
+            )
+        activation_trace = {
+            "quality": activation_quality,
+            "basis": activation_basis.strip(),
+            "evidence_refs": list(dict.fromkeys(normalized_activation_refs)),
+            "block_selection_only": True,
+            "certificate_authority": False,
+            "price_execution_authority": False,
+        }
+
     return {
         "required": True,
-        "contract": ASSESSMENT_DEPTH_CONTRACT,
+        "contract": expected_contract,
         "completed": True,
         "market_independent": True,
         "evidence_epoch_id": epoch.strip(),
         "assessment_at_utc": assessment_at.isoformat(),
         "evidence_ref_count": len(normalized_refs),
         "checks": sorted(ASSESSMENT_DEPTH_REQUIRED_CHECKS),
+        "activation": activation_trace,
     }
 
 
