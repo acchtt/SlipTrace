@@ -19,6 +19,11 @@ Operational role: PRIMARY ASSESSMENT
 4. Compare the block with BLOCK_PRIORITY_V1. Global /rank and FOLLOW remain
    secondary audit metadata; mechanism class is a late tiebreaker.
 
+   Execute block_runtime.py directly when callable; otherwise create exactly one
+   block_runtime_requests/<request-id>.json and consume the matching persisted
+   block_runtime_results/<request-id>.json in the same turn. Never substitute
+   conversational/manual block ordering. Fail with BLOCK_RUNTIME_UNAVAILABLE.
+
 5. For deterministic authority, the explicit user block request authorizes the
    existing full EXCEPTION path candidate-by-candidate. This does not relax any
    Football C certificate or execution gate.
