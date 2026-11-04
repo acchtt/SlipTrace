@@ -1,6 +1,6 @@
 # Football C — Assessment Depth and Block Comparison
 
-Effective for new assessment epochs from 2026-11-02 08:45 ICT.
+ASSESSMENT_DEPTH_V1 remains frozen-history compatible from 2026-11-02. ASSESSMENT_DEPTH_V2 is effective for new assessment epochs from 2026-11-04 07:00 ICT.
 
 ## ASSESSMENT_DEPTH_V1
 
@@ -30,6 +30,23 @@ Bare labels such as CHECKED, MEDIUM, HIGH, LOW, UNKNOWN or TBD do not satisfy th
 Ranked fixtures reuse unchanged frozen rank evidence and refresh only changed availability, incentive, status and unresolved football facts. This contract must not cause a second full-slate research pass.
 
 Explicit exceptions still require the separate fresh-full-research exception contract.
+
+## ASSESSMENT_DEPTH_V2
+
+V2 retains every V1 conclusion and adds one block-selection-only activation
+assessment to the frozen match evidence:
+
+- `activation_quality = LOW | MEDIUM | HIGH`;
+- `activation_basis` with a substantive prospective explanation; and
+- `activation_evidence_refs` containing at least two distinct football sources.
+
+Activation evaluates how readily the current match can become goal-active:
+current attacking availability/structure, early chance creation, opponent early
+concessions/opening behaviour, whether recent comparable matches become
+competitive early, and whether the weaker side can force a game-state change.
+
+Activation is **selection evidence only**. It cannot fund G3/G4/G5/G6, change
+the supported burden, authorize ACT/BOOK, or use bookmaker prices/results.
 
 ## BLOCK_COMPARISON_V1
 
@@ -79,24 +96,42 @@ facts, update the ordinary Football C evidence fields and rerun the unchanged
 compiler. Otherwise freeze `CONFIRMED_REVIEW_ONLY`. Missing proof becomes
 `G3_BORDERLINE_RESEARCH_PENDING`, not a negative football verdict.
 
-## BLOCK_DISCRIMINATION_V2
+## BLOCK_DISCRIMINATION_V3
 
-The prior BLOCK_COMPARISON_V1 prose requirement is now fail-closed for
-production rank. Deterministic Grade-A/B candidate blocks are formed from nearby
-kickoffs (adjacent gap no more than 60 minutes, total block span no more than 90
-minutes) when the block contains at least one FOCUS row.
+For new production blocks from the V3 activation boundary, the old requirement
+to reconcile with global Football C /rank is retired. Global rank remains
+secondary audit metadata only.
 
-Each candidate freezes a `block_comparison` object with equal-depth completion,
-candidate IDs, block rank, market independence, at least two football evidence
-references, and substantive bases for G3, G4, carrier/self-funding, reply
-dependence, endpoint exposure, continuation, tournament incentive, supported
-burden and beats-next reasoning.
+Each credible Grade-A/B block candidate must satisfy ASSESSMENT_DEPTH_V2,
+including source-backed activation evidence, and freeze a `block_comparison`
+object with equal-depth completion, candidate IDs, block rank, market
+independence, at least two football evidence references, and substantive bases
+for G3, G4, carrier/self-funding, reply dependence, endpoint exposure,
+continuation, tournament incentive, supported burden and beats-next reasoning.
 
-The comparison does not override Football C. Its relative order must reconcile
-with the deterministic engine inputs. A disagreement means the grades/research
-are not yet internally coherent; the whole block checkpoints as
-`BLOCK_COMPARISON_PENDING` until the factual grades and football comparison
-agree.
+The declared block order must reconcile with the deterministic
+`BLOCK_PRIORITY_V1` runtime order. That comparator uses only frozen prematch
+football evidence in this order:
 
-This is deliberately a research-completeness repair rather than a result-fitted
-new scoring threshold.
+1. hard football viability / funded G3 accessibility;
+2. activation quality;
+3. opponent leakage / game-opening potential;
+4. continuation after goals;
+5. credible G4 / upper-tail state;
+6. 0-0 / 1-1 / 2-0 endpoint resistance;
+7. current chance quality;
+8. burden-completion quality;
+9. frozen 3+/4+ goal signal;
+10. protected-burden clearability;
+11. certificate robustness/depth; and
+12. G3 mechanism class as a late tiebreaker only.
+
+Thus a carrier certificate cannot automatically defeat materially stronger
+activation, leakage, continuation and upper-tail evidence. Conversely, HIGH
+leakage alone cannot rescue LOW chance quality, a broken route or material
+suppression.
+
+BLOCK_PRIORITY_V1 is a selection comparator only. It changes no Football C
+certificate threshold and has no price/exposure authority. Screenshot
+ACT/BOOK/PASS still requires the existing XI deterministic runtime, Decision
+States persistence, independent readback and Step2 publication guard.
