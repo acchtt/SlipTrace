@@ -669,6 +669,45 @@ def _validated_block_package(
     return frozen_row, result_row, epoch.strip()
 
 
+def _inherit_frozen_match(
+    supplied_match: dict[str, Any],
+    frozen_row: dict[str, Any],
+    declared: list[str],
+    *,
+    authority_prefix: str,
+    forbidden_fields: frozenset[str],
+) -> tuple[dict[str, Any], set[str]]:
+    if not isinstance(declared, list) or any(not isinstance(x, str) for x in declared):
+        raise RankAuthorityError(
+            f"{authority_prefix}: material_evidence_updates must be a field-name array"
+        )
+    declared_set = set(declared)
+    forbidden = declared_set & forbidden_fields
+    if forbidden:
+        raise RankAuthorityError(
+            f"{authority_prefix}: authority-owned fields cannot be material updates: "
+            + ", ".join(sorted(forbidden))
+        )
+    for key, frozen_value in frozen_row.items():
+        if (
+            key in supplied_match
+            and supplied_match[key] != frozen_value
+            and key not in declared_set
+        ):
+            raise RankAuthorityError(
+                f"{authority_prefix}: undeclared override of frozen field {key}"
+            )
+    inherited = dict(frozen_row)
+    for key in declared_set:
+        if key not in supplied_match:
+            raise RankAuthorityError(
+                f"{authority_prefix}: declared material update absent from match: {key}"
+            )
+        inherited[key] = supplied_match[key]
+    inherited["match_id"] = str(frozen_row.get("match_id"))
+    return inherited, declared_set
+
+
 def authorize_c_football(
     supplied: dict[str, Any],
     authority: dict[str, Any] | None,
