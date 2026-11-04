@@ -7,6 +7,8 @@ on:
       - "models/football/stages_v4/**"
       - "models/football/engine/core.py"
       - "models/football/engine/adapter.py"
+      - "models/football/engine/block_priority.py"
+      - "models/football/engine/block_runtime.py"
       - "models/football/engine/xi_portable.py"
       - "models/football/engine/step2_queue_guard.py"
       - "models/football/engine/xi_assessment_reconcile.py"
@@ -18,8 +20,10 @@ on:
       - "models/football/google_sheets/public_projection.py"
       - "models/football/google_sheets/tests/**"
       - "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md"
+      - "models/football/procedures/FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md"
       - "models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md"
       - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
+      - "models/football/prompts/02A_NORMAL_CHAT_BLOCK_ASSESSMENT.md"
       - "models/football/prompts/03_NORMAL_CHAT_LIVE.md"
       - "models/football/prompts/COMMAND_ALIASES.md"
       - "models/football/qa/check_post_xi_research_gate.py"
@@ -28,6 +32,7 @@ on:
       - "models/football/qa/check_xi_portable_runtime.py"
       - "models/football/qa/check_xi_portable_execution.py"
       - ".github/workflows/football-step2-research-gate.yml"
+      - ".github/workflows/football-block-runtime.yml"
   pull_request:
     paths:
       - "models/football/CURRENT_MODEL.md"
