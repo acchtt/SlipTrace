@@ -23,6 +23,8 @@ Operational role: PRIMARY ASSESSMENT
    block_runtime_requests/<request-id>.json and consume the matching persisted
    block_runtime_results/<request-id>.json in the same turn. Never substitute
    conversational/manual block ordering. Fail with BLOCK_RUNTIME_UNAVAILABLE.
+   Include evidence_epochs[match_id] for every candidate so the persisted result
+   can authorize later /xi directly through BLOCK authority.
 
 5. For deterministic authority, the explicit user block request authorizes the
    existing full EXCEPTION path candidate-by-candidate. This does not relax any

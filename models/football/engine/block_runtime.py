@@ -9,6 +9,7 @@ Decision States persistence/readback.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -29,6 +30,14 @@ PRICE_FIELDS = frozenset({
 
 class BlockRuntimeError(ValueError):
     pass
+
+
+def _canonical_sha256(value: Any) -> str:
+    return hashlib.sha256(
+        json.dumps(
+            value, sort_keys=True, ensure_ascii=True, separators=(",", ":")
+        ).encode("utf-8")
+    ).hexdigest()
 
 
 def _reject_price_fields(obj: Any, *, path: str = "payload") -> None:
@@ -55,6 +64,11 @@ def run_block(payload: dict[str, Any]) -> dict[str, Any]:
     matches = payload.get("matches")
     if not isinstance(matches, list) or len(matches) < 2:
         raise BlockRuntimeError("complete block requires at least two candidate matches")
+    evidence_epochs = payload.get("evidence_epochs")
+    if evidence_epochs is None:
+        evidence_epochs = {}
+    if not isinstance(evidence_epochs, dict):
+        raise BlockRuntimeError("evidence_epochs must be an object when supplied")
     _reject_price_fields(payload)
 
     board = run_board({
@@ -73,8 +87,13 @@ def run_block(payload: dict[str, Any]) -> dict[str, Any]:
     for priority_row in priority:
         mid = priority_row["match_id"]
         compiled = compiled_by_id[mid]
+        frozen = next(
+            row for row in matches if str(row.get("match_id")) == mid
+        )
         output.append({
             **priority_row,
+            "evidence_epoch_id": evidence_epochs.get(mid),
+            "frozen_match_sha256": _canonical_sha256(frozen),
             "global_rank_metadata": {
                 "rank": compiled.get("rank"),
                 "same_kickoff_rank": compiled.get("same_kickoff_rank"),
@@ -97,6 +116,7 @@ def run_block(payload: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": SCHEMA,
         "stage": "block_result",
+        "input_sha256": _canonical_sha256(payload),
         "model": "c",
         "policy": POLICY,
         "match_count": len(output),

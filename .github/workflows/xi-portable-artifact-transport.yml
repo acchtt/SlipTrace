@@ -8,6 +8,8 @@ on:
       - "models/football/engine/xi_portable.py"
       - "models/football/engine/xi_runtime_backend.py"
       - "models/football/engine/xi_authority.py"
+      - "models/football/engine/block_runtime.py"
+      - "models/football/engine/block_priority.py"
       - "models/football/engine/rank_package_transport.py"
       - "models/football/engine/xi_runtime_requests/**"
       - "models/football/engine/evidence_contract.py"
@@ -139,6 +141,8 @@ jobs:
             models/football/engine/xi_portable.py
             models/football/engine/xi_runtime_backend.py
             models/football/engine/xi_authority.py
+            models/football/engine/block_runtime.py
+            models/football/engine/block_priority.py
             models/football/engine/rank_package_transport.py
             models/football/engine/evidence_contract.py
             models/football/engine/production_scope.py

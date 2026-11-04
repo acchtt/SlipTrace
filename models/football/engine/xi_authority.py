@@ -10,6 +10,7 @@ requested `/xi exception`; EXCEPTION is never an automatic fallback.
 from __future__ import annotations
 
 import hashlib
+import json
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -43,6 +44,15 @@ VERIFIED_RANK_STATUSES = {
     "V4_RANK_PERSISTENCE_VERIFIED",
     "V4_RANK_PARTIAL_PERSISTENCE_VERIFIED",
 }
+
+BLOCK_RUNTIME_SCHEMA = "football-block-runtime-v1"
+BLOCK_PRIORITY_POLICY = "BLOCK_PRIORITY_V1"
+BLOCK_AUTHORITY_OWNED_FIELDS = frozenset({
+    "match_id",
+    "activation_quality",
+    "activation_basis",
+    "activation_evidence_refs",
+})
 
 POLICY_LOCK_EFFECTIVE_UTC = datetime.fromisoformat("2026-10-24T18:00:00+00:00")
 ASSESSMENT_DEPTH_V1_EFFECTIVE_UTC = datetime.fromisoformat("2026-11-02T01:45:00+00:00")
@@ -579,6 +589,125 @@ def _rank_payload(package: dict[str, Any]) -> dict[str, Any]:
     raise RankAuthorityError("RANK_RECEIPT_REQUIRED: sealed rank board missing")
 
 
+def _canonical_sha256(value: Any) -> str:
+    return hashlib.sha256(
+        json.dumps(
+            value, sort_keys=True, ensure_ascii=True, separators=(",", ":")
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def _validated_block_package(
+    package: dict[str, Any],
+    *,
+    match_id: str,
+) -> tuple[dict[str, Any], dict[str, Any], str]:
+    request = package.get("request")
+    result = package.get("result")
+    if not isinstance(request, dict) or not isinstance(result, dict):
+        raise RankAuthorityError(
+            "BLOCK_RECEIPT_REQUIRED: verified block package must contain request and result"
+        )
+    if request.get("schema_version") != BLOCK_RUNTIME_SCHEMA:
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block request schema mismatch")
+    if str(request.get("model") or "").lower() != "c":
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block request must be Football C")
+    matches = request.get("matches")
+    if not isinstance(matches, list) or len(matches) < 2:
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: complete block request missing")
+    if (
+        result.get("schema_version") != BLOCK_RUNTIME_SCHEMA
+        or result.get("stage") != "block_result"
+        or str(result.get("model") or "").lower() != "c"
+        or result.get("policy") != BLOCK_PRIORITY_POLICY
+    ):
+        raise RankAuthorityError(
+            "BLOCK_RECEIPT_REQUIRED: persisted result is not BLOCK_PRIORITY_V1"
+        )
+    if result.get("outcome_fields_read") is not False:
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block result must remain prospective")
+    if result.get("priced_publication_authorized") is not False:
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block receipt cannot carry price authority")
+    if result.get("input_sha256") != _canonical_sha256(request):
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block request/result integrity mismatch")
+
+    frozen_row = next(
+        (row for row in matches
+         if isinstance(row, dict) and str(row.get("match_id")) == match_id),
+        None,
+    )
+    rows = result.get("matches")
+    result_row = next(
+        (row for row in rows
+         if isinstance(row, dict) and str(row.get("match_id")) == match_id),
+        None,
+    ) if isinstance(rows, list) else None
+    if not isinstance(frozen_row, dict) or not isinstance(result_row, dict):
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: exact block candidate missing")
+    if result_row.get("frozen_match_sha256") != _canonical_sha256(frozen_row):
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: frozen block candidate integrity mismatch")
+
+    order = result.get("block_order")
+    rank = result_row.get("block_priority_rank")
+    if (
+        not isinstance(order, list)
+        or not isinstance(rank, int)
+        or rank < 1
+        or rank > len(order)
+        or order[rank - 1] != match_id
+    ):
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block priority rank/order mismatch")
+
+    epochs = request.get("evidence_epochs")
+    epoch = epochs.get(match_id) if isinstance(epochs, dict) else None
+    if not isinstance(epoch, str) or not epoch.strip():
+        raise RankAuthorityError(
+            "BLOCK_RECEIPT_REQUIRED: persisted candidate missing assessment evidence epoch"
+        )
+    if result_row.get("evidence_epoch_id") != epoch:
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block evidence epoch mismatch")
+    return frozen_row, result_row, epoch.strip()
+
+
+def _inherit_frozen_match(
+    supplied_match: dict[str, Any],
+    frozen_row: dict[str, Any],
+    declared: list[str],
+    *,
+    authority_prefix: str,
+    forbidden_fields: frozenset[str],
+) -> tuple[dict[str, Any], set[str]]:
+    if not isinstance(declared, list) or any(not isinstance(x, str) for x in declared):
+        raise RankAuthorityError(
+            f"{authority_prefix}: material_evidence_updates must be a field-name array"
+        )
+    declared_set = set(declared)
+    forbidden = declared_set & forbidden_fields
+    if forbidden:
+        raise RankAuthorityError(
+            f"{authority_prefix}: authority-owned fields cannot be material updates: "
+            + ", ".join(sorted(forbidden))
+        )
+    for key, frozen_value in frozen_row.items():
+        if (
+            key in supplied_match
+            and supplied_match[key] != frozen_value
+            and key not in declared_set
+        ):
+            raise RankAuthorityError(
+                f"{authority_prefix}: undeclared override of frozen field {key}"
+            )
+    inherited = dict(frozen_row)
+    for key in declared_set:
+        if key not in supplied_match:
+            raise RankAuthorityError(
+                f"{authority_prefix}: declared material update absent from match: {key}"
+            )
+        inherited[key] = supplied_match[key]
+    inherited["match_id"] = str(frozen_row.get("match_id"))
+    return inherited, declared_set
+
+
 def authorize_c_football(
     supplied: dict[str, Any],
     authority: dict[str, Any] | None,
@@ -588,9 +717,75 @@ def authorize_c_football(
     if not isinstance(supplied, dict):
         raise ValueError("c_football object required")
     if not isinstance(authority, dict):
-        raise RankAuthorityError("RANK_RECEIPT_REQUIRED: explicit authority missing")
+        raise RankAuthorityError(
+            "XI_AUTHORITY_REQUIRED: BLOCK, RANKED or explicit EXCEPTION authority missing"
+        )
 
     mode = authority.get("mode")
+    if mode == "BLOCK":
+        if supplied.get("stage") != "football_assessment":
+            raise RankAuthorityError(
+                "BLOCK_RECEIPT_REQUIRED: block-led /xi requires football_assessment"
+            )
+        depth = _validate_assessment_depth(supplied)
+        if depth.get("contract") != ASSESSMENT_DEPTH_V2_CONTRACT:
+            raise RankAuthorityError(
+                "BLOCK_RECEIPT_REQUIRED: block-led /xi requires ASSESSMENT_DEPTH_V2"
+            )
+        supplied_match = supplied.get("match")
+        if not isinstance(supplied_match, dict):
+            raise ValueError("c_football.match object required")
+        mid = str(authority.get("match_id") or supplied_match.get("match_id") or "")
+        if not mid:
+            raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: match_id missing")
+        package = authority.get("verified_block_package")
+        if not isinstance(package, dict):
+            raise RankAuthorityError(
+                "BLOCK_RECEIPT_REQUIRED: verified_block_package missing"
+            )
+        frozen_row, block_row, block_epoch = _validated_block_package(
+            package, match_id=mid
+        )
+        inherited, declared_set = _inherit_frozen_match(
+            supplied_match,
+            frozen_row,
+            authority.get("material_evidence_updates") or [],
+            authority_prefix="BLOCK_RECEIPT_REQUIRED",
+            forbidden_fields=BLOCK_AUTHORITY_OWNED_FIELDS,
+        )
+        context = supplied.get("context")
+        if not isinstance(context, dict):
+            raise ValueError("c_football.context object required")
+        inherited_context = dict(context)
+        inherited_context.update({
+            "block_authority": True,
+            "block_priority_policy": BLOCK_PRIORITY_POLICY,
+            "block_priority_rank": block_row.get("block_priority_rank"),
+            "block_evidence_epoch_id": block_epoch,
+            "frozen_board_available": True,
+            "frozen_board_certified_burden": block_row.get("supported_line"),
+        })
+        frozen_g4 = frozen_row.get("g4_research_status")
+        if frozen_g4 is not None:
+            inherited_context["frozen_board_g4_research_status"] = frozen_g4
+
+        payload = dict(supplied)
+        payload["match"] = inherited
+        payload["context"] = inherited_context
+        return payload, {
+            "mode": "BLOCK",
+            "match_id": mid,
+            "block_priority_policy": BLOCK_PRIORITY_POLICY,
+            "block_priority_rank": block_row.get("block_priority_rank"),
+            "block_order": list(package["result"].get("block_order") or []),
+            "block_evidence_epoch_id": block_epoch,
+            "xi_evidence_epoch_id": supplied.get("evidence_epoch_id"),
+            "frozen_match_sha256": block_row.get("frozen_match_sha256"),
+            "block_input_sha256": package["result"].get("input_sha256"),
+            "global_rank_is_selection_authority": False,
+            "material_evidence_updates": sorted(declared_set),
+            "assessment_depth": depth,
+        }
     if mode == "EXCEPTION":
         if authority.get("user_requested_exception") is not True:
             raise RankAuthorityError(
@@ -629,7 +824,7 @@ def authorize_c_football(
 
     if mode != "RANKED":
         raise RankAuthorityError(
-            "RANK_RECEIPT_REQUIRED: ranked or exception authority required"
+            "XI_AUTHORITY_REQUIRED: authority.mode must be BLOCK, RANKED or EXCEPTION"
         )
 
     assessment_depth_trace = _validate_assessment_depth(supplied)

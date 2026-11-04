@@ -742,8 +742,8 @@ def main() -> int:
         authority_path = getattr(args, "authority", None)
         if not authority_path:
             raise RankAuthorityError(
-                "RANK_RECEIPT_REQUIRED: direct /xi execution requires --authority "
-                "with RANKED verified receipt authority or an explicit EXCEPTION"
+                "XI_AUTHORITY_REQUIRED: direct /xi requires --authority with "
+                "BLOCK, RANKED or explicit EXCEPTION authority"
             )
         authority = _load(authority_path)
         c_input, authority_trace = authorize_c_football(c_input, authority)
@@ -793,6 +793,12 @@ def main() -> int:
                 else "EXCEPTION_RESEARCH_REQUIRED"
                 if isinstance(exc, RankAuthorityError)
                 and str(exc).startswith("EXCEPTION_RESEARCH_REQUIRED:")
+                else "BLOCK_RECEIPT_REQUIRED"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("BLOCK_RECEIPT_REQUIRED:")
+                else "XI_AUTHORITY_REQUIRED"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("XI_AUTHORITY_REQUIRED:")
                 else "RANK_RECEIPT_REQUIRED"
                 if isinstance(exc, RankAuthorityError)
                 else "XI ENGINE CONTRACT REJECTED"
@@ -806,6 +812,12 @@ def main() -> int:
                 else "EXCEPTION_RESEARCH"
                 if isinstance(exc, RankAuthorityError)
                 and str(exc).startswith("EXCEPTION_RESEARCH_REQUIRED:")
+                else "BLOCK_AUTHORITY"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("BLOCK_RECEIPT_REQUIRED:")
+                else "XI_AUTHORITY"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("XI_AUTHORITY_REQUIRED:")
                 else "RANK_AUTHORITY"
                 if isinstance(exc, RankAuthorityError)
                 else "PAYLOAD_OR_MODEL_CONTRACT"

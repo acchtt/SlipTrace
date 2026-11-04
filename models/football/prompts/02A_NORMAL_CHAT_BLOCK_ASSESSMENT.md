@@ -67,7 +67,10 @@ unavailable, write exactly one `football-block-runtime-v1` request to
 `engine/block_runtime_requests/<request-id>.json`, wait for the
 `Football C deterministic block runtime` workflow, read the persisted
 `engine/block_runtime_results/<request-id>.json`, and continue in the same
-turn. Do not use conversational judgment as a fallback block order. If both
+turn. The request must include an `evidence_epochs` object mapping
+every candidate match ID to its frozen ASSESSMENT_DEPTH_V2 evidence epoch. The
+result binds each candidate to that epoch and frozen match SHA-256 so a later
+/xi can use `authority.mode=BLOCK` without /rank. Do not use conversational judgment as a fallback block order. If both
 paths fail, report `BLOCK_RUNTIME_UNAVAILABLE`.
 
 Return the complete block in deterministic block order, not just the top pick.

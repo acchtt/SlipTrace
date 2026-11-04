@@ -117,7 +117,7 @@ def main() -> None:
         football_file = write(root / "football-c.json", football_input)
         code, missing_authority = command("xi", "--c", football_file)
         assert code != 0, missing_authority
-        assert missing_authority.get("status") == "RANK_RECEIPT_REQUIRED", missing_authority
+        assert missing_authority.get("status") == "XI_AUTHORITY_REQUIRED", missing_authority
 
         code, assessed = command(
             "xi", "--c", football_file, "--authority", authority_file
