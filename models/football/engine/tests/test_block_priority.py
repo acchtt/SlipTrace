@@ -11,6 +11,7 @@ from block_priority import (  # noqa: E402
     rank_block,
 )
 from block_runtime import BlockRuntimeError, run_block  # noqa: E402
+from xi_authority import RankAuthorityError, _validate_assessment_depth  # noqa: E402
 from test_adapter import c_row  # noqa: E402
 
 
@@ -261,6 +262,89 @@ class BlockRuntimeTests(unittest.TestCase):
                     self._engine_row("block-b", "MEDIUM"),
                 ],
             })
+
+
+class AssessmentDepthV2Tests(unittest.TestCase):
+    def _payload(self, when, contract, *, activation=True):
+        refs = [
+            "https://club.example/current-attack",
+            "https://league.example/current-defence",
+        ]
+        checks = {
+            "primary_scoring_route": "Current primary scoring route is source-backed and intact.",
+            "secondary_reply_route": "Current reply route is independently checked and source-backed.",
+            "carrier_capacity": "Carrier capacity is assessed from current prematch football evidence.",
+            "current_chance_creation": "Current chance creation is assessed from recent comparable football.",
+            "goal3_mechanism": "The explicit third-goal mechanism is frozen before any price comparison.",
+            "goal4_mechanism": "The fourth-goal mechanism is independently funded or explicitly rejected.",
+            "stall_0_0": "The zero-zero stall route is explicitly assessed from current structure.",
+            "stall_1_1": "The one-one stall route is explicitly assessed from current structure.",
+            "continuation_2_0": "Continuation from a two-goal lead is explicitly assessed prospectively.",
+            "opponent_leakage": "Opponent leakage is frozen from current matchup-specific football evidence.",
+            "named_failure_mechanism": "The principal named failure mechanism is frozen before publication.",
+            "availability_replacements": "Current availability and replacement quality are independently checked.",
+            "h2h_transferability": "Head-to-head evidence is checked for current transferability before use.",
+            "tournament_incentive": "Tournament format and incentive state are resolved prospectively.",
+            "match_context": "Rivalry rest travel and fatigue context are checked prospectively.",
+            "supported_burden_basis": "Supported burden basis is separated from bookmaker price information.",
+        }
+        match = {"match_id": "depth-v2"}
+        if activation:
+            match.update(
+                activation_quality="HIGH",
+                activation_basis=(
+                    "Current attack availability, early chance creation and opponent "
+                    "opening patterns jointly support a high activation grade."
+                ),
+                activation_evidence_refs=refs,
+            )
+        return {
+            "evidence_epoch_id": "DEPTH-V2-EPOCH",
+            "context": {"assessment_at_utc": when},
+            "match": match,
+            "assessment_depth": {
+                "contract": contract,
+                "completed": True,
+                "market_independent": True,
+                "evidence_epoch_id": "DEPTH-V2-EPOCH",
+                "assessed_at_utc": when,
+                "evidence_refs": refs,
+                "checks": checks,
+            },
+        }
+
+    def test_v1_remains_valid_for_pre_v2_frozen_epoch(self):
+        trace = _validate_assessment_depth(
+            self._payload(
+                "2026-11-03T12:00:00+00:00",
+                "ASSESSMENT_DEPTH_V1",
+                activation=False,
+            )
+        )
+        self.assertEqual(trace["contract"], "ASSESSMENT_DEPTH_V1")
+        self.assertIsNone(trace["activation"])
+
+    def test_v2_requires_activation_evidence(self):
+        with self.assertRaisesRegex(RankAuthorityError, "activation_quality"):
+            _validate_assessment_depth(
+                self._payload(
+                    "2026-11-04T01:00:00+00:00",
+                    "ASSESSMENT_DEPTH_V2",
+                    activation=False,
+                )
+            )
+
+    def test_v2_activation_is_selection_only(self):
+        trace = _validate_assessment_depth(
+            self._payload(
+                "2026-11-04T01:00:00+00:00",
+                "ASSESSMENT_DEPTH_V2",
+            )
+        )
+        self.assertEqual(trace["contract"], "ASSESSMENT_DEPTH_V2")
+        self.assertTrue(trace["activation"]["block_selection_only"])
+        self.assertFalse(trace["activation"]["certificate_authority"])
+        self.assertFalse(trace["activation"]["price_execution_authority"])
 
 
 if __name__ == "__main__":
