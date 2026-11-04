@@ -12,7 +12,7 @@ from block_priority import (  # noqa: E402
 )
 from block_runtime import BlockRuntimeError, run_block  # noqa: E402
 from xi_authority import RankAuthorityError, _validate_assessment_depth  # noqa: E402
-from test_adapter import c_row  # noqa: E402
+from test_board_pair import c_row  # noqa: E402
 
 
 def raw(
