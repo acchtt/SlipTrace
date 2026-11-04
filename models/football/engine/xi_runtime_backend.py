@@ -57,10 +57,10 @@ def _load_request(path: Path) -> dict[str, Any]:
         raise ValueError("choose screenshot_quote or strict_price_c, not both")
     authority = value.get("authority")
     if not isinstance(authority, dict) or authority.get("mode") not in {
-        "RANKED", "EXCEPTION"
+        "BLOCK", "RANKED", "EXCEPTION"
     }:
         raise RankAuthorityError(
-            "RANK_RECEIPT_REQUIRED: authority.mode must be RANKED or EXCEPTION"
+            "XI_AUTHORITY_REQUIRED: authority.mode must be BLOCK, RANKED or EXCEPTION"
         )
     return value
 
@@ -157,6 +157,12 @@ def execute(request: dict[str, Any]) -> dict[str, Any]:
                 else "RANK_POLICY_LOCK_REQUIRED"
                 if isinstance(exc, RankAuthorityError)
                 and str(exc).startswith("RANK_POLICY_LOCK_REQUIRED:")
+                else "BLOCK_RECEIPT_REQUIRED"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("BLOCK_RECEIPT_REQUIRED:")
+                else "XI_AUTHORITY_REQUIRED"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("XI_AUTHORITY_REQUIRED:")
                 else "RANK_RECEIPT_REQUIRED"
                 if isinstance(exc, RankAuthorityError)
                 else "XI ENGINE CONTRACT REJECTED"
@@ -170,6 +176,12 @@ def execute(request: dict[str, Any]) -> dict[str, Any]:
                 else "EXCEPTION_RESEARCH"
                 if isinstance(exc, RankAuthorityError)
                 and str(exc).startswith("EXCEPTION_RESEARCH_REQUIRED:")
+                else "BLOCK_AUTHORITY"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("BLOCK_RECEIPT_REQUIRED:")
+                else "XI_AUTHORITY"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("XI_AUTHORITY_REQUIRED:")
                 else "RANK_AUTHORITY"
                 if isinstance(exc, RankAuthorityError)
                 else "PAYLOAD_OR_MODEL_CONTRACT"
