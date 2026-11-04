@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Shared rank/exception authority contract for every active Football C /xi path.
+"""Shared Football C /xi authority contract.
 
-Both the local/direct runtime and the GitHub transport backend must call this
-module before evaluating a normal ranked fixture. A routine /xi can never
-reconstruct Football C from a free-standing payload. Explicit user exceptions
-remain available only when the runtime authority records that the user explicitly
-requested `/xi exception`; EXCEPTION is never an automatic fallback.
+Authority preference is BLOCK -> RANKED -> DIRECT for an exact explicit /xi
+request, with EXCEPTION reserved for explicit /xi exception. DIRECT is not a
+selection shortcut: it requires the same fresh full source-backed research and
+ASSESSMENT_DEPTH contract as an exception, but it lets a user-selected one-off
+fixture be assessed without first manufacturing a block or rank receipt.
 """
 from __future__ import annotations
 
@@ -718,7 +718,7 @@ def authorize_c_football(
         raise ValueError("c_football object required")
     if not isinstance(authority, dict):
         raise RankAuthorityError(
-            "XI_AUTHORITY_REQUIRED: BLOCK, RANKED or explicit EXCEPTION authority missing"
+            "XI_AUTHORITY_REQUIRED: BLOCK, RANKED, DIRECT or explicit EXCEPTION authority missing"
         )
 
     mode = authority.get("mode")
@@ -786,6 +786,47 @@ def authorize_c_football(
             "material_evidence_updates": sorted(declared_set),
             "assessment_depth": depth,
         }
+    if mode == "DIRECT":
+        if authority.get("user_requested_direct_xi") is not True:
+            raise RankAuthorityError(
+                "XI_AUTHORITY_REQUIRED: DIRECT authority requires an explicit "
+                "user /xi request for this exact fixture"
+            )
+        reference = authority.get("direct_reference")
+        if not isinstance(reference, str) or not reference.strip():
+            raise RankAuthorityError(
+                "XI_AUTHORITY_REQUIRED: DIRECT authority must be explicitly tagged"
+            )
+        reference = reference.strip()
+
+        # DIRECT deliberately reuses the full fresh-research validator used by
+        # EXCEPTION. The distinction is routing/labeling only: no certificate,
+        # evidence-depth, incentive, price or persistence gate is weakened.
+        research_trace = _validate_exception_research(
+            supplied,
+            authority,
+            exception_reference=reference,
+        )
+        assessment_depth_trace = _validate_assessment_depth(supplied)
+        direct_payload = dict(supplied)
+        direct_context = dict(direct_payload.get("context") or {})
+        direct_context["direct_research_completed"] = True
+        direct_context["direct_research_epoch_id"] = research_trace["research_epoch_id"]
+        direct_context["direct_upstream_state"] = research_trace["upstream_state"]
+        direct_context["direct_revision"] = research_trace["revision"]
+        direct_context["direct_request"] = True
+        direct_context["exception_flag"] = False
+        direct_payload["context"] = direct_context
+        return direct_payload, {
+            "mode": "DIRECT",
+            "reference": reference,
+            "user_requested_direct_xi": True,
+            "rank_state_internal": None,
+            "rank_state_display": "DIRECT",
+            "direct_research": research_trace,
+            "assessment_depth": assessment_depth_trace,
+        }
+
     if mode == "EXCEPTION":
         if authority.get("user_requested_exception") is not True:
             raise RankAuthorityError(
@@ -824,7 +865,7 @@ def authorize_c_football(
 
     if mode != "RANKED":
         raise RankAuthorityError(
-            "XI_AUTHORITY_REQUIRED: authority.mode must be BLOCK, RANKED or EXCEPTION"
+            "XI_AUTHORITY_REQUIRED: authority.mode must be BLOCK, RANKED, DIRECT or EXCEPTION"
         )
 
     assessment_depth_trace = _validate_assessment_depth(supplied)
