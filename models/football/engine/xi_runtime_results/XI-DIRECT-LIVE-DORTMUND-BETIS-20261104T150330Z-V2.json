@@ -1,0 +1,635 @@
+{
+  "authority": {
+    "assessment_depth": {
+      "activation": {
+        "basis": "Dortmund have multiple recent games with early or sustained multi-goal production, while Betis scored three times by the 34th minute at Mosquito and produced first-half-heavy 5-0 and 11-1 wins; both sides can become goal-active quickly.",
+        "block_selection_only": true,
+        "certificate_authority": false,
+        "evidence_refs": [
+          "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+          "https://www.besoccer.com/team/matches/real-betis-b-juvenil"
+        ],
+        "price_execution_authority": false,
+        "quality": "HIGH"
+      },
+      "assessment_at_utc": "2026-11-04T15:03:30+00:00",
+      "checks": [
+        "availability_replacements",
+        "carrier_capacity",
+        "continuation_2_0",
+        "current_chance_creation",
+        "goal3_mechanism",
+        "goal4_mechanism",
+        "h2h_transferability",
+        "match_context",
+        "named_failure_mechanism",
+        "opponent_leakage",
+        "primary_scoring_route",
+        "secondary_reply_route",
+        "stall_0_0",
+        "stall_1_1",
+        "supported_burden_basis",
+        "tournament_incentive"
+      ],
+      "completed": true,
+      "contract": "ASSESSMENT_DEPTH_V2",
+      "evidence_epoch_id": "DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+      "evidence_ref_count": 7,
+      "market_independent": true,
+      "required": true
+    },
+    "direct_research": {
+      "challenge_reason": null,
+      "checked_fields": [
+        "availability_and_replacements",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "competition_format_incentive",
+        "completion_continuation_stall",
+        "failure_mechanisms",
+        "fixture_identity_status",
+        "g4_research_if_g3_funded",
+        "h2h_materiality",
+        "home_scoring_route",
+        "rivalry_rest_travel_fatigue_context",
+        "upper_tail_and_comparable_context"
+      ],
+      "evidence_ref_count": 7,
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+      "researched_at_utc": "2026-11-04T15:03:30+00:00",
+      "revision": "INITIAL",
+      "source_reference": "DIRECT-LIVE-DORTMUND-BETIS-20261104",
+      "state_change_basis": null,
+      "state_change_fields": [],
+      "state_change_status": null,
+      "supersedes_evidence_epoch_id": null,
+      "supersedes_exception_reference": null,
+      "upstream_state": "NOT_RANKED"
+    },
+    "mode": "DIRECT",
+    "rank_state_display": "DIRECT",
+    "rank_state_internal": null,
+    "reference": "DIRECT-LIVE-DORTMUND-BETIS-20261104",
+    "user_requested_direct_xi": true
+  },
+  "input_sha256": "a56090f8cb8dd9145105c3caad9e28306554f50e0e25ab380b681bf526f5f1a4",
+  "ok": true,
+  "request_id": "XI-DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+  "runtime": {
+    "calibration_record": {
+      "automatic_threshold_learning": false,
+      "certified_burden": 3.5,
+      "compiled_board_state": "FOCUS",
+      "control_review": false,
+      "credible_tail_state": "FUNDED",
+      "current_rank": null,
+      "decision": "REVIEW_ONLY",
+      "direct_act_ceiling": 3.5,
+      "entry_feasibility_basis": "the visible market contains no line/price clearing direct or conditional football authority",
+      "entry_feasibility_state": "UNSUPPORTED_MARKET",
+      "evidence_epoch": "DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+      "exception_flag": false,
+      "follow_lane": null,
+      "g3_endpoint_pressure": "MODERATE",
+      "goal3_funded": true,
+      "goal3_mechanism_class": "TWO_ROUTE",
+      "goal4_funded": true,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "goal_screen_state": null,
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "match_id": "UYL-20261104-DORTMUND-BETIS",
+      "pass_had_lower_supported_visible_line": false,
+      "rank": null,
+      "rank_scope": null,
+      "researcher_declared_board_state": "FOCUS",
+      "robustness": "ROBUST",
+      "schema_version": "football-c-calibration-v1",
+      "screenshot_visible_ladder": [
+        {
+          "line": 3.5,
+          "odds": 1.94
+        }
+      ],
+      "selected_evaluated_line": 3.5,
+      "selected_evaluated_odds": 1.94,
+      "selection_authority": "ZERO",
+      "slate_rank": null,
+      "slate_rank_status": null,
+      "sweep_state": null,
+      "upper_tail_pressure": "MODERATE"
+    },
+    "decision_state_persistence": {
+      "key_column": "Assessment ID",
+      "missing_persistence_inputs": [],
+      "persistence_input_complete": true,
+      "publication_authorized_before_readback": false,
+      "publication_fail_closed": true,
+      "readback_assertions": [
+        "Assessment ID",
+        "Evidence Epoch ID",
+        "XI Assessment Execution Status",
+        "C Action",
+        "C Supported Line",
+        "Evaluated Line",
+        "Evaluated Odds",
+        "Engine C Result",
+        "Engine Source Revision"
+      ],
+      "readback_required": true,
+      "required": true,
+      "row": {
+        "Assessment At UTC": "2026-11-04T15:03:30+00:00",
+        "Assessment ID": "XI-C-DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+        "C Action": "OBSERVED_LIVE_PRICE_BURDEN_COMPARISON_ONLY_NON_EXECUTABLE",
+        "C Board State": "FOCUS",
+        "C Supported Line": 3.5,
+        "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":3.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"FUNDED\",\"current_rank\":null,\"decision\":\"REVIEW_ONLY\",\"direct_act_ceiling\":3.5,\"entry_feasibility_basis\":\"the visible market contains no line/price clearing direct or conditional football authority\",\"entry_feasibility_state\":\"UNSUPPORTED_MARKET\",\"evidence_epoch\":\"DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"TWO_ROUTE\",\"goal4_funded\":true,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"UYL-20261104-DORTMUND-BETIS\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"ROBUST\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.5,\"odds\":1.94}],\"selected_evaluated_line\":3.5,\"selected_evaluated_odds\":1.94,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"price_check\":{\"bet_authorized\":false,\"evidence\":{\"assessment_at_utc\":\"2026-11-04T15:03:30+00:00\",\"bookmaker\":\"User-displayed bookmaker\",\"capture_reference\":\"USER_ODDS_SCREENSHOT:file_000000006fe482119a3f6be55d76e4e3\",\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"STARTED_MATCH_CUSTOM_LINE_NOT_PREMATCH_EXECUTABLE\",\"user_bookmaker_custom_line_supported\":false},\"external_price_searches\":0,\"fixture_status\":\"STARTED\",\"match_id\":\"UYL-20261104-DORTMUND-BETIS\",\"match_minute\":2.1,\"observation_age_seconds\":30.0,\"observed_at_utc\":\"2026-11-04T15:03:00+00:00\",\"price_evidence_mode\":\"USER_SCREENSHOT_ONLY\",\"quote\":{\"line\":3.5,\"odds\":1.94},\"replacement_quotes\":0,\"score\":\"0-0\",\"source\":\"USER_SCREENSHOT\",\"visible_ladder\":[{\"line\":3.5,\"odds\":1.94}]},\"execution_authorized\":false,\"limitations\":[\"SCREENSHOT_NOT_EXECUTION_EVIDENCE\",\"SCREENSHOT_OBSERVATION_NOT_SAME_AS_ASSESSMENT_EPOCH\",\"STARTED_FIXTURE_PREMATCH_ACTION_NOT_RECREATED\"],\"model\":{\"book_min_odds\":null,\"book_order_is_exposure\":false,\"book_target_line\":null,\"book_target_state\":\"NO_BOOK_TARGET\",\"bridge_used\":false,\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":3.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"FUNDED\",\"current_rank\":null,\"decision\":\"REVIEW_ONLY\",\"direct_act_ceiling\":3.5,\"entry_feasibility_basis\":\"the visible market contains no line/price clearing direct or conditional football authority\",\"entry_feasibility_state\":\"UNSUPPORTED_MARKET\",\"evidence_epoch\":\"DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"TWO_ROUTE\",\"goal4_funded\":true,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"UYL-20261104-DORTMUND-BETIS\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"ROBUST\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.5,\"odds\":1.94}],\"selected_evaluated_line\":3.5,\"selected_evaluated_odds\":1.94,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"certificate_completeness_recheck_required\":false,\"conditional_action\":\"LIVE_PRICE_BURDEN_COMPARISON_ONLY\",\"current_price_clears_book_target\":false,\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"STARTED_MATCH_CUSTOM_LINE_NOT_PREMATCH_EXECUTABLE\",\"user_bookmaker_custom_line_supported\":false},\"entry_feasibility_basis\":\"the visible market contains no line/price clearing direct or conditional football authority\",\"entry_feasibility_state\":\"UNSUPPORTED_MARKET\",\"execution_authorized\":false,\"frozen_board_g4_research_status\":\"LEGACY_UNKNOWN\",\"goal3_mechanism_class\":null,\"intermediate_burden_profile\":null,\"market_disagreement_gap_goals\":null,\"market_disagreement_recheck_basis\":null,\"market_disagreement_recheck_completed\":true,\"market_disagreement_recheck_evidence_refs\":[],\"market_disagreement_recheck_fields\":[],\"market_disagreement_recheck_missing_fields\":[],\"market_disagreement_recheck_required\":false,\"pass_had_lower_supported_visible_line\":false,\"prior_certificate_reclassification_recheck_required\":false,\"reason\":\"started fixture; prematch ACT/BOOK/PASS not re-created\",\"selected_visible_line\":3.5,\"selected_visible_odds\":1.94,\"snapshot_line_relation\":\"AT_SUPPORTED_BURDEN\",\"supported_line\":3.5,\"supported_visible_line_found\":false,\"visible_ladder_evaluations\":[{\"action\":\"LIVE_PRICE_BURDEN_COMPARISON_ONLY\",\"direct_act_ceiling\":null,\"intermediate_burden_profile\":null,\"line\":3.5,\"line_relation\":\"AT_SUPPORTED_BURDEN\",\"odds\":1.94,\"reason\":\"started fixture; prematch ACT/BOOK/PASS not re-created\"}],\"visible_ladder_selection_basis\":\"NO_SUPPORTED_VISIBLE_LINE_LOWEST_VISIBLE_DIAGNOSTIC\",\"wait_min_odds\":null,\"wait_reachability_basis\":null,\"wait_reachable\":null,\"wait_target_line\":null},\"model_bets_created\":false,\"ok\":true,\"priced_publication_authorized\":false,\"quote_research_required\":false,\"status\":\"OBSERVED_QUOTE_EVALUATED\"},\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"WIN_PREFERRED\",\"away_route\":\"STRONG\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":false,\"certificate_robustness\":\"ROBUST\",\"distributed_branch_quality_met\":true,\"explanation_only\":true,\"failed_conditions\":[\"CARRIER_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":true,\"tournament_tail_bias\":\"MIXED\"},\"certified_supported_burden\":3.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"TWO_SIDED\",\"continuation_quality\":\"HIGH\",\"credible_burden_band_high\":3.5,\"credible_burden_band_low\":3.5,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G4_FUNDED; G5 not near-funded under the market-independent diagnostic gate\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"FUNDED\",\"credible_tail_target_goal\":5,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Two STRONG routes, HIGH current chance quality and independently transferable upper-tail evidence fund G3 and G4.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":3.5,\"declared_supported_line_basis\":\"Repeated same-competition five-goal outcomes on both sides, two current STRONG routes, HIGH completion and continuation and independently transferable upper-tail evidence support G4; the compiler remains authoritative.\",\"direct_act_ceiling\":3.5,\"effective_burden_stall_risk\":\"MEDIUM\",\"effective_continuation_quality\":\"HIGH\",\"effective_upper_tail_transferability\":\"HIGH\",\"endpoint_control_pressure\":\"MODERATE\",\"execution_strength\":\"ROBUST\",\"failure_mechanisms\":{\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"Both teams have repeated five-goal Youth League results and high domestic scoring ceilings, but Dortmund have recent 0-0/2-0 results and Betis drew 0-0 at Lille. The main failure is a mutually cautious phase where two capable attacks do not convert enough despite strong upper-tail evidence.\",\"evidence_refs\":[\"https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html\",\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\",\"https://www.uefa.com/uefayouthleague/news/02a6-20d583385573-6fea9f5cb754-1000--2026-27-uefa-youth-league-calendar-format/\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"HIGH\",\"fatigue_context\":\"NONE\",\"fixture_status\":\"STARTED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":3.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G4 highest funded; max fully-funded Asian Over=3.50; G3 mechanisms=TWO_ROUTE_G3,DISTRIBUTED_G3; upper_tail_transferability=HIGH; comparable_context=SUPPORTIVE\",\"frozen_supported_line_funding\":true,\"g3_current_structure_basis\":\"Dortmund scored 2, 5 and 2 in their first three Youth League matches; Betis scored 0, 5 and 1, with domestic U19 form adding repeated 4+ outputs. Both current attacking structures therefore remain independently credible.\",\"g3_current_structure_source_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\",\"https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html\"],\"g3_current_structure_verified\":true,\"g3_endpoint_control_pressure\":\"MODERATE\",\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"HIGH\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"g4_distributed_path\":\"SUPPORTED\",\"g4_evidence_disposition\":\"FUNDED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"One-sided four-goal carrying is possible but not the primary funded path because both teams also have low-endpoint examples.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\"],\"mechanism_ids\":[\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\"]},\"g4_distributed_path\":{\"basis\":\"A 2+2 or 3+1 continuation is directly supported by repeated same-competition five-goal matches for both teams and current domestic high-total form.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\",\"https://en.realbetisbalompie.es/partidos\"],\"mechanism_ids\":[]},\"g4_reply_path\":{\"basis\":\"Both teams have shown current reply capacity: Dortmund scored twice in a 2-3 loss to Villarreal, while Betis scored in a 1-4 loss to Feyenoord and repeatedly score multiple goals domestically.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\"],\"mechanism_ids\":[]}},\"g4_reply_path\":\"SUPPORTED\",\"g4_research_basis\":\"G4 is funded through the distributed/two-sided tail: both teams have current STRONG routes, HIGH route/chance/completion quality, four same-competition five-goal results across six league-phase matches, and further domestic upper-tail corroboration.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":false,\"goal3_distributed_funded\":true,\"goal3_funded\":true,\"goal3_leakage_funded\":false,\"goal3_mechanism_class\":\"TWO_ROUTE\",\"goal3_two_route_funded\":true,\"goal4_funded\":true,\"goal5_funded\":false,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"Dortmund's recent 0-0 Schalke and Betis's 0-0 Lille show a real but not dominant stall route; stall risk is MEDIUM.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\"],\"mechanism_ids\":[\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\"]},\"continuation_quality\":{\"basis\":\"Four of the six combined Youth League matches reached five total goals and both domestic attacks remain active; continuation is HIGH despite isolated low endpoints.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\"],\"mechanism_ids\":[\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\"]},\"failure_resistance\":{\"basis\":\"Two independent STRONG attacks plus repeated five-goal same-competition outcomes make the goal path resilient to one side underperforming; failure resistance is HIGH.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\",\"https://en.realbetisbalompie.es/partidos\"],\"mechanism_ids\":[\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\"]},\"independent_upper_tail\":{\"basis\":\"The fourth-goal path is independently supported by same-competition high-total matches for both teams, not merely domestic mismatch scores.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\",\"https://www.uefa.com/uefayouthleague/clubs/2613251--real-betis/matches/\"],\"mechanism_ids\":[]},\"route_reliability\":{\"basis\":\"Both teams repeatedly score across UEFA and domestic U19 competition; route reliability is HIGH.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\"],\"mechanism_ids\":[\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\"]}},\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"MIXED\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_context_basis\":\"Both sides played domestic matches on 31 October/1 November and enter on broadly similar recovery; no verified fatigue asymmetry is strong enough to modify the football grades.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_positive_pressure\":false,\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_context_suppressive_pressure\":false,\"match_id\":\"UYL-20261104-DORTMUND-BETIS\",\"match_minute\":2.1,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"UEFA_YOUTH_LEAGUE_SOURCE_GOAL_FORMAT_REQUIRED\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":3.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"schema_version\":\"football-engine-v1\",\"score\":\"0-0\",\"shared_failure_mechanisms\":{\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\":[\"burden_stall_risk\",\"continuation_quality\",\"failure_resistance\",\"route_reliability\"]},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_incentive_effect\":\"MIXED\",\"tournament_incentive_required\":true,\"tournament_incentive_resolution\":\"VERIFIED\",\"tournament_positive_pressure\":false,\"tournament_suppressive_pressure\":false,\"tournament_tail_bias\":\"MIXED\",\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"Same-competition evidence is directly comparable and shows four five-goal outcomes across the teams' six league-phase matches, while domestic evidence confirms current attacking capacity.\",\"upper_tail_comparable_context_signal\":\"SUPPORTIVE\",\"upper_tail_control_pressure\":\"MODERATE\",\"upper_tail_strength\":\"MEDIUM\",\"upper_tail_transferability\":\"HIGH\",\"upper_tail_transferability_basis\":\"The four high-total examples come from the same UEFA Youth League phase and are corroborated by current domestic scoring: Dortmund 6-2 Oberhausen and Betis 11-1 Utrera / 4-2 Mosquito.\",\"wait_authorized\":false},\"xi_mode\":\"FOOTBALL_AND_OBSERVED_QUOTE\"}",
+        "Engine Source Revision": "9841428906be426d01d3c39cd1aab94c69f2d6d0",
+        "Evaluated Line": 3.5,
+        "Evaluated Odds": 1.94,
+        "Evidence Epoch ID": "DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+        "Fixture Status": "STARTED",
+        "Match ID": "UYL-20261104-DORTMUND-BETIS",
+        "Match Minute": 2.1,
+        "Payload JSON": "{\"assessment_depth\":{\"assessed_at_utc\":\"2026-11-04T15:03:30+00:00\",\"checks\":{\"availability_replacements\":\"Confirmed starting XIs were not independently available from the accessible sources; no player-level upgrade is assumed and XI robustness is capped at MEDIUM.\",\"carrier_capacity\":\"Both sides have carrier potential, but the assessment does not require one team to fund the whole total; the strongest mechanism is distributed/two-sided.\",\"continuation_2_0\":\"Both sides have shown ability to continue beyond two, including 5-0 wins and repeated domestic four-plus outputs.\",\"current_chance_creation\":\"Both teams have repeated current multi-goal outputs, with Betis particularly strong in recent domestic first-half scoring and Dortmund scoring nine goals through three Youth League matches.\",\"goal3_mechanism\":\"G3 is independently funded by two STRONG current routes with HIGH reliability/chance/completion and strong recent goal-rate corroboration.\",\"goal4_mechanism\":\"G4 is separately funded by same-competition upper-tail evidence: four combined Youth League matches have reached five goals, with current domestic corroboration.\",\"h2h_transferability\":\"No H2H is used; current Youth League and domestic U19 evidence is directly relevant.\",\"match_context\":\"Both teams have similar rest and no verified fatigue asymmetry large enough to change the scoring grades.\",\"named_failure_mechanism\":\"The principal failure is an unusually controlled mutual-caution game resembling Betis-Lille or Dortmund-Schalke, not a broken attacking route.\",\"opponent_leakage\":\"Leakage is MEDIUM rather than HIGH because both sides also own clean sheets; the Over case is driven more by chance quality and two-sided continuation.\",\"primary_scoring_route\":\"Dortmund's current Youth League route is STRONG after 2-3, 5-0 and 2-0, backed by 6-2 and 2-1 domestic wins.\",\"secondary_reply_route\":\"Betis's route is also STRONG: 5-0 Porto, 1-4 Feyenoord plus 11-1 Utrera and 4-2 Mosquito show persistent current creation.\",\"stall_0_0\":\"A 0-0 stall is possible—Dortmund drew Schalke 0-0 and Betis drew Lille 0-0—but it is outweighed by repeated current high-total matches.\",\"stall_1_1\":\"At 1-1 both sides retain qualification incentive and strong attacking routes, so continued scoring remains well supported.\",\"supported_burden_basis\":\"O3.50 is tied to an independently funded fourth-goal path, not to the bookmaker's visible O3.5 line.\",\"tournament_incentive\":\"UEFA format is verified: top 22 after six matches qualify. Dortmund entered on six points and Betis on four near the cut line; both prefer a win, though a draw retains utility, so the net effect is MIXED.\"},\"completed\":true,\"contract\":\"ASSESSMENT_DEPTH_V2\",\"evidence_epoch_id\":\"DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2\",\"evidence_refs\":[\"https://www.uefa.com/uefayouthleague/news/02a6-20d583385573-6fea9f5cb754-1000--2026-27-uefa-youth-league-calendar-format/\",\"https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html\",\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\",\"https://en.realbetisbalompie.es/partidos\",\"https://www.uefa.com/uefayouthleague/clubs/2613251--real-betis/matches/\",\"https://m.aiscore.com/tournament-uefa-youth-league/w34kgminxh1ko92/standings\"],\"market_independent\":true},\"context\":{\"assessment_at_utc\":\"2026-11-04T15:03:30+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"Direct current-state /xi has no frozen block or rank certificate; the current compiler owns the football certificate.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NO_FROZEN_BOARD\",\"direct_request\":true,\"direct_research_completed\":true,\"direct_research_epoch_id\":\"DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2\",\"direct_revision\":\"INITIAL\",\"direct_upstream_state\":\"NOT_RANKED\",\"exception_flag\":false,\"fixture_status\":\"STARTED\",\"frozen_board_available\":false,\"frozen_board_certified_burden\":null,\"match_minute\":2.1,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":\"0-0\",\"thesis_state\":\"PRESERVED\"},\"evidence_epoch_id\":\"DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2\",\"match\":{\"activation_basis\":\"Dortmund have multiple recent games with early or sustained multi-goal production, while Betis scored three times by the 34th minute at Mosquito and produced first-half-heavy 5-0 and 11-1 wins; both sides can become goal-active quickly.\",\"activation_evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\"],\"activation_quality\":\"HIGH\",\"aggregate_state\":\"SINGLE_LEAGUE_PHASE_MATCH_NO_AGGREGATE\",\"away\":\"Real Betis U19\",\"away_incentive\":\"WIN_PREFERRED\",\"away_route\":\"STRONG\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Two STRONG routes, HIGH current chance quality and independently transferable upper-tail evidence fund G3 and G4.\",\"burden_completion_quality\":\"HIGH\",\"burden_protection\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"carrier_self_fund\":false,\"carrier_self_fund_basis\":\"Either side has shown a high ceiling, but neither is required to score four alone; the thesis is primarily distributed/two-sided.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"Same-competition Youth League results are primary, with domestic U19 results used only as current attacking corroboration; bookmaker totals are excluded from football grading.\",\"competition\":\"UEFA Youth League\",\"competition_format\":\"The 36 Champions League-path youth teams play six league-phase matches; the top 22 qualify for the round of 32, with ranking also affecting knockout pairing.\",\"competition_kind\":\"YOUTH_CONTINENTAL\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"UEFA Youth League is approved conditional production scope with verified current format and source-backed team evidence.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"LEAGUE_PHASE_MATCHDAY_4\",\"completion_mode\":\"TWO_SIDED\",\"continuation_quality\":\"HIGH\",\"country\":\"Germany\",\"demoted_probation\":false,\"draw_resolution\":\"League-phase draw stands after 90 minutes.\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"Low-endpoint examples are real but do not erase either current scoring route; both teams have repeatedly scored heavily in comparable matches.\",\"failure_mechanisms\":{\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"Both teams have repeated five-goal Youth League results and high domestic scoring ceilings, but Dortmund have recent 0-0/2-0 results and Betis drew 0-0 at Lille. The main failure is a mutually cautious phase where two capable attacks do not convert enough despite strong upper-tail evidence.\",\"evidence_refs\":[\"https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html\",\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\",\"https://www.uefa.com/uefayouthleague/news/02a6-20d583385573-6fea9f5cb754-1000--2026-27-uefa-youth-league-calendar-format/\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"HIGH\",\"fatigue_context\":\"NONE\",\"g3_current_structure_basis\":\"Dortmund scored 2, 5 and 2 in their first three Youth League matches; Betis scored 0, 5 and 1, with domestic U19 form adding repeated 4+ outputs. Both current attacking structures therefore remain independently credible.\",\"g3_current_structure_source_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\",\"https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html\"],\"g3_current_structure_verified\":true,\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"HIGH\",\"g4_distributed_path\":\"SUPPORTED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"One-sided four-goal carrying is possible but not the primary funded path because both teams also have low-endpoint examples.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\"],\"mechanism_ids\":[\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\"]},\"g4_distributed_path\":{\"basis\":\"A 2+2 or 3+1 continuation is directly supported by repeated same-competition five-goal matches for both teams and current domestic high-total form.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\",\"https://en.realbetisbalompie.es/partidos\"],\"mechanism_ids\":[]},\"g4_reply_path\":{\"basis\":\"Both teams have shown current reply capacity: Dortmund scored twice in a 2-3 loss to Villarreal, while Betis scored in a 1-4 loss to Feyenoord and repeatedly score multiple goals domestically.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\"],\"mechanism_ids\":[]}},\"g4_reply_path\":\"SUPPORTED\",\"g4_research_basis\":\"G4 is funded through the distributed/two-sided tail: both teams have current STRONG routes, HIGH route/chance/completion quality, four same-competition five-goal results across six league-phase matches, and further domestic upper-tail corroboration.\",\"g4_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"goal_signal_low_draw_trap_rate\":0.1,\"goal_signal_mean_over_three_rate\":0.7,\"goal_signal_mean_over_two_rate\":0.8,\"goal_signal_priority_score\":72,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"Dortmund's recent 0-0 Schalke and Betis's 0-0 Lille show a real but not dominant stall route; stall risk is MEDIUM.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\"],\"mechanism_ids\":[\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\"]},\"continuation_quality\":{\"basis\":\"Four of the six combined Youth League matches reached five total goals and both domestic attacks remain active; continuation is HIGH despite isolated low endpoints.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\"],\"mechanism_ids\":[\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\"]},\"failure_resistance\":{\"basis\":\"Two independent STRONG attacks plus repeated five-goal same-competition outcomes make the goal path resilient to one side underperforming; failure resistance is HIGH.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\",\"https://en.realbetisbalompie.es/partidos\"],\"mechanism_ids\":[\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\"]},\"independent_upper_tail\":{\"basis\":\"The fourth-goal path is independently supported by same-competition high-total matches for both teams, not merely domestic mismatch scores.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\",\"https://www.uefa.com/uefayouthleague/clubs/2613251--real-betis/matches/\"],\"mechanism_ids\":[]},\"route_reliability\":{\"basis\":\"Both teams repeatedly score across UEFA and domestic U19 competition; route reliability is HIGH.\",\"evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\"],\"mechanism_ids\":[\"MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP\"]}},\"h2h_basis\":\"No direct recent meeting is available; current Youth League and domestic youth evidence is more relevant.\",\"h2h_current_corroboration\":\"NOT_APPLICABLE\",\"h2h_effect\":\"UNAVAILABLE\",\"h2h_material_effect\":false,\"h2h_state\":\"UNAVAILABLE\",\"h2h_transferability\":\"UNAVAILABLE\",\"home\":\"Borussia Dortmund U19\",\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"MIXED\",\"independent_route_quality\":\"HIGH\",\"independent_upper_tail\":true,\"independent_upper_tail_basis\":\"Dortmund's 2-3 Villarreal and 5-0 Bodø/Glimt plus Betis's 5-0 Porto and 1-4 Feyenoord provide independent same-competition evidence that scoring can continue through the fourth goal.\",\"kickoff_ict\":\"2026-11-04T22:00:00+07:00\",\"main_failure\":\"Both teams have shown they can produce clean-sheet or low-endpoint Youth League games, so a 1-0/1-1/2-0 control phase remains the principal failure despite strong two-sided scoring and upper-tail evidence.\",\"market_observability\":\"HIGH\",\"match_context_basis\":\"Both sides played domestic matches on 31 October/1 November and enter on broadly similar recovery; no verified fatigue asymmetry is strong enough to modify the football grades.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_evidence_refs\":[\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://en.realbetisbalompie.es/partidos\"],\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_id\":\"UYL-20261104-DORTMUND-BETIS\",\"material_suppression\":false,\"material_suppression_basis\":\"No verified all-route suppression exists at 0-0 after two minutes.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"Current Youth League and domestic results, qualification context and the user's live total quote are available; confirmed XI detail is not independently accessible in the sources used.\",\"opponent_leakage\":\"MEDIUM\",\"qualification_state\":\"Dortmund entered on six points and around 11th place; Betis entered on four points around 19th, close to the top-22 qualification boundary. Both have material reason to pursue points, while a draw still has some league-table utility.\",\"raw_operational_viability_grade\":\"A\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"simultaneous_results_note\":\"Matchday 4 of six is not a final simultaneous qualification round.\",\"simultaneous_results_status\":\"NOT_APPLICABLE\",\"source_urls\":[\"https://www.uefa.com/uefayouthleague/news/02a6-20d583385573-6fea9f5cb754-1000--2026-27-uefa-youth-league-calendar-format/\",\"https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html\",\"https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches\",\"https://www.besoccer.com/team/matches/real-betis-b-juvenil\",\"https://en.realbetisbalompie.es/partidos\",\"https://www.uefa.com/uefayouthleague/clubs/2613251--real-betis/matches/\",\"https://m.aiscore.com/tournament-uefa-youth-league/w34kgminxh1ko92/standings\"],\"supported_line\":3.5,\"supported_line_basis\":\"Repeated same-competition five-goal outcomes on both sides, two current STRONG routes, HIGH completion and continuation and independently transferable upper-tail evidence support G4; the compiler remains authoritative.\",\"team_news_observability\":\"MEDIUM\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_format_status\":\"VERIFIED\",\"tournament_incentive_required\":true,\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"Same-competition evidence is directly comparable and shows four five-goal outcomes across the teams' six league-phase matches, while domestic evidence confirms current attacking capacity.\",\"upper_tail_comparable_context_signal\":\"SUPPORTIVE\",\"upper_tail_competition_provenance_basis\":\"The upper-tail evidence is drawn directly from the 2026/27 UEFA Youth League league phase for both Dortmund and Real Betis, with domestic U19 results used only as current-form corroboration.\",\"upper_tail_competition_provenance_verified\":true,\"upper_tail_transferability\":\"HIGH\",\"upper_tail_transferability_basis\":\"The four high-total examples come from the same UEFA Youth League phase and are corroborated by current domestic scoring: Dortmund 6-2 Oberhausen and Betis 11-1 Utrera / 4-2 Mosquito.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"MEDIUM\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+        "Persisted At UTC": null,
+        "Publication Key": null,
+        "Published": false,
+        "Score": "0-0",
+        "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_AND_PRICE"
+      },
+      "sheet_name": "Decision States",
+      "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+      "status_before_readback": "DECISION_STATE_PERSISTENCE_REQUIRED",
+      "store": "GOOGLE_SHEETS"
+    },
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "price_check": {
+      "bet_authorized": false,
+      "evidence": {
+        "assessment_at_utc": "2026-11-04T15:03:30+00:00",
+        "bookmaker": "User-displayed bookmaker",
+        "capture_reference": "USER_ODDS_SCREENSHOT:file_000000006fe482119a3f6be55d76e4e3",
+        "custom_line_review": {
+          "bet_authorized": false,
+          "candidate_line": 2.5,
+          "candidate_odds": null,
+          "execution_authorized": false,
+          "minimum_odds": null,
+          "reason": "Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.",
+          "requires_user_confirmed_quote": true,
+          "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+          "status": "STARTED_MATCH_CUSTOM_LINE_NOT_PREMATCH_EXECUTABLE",
+          "user_bookmaker_custom_line_supported": false
+        },
+        "external_price_searches": 0,
+        "fixture_status": "STARTED",
+        "match_id": "UYL-20261104-DORTMUND-BETIS",
+        "match_minute": 2.1,
+        "observation_age_seconds": 30.0,
+        "observed_at_utc": "2026-11-04T15:03:00+00:00",
+        "price_evidence_mode": "USER_SCREENSHOT_ONLY",
+        "quote": {
+          "line": 3.5,
+          "odds": 1.94
+        },
+        "replacement_quotes": 0,
+        "score": "0-0",
+        "source": "USER_SCREENSHOT",
+        "visible_ladder": [
+          {
+            "line": 3.5,
+            "odds": 1.94
+          }
+        ]
+      },
+      "execution_authorized": false,
+      "limitations": [
+        "SCREENSHOT_NOT_EXECUTION_EVIDENCE",
+        "SCREENSHOT_OBSERVATION_NOT_SAME_AS_ASSESSMENT_EPOCH",
+        "STARTED_FIXTURE_PREMATCH_ACTION_NOT_RECREATED"
+      ],
+      "model": {
+        "book_min_odds": null,
+        "book_order_is_exposure": false,
+        "book_target_line": null,
+        "book_target_state": "NO_BOOK_TARGET",
+        "bridge_used": false,
+        "calibration_record": {
+          "automatic_threshold_learning": false,
+          "certified_burden": 3.5,
+          "compiled_board_state": "FOCUS",
+          "control_review": false,
+          "credible_tail_state": "FUNDED",
+          "current_rank": null,
+          "decision": "REVIEW_ONLY",
+          "direct_act_ceiling": 3.5,
+          "entry_feasibility_basis": "the visible market contains no line/price clearing direct or conditional football authority",
+          "entry_feasibility_state": "UNSUPPORTED_MARKET",
+          "evidence_epoch": "DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+          "exception_flag": false,
+          "follow_lane": null,
+          "g3_endpoint_pressure": "MODERATE",
+          "goal3_funded": true,
+          "goal3_mechanism_class": "TWO_ROUTE",
+          "goal4_funded": true,
+          "goal5_funded": false,
+          "goal6_funded": false,
+          "goal_screen_state": null,
+          "intermediate_burden_profile": {
+            "authorized_lines": [],
+            "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+            "eligible": false,
+            "max_direct_line": null
+          },
+          "match_id": "UYL-20261104-DORTMUND-BETIS",
+          "pass_had_lower_supported_visible_line": false,
+          "rank": null,
+          "rank_scope": null,
+          "researcher_declared_board_state": "FOCUS",
+          "robustness": "ROBUST",
+          "schema_version": "football-c-calibration-v1",
+          "screenshot_visible_ladder": [
+            {
+              "line": 3.5,
+              "odds": 1.94
+            }
+          ],
+          "selected_evaluated_line": 3.5,
+          "selected_evaluated_odds": 1.94,
+          "selection_authority": "ZERO",
+          "slate_rank": null,
+          "slate_rank_status": null,
+          "sweep_state": null,
+          "upper_tail_pressure": "MODERATE"
+        },
+        "certificate_completeness_recheck_required": false,
+        "conditional_action": "LIVE_PRICE_BURDEN_COMPARISON_ONLY",
+        "current_price_clears_book_target": false,
+        "custom_line_review": {
+          "bet_authorized": false,
+          "candidate_line": 2.5,
+          "candidate_odds": null,
+          "execution_authorized": false,
+          "minimum_odds": null,
+          "reason": "Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.",
+          "requires_user_confirmed_quote": true,
+          "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+          "status": "STARTED_MATCH_CUSTOM_LINE_NOT_PREMATCH_EXECUTABLE",
+          "user_bookmaker_custom_line_supported": false
+        },
+        "entry_feasibility_basis": "the visible market contains no line/price clearing direct or conditional football authority",
+        "entry_feasibility_state": "UNSUPPORTED_MARKET",
+        "execution_authorized": false,
+        "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+        "goal3_mechanism_class": null,
+        "intermediate_burden_profile": null,
+        "market_disagreement_gap_goals": null,
+        "market_disagreement_recheck_basis": null,
+        "market_disagreement_recheck_completed": true,
+        "market_disagreement_recheck_evidence_refs": [],
+        "market_disagreement_recheck_fields": [],
+        "market_disagreement_recheck_missing_fields": [],
+        "market_disagreement_recheck_required": false,
+        "pass_had_lower_supported_visible_line": false,
+        "prior_certificate_reclassification_recheck_required": false,
+        "reason": "started fixture; prematch ACT/BOOK/PASS not re-created",
+        "selected_visible_line": 3.5,
+        "selected_visible_odds": 1.94,
+        "snapshot_line_relation": "AT_SUPPORTED_BURDEN",
+        "supported_line": 3.5,
+        "supported_visible_line_found": false,
+        "visible_ladder_evaluations": [
+          {
+            "action": "LIVE_PRICE_BURDEN_COMPARISON_ONLY",
+            "direct_act_ceiling": null,
+            "intermediate_burden_profile": null,
+            "line": 3.5,
+            "line_relation": "AT_SUPPORTED_BURDEN",
+            "odds": 1.94,
+            "reason": "started fixture; prematch ACT/BOOK/PASS not re-created"
+          }
+        ],
+        "visible_ladder_selection_basis": "NO_SUPPORTED_VISIBLE_LINE_LOWEST_VISIBLE_DIAGNOSTIC",
+        "wait_min_odds": null,
+        "wait_reachability_basis": null,
+        "wait_reachable": null,
+        "wait_target_line": null
+      },
+      "model_bets_created": false,
+      "ok": true,
+      "priced_publication_authorized": false,
+      "quote_research_required": false,
+      "status": "OBSERVED_QUOTE_EVALUATED"
+    },
+    "priced_publication_authorized": false,
+    "publication_blocker": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
+    "quote_research_required": false,
+    "quotes_required": false,
+    "rank_state_display": "FOCUS",
+    "rank_state_internal": "FOCUS",
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "WIN_PREFERRED",
+      "away_route": "STRONG",
+      "bet_authorized": false,
+      "board_state": 2,
+      "board_state_mismatch": false,
+      "burden_completion_quality": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "STRONG",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": false,
+        "certificate_robustness": "ROBUST",
+        "distributed_branch_quality_met": true,
+        "explanation_only": true,
+        "failed_conditions": [
+          "CARRIER_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": true,
+        "tournament_tail_bias": "MIXED"
+      },
+      "certified_supported_burden": 3.5,
+      "chance_quality": "HIGH",
+      "completion_mode": "TWO_SIDED",
+      "continuation_quality": "HIGH",
+      "credible_burden_band_high": 3.5,
+      "credible_burden_band_low": 3.5,
+      "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+      "credible_tail_basis": "G4_FUNDED; G5 not near-funded under the market-independent diagnostic gate",
+      "credible_tail_execution_authority": false,
+      "credible_tail_market_independent": true,
+      "credible_tail_state": "FUNDED",
+      "credible_tail_target_goal": 5,
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_board_state": "FOCUS",
+      "declared_board_state_basis": "Two STRONG routes, HIGH current chance quality and independently transferable upper-tail evidence fund G3 and G4.",
+      "declared_board_state_source": "board_state",
+      "declared_supported_line": 3.5,
+      "declared_supported_line_basis": "Repeated same-competition five-goal outcomes on both sides, two current STRONG routes, HIGH completion and continuation and independently transferable upper-tail evidence support G4; the compiler remains authoritative.",
+      "direct_act_ceiling": 3.5,
+      "effective_burden_stall_risk": "MEDIUM",
+      "effective_continuation_quality": "HIGH",
+      "effective_upper_tail_transferability": "HIGH",
+      "endpoint_control_pressure": "MODERATE",
+      "execution_strength": "ROBUST",
+      "failure_mechanisms": {
+        "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP": {
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "Both teams have repeated five-goal Youth League results and high domestic scoring ceilings, but Dortmund have recent 0-0/2-0 results and Betis drew 0-0 at Lille. The main failure is a mutually cautious phase where two capable attacks do not convert enough despite strong upper-tail evidence.",
+          "evidence_refs": [
+            "https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html",
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+            "https://www.uefa.com/uefayouthleague/news/02a6-20d583385573-6fea9f5cb754-1000--2026-27-uefa-youth-league-calendar-format/"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT"
+        }
+      },
+      "failure_resistance": "HIGH",
+      "fatigue_context": "NONE",
+      "fixture_status": "STARTED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 3.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G4 highest funded; max fully-funded Asian Over=3.50; G3 mechanisms=TWO_ROUTE_G3,DISTRIBUTED_G3; upper_tail_transferability=HIGH; comparable_context=SUPPORTIVE",
+      "frozen_supported_line_funding": true,
+      "g3_current_structure_basis": "Dortmund scored 2, 5 and 2 in their first three Youth League matches; Betis scored 0, 5 and 1, with domestic U19 form adding repeated 4+ outputs. Both current attacking structures therefore remain independently credible.",
+      "g3_current_structure_source_refs": [
+        "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+        "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+        "https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html"
+      ],
+      "g3_current_structure_verified": true,
+      "g3_endpoint_control_pressure": "MODERATE",
+      "g4_carrier_path": "MIXED",
+      "g4_continuation_after_g3": "HIGH",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_distributed_path": "SUPPORTED",
+      "g4_evidence_disposition": "FUNDED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_diagnostic": "MIXED",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "One-sided four-goal carrying is possible but not the primary funded path because both teams also have low-endpoint examples.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil"
+          ],
+          "mechanism_ids": [
+            "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "A 2+2 or 3+1 continuation is directly supported by repeated same-competition five-goal matches for both teams and current domestic high-total form.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+            "https://en.realbetisbalompie.es/partidos"
+          ],
+          "mechanism_ids": []
+        },
+        "g4_reply_path": {
+          "basis": "Both teams have shown current reply capacity: Dortmund scored twice in a 2-3 loss to Villarreal, while Betis scored in a 1-4 loss to Feyenoord and repeatedly score multiple goals domestically.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "g4_reply_path": "SUPPORTED",
+      "g4_research_basis": "G4 is funded through the distributed/two-sided tail: both teams have current STRONG routes, HIGH route/chance/completion quality, four same-competition five-goal results across six league-phase matches, and further domestic upper-tail corroboration.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_status_normalized_from_mixed": false,
+      "goal3_carrier_funded": false,
+      "goal3_distributed_funded": true,
+      "goal3_funded": true,
+      "goal3_leakage_funded": false,
+      "goal3_mechanism_class": "TWO_ROUTE",
+      "goal3_two_route_funded": true,
+      "goal4_funded": true,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "Dortmund's recent 0-0 Schalke and Betis's 0-0 Lille show a real but not dominant stall route; stall risk is MEDIUM.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil"
+          ],
+          "mechanism_ids": [
+            "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Four of the six combined Youth League matches reached five total goals and both domestic attacks remain active; continuation is HIGH despite isolated low endpoints.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil"
+          ],
+          "mechanism_ids": [
+            "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Two independent STRONG attacks plus repeated five-goal same-competition outcomes make the goal path resilient to one side underperforming; failure resistance is HIGH.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+            "https://en.realbetisbalompie.es/partidos"
+          ],
+          "mechanism_ids": [
+            "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "The fourth-goal path is independently supported by same-competition high-total matches for both teams, not merely domestic mismatch scores.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+            "https://www.uefa.com/uefayouthleague/clubs/2613251--real-betis/matches/"
+          ],
+          "mechanism_ids": []
+        },
+        "route_reliability": {
+          "basis": "Both teams repeatedly score across UEFA and domestic U19 competition; route reliability is HIGH.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil"
+          ],
+          "mechanism_ids": [
+            "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP"
+          ]
+        }
+      },
+      "home_incentive": "WIN_PREFERRED",
+      "home_route": "STRONG",
+      "incentive_effect": "MIXED",
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_context_basis": "Both sides played domestic matches on 31 October/1 November and enter on broadly similar recovery; no verified fatigue asymmetry is strong enough to modify the football grades.",
+      "match_context_effect": "NEUTRAL",
+      "match_context_positive_pressure": false,
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "match_context_suppressive_pressure": false,
+      "match_id": "UYL-20261104-DORTMUND-BETIS",
+      "match_minute": 2.1,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": true,
+        "reason": "UEFA_YOUTH_LEAGUE_SOURCE_GOAL_FORMAT_REQUIRED",
+        "status": "IN_SCOPE"
+      },
+      "prospective_tail_ceiling": 3.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "rank_state_display": "FOCUS",
+      "rank_state_internal": "FOCUS",
+      "rest_load_context": "BALANCED",
+      "rivalry_context": "NEUTRAL",
+      "route_reliability": "HIGH",
+      "schema_version": "football-engine-v1",
+      "score": "0-0",
+      "shared_failure_mechanisms": {
+        "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "failure_resistance",
+          "route_reliability"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "YES",
+      "tournament_incentive_effect": "MIXED",
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_positive_pressure": false,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "MIXED",
+      "travel_load_context": "AWAY_CONTINENTAL",
+      "upper_tail_comparable_context_basis": "Same-competition evidence is directly comparable and shows four five-goal outcomes across the teams' six league-phase matches, while domestic evidence confirms current attacking capacity.",
+      "upper_tail_comparable_context_signal": "SUPPORTIVE",
+      "upper_tail_control_pressure": "MODERATE",
+      "upper_tail_strength": "MEDIUM",
+      "upper_tail_transferability": "HIGH",
+      "upper_tail_transferability_basis": "The four high-total examples come from the same UEFA Youth League phase and are corroborated by current domestic scoring: Dortmund 6-2 Oberhausen and Betis 11-1 Utrera / 4-2 Mosquito.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_AND_OBSERVED_QUOTE"
+  },
+  "runtime_commit": "9841428906be426d01d3c39cd1aab94c69f2d6d0",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "xi_assessment_index": {
+    "assessment_at_utc": "2026-11-04T15:03:30+00:00",
+    "assessment_id": "XI-C-DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+    "authority_mode": "DIRECT",
+    "contract": "XI_APPEND_ONLY_EXECUTION_INDEX_V1",
+    "custom_line_review": {
+      "bet_authorized": false,
+      "candidate_line": 2.5,
+      "candidate_odds": null,
+      "execution_authorized": false,
+      "minimum_odds": null,
+      "reason": "Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.",
+      "requires_user_confirmed_quote": true,
+      "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+      "status": "STARTED_MATCH_CUSTOM_LINE_NOT_PREMATCH_EXECUTABLE",
+      "user_bookmaker_custom_line_supported": false
+    },
+    "decision": "LIVE_PRICE_BURDEN_COMPARISON_ONLY",
+    "decision_state_persistence_required": true,
+    "decision_state_readback_verified": false,
+    "evaluated_line": 3.5,
+    "evaluated_odds": 1.94,
+    "evidence_epoch_id": "DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+    "fixture_status": "STARTED",
+    "match_id": "UYL-20261104-DORTMUND-BETIS",
+    "match_minute": 2.1,
+    "real_bet_fill_verified": false,
+    "request_id": "XI-DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+    "score": "0-0",
+    "screenshot_capture_reference": "USER_ODDS_SCREENSHOT:file_000000006fe482119a3f6be55d76e4e3",
+    "screenshot_observed_at_utc": "2026-11-04T15:03:00+00:00",
+    "source": "GITHUB_XI_RUNTIME_RESULT_NOT_ACTUAL_GOOGLE_SHEETS_READBACK",
+    "visible_user_quote_ladder": [
+      {
+        "line": 3.5,
+        "odds": 1.94
+      }
+    ]
+  }
+}
