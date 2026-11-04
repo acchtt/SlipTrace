@@ -80,93 +80,84 @@ Optional:
 
 ## Routine authority
 
-For every normal /xi, rank authority is the **first mandatory operation**.
+For normal /xi, resolve authority in this order:
 
-### Mandatory rank-discovery preflight
+1. **BLOCK** — preferred primary authority after the 2026-11-04 block-first repair;
+2. **RANKED** — legacy/secondary authority when no valid current block receipt exists;
+3. **EXCEPTION** — only when the user explicitly requested `/xi exception`.
 
-Before choosing `authority.mode`, resolve whether the fixture is already ranked.
-This lookup is part of /xi; it is not optional conversational context.
+### BLOCK authority — primary
 
-1. Resolve the exact fixture identity / match ID from the user's evidence.
-2. Read the active store route in
-   `../google_sheets/ACTIVE_STORE_ROUTING.json`, then query the exact fixture in
-   **Daily Coverage Ledger**. This ledger lookup is discovery/readback only; it
-   does not replace the sealed V4 rank package as execution authority.
-3. If the ledger has a current ranked FOCUS row, capture its Run ID, Match ID,
-   rank, supported line and rank-integrity hash, then locate the matching
-   portable verified rank artifact in the current conversation, Project files,
-   or Library. Do not stop at the GitHub checkout: a newest verified rank
-   artifact may be persisted outside `main`.
-4. Load the exact package and require
-   `V4_RANK_PERSISTENCE_VERIFIED` or
-   `V4_RANK_PARTIAL_PERSISTENCE_VERIFIED`, the exact FOCUS board row, and the
-   matching frozen model-input row.
-   - A large/minified Library artifact may exceed the text transport even when
-     it exists and is valid. If a read fails with a transport error such as
-     `Transport closed`, do not immediately classify it as missing.
-   - Materialize the exact raw artifact bytes and run
-     `models/football/engine/rank_package_transport.py` to build a compact
-     authority capsule. This capsule must be derived from the sealed artifact
-     itself and preserve its verified persistence status, rank-integrity hash,
-     policy lock/fingerprint, exact ranked board row(s), and matching frozen
-     model-input row(s). The Daily Coverage Ledger is never an input to capsule
-     construction.
-5. If the active ledger proves the fixture is ranked but both normal package
-   loading and raw-file materialization/capsule extraction fail, return
-   `RANK_RECEIPT_REQUIRED`. **Never convert that fixture to EXCEPTION.**
-6. `authority.mode = EXCEPTION` is permitted only when the user's command
-   explicitly requests `/xi exception`; the runtime authority must carry
-   `user_requested_exception = true`. Normal `/xi` must never infer or
-   manufacture exception authority.
+If the requested fixture was assessed through the current block workflow, do
+not require /rank and do not convert it to /xi exception.
 
-After that preflight:
+Locate the exact persisted pair:
 
-1. resolve the newest verified V4 rank package that contains the requested
-   fixture;
-2. require `V4_RANK_PERSISTENCE_VERIFIED` or
-   `V4_RANK_PARTIAL_PERSISTENCE_VERIFIED`;
-3. require the exact **FOCUS** board row and matching frozen model input;
-4. pass that package through the shared `engine/xi_authority.py` contract;
-5. inherit the frozen board state/certificate/evidence before current XI or
-   material football updates are applied.
+- `models/football/engine/block_runtime_requests/<request-id>.json`;
+- `models/football/engine/block_runtime_results/<request-id>.json`.
 
-Do not ask the user to resubmit a rank receipt that is already available to the
-conversation/runtime. Do not silently build a new Football C assessment when the
-rank package cannot be resolved. Fail closed with `RANK_RECEIPT_REQUIRED`.
+Build `authority.mode = BLOCK` with:
 
-The direct `xi_portable.py` path and the GitHub backend use the same authority
-contract. A free-standing `c_football.json` is not a valid normal /xi input.
+- the exact match ID;
+- `verified_block_package.request` = the persisted block request;
+- `verified_block_package.result` = the matching BLOCK_PRIORITY_V1 result;
+- `material_evidence_updates` listing only genuinely changed current football
+  fields since the frozen block assessment.
 
-For a new sealed slate, that authority also verifies the rank receipt's
-`engine_policy_fingerprint`. If the active Football C policy files changed
-after rank sealed the slate, routine /xi fails closed with
-`RANK_ENGINE_POLICY_DRIFT`; do not execute one slate under multiple Football C
-policy revisions.
+The shared authority contract verifies:
 
-For assessment epochs after the slate-lock activation boundary, a legacy rank
-receipt with no `SLATE_PINNED_V1` fingerprint is also invalid for routine /xi.
-Return `RANK_POLICY_LOCK_REQUIRED` and rerank/reseal first. This does not
-invalidate historical pre-activation audit/replay.
+- `football-block-runtime-v1` on both sides;
+- Football C + `BLOCK_PRIORITY_V1`;
+- exact request/result SHA-256 integrity;
+- the exact frozen candidate hash;
+- its persisted block-priority rank/order;
+- its block evidence epoch;
+- prospective/outcome-free block execution; and
+- current `ASSESSMENT_DEPTH_V2`.
 
-Only an explicitly requested `/xi exception` may use
-`authority.mode = EXCEPTION` without a ranked FOCUS row. The exception reference
-must be non-empty, `user_requested_exception` must be `true`, and the result
-remains visibly tagged `EXCEPTION`. A normal /xi ranked-ledger hit can never be
-downgraded or rerouted to EXCEPTION because a package lookup was skipped or failed.
+The frozen block-selection fields
+`activation_quality / activation_basis / activation_evidence_refs` are
+authority-owned and cannot be silently rewritten during /xi. If current
+football news materially changes ordinary Football C fields, declare those
+fields in `material_evidence_updates`; the current Football C compiler then
+reruns the certificate from the inherited block evidence plus those verified
+updates.
 
-A ranked legacy `C-FOCUS` row with lane `FOCUS_UNFOLLOWED` is
-`qualification_state=QUALIFIED`, not priority FOCUS. It is outside automatic
-FOLLOW workload capacity, not a football rejection. A direct user /xi request
-for that exact ranked row uses the sealed rank evidence normally and must not be
-forced through `/xi exception`.
+BLOCK authority does not require a FOCUS row, FOLLOW lane, Slate Rank, Current
+Rank or rank policy fingerprint. A candidate's block-priority rank is selection
+metadata, not price authority.
 
-For that exact direct request, the authority package must set
-`ranked_direct_request=true`. The shared authority contract then inherits the
-sealed `FOCUS_UNFOLLOWED` lane and sets
-`step2_authorization=RANKED_DIRECT_REQUEST`. This authority is valid only for
-that exact ranked QUALIFIED row; it does not add the fixture to automatic FOLLOW
-workload and does not bypass XI, certificate, screenshot, price or publication
-guards.
+### RANKED authority — secondary compatibility path
+
+If no valid current persisted BLOCK_PRIORITY_V1 package exists, the existing
+ranked path remains available for historically ranked/current secondary-board
+fixtures.
+
+Resolve the newest verified V4 rank package containing the fixture and require:
+
+- `V4_RANK_PERSISTENCE_VERIFIED` or
+  `V4_RANK_PARTIAL_PERSISTENCE_VERIFIED`;
+- the exact FOCUS board row;
+- the matching frozen model-input row; and
+- the active rank policy fingerprint/lock.
+
+If the active ledger proves a fixture is ranked but the sealed package cannot
+be loaded, return `RANK_RECEIPT_REQUIRED`. Do not convert that ranked fixture
+to EXCEPTION.
+
+A ranked legacy `FOCUS_UNFOLLOWED` row remains valid only for an exact direct
+user /xi request with `ranked_direct_request=true`, as before.
+
+### No-authority handling
+
+A free-standing `c_football` payload is never enough for normal /xi.
+
+If neither a valid block receipt nor a valid ranked receipt exists, return
+`XI_AUTHORITY_REQUIRED`. Do not tell the user that /rank is mandatory when
+the fixture already has a valid block receipt.
+
+The direct `xi_portable.py` path and the GitHub backend use this same
+BLOCK/RANKED/EXCEPTION authority contract.
 
 ### Explicit exception research contract
 
