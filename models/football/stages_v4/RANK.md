@@ -423,48 +423,31 @@ launder uncertainty into REVIEW_ONLY/PASS.
 
 ### Block discrimination — mandatory prospectively
 
-`BLOCK_DISCRIMINATION_V2` makes the former block-comparison instruction
-fail-closed. Grade-A/B FOCUS/REVIEW_ONLY candidates in a deterministic nearby
-kickoff block are researched to equal depth and each freezes:
+From the `BLOCK_DISCRIMINATION_V3` activation boundary, Grade-A/B
+FOCUS/REVIEW_ONLY candidates in a nearby kickoff block are researched to equal
+ASSESSMENT_DEPTH_V2 and each freezes source-backed activation quality, basis and
+references in addition to the existing G3/G4, carrier, reply, endpoint,
+continuation, incentive and supported-burden evidence.
 
-- exact candidate IDs and block rank;
-- G3 and G4 strength bases;
-- carrier/self-funding and reply-dependence bases;
-- 0-0/1-1/2-0 endpoint exposure;
-- continuation and tournament-incentive bases;
-- supported-burden basis;
-- a substantive beats-next basis; and
-- at least two football evidence references.
+The dedicated `BLOCK_PRIORITY_V1` runtime owns block order. It compares hard
+football viability/G3 accessibility first, then activation, opponent leakage,
+continuation, credible upper tail, endpoint resistance, chance quality,
+burden-completion quality, frozen goal signal, clearability and
+certificate quality. G3 mechanism class is a late tiebreaker only.
 
-The declared football order has **no override authority**. It must reconcile
-with the deterministic engine order. If the football comparison says a lower
-engine row is stronger, correct/research the underlying source-backed grades
-until the two agree or checkpoint the entire block as
-`BLOCK_COMPARISON_PENDING`. Do not simply rewrite the declared block rank to
-match the engine without resolving the factual disagreement.
+The declared block comparison must reconcile with BLOCK_PRIORITY_V1. It no
+longer has to reproduce the secondary global /rank order. Global rank remains
+visible as audit metadata and this repair does not change `ranking_key()`,
+Football C certificates, supported burden or price execution.
 
-This prevents the previous failure mode where several individually plausible
-cards were assessed in isolation and the final FOCUS order was accepted without
-ever proving why one candidate was superior to the others.
+If activation evidence or the block comparison is incomplete, checkpoint the
+entire block as `BLOCK_COMPARISON_PENDING`. Do not fabricate activation from
+bookmaker totals or eventual results.
 
 Execution-quality note: a distributed-only G3 with broad MEDIUM current
 football grades may retain its funded O2.50 execution floor when ordinary floor
-checks clear, but HIGH evidence confidence alone does not upgrade robustness or
-mechanism rank. A self-funded carrier still outranks this shape. Replay showed
-that banning the O2.50 floor for this whole class removed too many winning
-controls, so ranking demotion—not blanket execution veto—is the active repair.
+checks clear. That execution rule is unchanged by BLOCK_PRIORITY_V1.
 
-A high raw scoreline history alone is insufficient. Red-card/cup/opponent-level
-inflation must not be hidden inside otherwise-HIGH route grades. When C asserts
-an independent upper tail, it must freeze:
-
-- upper_tail_transferability = LOW / MEDIUM / HIGH;
-- upper_tail_transferability_basis = a prospective explanation of why the
-  goal-four-plus evidence does or does not transfer to this matchup.
-
-LOW blocks G4/G5/G6. MEDIUM may fund G4+ when the other deterministic
-requirements clear, but the certificate cannot be ROBUST. HIGH preserves the
-normal robustness path. The market and the eventual score cannot set this field.
 
 ### Comparable-context precedence
 
