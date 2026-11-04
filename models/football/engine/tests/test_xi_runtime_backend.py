@@ -20,6 +20,16 @@ from tests.test_xi_user_screenshot_only import (
 )
 
 
+def direct_authority(c, reference="test-user-direct-xi"):
+    authority = exception_authority(c, reference=reference)
+    authority["mode"] = "DIRECT"
+    authority["direct_reference"] = reference
+    authority["user_requested_direct_xi"] = True
+    authority.pop("exception_reference", None)
+    authority.pop("user_requested_exception", None)
+    return authority
+
+
 def block_ready_football():
     c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
     c["context"]["assessment_at_utc"] = "2026-11-04T10:00:00+00:00"
@@ -63,6 +73,35 @@ def block_ready_football():
 
 
 class XIRuntimeBackendTests(unittest.TestCase):
+    def test_direct_xi_executes_without_block_or_rank_receipt(self):
+        c, _ = block_ready_football()
+        result = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-test-direct-authority",
+            "c_football": c,
+            "authority": direct_authority(c),
+            "screenshot_quote": snapshot(c, captured=None),
+        })
+        self.assertTrue(result["ok"], result)
+        self.assertEqual(result["authority"]["mode"], "DIRECT")
+        self.assertTrue(result["authority"]["user_requested_direct_xi"])
+        self.assertEqual(result["authority"]["rank_state_display"], "DIRECT")
+
+    def test_direct_xi_requires_explicit_exact_user_request_flag(self):
+        c, _ = block_ready_football()
+        authority = direct_authority(c)
+        authority.pop("user_requested_direct_xi")
+        result = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-test-direct-missing-flag",
+            "c_football": c,
+            "authority": authority,
+            "screenshot_quote": snapshot(c, captured=None),
+        })
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["status"], "XI_AUTHORITY_REQUIRED")
+        self.assertEqual(result["failure_class"], "XI_AUTHORITY")
+
     def test_block_authority_executes_without_rank_receipt(self):
         c, authority = block_ready_football()
         result = xi_runtime_backend.execute({
