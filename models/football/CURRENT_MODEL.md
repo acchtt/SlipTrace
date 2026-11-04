@@ -154,6 +154,15 @@ chance quality, burden completion, frozen goal signal, clearability and
 certificate quality before using G3 mechanism class as a late tiebreaker.
 Global /rank and FOLLOW lanes remain secondary audit metadata.
 
+Normal chat must execute `engine/block_runtime.py` directly when callable. If
+local execution is unavailable, create exactly one
+`football-block-runtime-v1` request under
+`engine/block_runtime_requests/<request-id>.json`, consume the persisted
+`engine/block_runtime_results/<request-id>.json` in the same turn, and use
+that result as the block order. Never substitute conversational/manual ordering
+for BLOCK_PRIORITY_V1. If both direct and backend execution fail, return
+`BLOCK_RUNTIME_UNAVAILABLE` rather than inventing an order.
+
 This is an orchestration use of the already-existing exception contract, not a
 relaxation of certificate, price, XI, H2H, incentive, persistence or
 publication gates. Every candidate keeps a distinct evidence epoch and Decision
