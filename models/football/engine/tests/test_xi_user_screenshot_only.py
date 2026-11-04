@@ -354,8 +354,8 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
             )
             self.assertNotEqual(proc.returncode, 0)
             payload = json.loads(proc.stderr)
-            self.assertEqual(payload["status"], "RANK_RECEIPT_REQUIRED")
-            self.assertEqual(payload["failure_class"], "RANK_AUTHORITY")
+            self.assertEqual(payload["status"], "XI_AUTHORITY_REQUIRED")
+            self.assertEqual(payload["failure_class"], "XI_AUTHORITY")
 
     def test_exact_screenshot_quote_is_preserved(self):
         out = run_xi()
