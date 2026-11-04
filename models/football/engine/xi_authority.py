@@ -824,7 +824,7 @@ def authorize_c_football(
 
     if mode != "RANKED":
         raise RankAuthorityError(
-            "RANK_RECEIPT_REQUIRED: ranked or exception authority required"
+            "XI_AUTHORITY_REQUIRED: authority.mode must be BLOCK, RANKED or EXCEPTION"
         )
 
     assessment_depth_trace = _validate_assessment_depth(supplied)
