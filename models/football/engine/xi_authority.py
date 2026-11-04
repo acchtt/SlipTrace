@@ -589,6 +589,86 @@ def _rank_payload(package: dict[str, Any]) -> dict[str, Any]:
     raise RankAuthorityError("RANK_RECEIPT_REQUIRED: sealed rank board missing")
 
 
+def _canonical_sha256(value: Any) -> str:
+    return hashlib.sha256(
+        json.dumps(
+            value, sort_keys=True, ensure_ascii=True, separators=(",", ":")
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def _validated_block_package(
+    package: dict[str, Any],
+    *,
+    match_id: str,
+) -> tuple[dict[str, Any], dict[str, Any], str]:
+    request = package.get("request")
+    result = package.get("result")
+    if not isinstance(request, dict) or not isinstance(result, dict):
+        raise RankAuthorityError(
+            "BLOCK_RECEIPT_REQUIRED: verified block package must contain request and result"
+        )
+    if request.get("schema_version") != BLOCK_RUNTIME_SCHEMA:
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block request schema mismatch")
+    if str(request.get("model") or "").lower() != "c":
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block request must be Football C")
+    matches = request.get("matches")
+    if not isinstance(matches, list) or len(matches) < 2:
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: complete block request missing")
+    if (
+        result.get("schema_version") != BLOCK_RUNTIME_SCHEMA
+        or result.get("stage") != "block_result"
+        or str(result.get("model") or "").lower() != "c"
+        or result.get("policy") != BLOCK_PRIORITY_POLICY
+    ):
+        raise RankAuthorityError(
+            "BLOCK_RECEIPT_REQUIRED: persisted result is not BLOCK_PRIORITY_V1"
+        )
+    if result.get("outcome_fields_read") is not False:
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block result must remain prospective")
+    if result.get("priced_publication_authorized") is not False:
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block receipt cannot carry price authority")
+    if result.get("input_sha256") != _canonical_sha256(request):
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block request/result integrity mismatch")
+
+    frozen_row = next(
+        (row for row in matches
+         if isinstance(row, dict) and str(row.get("match_id")) == match_id),
+        None,
+    )
+    rows = result.get("matches")
+    result_row = next(
+        (row for row in rows
+         if isinstance(row, dict) and str(row.get("match_id")) == match_id),
+        None,
+    ) if isinstance(rows, list) else None
+    if not isinstance(frozen_row, dict) or not isinstance(result_row, dict):
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: exact block candidate missing")
+    if result_row.get("frozen_match_sha256") != _canonical_sha256(frozen_row):
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: frozen block candidate integrity mismatch")
+
+    order = result.get("block_order")
+    rank = result_row.get("block_priority_rank")
+    if (
+        not isinstance(order, list)
+        or not isinstance(rank, int)
+        or rank < 1
+        or rank > len(order)
+        or order[rank - 1] != match_id
+    ):
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block priority rank/order mismatch")
+
+    epochs = request.get("evidence_epochs")
+    epoch = epochs.get(match_id) if isinstance(epochs, dict) else None
+    if not isinstance(epoch, str) or not epoch.strip():
+        raise RankAuthorityError(
+            "BLOCK_RECEIPT_REQUIRED: persisted candidate missing assessment evidence epoch"
+        )
+    if result_row.get("evidence_epoch_id") != epoch:
+        raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: block evidence epoch mismatch")
+    return frozen_row, result_row, epoch.strip()
+
+
 def authorize_c_football(
     supplied: dict[str, Any],
     authority: dict[str, Any] | None,
