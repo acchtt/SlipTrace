@@ -62,6 +62,14 @@ The block selector orders:
 Global /rank and FOLLOW lanes are secondary audit metadata only. They must not
 override BLOCK_PRIORITY_V1.
 
+Execute `engine/block_runtime.py` directly when possible. If local execution is
+unavailable, write exactly one `football-block-runtime-v1` request to
+`engine/block_runtime_requests/<request-id>.json`, wait for the
+`Football C deterministic block runtime` workflow, read the persisted
+`engine/block_runtime_results/<request-id>.json`, and continue in the same
+turn. Do not use conversational judgment as a fallback block order. If both
+paths fail, report `BLOCK_RUNTIME_UNAVAILABLE`.
+
 Return the complete block in deterministic block order, not just the top pick.
 
 ## 4. Runtime authority
