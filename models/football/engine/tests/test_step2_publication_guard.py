@@ -64,6 +64,12 @@ class PublicationGuardTests(unittest.TestCase):
         with self.assertRaisesRegex(PublicationBlocked, "decision receipt"):
             check_publication(row)
 
+    def test_football_only_block_receipt_cannot_publish_priced_verdict(self):
+        row = sample()
+        row["decision_receipt"]["engine_execution_status"] = "EXECUTED_C_FOOTBALL_ONLY"
+        with self.assertRaisesRegex(PublicationBlocked, "decision receipt"):
+            check_publication(row)
+
     def test_forged_action_blocked(self):
         row = sample()
         original = row["decision_state_snapshot"]["c_action"]
