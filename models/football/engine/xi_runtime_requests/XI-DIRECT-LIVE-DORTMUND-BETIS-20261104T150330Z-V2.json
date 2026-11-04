@@ -1,0 +1,326 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+    "match": {
+      "match_id": "UYL-20261104-DORTMUND-BETIS",
+      "home": "Borussia Dortmund U19",
+      "away": "Real Betis U19",
+      "country": "Germany",
+      "competition": "UEFA Youth League",
+      "competition_kind": "YOUTH_CONTINENTAL",
+      "kickoff_ict": "2026-11-04T22:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "UEFA Youth League is approved conditional production scope with verified current format and source-backed team evidence.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "MEDIUM",
+      "operational_viability_reason": "Current Youth League and domestic results, qualification context and the user's live total quote are available; confirmed XI detail is not independently accessible in the sources used.",
+      "source_urls": [
+        "https://www.uefa.com/uefayouthleague/news/02a6-20d583385573-6fea9f5cb754-1000--2026-27-uefa-youth-league-calendar-format/",
+        "https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html",
+        "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+        "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+        "https://en.realbetisbalompie.es/partidos",
+        "https://www.uefa.com/uefayouthleague/clubs/2613251--real-betis/matches/",
+        "https://m.aiscore.com/tournament-uefa-youth-league/w34kgminxh1ko92/standings"
+      ],
+      "common_evidence_basis": "Same-competition Youth League results are primary, with domestic U19 results used only as current attacking corroboration; bookmaker totals are excluded from football grading.",
+      "home_route": "STRONG",
+      "away_route": "STRONG",
+      "carrier": "STRONG",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "HIGH",
+      "chance_quality": "HIGH",
+      "failure_resistance": "HIGH",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "HIGH",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "HIGH",
+      "continuation_quality": "HIGH",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Both teams have shown they can produce clean-sheet or low-endpoint Youth League games, so a 1-0/1-1/2-0 control phase remains the principal failure despite strong two-sided scoring and upper-tail evidence.",
+      "h2h_state": "UNAVAILABLE",
+      "h2h_effect": "UNAVAILABLE",
+      "h2h_transferability": "UNAVAILABLE",
+      "h2h_current_corroboration": "NOT_APPLICABLE",
+      "h2h_material_effect": false,
+      "h2h_basis": "No direct recent meeting is available; current Youth League and domestic youth evidence is more relevant.",
+      "supported_line": 3.5,
+      "supported_line_basis": "Repeated same-competition five-goal outcomes on both sides, two current STRONG routes, HIGH completion and continuation and independently transferable upper-tail evidence support G4; the compiler remains authoritative.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Either side has shown a high ceiling, but neither is required to score four alone; the thesis is primarily distributed/two-sided.",
+      "independent_upper_tail": true,
+      "independent_upper_tail_basis": "Dortmund's 2-3 Villarreal and 5-0 Bodø/Glimt plus Betis's 5-0 Porto and 1-4 Feyenoord provide independent same-competition evidence that scoring can continue through the fourth goal.",
+      "upper_tail_transferability": "HIGH",
+      "upper_tail_transferability_basis": "The four high-total examples come from the same UEFA Youth League phase and are corroborated by current domestic scoring: Dortmund 6-2 Oberhausen and Betis 11-1 Utrera / 4-2 Mosquito.",
+      "upper_tail_comparable_context_signal": "SUPPORTIVE",
+      "upper_tail_comparable_context_basis": "Same-competition evidence is directly comparable and shows four five-goal outcomes across the teams' six league-phase matches, while domestic evidence confirms current attacking capacity.",
+      "upper_tail_competition_provenance_verified": true,
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Low-endpoint examples are real but do not erase either current scoring route; both teams have repeatedly scored heavily in comparable matches.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified all-route suppression exists at 0-0 after two minutes.",
+      "goal_signal_priority_score": 72,
+      "goal_signal_mean_over_two_rate": 0.8,
+      "goal_signal_mean_over_three_rate": 0.7,
+      "goal_signal_low_draw_trap_rate": 0.1,
+      "g3_current_structure_verified": true,
+      "g3_current_structure_basis": "Dortmund scored 2, 5 and 2 in their first three Youth League matches; Betis scored 0, 5 and 1, with domestic U19 form adding repeated 4+ outputs. Both current attacking structures therefore remain independently credible.",
+      "g3_current_structure_source_refs": [
+        "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+        "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+        "https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html"
+      ],
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "LEAGUE_PHASE_MATCHDAY_4",
+      "competition_format": "The 36 Champions League-path youth teams play six league-phase matches; the top 22 qualify for the round of 32, with ranking also affecting knockout pairing.",
+      "draw_resolution": "League-phase draw stands after 90 minutes.",
+      "aggregate_state": "SINGLE_LEAGUE_PHASE_MATCH_NO_AGGREGATE",
+      "qualification_state": "Dortmund entered on six points and around 11th place; Betis entered on four points around 19th, close to the top-22 qualification boundary. Both have material reason to pursue points, while a draw still has some league-table utility.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "Matchday 4 of six is not a final simultaneous qualification round.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "YES",
+      "incentive_effect": "MIXED",
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BALANCED",
+      "travel_load_context": "AWAY_CONTINENTAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "NEUTRAL",
+      "match_context_basis": "Both sides played domestic matches on 31 October/1 November and enter on broadly similar recovery; no verified fatigue asymmetry is strong enough to modify the football grades.",
+      "match_context_evidence_refs": [
+        "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+        "https://en.realbetisbalompie.es/partidos"
+      ],
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "SUPPORTED",
+      "g4_reply_path": "SUPPORTED",
+      "g4_continuation_after_g3": "HIGH",
+      "g4_research_basis": "G4 is funded through the distributed/two-sided tail: both teams have current STRONG routes, HIGH route/chance/completion quality, four same-competition five-goal results across six league-phase matches, and further domestic upper-tail corroboration.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "One-sided four-goal carrying is possible but not the primary funded path because both teams also have low-endpoint examples.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil"
+          ],
+          "mechanism_ids": [
+            "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "A 2+2 or 3+1 continuation is directly supported by repeated same-competition five-goal matches for both teams and current domestic high-total form.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+            "https://en.realbetisbalompie.es/partidos"
+          ],
+          "mechanism_ids": []
+        },
+        "g4_reply_path": {
+          "basis": "Both teams have shown current reply capacity: Dortmund scored twice in a 2-3 loss to Villarreal, while Betis scored in a 1-4 loss to Feyenoord and repeatedly score multiple goals domestically.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "failure_mechanisms": {
+        "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP": {
+          "basis": "Both teams have repeated five-goal Youth League results and high domestic scoring ceilings, but Dortmund have recent 0-0/2-0 results and Betis drew 0-0 at Lille. The main failure is a mutually cautious phase where two capable attacks do not convert enough despite strong upper-tail evidence.",
+          "evidence_refs": [
+            "https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html",
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+            "https://www.uefa.com/uefayouthleague/news/02a6-20d583385573-6fea9f5cb754-1000--2026-27-uefa-youth-league-calendar-format/"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Both teams repeatedly score across UEFA and domestic U19 competition; route reliability is HIGH.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil"
+          ],
+          "mechanism_ids": [
+            "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Four of the six combined Youth League matches reached five total goals and both domestic attacks remain active; continuation is HIGH despite isolated low endpoints.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil"
+          ],
+          "mechanism_ids": [
+            "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Dortmund's recent 0-0 Schalke and Betis's 0-0 Lille show a real but not dominant stall route; stall risk is MEDIUM.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil"
+          ],
+          "mechanism_ids": [
+            "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Two independent STRONG attacks plus repeated five-goal same-competition outcomes make the goal path resilient to one side underperforming; failure resistance is HIGH.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+            "https://en.realbetisbalompie.es/partidos"
+          ],
+          "mechanism_ids": [
+            "MUTUAL_YOUTH_VOLATILITY_WITH_CLEAN_SHEET_TRAP"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "The fourth-goal path is independently supported by same-competition high-total matches for both teams, not merely domestic mismatch scores.",
+          "evidence_refs": [
+            "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+            "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+            "https://www.uefa.com/uefayouthleague/clubs/2613251--real-betis/matches/"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "activation_quality": "HIGH",
+      "activation_basis": "Dortmund have multiple recent games with early or sustained multi-goal production, while Betis scored three times by the 34th minute at Mosquito and produced first-half-heavy 5-0 and 11-1 wins; both sides can become goal-active quickly.",
+      "activation_evidence_refs": [
+        "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+        "https://www.besoccer.com/team/matches/real-betis-b-juvenil"
+      ],
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Two STRONG routes, HIGH current chance quality and independently transferable upper-tail evidence fund G3 and G4.",
+      "upper_tail_competition_provenance_basis": "The upper-tail evidence is drawn directly from the 2026/27 UEFA Youth League league phase for both Dortmund and Real Betis, with domestic U19 results used only as current-form corroboration."
+    },
+    "context": {
+      "assessment_at_utc": "2026-11-04T15:03:30+00:00",
+      "fixture_status": "STARTED",
+      "score": "0-0",
+      "match_minute": 2.1,
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Direct current-state /xi has no frozen block or rank certificate; the current compiler owns the football certificate.",
+      "certificate_upgrade_new_evidence_fields": []
+    },
+    "assessment_depth": {
+      "contract": "ASSESSMENT_DEPTH_V2",
+      "completed": true,
+      "market_independent": true,
+      "evidence_epoch_id": "DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+      "assessed_at_utc": "2026-11-04T15:03:30+00:00",
+      "evidence_refs": [
+        "https://www.uefa.com/uefayouthleague/news/02a6-20d583385573-6fea9f5cb754-1000--2026-27-uefa-youth-league-calendar-format/",
+        "https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html",
+        "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+        "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+        "https://en.realbetisbalompie.es/partidos",
+        "https://www.uefa.com/uefayouthleague/clubs/2613251--real-betis/matches/",
+        "https://m.aiscore.com/tournament-uefa-youth-league/w34kgminxh1ko92/standings"
+      ],
+      "checks": {
+        "primary_scoring_route": "Dortmund's current Youth League route is STRONG after 2-3, 5-0 and 2-0, backed by 6-2 and 2-1 domestic wins.",
+        "secondary_reply_route": "Betis's route is also STRONG: 5-0 Porto, 1-4 Feyenoord plus 11-1 Utrera and 4-2 Mosquito show persistent current creation.",
+        "carrier_capacity": "Both sides have carrier potential, but the assessment does not require one team to fund the whole total; the strongest mechanism is distributed/two-sided.",
+        "current_chance_creation": "Both teams have repeated current multi-goal outputs, with Betis particularly strong in recent domestic first-half scoring and Dortmund scoring nine goals through three Youth League matches.",
+        "goal3_mechanism": "G3 is independently funded by two STRONG current routes with HIGH reliability/chance/completion and strong recent goal-rate corroboration.",
+        "goal4_mechanism": "G4 is separately funded by same-competition upper-tail evidence: four combined Youth League matches have reached five goals, with current domestic corroboration.",
+        "stall_0_0": "A 0-0 stall is possible—Dortmund drew Schalke 0-0 and Betis drew Lille 0-0—but it is outweighed by repeated current high-total matches.",
+        "stall_1_1": "At 1-1 both sides retain qualification incentive and strong attacking routes, so continued scoring remains well supported.",
+        "continuation_2_0": "Both sides have shown ability to continue beyond two, including 5-0 wins and repeated domestic four-plus outputs.",
+        "opponent_leakage": "Leakage is MEDIUM rather than HIGH because both sides also own clean sheets; the Over case is driven more by chance quality and two-sided continuation.",
+        "named_failure_mechanism": "The principal failure is an unusually controlled mutual-caution game resembling Betis-Lille or Dortmund-Schalke, not a broken attacking route.",
+        "availability_replacements": "Confirmed starting XIs were not independently available from the accessible sources; no player-level upgrade is assumed and XI robustness is capped at MEDIUM.",
+        "h2h_transferability": "No H2H is used; current Youth League and domestic U19 evidence is directly relevant.",
+        "tournament_incentive": "UEFA format is verified: top 22 after six matches qualify. Dortmund entered on six points and Betis on four near the cut line; both prefer a win, though a draw retains utility, so the net effect is MIXED.",
+        "match_context": "Both teams have similar rest and no verified fatigue asymmetry large enough to change the scoring grades.",
+        "supported_burden_basis": "O3.50 is tied to an independently funded fourth-goal path, not to the bookmaker's visible O3.5 line."
+      }
+    }
+  },
+  "authority": {
+    "mode": "DIRECT",
+    "direct_reference": "DIRECT-LIVE-DORTMUND-BETIS-20261104",
+    "user_requested_direct_xi": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z-V2",
+      "researched_at_utc": "2026-11-04T15:03:30+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "DIRECT-LIVE-DORTMUND-BETIS-20261104",
+      "evidence_refs": [
+        "https://www.uefa.com/uefayouthleague/news/02a6-20d583385573-6fea9f5cb754-1000--2026-27-uefa-youth-league-calendar-format/",
+        "https://www.bvb.de/de/en/news/news-overview/news.html/2026/11/3/BVB-Faces-Crucial-Test-in-the-Youth-League.html",
+        "https://globalsportsarchive.com/en/soccer/team/bv-borussia-09-dortmund-u19/22435/matches",
+        "https://www.besoccer.com/team/matches/real-betis-b-juvenil",
+        "https://en.realbetisbalompie.es/partidos",
+        "https://www.uefa.com/uefayouthleague/clubs/2613251--real-betis/matches/",
+        "https://m.aiscore.com/tournament-uefa-youth-league/w34kgminxh1ko92/standings"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "USER_ODDS_SCREENSHOT:file_000000006fe482119a3f6be55d76e4e3",
+    "match_id": "UYL-20261104-DORTMUND-BETIS",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3.5,
+      "odds": 1.94
+    },
+    "observed_at_utc": "2026-11-04T15:03:00+00:00",
+    "fixture_status": "STARTED",
+    "score": "0-0",
+    "match_minute": 2.1
+  }
+}
