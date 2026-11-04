@@ -1,0 +1,11 @@
+{
+  "error": "invalid material_event_since_frozen='CONFIRMED_XI_UPDATE'; allowed: GOAL, NONE_VERIFIED, OTHER_MATERIAL, RED_CARD, UNKNOWN",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "e231cac83bdb029e59e76f2aa7852a23252ba064e5c6af124bfe01ad479c2bea",
+  "ok": false,
+  "request_id": "XI-BLOCK-ALRAYYAN-ALNAHDA-20261104T152930Z",
+  "runtime_commit": "9f81c6f54486d96c3e48a10c90ed31364e08a9b3",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
