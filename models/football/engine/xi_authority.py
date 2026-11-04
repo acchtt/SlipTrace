@@ -10,6 +10,7 @@ requested `/xi exception`; EXCEPTION is never an automatic fallback.
 from __future__ import annotations
 
 import hashlib
+import json
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -43,6 +44,15 @@ VERIFIED_RANK_STATUSES = {
     "V4_RANK_PERSISTENCE_VERIFIED",
     "V4_RANK_PARTIAL_PERSISTENCE_VERIFIED",
 }
+
+BLOCK_RUNTIME_SCHEMA = "football-block-runtime-v1"
+BLOCK_PRIORITY_POLICY = "BLOCK_PRIORITY_V1"
+BLOCK_AUTHORITY_OWNED_FIELDS = frozenset({
+    "match_id",
+    "activation_quality",
+    "activation_basis",
+    "activation_evidence_refs",
+})
 
 POLICY_LOCK_EFFECTIVE_UTC = datetime.fromisoformat("2026-10-24T18:00:00+00:00")
 ASSESSMENT_DEPTH_V1_EFFECTIVE_UTC = datetime.fromisoformat("2026-11-02T01:45:00+00:00")
