@@ -1,0 +1,11 @@
+{
+  "error": "invalid material_event_since_frozen='CONFIRMED_XI_UPDATE'; allowed: GOAL, NONE_VERIFIED, OTHER_MATERIAL, RED_CARD, UNKNOWN",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "f1febc27e33ed29f5702d6655ef640ec6b3b2bcc307c629a95c0621db923e2a2",
+  "ok": false,
+  "request_id": "XI-BLOCK-ALWAHDA-KHALDIYA-20261104T152930Z",
+  "runtime_commit": "a1872cb21f48501e55abe538b9cc90d581af5829",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
