@@ -14,11 +14,11 @@ inversion / false-negative behavior.
 Primary:
 1. resolve complete kickoff block;
 2. assess every in-scope candidate at equal Football C depth;
-3. compare candidates football-first;
+3. compare candidates with deterministic BLOCK_PRIORITY_V1;
 4. expose certified supported burden / preferred football line;
-5. evaluate user screenshot odds through the normal deterministic runtime when
-   supplied;
-6. persist every assessment independently.
+5. keep block runtime football-only; evaluate any screenshot only through the
+   existing XI deterministic runtime;
+6. persist/read back every priced decision before publication.
 
 Secondary:
 - /sweep remains source/intake support;
