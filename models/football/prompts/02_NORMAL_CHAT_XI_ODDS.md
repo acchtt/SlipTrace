@@ -84,7 +84,8 @@ For normal /xi, resolve authority in this order:
 
 1. **BLOCK** — preferred primary authority after the 2026-11-04 block-first repair;
 2. **RANKED** — legacy/secondary authority when no valid current block receipt exists;
-3. **EXCEPTION** — only when the user explicitly requested `/xi exception`.
+3. **DIRECT** — exact user-selected one-off /xi when neither BLOCK nor RANKED exists;
+4. **EXCEPTION** — only when the user explicitly requested `/xi exception`.
 
 ### BLOCK authority — primary
 
@@ -153,16 +154,37 @@ compatibility guards only and do not apply to a valid BLOCK authority package.
 A ranked legacy `FOCUS_UNFOLLOWED` row remains valid only for an exact direct
 user /xi request with `ranked_direct_request=true`, as before.
 
+### DIRECT authority — exact one-off /xi fallback
+
+If the user explicitly requests `/xi` for one exact fixture and neither a valid
+BLOCK receipt nor a valid RANKED receipt exists, do not stop with
+`XI_AUTHORITY_REQUIRED` and do not require a second command.
+
+Perform a fresh full source-backed Football C assessment for that exact fixture,
+including current XI/availability, both scoring routes, carrier/chance creation,
+failure mechanisms, completion/continuation/stall, H2H materiality, tournament
+format/incentive, match context, G4 research where applicable, and
+ASSESSMENT_DEPTH_V2 activation evidence.
+
+Then execute with `authority.mode = DIRECT` carrying
+`user_requested_direct_xi = true`, a non-empty `direct_reference`, and the same
+full fresh-research manifest used by the strict research validator.
+
+DIRECT changes routing only. It does not weaken certificate, execution-strength,
+screenshot-only, market-disagreement, persistence/readback, or publication
+gates. It authorizes only the exact user-selected fixture.
+
 ### No-authority handling
 
 A free-standing `c_football` payload is never enough for normal /xi.
 
-If neither a valid block receipt nor a valid ranked receipt exists, return
-`XI_AUTHORITY_REQUIRED`. Do not tell the user that /rank is mandatory when
-the fixture already has a valid block receipt.
+If neither a valid block receipt nor a valid ranked receipt exists, an explicit
+user /xi request must use DIRECT after the fresh full research pass above.
+Return `XI_AUTHORITY_REQUIRED` only when there is no valid BLOCK/RANKED receipt
+and no explicit exact user /xi request authorizing DIRECT.
 
 The direct `xi_portable.py` path and the GitHub backend use this same
-BLOCK/RANKED/EXCEPTION authority contract.
+BLOCK/RANKED/DIRECT/EXCEPTION authority contract.
 
 ### Explicit exception research contract
 
