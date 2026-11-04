@@ -1,0 +1,11 @@
+{
+  "error": "invalid travel_load_context='AWAY_REGIONAL'; allowed: AWAY_CONTINENTAL, AWAY_INTERCONTINENTAL, BOTH_CONTINENTAL, BOTH_INTERCONTINENTAL, HOME_CONTINENTAL, HOME_INTERCONTINENTAL, MIXED, NORMAL, TIMEZONE_STRESS",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "ed935bce625ed4c137a0e50f50fd569767c0e7adda7ae8accf0d1b9f33e40f4c",
+  "ok": false,
+  "request_id": "XI-DIRECT-LIVE-ALNASR-QATARSC-20261104T150330Z",
+  "runtime_commit": "35e123895408d60d75d0f0e9afad78cf87d175da",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
