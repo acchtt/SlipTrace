@@ -83,6 +83,9 @@ G3_BRIDGE_SHADOW_EFFECTIVE_UTC = datetime.fromisoformat(
 SELECTION_DISCRIMINATION_EFFECTIVE_UTC = datetime.fromisoformat(
     "2026-11-02T05:25:00+00:00"
 )
+BLOCK_DISCRIMINATION_V3_EFFECTIVE_UTC = datetime.fromisoformat(
+    "2026-11-04T00:00:00+00:00"
+)
 PARENT_FIRST_PERSISTENCE_EFFECTIVE_UTC = datetime.fromisoformat(
     "2026-10-29T00:00:00+00:00"
 )
@@ -1292,7 +1295,7 @@ def _checkpoint_incomplete_block_discrimination(
 ) -> tuple[dict[str, Any], dict[str, Any], list[str], list[dict[str, Any]]]:
     """Fail closed when a multi-candidate kickoff block lacks a real comparison."""
 
-    if at < SELECTION_DISCRIMINATION_EFFECTIVE_UTC:
+    if at < BLOCK_DISCRIMINATION_V3_EFFECTIVE_UTC:
         return c, unranked_reasons, [], []
 
     compiled_rows = board_result.get("matches")
@@ -1684,11 +1687,11 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
              "freeze g3_current_structure_verified=true with basis/source refs; otherwise "
              "freeze a substantive REVIEW_ONLY basis. Never inflate grades to force G3."
              if mid in selection_recheck_incomplete_set else
-             "Complete BLOCK_DISCRIMINATION_V2 for the entire kickoff block at equal "
-             "research depth; compare G3/G4, carrier self-funding, reply dependence, "
-             "0-0/1-1/2-0 exposure, continuation, incentive and supported burden. "
-             "If the football ordering disagrees with engine rank, reconcile the "
-             "source-backed grades rather than overriding the engine."
+             "Complete BLOCK_DISCRIMINATION_V3 for the entire kickoff block at equal "
+             "ASSESSMENT_DEPTH_V2 research depth; freeze source-backed activation "
+             "quality/basis/refs and compare G3/G4, leakage, continuation, endpoint "
+             "exposure, chance quality and supported burden. Reconcile the declared "
+             "order with BLOCK_PRIORITY_V1; global /rank order is audit metadata only."
              if mid in block_comparison_incomplete_set else
              "Complete one bounded G4 pass: carrier four-goal path, distributed "
              "3+1/2+2 path, reply-assisted path, continuation after G3, "
@@ -1781,8 +1784,8 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "selection_recheck_reviews": copy.deepcopy(selection_recheck_reviews),
         "block_discrimination_policy": (
             BLOCK_DISCRIMINATION_POLICY
-            if at >= SELECTION_DISCRIMINATION_EFFECTIVE_UTC
-            else "LEGACY_PRE_BLOCK_DISCRIMINATION_V2"
+            if at >= BLOCK_DISCRIMINATION_V3_EFFECTIVE_UTC
+            else "LEGACY_PRE_BLOCK_DISCRIMINATION_V3"
         ),
         "block_comparison_pending_ids": list(block_comparison_pending_ids),
         "block_comparison_reviews": copy.deepcopy(block_comparison_reviews),
