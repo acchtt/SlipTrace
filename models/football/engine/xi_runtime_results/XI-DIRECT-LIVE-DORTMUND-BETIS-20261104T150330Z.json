@@ -1,0 +1,11 @@
+{
+  "error": "verified upper-tail competition provenance requires upper_tail_competition_provenance_basis",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "e693bcf568a4c3aeda75bd46366e674a98cf2f21e96bec1a4374e9daf372d091",
+  "ok": false,
+  "request_id": "XI-DIRECT-LIVE-DORTMUND-BETIS-20261104T150330Z",
+  "runtime_commit": "de5940d070881494958d6f631b8c416e41f6a1ed",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
