@@ -1,0 +1,381 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-DIRECT-BURIRAM-KASHIMA-20261104T114800Z-V2",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "DIRECT-BURIRAM-KASHIMA-20261104T114800Z-V2",
+    "match": {
+      "match_id": "21877061",
+      "home": "Buriram United",
+      "away": "Kashima Antlers",
+      "country": "Thailand",
+      "competition": "AFC Champions League Elite",
+      "competition_kind": "CONTINENTAL",
+      "kickoff_ict": "2026-11-04T19:15:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "Continental fixture is source-backed and in scope, but competition-level reliability is not promoted into a predictive prior.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Confirmed user-supplied XI and a complete visible Asian total ladder are available before kickoff, with official AFC and club context sources.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+        "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+        "https://www.the-afc.com/en/club/afc_champions_league_elite.html/news/preview-buriram-united-tha-v-kashima-antlers-jpn",
+        "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+        "https://www.buriramunited.com/main_news/detail/1782",
+        "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml",
+        "https://assets.the-afc.com/downloads/tournament-regulations/Amended-ACL-Elite-26-27-Competition-Regulations-Apr28upd.pdf"
+      ],
+      "common_evidence_basis": "Fresh direct prematch research uses the confirmed user lineup sheets plus official AFC competition context, Kashima pre-match comments, Buriram pre-match comments and current recent-result context. The bookmaker line is excluded from football grading.",
+      "home_route": "USABLE",
+      "away_route": "STRONG",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Kashima's rotated attacking XI may control the match without reproducing the recent 3-0/4-1 tail, while Buriram's continental reply route has mostly stopped at one goal.",
+      "h2h_state": "REVIEWED_NOT_MATERIAL",
+      "h2h_effect": "NOT_MATERIAL",
+      "h2h_transferability": "NOT_TRANSFERABLE",
+      "h2h_current_corroboration": "NOT_APPLICABLE",
+      "h2h_material_effect": false,
+      "h2h_basis": "No recent directly transferable Buriram-Kashima head-to-head sample was found; current XI, competition form and tournament state therefore carry the assessment.",
+      "supported_line": 2.5,
+      "supported_line_basis": "The current structure supports a three-goal 2+1/1+2 path but not an independently protected fourth goal; O2.50 is the declared audit burden and the compiler remains authoritative.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Kashima's system remains the stronger route, but the confirmed rotation removes too many of the recent primary scorers/creators to claim that one side alone reliably funds three.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "The confirmed Kashima rotation plus Buriram's low AFC scoring endpoints prevent an independent fourth-goal route from being protected despite Kashima's strong recent raw scores.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Recent Kashima 4-1, 3-0, 2-3 and 2-2 results show upside, but most of the attacking personnel driving those games are rotated out and Buriram's current AFC matches are lower scoring.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Same-competition evidence contains Kashima 7-1 and 3-0 but also 1-0, while Buriram have 1-1, 0-1 and 1-1; the confirmed XI makes the high tail less transferable than the raw recent scoreline set.",
+      "upper_tail_competition_provenance_verified": false,
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Rotation weakens Kashima's ceiling but does not erase their scoring route; Buriram also retain Bissoli, Tudorie, Darlan, Causic and Toni Moya.",
+      "material_suppression": false,
+      "material_suppression_basis": "There is no verified all-route suppression; the concern is a bounded continuation/ceiling downgrade rather than destruction of the third-goal mechanism.",
+      "goal_signal_priority_score": 58,
+      "goal_signal_mean_over_two_rate": 0.6,
+      "goal_signal_mean_over_three_rate": 0.5,
+      "goal_signal_low_draw_trap_rate": 0.1,
+      "g3_current_structure_verified": true,
+      "g3_current_structure_basis": "Confirmed lineups preserve a STRONG Kashima system route despite rotation and a USABLE Buriram reply route through Bissoli plus Tudorie; official tournament pressure supports a live 2+1 or 1+2 path without relying on the market.",
+      "g3_current_structure_source_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+        "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+        "https://www.the-afc.com/en/club/afc_champions_league_elite.html/news/preview-buriram-united-tha-v-kashima-antlers-jpn",
+        "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml"
+      ],
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "LEAGUE_STAGE_MATCHDAY_4",
+      "competition_format": "East Region league stage; each club plays eight matches, four home and four away, and the top eight qualify for the knockout stage.",
+      "draw_resolution": "League-stage draw stands after normal time; there is no extra time or shootout.",
+      "aggregate_state": "SINGLE_LEAGUE_STAGE_MATCH_NO_AGGREGATE",
+      "qualification_state": "Buriram enter on two points and outside the top eight while Kashima enter on nine points at the top end of the East table; Buriram need recovery and Kashima retain ranking/seeding value.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "Matchday 4 is not a final-round simultaneous qualification dependency.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "YES",
+      "incentive_effect": "MIXED",
+      "match_context_review_status": "VERIFIED_MATERIAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "AWAY_SHORT_REST",
+      "travel_load_context": "AWAY_CONTINENTAL",
+      "fatigue_context": "AWAY_VERIFIED",
+      "match_context_effect": "MIXED",
+      "match_context_basis": "Buriram last played on 28 October and stay home, while Kashima played on 31 October before travelling to Thailand. Kashima coach Toru Oniki explicitly highlighted player condition during the congested run; this weakens the away ceiling without creating an automatic under verdict.",
+      "match_context_evidence_refs": [
+        "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+        "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml",
+        "https://www.buriramunited.com/main_news/detail/1782"
+      ],
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_carrier_path": "FAILED",
+      "g4_distributed_path": "FAILED",
+      "g4_reply_path": "FAILED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Goal four was tested independently. Kashima's recent upper-tail scores are not sufficiently transferable to this rotated XI, Buriram's continental reply has usually stopped at one, and neither a carrier-four nor a protected 2+2/3+1 continuation path survives the current evidence.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Kashima's current XI removes several recent primary attackers, so the team-level scoring trend is insufficient to protect a fourth goal from one carrier.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+            "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+            "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+            "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml"
+          ],
+          "mechanism_ids": [
+            "ROTATED_KASHIMA_TAIL_AND_BURIRAM_LOW_REPLY"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Buriram have an improved two-forward XI but only two goals in three ACL Elite matches; a protected 2+2 or 3+1 split is not established.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+            "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+            "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+            "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml"
+          ],
+          "mechanism_ids": [
+            "ROTATED_KASHIMA_TAIL_AND_BURIRAM_LOW_REPLY"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "A post-third reply is possible, especially with Buriram's urgency, but the same-competition evidence does not make that reply dependable enough to fund G4.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+            "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+            "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+            "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml"
+          ],
+          "mechanism_ids": [
+            "ROTATED_KASHIMA_TAIL_AND_BURIRAM_LOW_REPLY"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "ROTATED_KASHIMA_TAIL_AND_BURIRAM_LOW_REPLY": {
+          "basis": "Kashima's confirmed XI rotates out Leo Ceara, Elber, Matheus Bueno and Matsumura from the recent high-scoring attacking unit, while Buriram's AFC league-stage output has been 1-1, 0-1 and 1-1. This does not destroy G3, because Kashima retain a strong system route and Buriram start Bissoli plus Tudorie, but it prevents treating post-third continuation as independently protected.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+            "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+            "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+            "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Kashima retain a strong system route but rotate major recent attackers; Buriram retain their principal attacking unit. Net route reliability is MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+            "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+            "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+            "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml"
+          ],
+          "mechanism_ids": [
+            "ROTATED_KASHIMA_TAIL_AND_BURIRAM_LOW_REPLY"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Both sides have reasons to continue, but Kashima's rotation and Buriram's low AFC output prevent HIGH continuation beyond the third goal.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+            "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+            "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+            "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml"
+          ],
+          "mechanism_ids": [
+            "ROTATED_KASHIMA_TAIL_AND_BURIRAM_LOW_REPLY"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Buriram's 1-1, 0-1 and 1-1 AFC sequence plus Kashima's 1-0 away win preserve 0-0/1-0/1-1 control endpoints, so stall risk is MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+            "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+            "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+            "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml"
+          ],
+          "mechanism_ids": [
+            "ROTATED_KASHIMA_TAIL_AND_BURIRAM_LOW_REPLY"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "The third-goal thesis has two routes, but a subdued rotated Kashima attack would leave Buriram with too much rescue burden; failure resistance is MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+            "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+            "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+            "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml"
+          ],
+          "mechanism_ids": [
+            "ROTATED_KASHIMA_TAIL_AND_BURIRAM_LOW_REPLY"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No separate current fourth-goal mechanism survives the lineup rotation and same-competition endpoint review.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+            "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+            "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+            "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml"
+          ],
+          "mechanism_ids": [
+            "ROTATED_KASHIMA_TAIL_AND_BURIRAM_LOW_REPLY"
+          ]
+        }
+      },
+      "activation_quality": "MEDIUM",
+      "activation_basis": "Buriram's win-oriented home setup and two-forward XI support early engagement, while Kashima's rotated selection reduces certainty that their recent fast scoring pattern transfers immediately.",
+      "activation_evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+        "https://www.the-afc.com/en/club/afc_champions_league_elite.html/news/preview-buriram-united-tha-v-kashima-antlers-jpn",
+        "https://www.antlers.co.jp/en/blogs/news/261103wg2eng"
+      ],
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Fresh direct current-structure research verifies a STRONG-primary plus USABLE-reply G3 path; native Football C compilation owns the final state and burden."
+    },
+    "context": {
+      "assessment_at_utc": "2026-11-04T11:48:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Direct one-off /xi has no prior block/rank certificate to upgrade; current deterministic compiler owns the certificate.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "COMPLETED",
+      "market_disagreement_recheck_basis": "The current lineup-driven upper tail was explicitly rechecked before comparing the visible ladder; Kashima rotation prevents market burden from upgrading G4.",
+      "market_disagreement_recheck_fields": [
+        "upper_tail_transferability",
+        "upper_tail_comparable_context_signal",
+        "g4_carrier_path",
+        "g4_distributed_path",
+        "g4_reply_path",
+        "g4_continuation_after_g3"
+      ],
+      "market_disagreement_recheck_evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+        "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+        "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+        "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml"
+      ]
+    },
+    "assessment_depth": {
+      "contract": "ASSESSMENT_DEPTH_V2",
+      "completed": true,
+      "market_independent": true,
+      "evidence_epoch_id": "DIRECT-BURIRAM-KASHIMA-20261104T114800Z-V2",
+      "assessed_at_utc": "2026-11-04T11:48:00+00:00",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+        "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+        "https://www.the-afc.com/en/club/afc_champions_league_elite.html/news/preview-buriram-united-tha-v-kashima-antlers-jpn",
+        "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+        "https://www.buriramunited.com/main_news/detail/1782",
+        "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml",
+        "https://assets.the-afc.com/downloads/tournament-regulations/Amended-ACL-Elite-26-27-Competition-Regulations-Apr28upd.pdf"
+      ],
+      "checks": {
+        "primary_scoring_route": "Kashima retain the stronger systemic scoring route, but confirmed rotation lowers its reliability from a clean self-funding carrier.",
+        "secondary_reply_route": "Buriram's reply route is USABLE because Bissoli and Tudorie start together with Darlan, Causic and Toni Moya supporting.",
+        "carrier_capacity": "No side is accepted as a clean self-funding three-goal carrier; Kashima are the stronger route but current carrier capacity is only USABLE.",
+        "current_chance_creation": "Recent Kashima results show repeated multi-goal creation, while Buriram's attacking XI is stronger than their prior single-striker continental shape; rotation caps confidence at MEDIUM.",
+        "goal3_mechanism": "Goal three is funded only through the verified current 2+1/1+2 structure: STRONG Kashima route plus USABLE Buriram reply, not through a one-sided carrier assumption.",
+        "goal4_mechanism": "Goal four is explicitly rejected: the recent Kashima upper tail is not transferable enough to the rotated XI and Buriram do not provide a protected second contribution.",
+        "stall_0_0": "A 0-0 stall remains credible because Buriram have recent 0-1/1-1 continental endpoints and Kashima won 1-0 away at CAHN; no early-goal assumption is made.",
+        "stall_1_1": "At 1-1 Buriram still prefer a win and Kashima retain scoring depth, so a third goal remains live, but neither side independently guarantees a fourth.",
+        "continuation_2_0": "At 2-0 a third can still arrive from the leader's depth or Buriram's urgent reply, but Kashima's rotated XI weakens confidence in continued scoring after three.",
+        "opponent_leakage": "Buriram have conceded in two of three ACL Elite matches and recently lost 2-3 domestically; Kashima have also conceded in several recent J1 games, producing MEDIUM leakage.",
+        "named_failure_mechanism": "Primary failure is a controlled Kashima performance with the rotated attack, leaving Buriram's historically low continental output unable to rescue the third goal.",
+        "availability_replacements": "Kashima rotate Leo Ceara, Elber, Matheus Bueno and Matsumura to the bench, while Buriram start Bissoli and Tudorie together; replacements were incorporated rather than treated as automatic suppression.",
+        "h2h_transferability": "No recent direct H2H is used as predictive evidence; current XI, competition form and incentive are more transferable than historical matchup data.",
+        "tournament_incentive": "The AFC league-stage format is verified: eight matches per club, top eight qualify, points then goal difference/goals matter; Buriram need recovery while Kashima retain ranking value.",
+        "match_context": "Buriram have the rest/travel advantage; Kashima played four days earlier and travelled to Thailand, with Oniki explicitly citing condition management. Net effect is MIXED, not an automatic under.",
+        "supported_burden_basis": "O2.50 is tied to the verified third-goal structure; O2.75/O3.00 are not promoted merely because the screenshot offers attractive prices."
+      }
+    }
+  },
+  "authority": {
+    "mode": "DIRECT",
+    "direct_reference": "DIRECT-BURIRAM-KASHIMA-20261104-PREMATCH",
+    "user_requested_direct_xi": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "DIRECT-BURIRAM-KASHIMA-20261104T114800Z-V2",
+      "researched_at_utc": "2026-11-04T11:48:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "USER_DIRECT_XI_BURIRAM_KASHIMA_20261104",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000f5ec8211b1fc27f1b1a152d3",
+        "USER_LINEUP_SCREENSHOT:file_00000000506c8211bf1bf9b97e89ed3c",
+        "https://www.the-afc.com/en/club/afc_champions_league_elite.html/news/preview-buriram-united-tha-v-kashima-antlers-jpn",
+        "https://www.antlers.co.jp/en/blogs/news/261103wg2eng",
+        "https://www.buriramunited.com/main_news/detail/1782",
+        "https://www.tntsports.co.uk/football/asian-champions-league/2026-2027/buriram-united-kashima-antlers_mtc21877061/live-stats.shtml",
+        "https://assets.the-afc.com/downloads/tournament-regulations/Amended-ACL-Elite-26-27-Competition-Regulations-Apr28upd.pdf"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "USER_ODDS_SCREENSHOT:file_000000006b5482119d0e44f7d9e83ed6",
+    "match_id": "21877061",
+    "bookmaker": "User-displayed bookmaker",
+    "quotes": [
+      {
+        "line": 2.25,
+        "odds": 1.52
+      },
+      {
+        "line": 2.5,
+        "odds": 1.72
+      },
+      {
+        "line": 2.75,
+        "odds": 1.99
+      },
+      {
+        "line": 3,
+        "odds": 2.21
+      },
+      {
+        "line": 3.25,
+        "odds": 2.44
+      }
+    ],
+    "observed_at_utc": "2026-11-04T11:47:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
