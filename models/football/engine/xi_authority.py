@@ -717,9 +717,75 @@ def authorize_c_football(
     if not isinstance(supplied, dict):
         raise ValueError("c_football object required")
     if not isinstance(authority, dict):
-        raise RankAuthorityError("RANK_RECEIPT_REQUIRED: explicit authority missing")
+        raise RankAuthorityError(
+            "XI_AUTHORITY_REQUIRED: BLOCK, RANKED or explicit EXCEPTION authority missing"
+        )
 
     mode = authority.get("mode")
+    if mode == "BLOCK":
+        if supplied.get("stage") != "football_assessment":
+            raise RankAuthorityError(
+                "BLOCK_RECEIPT_REQUIRED: block-led /xi requires football_assessment"
+            )
+        depth = _validate_assessment_depth(supplied)
+        if depth.get("contract") != ASSESSMENT_DEPTH_V2_CONTRACT:
+            raise RankAuthorityError(
+                "BLOCK_RECEIPT_REQUIRED: block-led /xi requires ASSESSMENT_DEPTH_V2"
+            )
+        supplied_match = supplied.get("match")
+        if not isinstance(supplied_match, dict):
+            raise ValueError("c_football.match object required")
+        mid = str(authority.get("match_id") or supplied_match.get("match_id") or "")
+        if not mid:
+            raise RankAuthorityError("BLOCK_RECEIPT_REQUIRED: match_id missing")
+        package = authority.get("verified_block_package")
+        if not isinstance(package, dict):
+            raise RankAuthorityError(
+                "BLOCK_RECEIPT_REQUIRED: verified_block_package missing"
+            )
+        frozen_row, block_row, block_epoch = _validated_block_package(
+            package, match_id=mid
+        )
+        inherited, declared_set = _inherit_frozen_match(
+            supplied_match,
+            frozen_row,
+            authority.get("material_evidence_updates") or [],
+            authority_prefix="BLOCK_RECEIPT_REQUIRED",
+            forbidden_fields=BLOCK_AUTHORITY_OWNED_FIELDS,
+        )
+        context = supplied.get("context")
+        if not isinstance(context, dict):
+            raise ValueError("c_football.context object required")
+        inherited_context = dict(context)
+        inherited_context.update({
+            "block_authority": True,
+            "block_priority_policy": BLOCK_PRIORITY_POLICY,
+            "block_priority_rank": block_row.get("block_priority_rank"),
+            "block_evidence_epoch_id": block_epoch,
+            "frozen_board_available": True,
+            "frozen_board_certified_burden": block_row.get("supported_line"),
+        })
+        frozen_g4 = frozen_row.get("g4_research_status")
+        if frozen_g4 is not None:
+            inherited_context["frozen_board_g4_research_status"] = frozen_g4
+
+        payload = dict(supplied)
+        payload["match"] = inherited
+        payload["context"] = inherited_context
+        return payload, {
+            "mode": "BLOCK",
+            "match_id": mid,
+            "block_priority_policy": BLOCK_PRIORITY_POLICY,
+            "block_priority_rank": block_row.get("block_priority_rank"),
+            "block_order": list(package["result"].get("block_order") or []),
+            "block_evidence_epoch_id": block_epoch,
+            "xi_evidence_epoch_id": supplied.get("evidence_epoch_id"),
+            "frozen_match_sha256": block_row.get("frozen_match_sha256"),
+            "block_input_sha256": package["result"].get("input_sha256"),
+            "global_rank_is_selection_authority": False,
+            "material_evidence_updates": sorted(declared_set),
+            "assessment_depth": depth,
+        }
     if mode == "EXCEPTION":
         if authority.get("user_requested_exception") is not True:
             raise RankAuthorityError(
