@@ -14,10 +14,10 @@ Operational role: PRIMARY ASSESSMENT
 
 2. Resolve the complete requested kickoff block before judging any fixture.
 
-3. Assess every in-scope candidate to equal ASSESSMENT_DEPTH_V1.
+3. Assess every in-scope candidate to equal ASSESSMENT_DEPTH_V2.
 
-4. Compare the block football-first. Do not use /rank selection, FOLLOW capacity,
-   league prestige or route count as admission filters.
+4. Compare the block with BLOCK_PRIORITY_V1. Global /rank and FOLLOW remain
+   secondary audit metadata; mechanism class is a late tiebreaker.
 
 5. For deterministic authority, the explicit user block request authorizes the
    existing full EXCEPTION path candidate-by-candidate. This does not relax any
@@ -26,8 +26,8 @@ Operational role: PRIMARY ASSESSMENT
 6. No odds are required. If screenshot odds are supplied, use only that exact
    visible ladder and the normal Football C price policy.
 
-7. Persist each assessment independently to Decision States and read back before
-   publishing an official priced verdict.
+7. Persist each assessment independently. No ACT/BOOK/PASS may be published until
+   XI runtime -> Decision States write -> independent readback -> publication guard.
 
 CRITICAL:
 - Football C only.
