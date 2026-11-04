@@ -9,7 +9,7 @@ Only the first slash command routes the message.
 | /block [window] | **Primary** equal-depth Football C kickoff-block assessment |
 | /sweep [window] | V4 source-backed intake/supporting source capture |
 | /rank | **Secondary** V4 Football C whole-slate comparison/audit board |
-| /xi | Football C XI/price check using BLOCK authority first, RANKED compatibility second |
+| /xi | Football C XI/price check using BLOCK first, RANKED second, DIRECT one-off fallback |
 | /xi exception | Explicit user-requested C assessment outside routine board authority |
 | /live | Same Football C assessment using current started-match state |
 | /audit | Normal-chat lightweight audit with automatic deep escalation |
@@ -147,14 +147,18 @@ audit metadata only.
 
 /xi is one command. The user does not need separate assess/bet commands.
 
-Authority order is BLOCK -> RANKED -> explicit EXCEPTION. A valid persisted
-BLOCK_PRIORITY_V1 receipt is sufficient routine authority; /rank is not required
-between /block and /xi.
+Authority order is BLOCK -> RANKED -> DIRECT -> explicit EXCEPTION. A valid
+persisted BLOCK_PRIORITY_V1 receipt is sufficient routine authority; /rank is
+not required between /block and /xi. If the user directly selects one exact
+fixture with /xi and neither BLOCK nor RANKED authority exists, perform the
+fresh full ASSESSMENT_DEPTH_V2 research in the same turn and use DIRECT rather
+than blocking.
 
 Order:
 
 1. inherit the current BLOCK receipt when available, otherwise use the verified
-   RANKED compatibility path;
+   RANKED compatibility path; if neither exists for an exact explicit /xi,
+   perform fresh full research and use DIRECT;
 2. refresh only genuinely changed Football C evidence;
 3. if the user supplied a screenshot/observed quote, evaluate that exact
    line/odds through the shared C quote policy;
