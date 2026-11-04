@@ -243,6 +243,10 @@ class BlockRuntimeTests(unittest.TestCase):
                 self._engine_row("block-a", "HIGH"),
                 self._engine_row("block-b", "MEDIUM"),
             ],
+            "evidence_epochs": {
+                "block-a": "BLOCK-A-EPOCH",
+                "block-b": "BLOCK-B-EPOCH",
+            },
         })
         self.assertFalse(result["priced_publication_authorized"])
         self.assertEqual(
@@ -250,6 +254,10 @@ class BlockRuntimeTests(unittest.TestCase):
             "FOOTBALL_ASSESSMENT_ONLY_PRICED_DECISION_NOT_PERSISTED",
         )
         self.assertTrue(all(row["priced_action"] is None for row in result["matches"]))
+        self.assertTrue(result["input_sha256"])
+        by_id = {row["match_id"]: row for row in result["matches"]}
+        self.assertEqual(by_id["block-a"]["evidence_epoch_id"], "BLOCK-A-EPOCH")
+        self.assertTrue(by_id["block-a"]["frozen_match_sha256"])
 
     def test_runtime_rejects_price_input(self):
         with self.assertRaisesRegex(BlockRuntimeError, "football-only"):
