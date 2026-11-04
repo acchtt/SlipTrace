@@ -1,0 +1,100 @@
+name: Football C deterministic block runtime
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/football-block-runtime.yml"
+      - "models/football/engine/block_priority.py"
+      - "models/football/engine/block_runtime.py"
+      - "models/football/engine/block_runtime_requests/**"
+      - "models/football/engine/core.py"
+      - "models/football/engine/adapter.py"
+      - "models/football/engine/tests/test_block_priority.py"
+  pull_request:
+    paths:
+      - ".github/workflows/football-block-runtime.yml"
+      - "models/football/engine/block_priority.py"
+      - "models/football/engine/block_runtime.py"
+      - "models/football/engine/core.py"
+      - "models/football/engine/adapter.py"
+      - "models/football/engine/tests/test_block_priority.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  block-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Test deterministic block selector
+        env:
+          PYTHONPATH: models/football/engine
+        run: |
+          python -m unittest discover -s models/football/engine/tests -p 'test_block_priority.py' -v
+          python models/football/engine/block_runtime.py --help
+
+      - name: Select exactly one newly added block request
+        id: req
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" != "push" ]; then
+            echo "request=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          files="$(git diff --name-only --diff-filter=A HEAD^ HEAD -- models/football/engine/block_runtime_requests/ | grep '\.json$' || true)"
+          count="$(printf '%s\n' "$files" | sed '/^$/d' | wc -l)"
+          test "$count" -le 1
+          echo "request=$files" >> "$GITHUB_OUTPUT"
+
+      - name: Execute requested Football C block runtime
+        if: steps.req.outputs.request != ''
+        id: execute
+        shell: bash
+        run: |
+          set -euo pipefail
+          stem="$(basename "${{ steps.req.outputs.request }}" .json)"
+          mkdir -p block-runtime-result
+          python models/football/engine/block_runtime.py             "${{ steps.req.outputs.request }}"             > "block-runtime-result/${stem}.json"
+          echo "stem=$stem" >> "$GITHUB_OUTPUT"
+
+      - name: Persist block runtime result to main
+        if: steps.req.outputs.request != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          stem="${{ steps.execute.outputs.stem }}"
+          stash="/tmp/${stem}.json"
+          cp "block-runtime-result/${stem}.json" "$stash"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+
+          dest="models/football/engine/block_runtime_results/${stem}.json"
+          mkdir -p "$(dirname "$dest")"
+          cp "$stash" "$dest"
+          git add "$dest"
+          if ! git diff --cached --quiet; then
+            git commit -m "Persist block runtime result ${stem}"
+            git push origin HEAD:main
+          fi
+
+      - name: Upload block runtime result
+        if: steps.req.outputs.request != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: block-runtime-result-${{ steps.execute.outputs.stem }}
+          retention-days: 7
+          if-no-files-found: error
+          path: block-runtime-result/

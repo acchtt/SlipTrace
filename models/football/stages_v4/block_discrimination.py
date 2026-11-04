@@ -1,16 +1,24 @@
 """Fail-closed block comparison for Football C selection research.
 
-The engine remains authoritative. This contract forces multi-candidate blocks to
-show the football comparison that produced their grades. A declared comparison
-cannot override the deterministic engine; disagreement means the factual grades
-must be rechecked/reconciled before the block is considered complete.
+BLOCK_DISCRIMINATION_V3 validates the declared football-first comparison against
+BLOCK_PRIORITY_V1, not against the secondary whole-slate /rank order.  The
+existing Football C engine still owns certificates and supported burden; this
+module only verifies that a complete kickoff block is ordered by the dedicated
+block selector.
 """
 from __future__ import annotations
 
+import sys
 from datetime import datetime
+from pathlib import Path
 from typing import Any
 
-POLICY = "BLOCK_DISCRIMINATION_V2"
+ENGINE = Path(__file__).resolve().parents[1] / "engine"
+sys.path.insert(0, str(ENGINE))
+
+from block_priority import BlockPriorityError, rank_block  # noqa: E402
+
+POLICY = "BLOCK_DISCRIMINATION_V3"
 REQUIRED_BASES = (
     "g3_strength_basis",
     "g4_strength_basis",
@@ -103,6 +111,19 @@ def review_block(block: dict[str, Any]) -> dict[str, Any]:
     declared_ranks: dict[str, int] = {}
     engine_ranks: dict[str, int] = {}
 
+    raw_rows = [raw for raw, _, _ in block["rows"]]
+    compiled_rows = [compiled for _, compiled, _ in block["rows"]]
+    priority_error = None
+    priority_order: list[str] = []
+    try:
+        priority_order = [
+            row["match_id"] for row in rank_block(raw_rows, compiled_rows)
+        ]
+    except BlockPriorityError as exc:
+        priority_error = str(exc)
+        for mid in ids:
+            missing_by_id.setdefault(mid, []).append("block_priority_v1_input")
+
     for raw, compiled, _ in block["rows"]:
         mid = str(raw.get("match_id"))
         engine_ranks[mid] = int(compiled.get("rank"))
@@ -149,7 +170,7 @@ def review_block(block: dict[str, Any]) -> dict[str, Any]:
                 missing.append(key)
 
         if missing:
-            missing_by_id[mid] = sorted(set(missing))
+            missing_by_id.setdefault(mid, []).extend(sorted(set(missing)))
 
     ranks_complete = (
         len(declared_ranks) == len(ids)
@@ -159,31 +180,49 @@ def review_block(block: dict[str, Any]) -> dict[str, Any]:
         for mid in ids:
             missing_by_id.setdefault(mid, []).append("unique_block_rank_1_to_n")
 
-    # Compare relative order, not global rank values.
     declared_order = [
         mid for mid, _ in sorted(declared_ranks.items(), key=lambda kv: (kv[1], kv[0]))
     ] if ranks_complete else []
+    block_priority_reconciled = (
+        bool(declared_order)
+        and bool(priority_order)
+        and declared_order == priority_order
+    )
+    if ranks_complete and priority_order and not block_priority_reconciled:
+        for mid in ids:
+            missing_by_id.setdefault(mid, []).append(
+                "declared_block_order_must_reconcile_with_block_priority_v1"
+            )
+
+    # Global /rank order remains visible for audit only. It has no admission or
+    # reconciliation authority over the primary block workflow.
     engine_order = [
         mid for mid, _ in sorted(engine_ranks.items(), key=lambda kv: (kv[1], kv[0]))
     ]
-    reconciled = bool(declared_order) and declared_order == engine_order
-    if ranks_complete and not reconciled:
-        for mid in ids:
-            missing_by_id.setdefault(mid, []).append(
-                "declared_block_order_must_reconcile_with_engine_inputs"
-            )
+    engine_reconciled = bool(declared_order) and declared_order == engine_order
 
+    normalized_missing = {
+        mid: sorted(set(fields)) for mid, fields in missing_by_id.items()
+    }
     return {
         "policy": POLICY,
+        "block_priority_policy": "BLOCK_PRIORITY_V1",
         "block_id": block["block_id"],
         "candidate_match_ids": ids,
-        "status": "COMPLETE" if not missing_by_id and reconciled else "PENDING",
-        "missing_by_match_id": {
-            mid: sorted(set(fields)) for mid, fields in missing_by_id.items()
-        },
+        "status": (
+            "COMPLETE"
+            if not normalized_missing and block_priority_reconciled
+            else "PENDING"
+        ),
+        "missing_by_match_id": normalized_missing,
         "declared_order": declared_order,
+        "block_priority_order": priority_order,
+        "block_priority_reconciled": block_priority_reconciled,
+        "block_priority_error": priority_error,
         "engine_order": engine_order,
-        "engine_reconciled": reconciled,
+        "engine_reconciled": engine_reconciled,
+        "engine_reconciliation_required": False,
+        "global_rank_is_selection_authority": False,
         "no_override_authority": True,
         "outcome_fields_read": False,
     }

@@ -1,104 +1,119 @@
 # /block — Primary Football C kickoff-block assessment
 
-Effective 2026-11-03 ICT.
+Effective 2026-11-04 ICT.
 
-This is the primary production assessment route. It changes orchestration only.
-Football C certificate, supported-burden, XI, H2H, tournament-incentive,
-screenshot-only price, persistence and publication rules remain unchanged.
+This is the primary production assessment route. Football C certificate,
+supported-burden and price-execution rules remain unchanged. Match selection is
+now separated from price execution by the deterministic BLOCK_PRIORITY_V1
+runtime.
 
 Load:
 - `../CURRENT_MODEL.md`
 - `COMMAND_ALIASES.md`
 - `../procedures/FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md`
+- `../engine/block_runtime.py`
 - `02_NORMAL_CHAT_XI_ODDS.md` for runtime/price contracts
 
 ## 1. Resolve the complete block before assessing
 
-Accept an explicit kickoff window or a natural request such as "assess the
-23:00 block". Resolve all in-scope unstarted fixtures in that requested block
-from the current source/date surface. Reuse a current sweep/source snapshot
-when available, but do not require /rank before assessment.
+Resolve all in-scope unstarted fixtures in the requested kickoff block before
+judging any candidate. Reuse a current source snapshot when available, but do
+not require /rank before assessment.
 
-Do not pre-filter by:
-- Current Rank or Slate Rank;
-- FOLLOW / RESERVE / FOCUS_UNFOLLOWED capacity;
-- league popularity or prestige;
-- whether another fixture already has a cleaner G3 certificate.
-
-User exclusions and production-scope exclusions still apply.
+Do not pre-filter by Current Rank, Slate Rank, FOLLOW capacity, league prestige,
+popularity, route count or an existing certificate.
 
 ## 2. Equal-depth Football C research
 
-Every credible candidate must reach the same `ASSESSMENT_DEPTH_V1` floor before
-the block comparison. Freeze substantive market-independent conclusions for the
-fields required by
-`FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md`, including:
-primary/reply routes, carrier, current chance creation, G3/G4 mechanisms,
-0-0/1-1/2-0 endpoint tests, continuation, leakage, principal failure,
-availability/replacements, H2H, tournament incentive/format and match context.
+Every credible candidate must reach `ASSESSMENT_DEPTH_V2`.
+
+V2 retains every V1 football conclusion and additionally freezes:
+
+- `activation_quality = LOW | MEDIUM | HIGH`;
+- `activation_basis`; and
+- `activation_evidence_refs` with at least two football sources.
+
+Activation is prematch football evidence about how readily the fixture can
+become goal-active. It is block-selection-only evidence and cannot create a
+certificate, supported burden or priced action.
 
 Research incompleteness is not a football PASS.
 
-## 3. Block comparison
+## 3. Deterministic block comparison
 
-After every candidate reaches equal depth, freeze one football-first comparison
-for the complete block:
-- candidate IDs and kickoff window;
-- G3 strength and exact mechanism;
-- G4 strength / continuation after goal three;
-- carrier/self-funding strength;
-- reply dependence;
-- endpoint/control exposure;
-- tournament incentive;
-- supported burden;
-- explicit beats-next reasoning.
+After equal-depth research, compile every candidate through Football C, then run
+`engine/block_runtime.py` / `BLOCK_PRIORITY_V1`.
 
-A one-sided carrier can outrank a balanced two-route candidate. Route count,
-league prestige and rank position are not priority bonuses.
+The block selector orders:
 
-Return the complete block in football order, not just the eventual top pick.
+1. hard football viability / G3 accessibility;
+2. activation;
+3. opponent leakage / game opening;
+4. continuation;
+5. credible G4 / upper tail;
+6. endpoint resistance;
+7. chance quality;
+8. burden completion;
+9. frozen goal signal;
+10. protected-burden clearability;
+11. certificate robustness/depth;
+12. G3 mechanism class as a late tiebreaker.
+
+Global /rank and FOLLOW lanes are secondary audit metadata only. They must not
+override BLOCK_PRIORITY_V1.
+
+Execute `engine/block_runtime.py` directly when possible. If local execution is
+unavailable, write exactly one `football-block-runtime-v1` request to
+`engine/block_runtime_requests/<request-id>.json`, wait for the
+`Football C deterministic block runtime` workflow, read the persisted
+`engine/block_runtime_results/<request-id>.json`, and continue in the same
+turn. Do not use conversational judgment as a fallback block order. If both
+paths fail, report `BLOCK_RUNTIME_UNAVAILABLE`.
+
+Return the complete block in deterministic block order, not just the top pick.
 
 ## 4. Runtime authority
 
-The user's block request is an explicit user request to assess every candidate
-outside rank gating. For each candidate that needs deterministic /xi authority,
-use the existing `EXCEPTION` authority contract with:
-- `user_requested_exception=true`;
-- a unique `exception_reference` prefixed `BLOCK-`;
-- fresh full `exception_research`;
-- the candidate's own evidence epoch;
-- upstream_state reflecting any existing rank state, or NOT_RANKED.
+The user's block request authorizes the existing full EXCEPTION research path
+candidate-by-candidate. This is not a bypass. Each candidate still needs fresh
+source-backed research, H2H/incentive/context checks, certificate funding and
+its own evidence epoch.
 
-This is not a bypass. The exception research validator, ASSESSMENT_DEPTH_V1,
-Football C compiler, screenshot/price policy, persistence/readback and
-publication guard all still apply.
-
-Existing rank rows may be displayed as secondary comparison metadata, but do
-not inherit their ordering or FOLLOW lane as block football evidence.
+For new assessment epochs, the exception payload must satisfy
+`ASSESSMENT_DEPTH_V2`. Existing frozen V1 epochs remain historical-compatible.
 
 ## 5. Odds and actions
 
-No odds are required for the football assessment. Always expose the model's
-certified supported burden / preferred football line when one exists.
+The block runtime is **football-only**. It must not consume bookmaker odds or
+publish ACT/BOOK/PASS.
 
-If the user supplied a screenshot, evaluate only the exact visible ladder.
-Never search replacement odds or infer unseen current prices.
+No odds are required for block selection. Expose the certified supported burden
+and preferred football burden separately from selection order.
 
-ACT/BOOK/PASS must come from the deterministic Football C runtime. A PASS on a
-higher visible burden must not erase a lower supported visible line.
+If the user supplies a screenshot, use only that exact visible ladder through
+the existing deterministic Football C XI runtime. Never search replacement
+odds.
+
+No official priced verdict may be published unless all of these exist:
+
+`XI runtime result -> Decision States write -> independent readback -> Step2 publication guard`
+
+Until then, display exactly:
+
+`FOOTBALL ASSESSMENT ONLY — PRICED DECISION NOT PERSISTED`
 
 ## 6. Persistence
 
-Persist every block assessment independently to Decision States using its
-Assessment ID/evidence epoch, including PASS/REVIEW_ONLY outcomes. Read back
-before publishing an official priced verdict.
+Persist every assessment independently. Never use a ranked row as a surrogate
+for a block assessment that was actually researched independently.
 
-Do not use a ranked row as a surrogate for an assessment that was actually run
-through block mode.
+A block-order receipt has no exposure authority. ACT/BOOK/PASS remains a
+separate persisted price-execution event.
 
-## 7. Role of /rank after this switch
+## 7. Role of /rank
 
 /rank remains a secondary whole-slate comparison, website and audit surface.
-It may be run after block assessment to measure selection inversion or compare
-global ordering, but it cannot decide which fixtures receive primary
-assessment.
+Its core ranking key and G3/G4 thresholds are unchanged by this repair.
+
+Use /rank later to measure selection inversion or compare global ordering, but
+it cannot decide the primary block order.

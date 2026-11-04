@@ -82,21 +82,27 @@ A user request such as `/block 23:00-00:00`, `assess the 23:00 block`, or
 `assess matches from 23:00 to 00:00` routes here.
 
 Resolve the complete requested kickoff cohort before judging any candidate.
-Assess every in-scope unstarted fixture to ASSESSMENT_DEPTH_V1, then run the
-football-first block comparison. No candidate may be omitted because /rank
+Assess every in-scope unstarted fixture to ASSESSMENT_DEPTH_V2, then compile
+the complete block through `engine/block_runtime.py` / `BLOCK_PRIORITY_V1`. No candidate may be omitted because /rank
 did not select it, because FOLLOW is full, or because another fixture already
 has a cleaner certificate.
 
 For runtime authority, the block request itself is explicit user authorization
-to use the existing full EXCEPTION research contract for each candidate. This
-does not relax Football C: each candidate still needs fresh source-backed
-research, H2H/incentive/context checks, certificate funding, screenshot-only
-price handling and Decision States persistence/readback. Existing rank data is
-secondary comparison metadata only.
+to use the existing full EXCEPTION research contract for each candidate. New
+assessment epochs require source-backed activation evidence under
+ASSESSMENT_DEPTH_V2. This does not relax Football C certificates. Existing rank
+data and FOLLOW lanes are secondary comparison metadata only.
 
-No odds are required to finish the football assessment and supported-burden
-read. If the user supplies a screenshot in the block request, evaluate that
-exact visible ladder after the football assessment.
+No odds are required to finish block selection. The block runtime is football-
+only and cannot emit ACT/BOOK/PASS. Execute it directly when callable; otherwise
+write one `football-block-runtime-v1` request under
+`models/football/engine/block_runtime_requests/` and consume the matching
+persisted result in the same turn. Manual conversational block ordering is not
+an authorized fallback; if both paths fail, return `BLOCK_RUNTIME_UNAVAILABLE`.
+
+If the user supplies a screenshot, evaluate only that exact visible ladder
+through the existing XI runtime, then persist to Decision States and
+independently read back before publishing a priced verdict.
 
 ## /rank
 
@@ -131,11 +137,11 @@ For new rank epochs, the launcher must also satisfy the prospective selection
 research contracts defined by RANK.md. A strong-primary/usable-reply
 REVIEW_ONLY row may require `G3_BORDERLINE_DISCRIMINATION_V2`; populate its
 source-backed `selection_recheck` instead of accepting a generic MEDIUM card.
-Nearby Grade-A/B credible candidates may require `BLOCK_DISCRIMINATION_V2`;
+Nearby Grade-A/B credible candidates may require `BLOCK_DISCRIMINATION_V3`;
 research the full block at equal depth and populate each `block_comparison`.
 A pending contract resumes the exact rank checkpoint. Do not bypass it by
-dropping the candidate, changing its operational grade, or copying the engine
-order without reconciling the underlying football evidence.
+dropping the candidate, changing its operational grade, or copying global /rank order. Reconcile against BLOCK_PRIORITY_V1; global rank is
+audit metadata only.
 
 ## /xi
 

@@ -8,8 +8,8 @@ This file describes only the current production path.
 
 When two repository texts appear to disagree, use this order:
 
-1. executable contracts in `engine/core.py`, `engine/adapter.py` and V4
-   `stage.py`;
+1. executable contracts in `engine/core.py`, `engine/adapter.py`,
+   `engine/block_priority.py`, `engine/block_runtime.py` and V4 `stage.py`;
 2. this file for active model/routing/data boundaries;
 3. `production/FOOTBALL_C.md` for Football C semantic rules;
 4. the canonical stage launcher for the command being executed;
@@ -65,9 +65,9 @@ not production dependencies.
 ## Production sequence
 
 SOURCE/BLOCK DATE SURFACES -> COMPLETE KICKOFF BLOCK -> EQUAL-DEPTH FOOTBALL C
-BLOCK ASSESSMENT -> FOOTBALL-FIRST BLOCK COMPARISON -> OPTIONAL SECONDARY /rank
-WHOLE-SLATE BOARD -> /xi OR BLOCK-OWNED PRICE EVALUATION -> ONE DECISION
-READBACK/PUBLICATION GATE -> LIVE/AUDIT
+ASSESSMENT_DEPTH_V2 -> BLOCK_PRIORITY_V1 -> OPTIONAL SECONDARY /rank WHOLE-SLATE
+BOARD -> XI PRICE RUNTIME WHEN A QUOTE EXISTS -> DECISION STATES WRITE/READBACK ->
+STEP2 PUBLICATION GATE -> LIVE/AUDIT
 
 Primary selection is now block-first. /rank remains available for whole-slate
 comparison, website/audit state and regression measurement, but it is not the
@@ -136,16 +136,37 @@ Authority: `prompts/02A_NORMAL_CHAT_BLOCK_ASSESSMENT.md` plus
 
 This is the primary production assessment workflow from 2026-11-03 onward.
 Resolve the complete requested kickoff block first, then assess every in-scope
-candidate to the same ASSESSMENT_DEPTH_V1 floor before comparing them. Do not
+candidate to the same ASSESSMENT_DEPTH_V2 floor before comparing them. Do not
 use /rank position, FOLLOW capacity, league prestige or an existing certificate
 as a pre-assessment filter.
 
 A block request is an explicit user authorization to run the existing full
 EXCEPTION research/authority path for each block candidate when independent
-Football C runtime authority is needed. This is an orchestration use of the
-already-existing exception contract, not a relaxation of certificate, price,
-XI, H2H, incentive, persistence or publication gates. Every candidate keeps a
-distinct evidence epoch and Decision States row.
+Football C runtime authority is needed. New epochs require ASSESSMENT_DEPTH_V2,
+including source-backed activation_quality / activation_basis /
+activation_evidence_refs. Activation is block-selection-only evidence: it cannot
+fund G3/G4/G5/G6, change supported burden or authorize price execution.
+
+After each candidate compiles through Football C, `BLOCK_PRIORITY_V1` supplies
+the deterministic block order. It compares hard viability/G3 accessibility,
+activation, leakage, continuation, credible upper tail, endpoint resistance,
+chance quality, burden completion, frozen goal signal, clearability and
+certificate quality before using G3 mechanism class as a late tiebreaker.
+Global /rank and FOLLOW lanes remain secondary audit metadata.
+
+Normal chat must execute `engine/block_runtime.py` directly when callable. If
+local execution is unavailable, create exactly one
+`football-block-runtime-v1` request under
+`engine/block_runtime_requests/<request-id>.json`, consume the persisted
+`engine/block_runtime_results/<request-id>.json` in the same turn, and use
+that result as the block order. Never substitute conversational/manual ordering
+for BLOCK_PRIORITY_V1. If both direct and backend execution fail, return
+`BLOCK_RUNTIME_UNAVAILABLE` rather than inventing an order.
+
+This is an orchestration use of the already-existing exception contract, not a
+relaxation of certificate, price, XI, H2H, incentive, persistence or
+publication gates. Every candidate keeps a distinct evidence epoch and Decision
+States row.
 
 If a valid rank row exists, retain it only as secondary comparison metadata.
 The block assessment itself must remain independently researched and must not
@@ -154,8 +175,10 @@ whole-slate comparison/audit, but a no-rank or low-rank state cannot prevent a
 fixture from receiving block assessment.
 
 No odds are required for the football assessment. When the user supplies a
-screenshot for a block candidate, evaluate only that screenshot through the
-same deterministic Football C quote policy. Do not search replacement odds.
+screenshot for a block candidate, the block runtime itself remains football-only.
+Evaluate the screenshot only through the existing deterministic Football C XI
+runtime. Do not search replacement odds. Do not publish ACT/BOOK/PASS before a
+Decision States write, independent readback and Step2 publication guard.
 
 ## /rank — Football C only
 
@@ -269,12 +292,12 @@ reply/completion, 0-0/1-1/2-0 stop risk, continuation, principal failure and
 grades. It never auto-promotes; revised facts flow back through the unchanged C
 compiler.
 
-`BLOCK_DISCRIMINATION_V2` is also mandatory for new multi-candidate Grade-A
+`BLOCK_DISCRIMINATION_V3` is also mandatory for new multi-candidate Grade-A
 kickoff blocks. Every candidate must be researched to equal depth and freeze a
-football-first block comparison. The declared comparison has no override
-authority: its order must reconcile with the engine inputs, otherwise the block
-is checkpointed as `BLOCK_COMPARISON_PENDING` until the source-backed grades
-and comparison agree. This prevents isolated plausible assessments from silently
+football-first block comparison. The declared comparison has no override authority: its order must reconcile
+with `BLOCK_PRIORITY_V1`, not the secondary global engine rank. A disagreement
+checkpoints the block as `BLOCK_COMPARISON_PENDING` until the activation and
+other source-backed block inputs agree with the deterministic comparator. This prevents isolated plausible assessments from silently
 becoming priority without proving why they beat their nearby alternatives.
 
 ## Football C supported-burden compiler
