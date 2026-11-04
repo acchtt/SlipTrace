@@ -51,7 +51,9 @@ The active command surface is:
 Conversation type is an operational surface, not model authority. Football C and
 the native V4/runtime receipts remain authoritative regardless of chat surface.
 For `/xi`, normal chat gathers evidence but official ACT/BOOK/PASS is owned by
-`engine/core.py` + `engine/adapter.py` + `engine/xi_portable.py`. When
+`engine/core.py` + `engine/adapter.py` + `engine/xi_portable.py`. Routine authority
+resolves BLOCK first, RANKED second; a valid persisted BLOCK_PRIORITY_V1 receipt
+never requires an intervening /rank. When
 local execution is unavailable, normal chat must use the on-demand GitHub XI
 runtime bridge and consume its persisted result in the same turn. Local Python
 absence by itself is **not** grounds for ANALYSIS_ONLY. ANALYSIS_ONLY remains the
@@ -179,6 +181,20 @@ screenshot for a block candidate, the block runtime itself remains football-only
 Evaluate the screenshot only through the existing deterministic Football C XI
 runtime. Do not search replacement odds. Do not publish ACT/BOOK/PASS before a
 Decision States write, independent readback and Step2 publication guard.
+
+## /xi — block-first authority
+
+After a primary block assessment, routine /xi inherits the persisted
+`football-block-runtime-v1` request/result pair through `authority.mode=BLOCK`.
+The authority verifies request/result integrity, exact frozen candidate hash,
+block-priority order and evidence epoch. Current Football C updates may be
+declared and rerun, but activation evidence remains frozen as block-selection
+authority.
+
+`RANKED` remains a secondary compatibility mode for fixtures with no valid
+current block receipt. `EXCEPTION` remains explicit-user-only. A free-standing
+payload with neither BLOCK nor RANKED authority fails as `XI_AUTHORITY_REQUIRED`,
+not as a demand to run /rank.
 
 ## /rank — Football C only
 
