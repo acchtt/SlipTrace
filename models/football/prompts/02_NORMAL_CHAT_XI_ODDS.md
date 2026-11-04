@@ -145,6 +145,11 @@ If the active ledger proves a fixture is ranked but the sealed package cannot
 be loaded, return `RANK_RECEIPT_REQUIRED`. Do not convert that ranked fixture
 to EXCEPTION.
 
+If the ranked compatibility package is sealed under a different active Football
+C policy revision, return `RANK_ENGINE_POLICY_DRIFT`; if it predates the
+required slate lock, return `RANK_POLICY_LOCK_REQUIRED`. These are RANKED-mode
+compatibility guards only and do not apply to a valid BLOCK authority package.
+
 A ranked legacy `FOCUS_UNFOLLOWED` row remains valid only for an exact direct
 user /xi request with `ranked_direct_request=true`, as before.
 
