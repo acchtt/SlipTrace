@@ -182,7 +182,7 @@ Evaluate the screenshot only through the existing deterministic Football C XI
 runtime. Do not search replacement odds. Do not publish ACT/BOOK/PASS before a
 Decision States write, independent readback and Step2 publication guard.
 
-## /xi — block-first authority
+## /xi — block-first authority with direct one-off fallback
 
 After a primary block assessment, routine /xi inherits the persisted
 `football-block-runtime-v1` request/result pair through `authority.mode=BLOCK`.
@@ -192,9 +192,17 @@ declared and rerun, but activation evidence remains frozen as block-selection
 authority.
 
 `RANKED` remains a secondary compatibility mode for fixtures with no valid
-current block receipt. `EXCEPTION` remains explicit-user-only. A free-standing
-payload with neither BLOCK nor RANKED authority fails as `XI_AUTHORITY_REQUIRED`,
-not as a demand to run /rank.
+current block receipt. When the user explicitly requests /xi for one exact
+fixture and neither BLOCK nor RANKED authority exists, normal chat performs one
+fresh full market-independent Football C research pass and uses
+`authority.mode=DIRECT`. DIRECT requires ASSESSMENT_DEPTH_V2 and the same
+source-backed research completeness used by the explicit exception path. It is
+not a rank or selection override and does not create authority for any other
+fixture.
+
+`EXCEPTION` remains reserved for explicit `/xi exception`. A free-standing
+payload with no explicit user /xi request still fails as
+`XI_AUTHORITY_REQUIRED`.
 
 ## /rank — Football C only
 
