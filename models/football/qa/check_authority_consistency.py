@@ -135,6 +135,8 @@ require(
     "from adapter import",
     "authorize_c_football",
     "RANK_RECEIPT_REQUIRED",
+    "BLOCK_RECEIPT_REQUIRED",
+    "XI_AUTHORITY_REQUIRED",
 )
 require(
     "models/football/engine/xi_authority.py",
@@ -153,6 +155,9 @@ require(
     "stall_0_0",
     "stall_1_1",
     "continuation_2_0",
+    "BLOCK_RUNTIME_SCHEMA",
+    "BLOCK_PRIORITY_V1",
+    "verified_block_package",
 )
 forbid(
     "models/football/engine/xi_portable.py",
@@ -174,6 +179,12 @@ require(
     "BLOCK_PRIORITY_V1",
     "priced_publication_authorized",
     "FOOTBALL_ASSESSMENT_ONLY_PRICED_DECISION_NOT_PERSISTED",
+)
+require(
+    "models/football/engine/xi_runtime_backend.py",
+    '"BLOCK", "RANKED", "EXCEPTION"',
+    "BLOCK_RECEIPT_REQUIRED",
+    "XI_AUTHORITY_REQUIRED",
 )
 require(
     "models/football/engine/step2_queue_guard.py",
@@ -267,6 +278,8 @@ require(
     "O3.25 requires",
     "No second",
     "FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md",
+    "authority.mode = BLOCK",
+    "BLOCK_PRIORITY_V1",
 )
 require(
     "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md",
