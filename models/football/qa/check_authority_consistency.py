@@ -86,7 +86,9 @@ require(
     "Slate Rank",
     "Current Rank",
     "G3_BORDERLINE_DISCRIMINATION_V2",
-    "BLOCK_DISCRIMINATION_V2",
+    "BLOCK_DISCRIMINATION_V3",
+    "BLOCK_PRIORITY_V1",
+    "ASSESSMENT_DEPTH_V2",
 )
 require(
     "models/football/engine/core.py",
@@ -116,7 +118,7 @@ require(
     "REVIEW_PARETO_DOMINANCE_GUARD_V1",
     "priority_review_board",
     "G3_BORDERLINE_DISCRIMINATION_V2",
-    "BLOCK_DISCRIMINATION_V2",
+    "BLOCK_DISCRIMINATION_V3",
     "G3_BORDERLINE_RESEARCH_PENDING",
     "BLOCK_COMPARISON_PENDING",
 )
@@ -145,6 +147,8 @@ require(
     "POLICY_LOCK_EFFECTIVE_UTC",
     "pinned_engine_policy_fingerprint",
     "ASSESSMENT_DEPTH_V1",
+    "ASSESSMENT_DEPTH_V2",
+    "activation_quality",
     "ASSESSMENT_RESEARCH_INCOMPLETE",
     "stall_0_0",
     "stall_1_1",
@@ -156,6 +160,20 @@ forbid(
     "run_pair(",
     "run_football_pair(",
     "--c2",
+)
+require(
+    "models/football/engine/block_priority.py",
+    'POLICY = "BLOCK_PRIORITY_V1"',
+    "activation_quality",
+    "mechanism_is_late_tiebreaker",
+    "outcome_fields_read",
+)
+require(
+    "models/football/engine/block_runtime.py",
+    'SCHEMA = "football-block-runtime-v1"',
+    "BLOCK_PRIORITY_V1",
+    "priced_publication_authorized",
+    "FOOTBALL_ASSESSMENT_ONLY_PRICED_DECISION_NOT_PERSISTED",
 )
 require(
     "models/football/engine/step2_queue_guard.py",
@@ -257,13 +275,15 @@ require(
 require(
     "models/football/procedures/FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md",
     "ASSESSMENT_DEPTH_V1",
+    "ASSESSMENT_DEPTH_V2",
     "BLOCK_COMPARISON_V1",
     "ASSESSMENT_RESEARCH_INCOMPLETE",
     "0-0 stall",
     "1-1 stall",
     "continuation from 2-0",
     "G3_BORDERLINE_DISCRIMINATION_V2",
-    "BLOCK_DISCRIMINATION_V2",
+    "BLOCK_DISCRIMINATION_V3",
+    "BLOCK_PRIORITY_V1",
 )
 for rel in (
     "models/football/CURRENT_MODEL.md",
