@@ -57,10 +57,10 @@ def _load_request(path: Path) -> dict[str, Any]:
         raise ValueError("choose screenshot_quote or strict_price_c, not both")
     authority = value.get("authority")
     if not isinstance(authority, dict) or authority.get("mode") not in {
-        "BLOCK", "RANKED", "EXCEPTION"
+        "BLOCK", "RANKED", "DIRECT", "EXCEPTION"
     }:
         raise RankAuthorityError(
-            "XI_AUTHORITY_REQUIRED: authority.mode must be BLOCK, RANKED or EXCEPTION"
+            "XI_AUTHORITY_REQUIRED: authority.mode must be BLOCK, RANKED, DIRECT or EXCEPTION"
         )
     return value
 
