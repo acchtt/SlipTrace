@@ -237,12 +237,14 @@ research-incomplete until a source-backed second pass names the exact missing
 G3 proof. This prevents the all-MEDIUM compression observed in the recent
 44-match audit from becoming an unquestioned negative certificate.
 
-`BLOCK_DISCRIMINATION_V2` then requires equal-depth football comparison inside
-nearby Grade-A/B candidate blocks. The comparison must explicitly cover G3/G4,
-carrier self-funding, reply dependence, endpoint exposure, continuation,
-incentive and supported burden. Its order must reconcile with the deterministic
-engine; disagreement is a research/grade reconciliation blocker, never a manual
-override.
+`BLOCK_DISCRIMINATION_V3` requires equal-depth ASSESSMENT_DEPTH_V2
+comparison inside nearby Grade-A/B candidate blocks, including source-backed
+activation quality/basis/refs. The declared order must reconcile with
+`BLOCK_PRIORITY_V1`, whose block-selection objective compares activation,
+leakage, continuation, credible upper tail and endpoint resistance before using
+G3 mechanism class as a late tiebreaker. Global /rank remains secondary audit
+metadata; disagreement with global rank is not itself a blocker. This changes
+neither Football C certificates nor price execution.
 
 `evidence_confidence` measures trust in the evidence. For active C it cannot,
 by itself, supply the genuinely HIGH predictive dimension needed to upgrade an
