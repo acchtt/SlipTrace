@@ -94,9 +94,15 @@ ASSESSMENT_DEPTH_V2. This does not relax Football C certificates. Existing rank
 data and FOLLOW lanes are secondary comparison metadata only.
 
 No odds are required to finish block selection. The block runtime is football-
-only and cannot emit ACT/BOOK/PASS. If the user supplies a screenshot, evaluate
-only that exact visible ladder through the existing XI runtime, then persist to
-Decision States and independently read back before publishing a priced verdict.
+only and cannot emit ACT/BOOK/PASS. Execute it directly when callable; otherwise
+write one `football-block-runtime-v1` request under
+`models/football/engine/block_runtime_requests/` and consume the matching
+persisted result in the same turn. Manual conversational block ordering is not
+an authorized fallback; if both paths fail, return `BLOCK_RUNTIME_UNAVAILABLE`.
+
+If the user supplies a screenshot, evaluate only that exact visible ladder
+through the existing XI runtime, then persist to Decision States and
+independently read back before publishing a priced verdict.
 
 ## /rank
 
