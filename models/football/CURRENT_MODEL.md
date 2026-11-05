@@ -182,6 +182,22 @@ Evaluate the screenshot only through the existing deterministic Football C XI
 runtime. Do not search replacement odds. Do not publish ACT/BOOK/PASS before a
 Decision States write, independent readback and Step2 publication guard.
 
+## 2026-11-05 morning calibration repair
+
+New assessment epochs use `ASSESSMENT_DEPTH_V3`.
+
+- HIGH activation requires structured ignition evidence from 0-0; recent high
+  totals and incentive alone cannot qualify it.
+- mandatory tournament incentive now requires explicit competition-structure
+  kind plus official-competition/primary-organizer format proof and consistent
+  aggregate state.
+- a fresh explicit G4 rejection caps the G3 settlement-aware execution
+  extension at O2.75; O3.00/O3.25 cannot be regenerated from a generic
+  NEAR_FUNDED tail.
+
+`BLOCK_PRIORITY_V1` ordering itself is unchanged. This repair calibrates its
+inputs and the downstream /xi extension rather than rewriting the comparator.
+
 ## /xi — block-first authority with direct one-off fallback
 
 After a primary block assessment, routine /xi inherits the persisted
