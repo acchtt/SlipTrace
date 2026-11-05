@@ -1,0 +1,11 @@
+{
+  "error": "BLOCK_RECEIPT_REQUIRED: undeclared override of frozen field source_urls",
+  "error_type": "RankAuthorityError",
+  "failure_class": "BLOCK_AUTHORITY",
+  "input_sha256": "44c4da536c29098a1f9fb4dfd05b2cdad3a76b321aa9b6421d51794d157c21f3",
+  "ok": false,
+  "request_id": "XI-CRC-ESCORPIONES-ALAJUELENSE-20261105T0156Z-BLOCK",
+  "runtime_commit": "98f5df488db3cc81afddd259c6b36b7ccfdce615",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "BLOCK_RECEIPT_REQUIRED"
+}
