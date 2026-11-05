@@ -456,9 +456,8 @@ engine/adapter.py and engine/xi_portable.py.
 
 Every /xi:
 
-1. resolves shared authority first: normal fixtures require the newest verified
-   rank package and exact FOCUS row; only explicit `/xi exception` may use
-   EXCEPTION authority;
+1. resolves authority in order BLOCK -> RANKED -> exact-user DIRECT -> explicit
+   EXCEPTION;
 2. completes Football C assessment without requiring odds;
 3. executes the deterministic runtime directly when callable, otherwise through
    `xi_runtime_backend.py` via the request/result GitHub bridge;
@@ -466,11 +465,19 @@ Every /xi:
    through adapter.evaluate_observed_quote();
 5. if a genuinely executable current prematch quote exists, uses
    adapter.run_decision();
-6. persists/readbacks once when persistence is required.
+6. consumes the runtime `decision_state_persistence` /
+   `XI_SHEETS_HANDOFF_V1` in the **same turn**;
+7. upserts the emitted row to Decision States by Assessment ID, stamps
+   Persisted At UTC, independently refetches it, and verifies the required
+   fields before publishing ACT/BOOK/PASS.
+
+GitHub runtime-result persistence is not Google Sheets persistence. If the
+Sheets write/readback cannot be completed, /xi fails closed as
+`XI_PERSISTENCE_UNAVAILABLE` / `ENGINE_EVALUATED_NOT_PUBLISHED`.
 
 Both direct `xi_portable.py` and the GitHub backend call
-`engine/xi_authority.py`. A free-standing routine Football C payload is
-invalid and fails closed with `RANK_RECEIPT_REQUIRED`.
+`engine/xi_authority.py`. A free-standing routine Football C payload without
+valid BLOCK/RANKED or exact-user DIRECT authority fails closed.
 
 The backend bridge is transport only. It does not create a second policy, fetch
 replacement odds, or loosen Football C.
