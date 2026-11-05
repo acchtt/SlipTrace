@@ -1,0 +1,675 @@
+{
+  "authority": {
+    "assessment_depth": {
+      "activation": {
+        "basis": "The exact reverse opened with Svay goals at 9, 15 and 24 minutes, and both teams' group states create immediate game-state pressure.",
+        "block_selection_only": true,
+        "calibration": "DECLARED_GRADE_ACCEPTED",
+        "certificate_authority": false,
+        "effective_quality": "HIGH",
+        "evidence_refs": [
+          "https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0",
+          "https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29"
+        ],
+        "ignition": {
+          "current_attack_structure": 2,
+          "early_chance_creation": 2,
+          "early_concession_opening": 2,
+          "game_state_force": 2,
+          "weaker_side_state_change": 1
+        },
+        "ignition_evidence_refs": [
+          "https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0",
+          "https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29"
+        ],
+        "price_execution_authority": false,
+        "quality": "HIGH",
+        "tournament_structure": {
+          "basis": "Official AFC 2026/27 competition regulations define four-team home-and-away groups and group-ranking rules, with the top two progressing to the Round of 16.",
+          "evidence_refs": [
+            "https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf"
+          ],
+          "required": true,
+          "source_tier": "OFFICIAL_COMPETITION",
+          "structure_kind": "GROUP_STAGE",
+          "verified": true
+        }
+      },
+      "assessment_at_utc": "2026-11-05T09:40:00+00:00",
+      "checks": [
+        "availability_replacements",
+        "carrier_capacity",
+        "continuation_2_0",
+        "current_chance_creation",
+        "goal3_mechanism",
+        "goal4_mechanism",
+        "h2h_transferability",
+        "match_context",
+        "named_failure_mechanism",
+        "opponent_leakage",
+        "primary_scoring_route",
+        "secondary_reply_route",
+        "stall_0_0",
+        "stall_1_1",
+        "supported_burden_basis",
+        "tournament_incentive"
+      ],
+      "completed": true,
+      "contract": "ASSESSMENT_DEPTH_V3",
+      "evidence_epoch_id": "DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+      "evidence_ref_count": 3,
+      "market_independent": true,
+      "required": true
+    },
+    "direct_research": {
+      "challenge_reason": null,
+      "checked_fields": [
+        "availability_and_replacements",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "competition_format_incentive",
+        "completion_continuation_stall",
+        "failure_mechanisms",
+        "fixture_identity_status",
+        "g4_research_if_g3_funded",
+        "h2h_materiality",
+        "home_scoring_route",
+        "rivalry_rest_travel_fatigue_context",
+        "upper_tail_and_comparable_context"
+      ],
+      "evidence_ref_count": 3,
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+      "researched_at_utc": "2026-11-05T09:40:00+00:00",
+      "revision": "INITIAL",
+      "source_reference": "DIRECT-AFC2-SVAY-TAMPINES-20261105-V4",
+      "state_change_basis": null,
+      "state_change_fields": [],
+      "state_change_status": null,
+      "supersedes_evidence_epoch_id": null,
+      "supersedes_exception_reference": null,
+      "upstream_state": "NOT_RANKED"
+    },
+    "mode": "DIRECT",
+    "rank_state_display": "DIRECT",
+    "rank_state_internal": null,
+    "reference": "DIRECT-AFC2-SVAY-TAMPINES-20261105-V4",
+    "user_requested_direct_xi": true
+  },
+  "input_sha256": "4724a73d4de091352485c1e3300cb6393e4fc4feeb255b9255c5cb80418d02f5",
+  "ok": true,
+  "request_id": "XI-DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+  "runtime": {
+    "calibration_record": {
+      "automatic_threshold_learning": false,
+      "certified_burden": 3.5,
+      "compiled_board_state": "FOCUS",
+      "control_review": false,
+      "credible_tail_state": "NEAR_FUNDED",
+      "current_rank": null,
+      "decision": "ACT",
+      "direct_act_ceiling": 3.5,
+      "entry_feasibility_basis": "an exact visible screenshot line clears direct ACT policy",
+      "entry_feasibility_state": "EXECUTABLE_NOW",
+      "evidence_epoch": "DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+      "exception_flag": false,
+      "follow_lane": null,
+      "g3_endpoint_pressure": "NONE",
+      "goal3_funded": true,
+      "goal3_mechanism_class": "CARRIER",
+      "goal4_funded": true,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "goal_screen_state": null,
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "match_id": "AFC2-GG-20261105-SVR-TAM",
+      "pass_had_lower_supported_visible_line": false,
+      "rank": null,
+      "rank_scope": null,
+      "researcher_declared_board_state": "FOCUS",
+      "robustness": "ROBUST",
+      "schema_version": "football-c-calibration-v1",
+      "screenshot_visible_ladder": [
+        {
+          "line": 3.25,
+          "odds": 2.02
+        }
+      ],
+      "selected_evaluated_line": 3.25,
+      "selected_evaluated_odds": 2.02,
+      "selection_authority": "ZERO",
+      "slate_rank": null,
+      "slate_rank_status": null,
+      "sweep_state": null,
+      "upper_tail_pressure": "NONE"
+    },
+    "decision_state_persistence": {
+      "key_column": "Assessment ID",
+      "missing_persistence_inputs": [],
+      "persistence_input_complete": true,
+      "publication_authorized_before_readback": false,
+      "publication_fail_closed": true,
+      "readback_assertions": [
+        "Assessment ID",
+        "Evidence Epoch ID",
+        "XI Assessment Execution Status",
+        "C Action",
+        "C Supported Line",
+        "Evaluated Line",
+        "Evaluated Odds",
+        "Engine C Result",
+        "Engine Source Revision"
+      ],
+      "readback_required": true,
+      "required": true,
+      "row": {
+        "Assessment At UTC": "2026-11-05T09:40:00+00:00",
+        "Assessment ID": "XI-C-DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+        "C Action": "OBSERVED_ACT_NON_EXECUTABLE",
+        "C Board State": "FOCUS",
+        "C Supported Line": 3.5,
+        "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":3.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"NEAR_FUNDED\",\"current_rank\":null,\"decision\":\"ACT\",\"direct_act_ceiling\":3.5,\"entry_feasibility_basis\":\"an exact visible screenshot line clears direct ACT policy\",\"entry_feasibility_state\":\"EXECUTABLE_NOW\",\"evidence_epoch\":\"DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"NONE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":true,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"AFC2-GG-20261105-SVR-TAM\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"ROBUST\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.25,\"odds\":2.02}],\"selected_evaluated_line\":3.25,\"selected_evaluated_odds\":2.02,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"NONE\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"price_check\":{\"bet_authorized\":false,\"evidence\":{\"assessment_at_utc\":\"2026-11-05T09:40:00+00:00\",\"bookmaker\":\"User-displayed bookmaker\",\"capture_reference\":\"USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817\",\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"UNQUOTED_CUSTOM_LINE_REVIEW\",\"user_bookmaker_custom_line_supported\":false},\"external_price_searches\":0,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"match_id\":\"AFC2-GG-20261105-SVR-TAM\",\"match_minute\":null,\"observation_age_seconds\":0.0,\"observed_at_utc\":\"2026-11-05T09:40:00+00:00\",\"price_evidence_mode\":\"USER_SCREENSHOT_ONLY\",\"quote\":{\"line\":3.25,\"odds\":2.02},\"replacement_quotes\":0,\"score\":null,\"source\":\"USER_SCREENSHOT\",\"visible_ladder\":[{\"line\":3.25,\"odds\":2.02}]},\"execution_authorized\":false,\"limitations\":[\"SCREENSHOT_NOT_EXECUTION_EVIDENCE\"],\"model\":{\"book_min_odds\":null,\"book_order_is_exposure\":false,\"book_target_line\":null,\"book_target_state\":\"NO_BOOK_TARGET\",\"bridge_used\":false,\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":3.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"NEAR_FUNDED\",\"current_rank\":null,\"decision\":\"ACT\",\"direct_act_ceiling\":3.5,\"entry_feasibility_basis\":\"an exact visible screenshot line clears direct ACT policy\",\"entry_feasibility_state\":\"EXECUTABLE_NOW\",\"evidence_epoch\":\"DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"NONE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":true,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"AFC2-GG-20261105-SVR-TAM\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"ROBUST\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.25,\"odds\":2.02}],\"selected_evaluated_line\":3.25,\"selected_evaluated_odds\":2.02,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"NONE\"},\"certificate_completeness_recheck_required\":false,\"conditional_action\":\"ACT\",\"current_price_clears_book_target\":false,\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"UNQUOTED_CUSTOM_LINE_REVIEW\",\"user_bookmaker_custom_line_supported\":false},\"entry_feasibility_basis\":\"an exact visible screenshot line clears direct ACT policy\",\"entry_feasibility_state\":\"EXECUTABLE_NOW\",\"execution_authorized\":false,\"frozen_board_g4_research_status\":\"LEGACY_UNKNOWN\",\"goal3_mechanism_class\":\"CARRIER\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"market_disagreement_gap_goals\":-0.25,\"market_disagreement_recheck_basis\":\"NOT_REQUIRED\",\"market_disagreement_recheck_completed\":true,\"market_disagreement_recheck_evidence_refs\":[],\"market_disagreement_recheck_fields\":[],\"market_disagreement_recheck_missing_fields\":[],\"market_disagreement_recheck_required\":false,\"pass_had_lower_supported_visible_line\":false,\"prior_certificate_reclassification_recheck_required\":false,\"reason\":\"ROBUST supported/protected line at normal price\",\"selected_visible_line\":3.25,\"selected_visible_odds\":2.02,\"snapshot_line_relation\":\"BELOW_SUPPORTED_BURDEN\",\"supported_line\":3.5,\"supported_visible_line_found\":true,\"visible_ladder_evaluations\":[{\"action\":\"ACT\",\"direct_act_ceiling\":3.5,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.25,\"line_relation\":\"BELOW_SUPPORTED_BURDEN\",\"odds\":2.02,\"reason\":\"ROBUST supported/protected line at normal price\"}],\"visible_ladder_selection_basis\":\"HIGHEST_VISIBLE_EXECUTABLE_SUPPORTED_LINE\",\"wait_min_odds\":null,\"wait_reachability_basis\":null,\"wait_reachable\":false,\"wait_target_line\":null},\"model_bets_created\":false,\"ok\":true,\"priced_publication_authorized\":false,\"quote_research_required\":false,\"status\":\"OBSERVED_QUOTE_EVALUATED\"},\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"WIN_PREFERRED\",\"away_route\":\"USABLE\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"HIGH\",\"burden_stall_risk\":\"LOW\",\"carrier\":\"STRONG\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":true,\"certificate_robustness\":\"ROBUST\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":true,\"tournament_tail_bias\":\"EXPANSIVE\"},\"certified_supported_burden\":3.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"HIGH\",\"credible_burden_band_high\":4.25,\"credible_burden_band_low\":3.75,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G5_NEAR_FUNDED_PREMARKET: strong next-goal mechanisms remain just below the full certificate; band is diagnostic only\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"NEAR_FUNDED\",\"credible_tail_target_goal\":5,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Current market-independent evidence supports a funded G3 and a complete independent G4 investigation; deterministic compilation owns the final state.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":3.5,\"declared_supported_line_basis\":\"Research declaration only: current carrier, same-opponent leakage and independent fourth-goal continuation support a G4 investigation; the deterministic compiler owns the certified burden.\",\"direct_act_ceiling\":3.5,\"effective_burden_stall_risk\":\"LOW\",\"effective_continuation_quality\":\"HIGH\",\"effective_upper_tail_transferability\":\"HIGH\",\"endpoint_control_pressure\":\"NONE\",\"execution_strength\":\"ROBUST\",\"failure_mechanisms\":{},\"failure_resistance\":\"HIGH\",\"fatigue_context\":\"NONE\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":3.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G4 highest funded; max fully-funded Asian Over=3.50; G3 mechanisms=CARRIER_G3,LEAKAGE_G3; upper_tail_transferability=HIGH; comparable_context=SUPPORTIVE\",\"frozen_supported_line_funding\":true,\"g3_current_structure_basis\":\"Current same-opponent evidence verifies a STRONG Svay route and a USABLE Tampines reply, with rapid creation against this exact defense.\",\"g3_current_structure_source_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"g3_current_structure_verified\":true,\"g3_endpoint_control_pressure\":\"NONE\",\"g4_carrier_path\":\"SUPPORTED\",\"g4_continuation_after_g3\":\"HIGH\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"g4_distributed_path\":\"MIXED\",\"g4_evidence_disposition\":\"FUNDED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Svay's carrier produced five against this exact defense one week ago and remains the strongest current route.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"]},\"g4_distributed_path\":{\"basis\":\"A 3+1 or 2+2 distribution is plausible because Tampines retain a usable scoring route, though it is less certain than the Svay carrier.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"]},\"g4_reply_path\":{\"basis\":\"Tampines scored in the reverse and remain capable of contributing after Svay establish a lead, supporting an independent reply-assisted fourth goal.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"]}},\"g4_reply_path\":\"SUPPORTED\",\"g4_research_basis\":\"Goal four is independently supported by the same-opponent rapid-opening 5-1 reverse, Svay's self-funding carrier and a live Tampines reply route; the compiler still decides whether this evidence funds G4.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":true,\"goal3_distributed_funded\":false,\"goal3_funded\":true,\"goal3_leakage_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal3_two_route_funded\":false,\"goal4_funded\":true,\"goal5_funded\":false,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 0-0, 1-1 and 2-0 stopping states were explicitly reviewed against current same-competition evidence.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"continuation_quality\":{\"basis\":\"Continuation after the third goal was assessed independently from the first-goal route and from bookmaker prices.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"failure_resistance\":{\"basis\":\"Failure resistance reflects whether the primary scoring route survives a weak or absent secondary contribution.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"independent_upper_tail\":{\"basis\":\"The fourth-goal tail was assessed independently and is not inferred from the visible bookmaker total.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"route_reliability\":{\"basis\":\"Current route reliability was checked from the same-competition reverse fixture plus current team structure and availability.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]}},\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"EXPANSIVE\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_context_basis\":\"The short regional away trip is noted but no verified rest, rivalry or fatigue factor is strong enough to override the current scoring structure.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_positive_pressure\":false,\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_context_suppressive_pressure\":false,\"match_id\":\"AFC2-GG-20261105-SVR-TAM\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"OFFICIAL_TOURNAMENT_FORMAT_INCENTIVES_REQUIRED\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":3.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_incentive_effect\":\"EXPANSIVE\",\"tournament_incentive_required\":true,\"tournament_incentive_resolution\":\"VERIFIED\",\"tournament_positive_pressure\":true,\"tournament_suppressive_pressure\":false,\"tournament_tail_bias\":\"EXPANSIVE\",\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"Same-opponent ACL2 evidence and current Tampines attacking openness both support continuation beyond three total goals.\",\"upper_tail_comparable_context_signal\":\"SUPPORTIVE\",\"upper_tail_control_pressure\":\"NONE\",\"upper_tail_strength\":\"MEDIUM\",\"upper_tail_transferability\":\"HIGH\",\"upper_tail_transferability_basis\":\"The strongest upper-tail evidence comes from the exact same opponent and competition one week earlier, which is directly comparable to this rematch.\",\"wait_authorized\":false},\"xi_mode\":\"FOOTBALL_AND_OBSERVED_QUOTE\"}",
+        "Engine Source Revision": "2d8c43c208e08d372ae7ad0fcf7f5ced81585f3d",
+        "Evaluated Line": 3.25,
+        "Evaluated Odds": 2.02,
+        "Evidence Epoch ID": "DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+        "Fixture Status": "PREMATCH_CONFIRMED",
+        "Match ID": "AFC2-GG-20261105-SVR-TAM",
+        "Match Minute": null,
+        "Payload JSON": "{\"assessment_depth\":{\"assessed_at_utc\":\"2026-11-05T09:40:00+00:00\",\"checks\":{\"availability_replacements\":\"No confirmed XI is independently verified yet; current last-known structures and squad evidence preserve the main carrier and reply routes without assuming unverified starters.\",\"carrier_capacity\":\"Svay's carrier is STRONG and self-funding for three because the same current matchup produced five goals from Svay, including three before 25 minutes.\",\"continuation_2_0\":\"At 2-0, Tampines must still chase points and Svay have demonstrated continued scoring against this exact opponent, so continuation remains HIGH.\",\"current_chance_creation\":\"Same-opponent evidence verifies high current chance creation and early conversion rather than relying only on season-long score averages.\",\"goal3_mechanism\":\"Goal three has a direct carrier mechanism through Svay plus a usable Tampines reply; the current-structure 2+1 or 3+0 routes are both credible.\",\"goal4_mechanism\":\"Goal four is researched independently through the Svay carrier and reply-assisted continuation, with the exact reverse providing directly comparable six-goal evidence.\",\"h2h_transferability\":\"The reverse is only one week old and same competition, so it is highly transferable as current structure evidence, but not used as an automatic totals verdict.\",\"match_context\":\"Travel and rest were checked; no verified fatigue or rivalry factor is strong enough to suppress the current scoring mechanisms.\",\"named_failure_mechanism\":\"The main failure is Svay game management after establishing control, which could stop the match at 2-0 despite the strong opening and carrier evidence.\",\"opponent_leakage\":\"Tampines conceded five to Svay in the reverse, including three early, providing direct current evidence of HIGH matchup leakage.\",\"primary_scoring_route\":\"Svay Rieng have a STRONG current carrier demonstrated against this exact defense one week ago, with rapid early scoring and repeatable chance creation.\",\"secondary_reply_route\":\"Tampines retain a USABLE scoring route and scored in the reverse, so the total is not dependent solely on one side even though Svay carry most of the burden.\",\"stall_0_0\":\"A 0-0 stall is still possible, but the exact reverse opened at 9 minutes and produced three Svay goals by 24, making persistent early control a weaker failure route.\",\"stall_1_1\":\"At 1-1, Svay's stronger carrier and qualification pressure preserve multiple paths to the third goal and continuation beyond it.\",\"supported_burden_basis\":\"The research supports a complete G4 investigation from same-opponent evidence; the deterministic certificate compiler, not the O3.25 screenshot, sets the protected burden.\",\"tournament_incentive\":\"Official AFC group format is verified; Svay are in a top-two fight and Tampines have zero points, so both sides have meaningful points pressure.\"},\"completed\":true,\"contract\":\"ASSESSMENT_DEPTH_V3\",\"evidence_epoch_id\":\"DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"market_independent\":true},\"context\":{\"assessment_at_utc\":\"2026-11-05T09:40:00+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"DIRECT /xi has no prior valid block or rank certificate; the current deterministic Football C compiler owns the certificate.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NO_FROZEN_BOARD\",\"direct_request\":true,\"direct_research_completed\":true,\"direct_research_epoch_id\":\"DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4\",\"direct_revision\":\"INITIAL\",\"direct_upstream_state\":\"NOT_RANKED\",\"exception_flag\":false,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":false,\"frozen_board_certified_burden\":null,\"market_disagreement_recheck_basis\":\"The visible O3.25 line is below the football-researched G4 ceiling candidate; the same-opponent carrier and fourth-goal paths were nevertheless rechecked without using price as evidence.\",\"market_disagreement_recheck_evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"market_disagreement_recheck_fields\":[\"route_reliability\",\"chance_quality\",\"burden_completion_quality\",\"continuation_quality\",\"independent_upper_tail\",\"upper_tail_transferability\",\"upper_tail_comparable_context_signal\",\"g4_research_status\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"market_disagreement_recheck_status\":\"COMPLETED\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\"},\"evidence_epoch_id\":\"DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4\",\"match\":{\"activation_basis\":\"The exact reverse opened with Svay goals at 9, 15 and 24 minutes, and both teams' group states create immediate game-state pressure.\",\"activation_evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"activation_ignition\":{\"basis\":\"The exact same matchup showed verified rapid creation and concession, while Tampines' zero-point group state gives the weaker side reason to force a state change.\",\"current_attack_structure\":\"HIGH\",\"early_chance_creation\":\"HIGH\",\"early_concession_opening\":\"HIGH\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"game_state_force\":\"HIGH\",\"weaker_side_state_change\":\"MEDIUM\"},\"activation_quality\":\"HIGH\",\"aggregate_state\":\"SINGLE_GROUP_MATCH_NO_AGGREGATE\",\"away\":\"Tampines Rovers\",\"away_incentive\":\"WIN_PREFERRED\",\"away_route\":\"USABLE\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Current market-independent evidence supports a funded G3 and a complete independent G4 investigation; deterministic compilation owns the final state.\",\"burden_completion_quality\":\"HIGH\",\"burden_protection\":\"HIGH\",\"burden_stall_risk\":\"LOW\",\"carrier\":\"STRONG\",\"carrier_self_fund\":true,\"carrier_self_fund_basis\":\"Svay scored five away against this exact opponent one week ago and produced three goals by 24 minutes, establishing a current three-goal self-funding path.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"The exact reverse ACL2 fixture ended Tampines 1-5 Svay Rieng only one week ago, with Svay scoring at 9, 15 and 24 minutes. Tampines also retain a live current domestic scoring route, while both teams' group positions create points pressure.\",\"competition\":\"AFC Champions League Two\",\"competition_format\":\"Four-team home-and-away group stage; each club plays six group matches and the top two progress to the Round of 16.\",\"competition_kind\":\"CONTINENTAL\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"Current AFC group state, exact reverse fixture and current squad/recent-result evidence are source-backed; no popularity prior is used.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"GROUP_STAGE_MATCHDAY_4_OF_6\",\"competition_structure_basis\":\"Official AFC 2026/27 competition regulations define four-team home-and-away groups and group-ranking rules, with the top two progressing to the Round of 16.\",\"competition_structure_evidence_refs\":[\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"competition_structure_kind\":\"GROUP_STAGE\",\"competition_structure_source_tier\":\"OFFICIAL_COMPETITION\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"HIGH\",\"country\":\"Cambodia\",\"demoted_probation\":false,\"draw_resolution\":\"A group-stage draw stands after 90 minutes.\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"The failure case is post-lead game management; it does not erase Svay's primary scoring route or Tampines' usable reply.\",\"failure_mechanisms\":{},\"failure_resistance\":\"HIGH\",\"fatigue_context\":\"NONE\",\"g3_current_structure_basis\":\"Current same-opponent evidence verifies a STRONG Svay route and a USABLE Tampines reply, with rapid creation against this exact defense.\",\"g3_current_structure_source_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"g3_current_structure_verified\":true,\"g4_carrier_path\":\"SUPPORTED\",\"g4_continuation_after_g3\":\"HIGH\",\"g4_distributed_path\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Svay's carrier produced five against this exact defense one week ago and remains the strongest current route.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"]},\"g4_distributed_path\":{\"basis\":\"A 3+1 or 2+2 distribution is plausible because Tampines retain a usable scoring route, though it is less certain than the Svay carrier.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"]},\"g4_reply_path\":{\"basis\":\"Tampines scored in the reverse and remain capable of contributing after Svay establish a lead, supporting an independent reply-assisted fourth goal.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"]}},\"g4_reply_path\":\"SUPPORTED\",\"g4_research_basis\":\"Goal four is independently supported by the same-opponent rapid-opening 5-1 reverse, Svay's self-funding carrier and a live Tampines reply route; the compiler still decides whether this evidence funds G4.\",\"g4_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"goal_signal_low_draw_trap_rate\":0.06,\"goal_signal_mean_over_three_rate\":0.6,\"goal_signal_mean_over_two_rate\":0.68,\"goal_signal_priority_score\":88,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 0-0, 1-1 and 2-0 stopping states were explicitly reviewed against current same-competition evidence.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"continuation_quality\":{\"basis\":\"Continuation after the third goal was assessed independently from the first-goal route and from bookmaker prices.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"failure_resistance\":{\"basis\":\"Failure resistance reflects whether the primary scoring route survives a weak or absent secondary contribution.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"independent_upper_tail\":{\"basis\":\"The fourth-goal tail was assessed independently and is not inferred from the visible bookmaker total.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"route_reliability\":{\"basis\":\"Current route reliability was checked from the same-competition reverse fixture plus current team structure and availability.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]}},\"h2h_basis\":\"The one-week-old reverse fixture is highly transferable as current same-competition structure, but it is used as current mechanism evidence rather than a standalone H2H veto or automatic over signal.\",\"h2h_current_corroboration\":\"VERIFIED\",\"h2h_effect\":\"NOT_MATERIAL\",\"h2h_material_effect\":false,\"h2h_state\":\"CURRENT_COMPETITION_REVIEWED\",\"h2h_transferability\":\"VERIFIED\",\"home\":\"PKR Svay Rieng\",\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"EXPANSIVE\",\"independent_route_quality\":\"HIGH\",\"independent_upper_tail\":true,\"independent_upper_tail_basis\":\"The exact reverse produced six goals with rapid early opening, while Tampines retain a usable reply route; the fourth-goal path is independently supported rather than inferred from the market.\",\"kickoff_ict\":\"2026-11-05T19:15:00+07:00\",\"main_failure\":\"The principal failure is regression from the extreme reverse score if Svay establish a lead and manage the game, leaving a controlled 2-0 endpoint instead of sustained continuation.\",\"market_observability\":\"HIGH\",\"match_context_basis\":\"The short regional away trip is noted but no verified rest, rivalry or fatigue factor is strong enough to override the current scoring structure.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_id\":\"AFC2-GG-20261105-SVR-TAM\",\"material_suppression\":false,\"material_suppression_basis\":\"No verified all-route suppression exists; current qualification pressure and the exact reverse fixture point toward an active matchup.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"Current group context, exact same-opponent ACL2 evidence and last-known starting structures are available; confirmed lineups are not independently verified at this freeze.\",\"opponent_leakage\":\"HIGH\",\"qualification_state\":\"Svay Rieng enter second in Group G on four points, level with Shanghai Shenhua, while Tampines are fourth on zero. Svay need a win to protect the top-two route and Tampines need immediate points to remain realistically alive.\",\"raw_operational_viability_grade\":\"A\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"simultaneous_results_note\":\"The other match in the same four-team group remains relevant to qualification, but this fixture has no knockout aggregate.\",\"simultaneous_results_status\":\"VERIFIED\",\"source_urls\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"supported_line\":3.5,\"supported_line_basis\":\"Research declaration only: current carrier, same-opponent leakage and independent fourth-goal continuation support a G4 investigation; the deterministic compiler owns the certified burden.\",\"team_news_observability\":\"MEDIUM\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_format_status\":\"VERIFIED\",\"tournament_incentive_required\":true,\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"Same-opponent ACL2 evidence and current Tampines attacking openness both support continuation beyond three total goals.\",\"upper_tail_comparable_context_signal\":\"SUPPORTIVE\",\"upper_tail_competition_provenance_basis\":\"The primary extreme-tail evidence is the exact AFC Champions League Two reverse fixture; domestic results are corroboration only.\",\"upper_tail_competition_provenance_verified\":true,\"upper_tail_transferability\":\"HIGH\",\"upper_tail_transferability_basis\":\"The strongest upper-tail evidence comes from the exact same opponent and competition one week earlier, which is directly comparable to this rematch.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"MEDIUM\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+        "Persisted At UTC": null,
+        "Publication Key": null,
+        "Published": false,
+        "Score": null,
+        "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_AND_PRICE"
+      },
+      "sheet_name": "Decision States",
+      "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+      "status_before_readback": "DECISION_STATE_PERSISTENCE_REQUIRED",
+      "store": "GOOGLE_SHEETS"
+    },
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "price_check": {
+      "bet_authorized": false,
+      "evidence": {
+        "assessment_at_utc": "2026-11-05T09:40:00+00:00",
+        "bookmaker": "User-displayed bookmaker",
+        "capture_reference": "USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817",
+        "custom_line_review": {
+          "bet_authorized": false,
+          "candidate_line": 2.5,
+          "candidate_odds": null,
+          "execution_authorized": false,
+          "minimum_odds": null,
+          "reason": "Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.",
+          "requires_user_confirmed_quote": true,
+          "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+          "status": "UNQUOTED_CUSTOM_LINE_REVIEW",
+          "user_bookmaker_custom_line_supported": false
+        },
+        "external_price_searches": 0,
+        "fixture_status": "PREMATCH_CONFIRMED",
+        "match_id": "AFC2-GG-20261105-SVR-TAM",
+        "match_minute": null,
+        "observation_age_seconds": 0.0,
+        "observed_at_utc": "2026-11-05T09:40:00+00:00",
+        "price_evidence_mode": "USER_SCREENSHOT_ONLY",
+        "quote": {
+          "line": 3.25,
+          "odds": 2.02
+        },
+        "replacement_quotes": 0,
+        "score": null,
+        "source": "USER_SCREENSHOT",
+        "visible_ladder": [
+          {
+            "line": 3.25,
+            "odds": 2.02
+          }
+        ]
+      },
+      "execution_authorized": false,
+      "limitations": [
+        "SCREENSHOT_NOT_EXECUTION_EVIDENCE"
+      ],
+      "model": {
+        "book_min_odds": null,
+        "book_order_is_exposure": false,
+        "book_target_line": null,
+        "book_target_state": "NO_BOOK_TARGET",
+        "bridge_used": false,
+        "calibration_record": {
+          "automatic_threshold_learning": false,
+          "certified_burden": 3.5,
+          "compiled_board_state": "FOCUS",
+          "control_review": false,
+          "credible_tail_state": "NEAR_FUNDED",
+          "current_rank": null,
+          "decision": "ACT",
+          "direct_act_ceiling": 3.5,
+          "entry_feasibility_basis": "an exact visible screenshot line clears direct ACT policy",
+          "entry_feasibility_state": "EXECUTABLE_NOW",
+          "evidence_epoch": "DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+          "exception_flag": false,
+          "follow_lane": null,
+          "g3_endpoint_pressure": "NONE",
+          "goal3_funded": true,
+          "goal3_mechanism_class": "CARRIER",
+          "goal4_funded": true,
+          "goal5_funded": false,
+          "goal6_funded": false,
+          "goal_screen_state": null,
+          "intermediate_burden_profile": {
+            "authorized_lines": [],
+            "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+            "eligible": false,
+            "max_direct_line": null
+          },
+          "match_id": "AFC2-GG-20261105-SVR-TAM",
+          "pass_had_lower_supported_visible_line": false,
+          "rank": null,
+          "rank_scope": null,
+          "researcher_declared_board_state": "FOCUS",
+          "robustness": "ROBUST",
+          "schema_version": "football-c-calibration-v1",
+          "screenshot_visible_ladder": [
+            {
+              "line": 3.25,
+              "odds": 2.02
+            }
+          ],
+          "selected_evaluated_line": 3.25,
+          "selected_evaluated_odds": 2.02,
+          "selection_authority": "ZERO",
+          "slate_rank": null,
+          "slate_rank_status": null,
+          "sweep_state": null,
+          "upper_tail_pressure": "NONE"
+        },
+        "certificate_completeness_recheck_required": false,
+        "conditional_action": "ACT",
+        "current_price_clears_book_target": false,
+        "custom_line_review": {
+          "bet_authorized": false,
+          "candidate_line": 2.5,
+          "candidate_odds": null,
+          "execution_authorized": false,
+          "minimum_odds": null,
+          "reason": "Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.",
+          "requires_user_confirmed_quote": true,
+          "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+          "status": "UNQUOTED_CUSTOM_LINE_REVIEW",
+          "user_bookmaker_custom_line_supported": false
+        },
+        "entry_feasibility_basis": "an exact visible screenshot line clears direct ACT policy",
+        "entry_feasibility_state": "EXECUTABLE_NOW",
+        "execution_authorized": false,
+        "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+        "goal3_mechanism_class": "CARRIER",
+        "intermediate_burden_profile": {
+          "authorized_lines": [],
+          "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+          "eligible": false,
+          "max_direct_line": null
+        },
+        "market_disagreement_gap_goals": -0.25,
+        "market_disagreement_recheck_basis": "NOT_REQUIRED",
+        "market_disagreement_recheck_completed": true,
+        "market_disagreement_recheck_evidence_refs": [],
+        "market_disagreement_recheck_fields": [],
+        "market_disagreement_recheck_missing_fields": [],
+        "market_disagreement_recheck_required": false,
+        "pass_had_lower_supported_visible_line": false,
+        "prior_certificate_reclassification_recheck_required": false,
+        "reason": "ROBUST supported/protected line at normal price",
+        "selected_visible_line": 3.25,
+        "selected_visible_odds": 2.02,
+        "snapshot_line_relation": "BELOW_SUPPORTED_BURDEN",
+        "supported_line": 3.5,
+        "supported_visible_line_found": true,
+        "visible_ladder_evaluations": [
+          {
+            "action": "ACT",
+            "direct_act_ceiling": 3.5,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 3.25,
+            "line_relation": "BELOW_SUPPORTED_BURDEN",
+            "odds": 2.02,
+            "reason": "ROBUST supported/protected line at normal price"
+          }
+        ],
+        "visible_ladder_selection_basis": "HIGHEST_VISIBLE_EXECUTABLE_SUPPORTED_LINE",
+        "wait_min_odds": null,
+        "wait_reachability_basis": null,
+        "wait_reachable": false,
+        "wait_target_line": null
+      },
+      "model_bets_created": false,
+      "ok": true,
+      "priced_publication_authorized": false,
+      "quote_research_required": false,
+      "status": "OBSERVED_QUOTE_EVALUATED"
+    },
+    "priced_publication_authorized": false,
+    "publication_blocker": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
+    "quote_research_required": false,
+    "quotes_required": false,
+    "rank_state_display": "FOCUS",
+    "rank_state_internal": "FOCUS",
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "WIN_PREFERRED",
+      "away_route": "USABLE",
+      "bet_authorized": false,
+      "board_state": 2,
+      "board_state_mismatch": false,
+      "burden_completion_quality": "HIGH",
+      "burden_stall_risk": "LOW",
+      "carrier": "STRONG",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": true,
+        "certificate_robustness": "ROBUST",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": true,
+        "tournament_tail_bias": "EXPANSIVE"
+      },
+      "certified_supported_burden": 3.5,
+      "chance_quality": "HIGH",
+      "completion_mode": "CARRIER_LED",
+      "continuation_quality": "HIGH",
+      "credible_burden_band_high": 4.25,
+      "credible_burden_band_low": 3.75,
+      "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+      "credible_tail_basis": "G5_NEAR_FUNDED_PREMARKET: strong next-goal mechanisms remain just below the full certificate; band is diagnostic only",
+      "credible_tail_execution_authority": false,
+      "credible_tail_market_independent": true,
+      "credible_tail_state": "NEAR_FUNDED",
+      "credible_tail_target_goal": 5,
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_board_state": "FOCUS",
+      "declared_board_state_basis": "Current market-independent evidence supports a funded G3 and a complete independent G4 investigation; deterministic compilation owns the final state.",
+      "declared_board_state_source": "board_state",
+      "declared_supported_line": 3.5,
+      "declared_supported_line_basis": "Research declaration only: current carrier, same-opponent leakage and independent fourth-goal continuation support a G4 investigation; the deterministic compiler owns the certified burden.",
+      "direct_act_ceiling": 3.5,
+      "effective_burden_stall_risk": "LOW",
+      "effective_continuation_quality": "HIGH",
+      "effective_upper_tail_transferability": "HIGH",
+      "endpoint_control_pressure": "NONE",
+      "execution_strength": "ROBUST",
+      "failure_mechanisms": {},
+      "failure_resistance": "HIGH",
+      "fatigue_context": "NONE",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 3.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G4 highest funded; max fully-funded Asian Over=3.50; G3 mechanisms=CARRIER_G3,LEAKAGE_G3; upper_tail_transferability=HIGH; comparable_context=SUPPORTIVE",
+      "frozen_supported_line_funding": true,
+      "g3_current_structure_basis": "Current same-opponent evidence verifies a STRONG Svay route and a USABLE Tampines reply, with rapid creation against this exact defense.",
+      "g3_current_structure_source_refs": [
+        "https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0",
+        "https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29"
+      ],
+      "g3_current_structure_verified": true,
+      "g3_endpoint_control_pressure": "NONE",
+      "g4_carrier_path": "SUPPORTED",
+      "g4_continuation_after_g3": "HIGH",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_distributed_path": "MIXED",
+      "g4_evidence_disposition": "FUNDED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_diagnostic": "MIXED",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Svay's carrier produced five against this exact defense one week ago and remains the strongest current route.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0",
+            "https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "A 3+1 or 2+2 distribution is plausible because Tampines retain a usable scoring route, though it is less certain than the Svay carrier.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0",
+            "https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Tampines scored in the reverse and remain capable of contributing after Svay establish a lead, supporting an independent reply-assisted fourth goal.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0",
+            "https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29"
+          ]
+        }
+      },
+      "g4_reply_path": "SUPPORTED",
+      "g4_research_basis": "Goal four is independently supported by the same-opponent rapid-opening 5-1 reverse, Svay's self-funding carrier and a live Tampines reply route; the compiler still decides whether this evidence funds G4.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_status_normalized_from_mixed": false,
+      "goal3_carrier_funded": true,
+      "goal3_distributed_funded": false,
+      "goal3_funded": true,
+      "goal3_leakage_funded": true,
+      "goal3_mechanism_class": "CARRIER",
+      "goal3_two_route_funded": false,
+      "goal4_funded": true,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "The 0-0, 1-1 and 2-0 stopping states were explicitly reviewed against current same-competition evidence.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0",
+            "https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29"
+          ],
+          "mechanism_ids": []
+        },
+        "continuation_quality": {
+          "basis": "Continuation after the third goal was assessed independently from the first-goal route and from bookmaker prices.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0",
+            "https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29"
+          ],
+          "mechanism_ids": []
+        },
+        "failure_resistance": {
+          "basis": "Failure resistance reflects whether the primary scoring route survives a weak or absent secondary contribution.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0",
+            "https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29"
+          ],
+          "mechanism_ids": []
+        },
+        "independent_upper_tail": {
+          "basis": "The fourth-goal tail was assessed independently and is not inferred from the visible bookmaker total.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0",
+            "https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29"
+          ],
+          "mechanism_ids": []
+        },
+        "route_reliability": {
+          "basis": "Current route reliability was checked from the same-competition reverse fixture plus current team structure and availability.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0",
+            "https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "home_incentive": "WIN_PREFERRED",
+      "home_route": "STRONG",
+      "incentive_effect": "EXPANSIVE",
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_context_basis": "The short regional away trip is noted but no verified rest, rivalry or fatigue factor is strong enough to override the current scoring structure.",
+      "match_context_effect": "NEUTRAL",
+      "match_context_positive_pressure": false,
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "match_context_suppressive_pressure": false,
+      "match_id": "AFC2-GG-20261105-SVR-TAM",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": true,
+        "reason": "OFFICIAL_TOURNAMENT_FORMAT_INCENTIVES_REQUIRED",
+        "status": "IN_SCOPE"
+      },
+      "prospective_tail_ceiling": 3.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "rank_state_display": "FOCUS",
+      "rank_state_internal": "FOCUS",
+      "rest_load_context": "BALANCED",
+      "rivalry_context": "NEUTRAL",
+      "route_reliability": "HIGH",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {},
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "YES",
+      "tournament_incentive_effect": "EXPANSIVE",
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_positive_pressure": true,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "EXPANSIVE",
+      "travel_load_context": "AWAY_CONTINENTAL",
+      "upper_tail_comparable_context_basis": "Same-opponent ACL2 evidence and current Tampines attacking openness both support continuation beyond three total goals.",
+      "upper_tail_comparable_context_signal": "SUPPORTIVE",
+      "upper_tail_control_pressure": "NONE",
+      "upper_tail_strength": "MEDIUM",
+      "upper_tail_transferability": "HIGH",
+      "upper_tail_transferability_basis": "The strongest upper-tail evidence comes from the exact same opponent and competition one week earlier, which is directly comparable to this rematch.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_AND_OBSERVED_QUOTE"
+  },
+  "runtime_commit": "2d8c43c208e08d372ae7ad0fcf7f5ced81585f3d",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "sheets_handoff": {
+    "assessment_id": "XI-C-DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+    "contract": "XI_SHEETS_HANDOFF_V1",
+    "fail_closed_status": "XI_PERSISTENCE_UNAVAILABLE",
+    "github_runtime_result_is_not_sheets_persistence": true,
+    "key_column": "Assessment ID",
+    "orchestrator_required_actions": [
+      "UPSERT_IMMUTABLE_KEY",
+      "STAMP_PERSISTED_AT_UTC",
+      "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
+      "VERIFY_READBACK_ASSERTIONS"
+    ],
+    "readback_assertions": [
+      "Assessment ID",
+      "Evidence Epoch ID",
+      "XI Assessment Execution Status",
+      "C Action",
+      "C Supported Line",
+      "Evaluated Line",
+      "Evaluated Odds",
+      "Engine C Result",
+      "Engine Source Revision"
+    ],
+    "required_before_user_verdict": true,
+    "row": {
+      "Assessment At UTC": "2026-11-05T09:40:00+00:00",
+      "Assessment ID": "XI-C-DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+      "C Action": "OBSERVED_ACT_NON_EXECUTABLE",
+      "C Board State": "FOCUS",
+      "C Supported Line": 3.5,
+      "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":3.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"NEAR_FUNDED\",\"current_rank\":null,\"decision\":\"ACT\",\"direct_act_ceiling\":3.5,\"entry_feasibility_basis\":\"an exact visible screenshot line clears direct ACT policy\",\"entry_feasibility_state\":\"EXECUTABLE_NOW\",\"evidence_epoch\":\"DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"NONE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":true,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"AFC2-GG-20261105-SVR-TAM\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"ROBUST\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.25,\"odds\":2.02}],\"selected_evaluated_line\":3.25,\"selected_evaluated_odds\":2.02,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"NONE\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"price_check\":{\"bet_authorized\":false,\"evidence\":{\"assessment_at_utc\":\"2026-11-05T09:40:00+00:00\",\"bookmaker\":\"User-displayed bookmaker\",\"capture_reference\":\"USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817\",\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"UNQUOTED_CUSTOM_LINE_REVIEW\",\"user_bookmaker_custom_line_supported\":false},\"external_price_searches\":0,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"match_id\":\"AFC2-GG-20261105-SVR-TAM\",\"match_minute\":null,\"observation_age_seconds\":0.0,\"observed_at_utc\":\"2026-11-05T09:40:00+00:00\",\"price_evidence_mode\":\"USER_SCREENSHOT_ONLY\",\"quote\":{\"line\":3.25,\"odds\":2.02},\"replacement_quotes\":0,\"score\":null,\"source\":\"USER_SCREENSHOT\",\"visible_ladder\":[{\"line\":3.25,\"odds\":2.02}]},\"execution_authorized\":false,\"limitations\":[\"SCREENSHOT_NOT_EXECUTION_EVIDENCE\"],\"model\":{\"book_min_odds\":null,\"book_order_is_exposure\":false,\"book_target_line\":null,\"book_target_state\":\"NO_BOOK_TARGET\",\"bridge_used\":false,\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":3.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"NEAR_FUNDED\",\"current_rank\":null,\"decision\":\"ACT\",\"direct_act_ceiling\":3.5,\"entry_feasibility_basis\":\"an exact visible screenshot line clears direct ACT policy\",\"entry_feasibility_state\":\"EXECUTABLE_NOW\",\"evidence_epoch\":\"DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"NONE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":true,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"AFC2-GG-20261105-SVR-TAM\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"ROBUST\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.25,\"odds\":2.02}],\"selected_evaluated_line\":3.25,\"selected_evaluated_odds\":2.02,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"NONE\"},\"certificate_completeness_recheck_required\":false,\"conditional_action\":\"ACT\",\"current_price_clears_book_target\":false,\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"UNQUOTED_CUSTOM_LINE_REVIEW\",\"user_bookmaker_custom_line_supported\":false},\"entry_feasibility_basis\":\"an exact visible screenshot line clears direct ACT policy\",\"entry_feasibility_state\":\"EXECUTABLE_NOW\",\"execution_authorized\":false,\"frozen_board_g4_research_status\":\"LEGACY_UNKNOWN\",\"goal3_mechanism_class\":\"CARRIER\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"market_disagreement_gap_goals\":-0.25,\"market_disagreement_recheck_basis\":\"NOT_REQUIRED\",\"market_disagreement_recheck_completed\":true,\"market_disagreement_recheck_evidence_refs\":[],\"market_disagreement_recheck_fields\":[],\"market_disagreement_recheck_missing_fields\":[],\"market_disagreement_recheck_required\":false,\"pass_had_lower_supported_visible_line\":false,\"prior_certificate_reclassification_recheck_required\":false,\"reason\":\"ROBUST supported/protected line at normal price\",\"selected_visible_line\":3.25,\"selected_visible_odds\":2.02,\"snapshot_line_relation\":\"BELOW_SUPPORTED_BURDEN\",\"supported_line\":3.5,\"supported_visible_line_found\":true,\"visible_ladder_evaluations\":[{\"action\":\"ACT\",\"direct_act_ceiling\":3.5,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.25,\"line_relation\":\"BELOW_SUPPORTED_BURDEN\",\"odds\":2.02,\"reason\":\"ROBUST supported/protected line at normal price\"}],\"visible_ladder_selection_basis\":\"HIGHEST_VISIBLE_EXECUTABLE_SUPPORTED_LINE\",\"wait_min_odds\":null,\"wait_reachability_basis\":null,\"wait_reachable\":false,\"wait_target_line\":null},\"model_bets_created\":false,\"ok\":true,\"priced_publication_authorized\":false,\"quote_research_required\":false,\"status\":\"OBSERVED_QUOTE_EVALUATED\"},\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"WIN_PREFERRED\",\"away_route\":\"USABLE\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"HIGH\",\"burden_stall_risk\":\"LOW\",\"carrier\":\"STRONG\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":true,\"certificate_robustness\":\"ROBUST\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":true,\"tournament_tail_bias\":\"EXPANSIVE\"},\"certified_supported_burden\":3.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"HIGH\",\"credible_burden_band_high\":4.25,\"credible_burden_band_low\":3.75,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G5_NEAR_FUNDED_PREMARKET: strong next-goal mechanisms remain just below the full certificate; band is diagnostic only\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"NEAR_FUNDED\",\"credible_tail_target_goal\":5,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Current market-independent evidence supports a funded G3 and a complete independent G4 investigation; deterministic compilation owns the final state.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":3.5,\"declared_supported_line_basis\":\"Research declaration only: current carrier, same-opponent leakage and independent fourth-goal continuation support a G4 investigation; the deterministic compiler owns the certified burden.\",\"direct_act_ceiling\":3.5,\"effective_burden_stall_risk\":\"LOW\",\"effective_continuation_quality\":\"HIGH\",\"effective_upper_tail_transferability\":\"HIGH\",\"endpoint_control_pressure\":\"NONE\",\"execution_strength\":\"ROBUST\",\"failure_mechanisms\":{},\"failure_resistance\":\"HIGH\",\"fatigue_context\":\"NONE\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":3.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G4 highest funded; max fully-funded Asian Over=3.50; G3 mechanisms=CARRIER_G3,LEAKAGE_G3; upper_tail_transferability=HIGH; comparable_context=SUPPORTIVE\",\"frozen_supported_line_funding\":true,\"g3_current_structure_basis\":\"Current same-opponent evidence verifies a STRONG Svay route and a USABLE Tampines reply, with rapid creation against this exact defense.\",\"g3_current_structure_source_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"g3_current_structure_verified\":true,\"g3_endpoint_control_pressure\":\"NONE\",\"g4_carrier_path\":\"SUPPORTED\",\"g4_continuation_after_g3\":\"HIGH\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"g4_distributed_path\":\"MIXED\",\"g4_evidence_disposition\":\"FUNDED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Svay's carrier produced five against this exact defense one week ago and remains the strongest current route.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"]},\"g4_distributed_path\":{\"basis\":\"A 3+1 or 2+2 distribution is plausible because Tampines retain a usable scoring route, though it is less certain than the Svay carrier.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"]},\"g4_reply_path\":{\"basis\":\"Tampines scored in the reverse and remain capable of contributing after Svay establish a lead, supporting an independent reply-assisted fourth goal.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"]}},\"g4_reply_path\":\"SUPPORTED\",\"g4_research_basis\":\"Goal four is independently supported by the same-opponent rapid-opening 5-1 reverse, Svay's self-funding carrier and a live Tampines reply route; the compiler still decides whether this evidence funds G4.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":true,\"goal3_distributed_funded\":false,\"goal3_funded\":true,\"goal3_leakage_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal3_two_route_funded\":false,\"goal4_funded\":true,\"goal5_funded\":false,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 0-0, 1-1 and 2-0 stopping states were explicitly reviewed against current same-competition evidence.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"continuation_quality\":{\"basis\":\"Continuation after the third goal was assessed independently from the first-goal route and from bookmaker prices.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"failure_resistance\":{\"basis\":\"Failure resistance reflects whether the primary scoring route survives a weak or absent secondary contribution.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"independent_upper_tail\":{\"basis\":\"The fourth-goal tail was assessed independently and is not inferred from the visible bookmaker total.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"route_reliability\":{\"basis\":\"Current route reliability was checked from the same-competition reverse fixture plus current team structure and availability.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]}},\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"EXPANSIVE\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_context_basis\":\"The short regional away trip is noted but no verified rest, rivalry or fatigue factor is strong enough to override the current scoring structure.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_positive_pressure\":false,\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_context_suppressive_pressure\":false,\"match_id\":\"AFC2-GG-20261105-SVR-TAM\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"OFFICIAL_TOURNAMENT_FORMAT_INCENTIVES_REQUIRED\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":3.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_incentive_effect\":\"EXPANSIVE\",\"tournament_incentive_required\":true,\"tournament_incentive_resolution\":\"VERIFIED\",\"tournament_positive_pressure\":true,\"tournament_suppressive_pressure\":false,\"tournament_tail_bias\":\"EXPANSIVE\",\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"Same-opponent ACL2 evidence and current Tampines attacking openness both support continuation beyond three total goals.\",\"upper_tail_comparable_context_signal\":\"SUPPORTIVE\",\"upper_tail_control_pressure\":\"NONE\",\"upper_tail_strength\":\"MEDIUM\",\"upper_tail_transferability\":\"HIGH\",\"upper_tail_transferability_basis\":\"The strongest upper-tail evidence comes from the exact same opponent and competition one week earlier, which is directly comparable to this rematch.\",\"wait_authorized\":false},\"xi_mode\":\"FOOTBALL_AND_OBSERVED_QUOTE\"}",
+      "Engine Source Revision": "2d8c43c208e08d372ae7ad0fcf7f5ced81585f3d",
+      "Evaluated Line": 3.25,
+      "Evaluated Odds": 2.02,
+      "Evidence Epoch ID": "DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+      "Fixture Status": "PREMATCH_CONFIRMED",
+      "Match ID": "AFC2-GG-20261105-SVR-TAM",
+      "Match Minute": null,
+      "Payload JSON": "{\"assessment_depth\":{\"assessed_at_utc\":\"2026-11-05T09:40:00+00:00\",\"checks\":{\"availability_replacements\":\"No confirmed XI is independently verified yet; current last-known structures and squad evidence preserve the main carrier and reply routes without assuming unverified starters.\",\"carrier_capacity\":\"Svay's carrier is STRONG and self-funding for three because the same current matchup produced five goals from Svay, including three before 25 minutes.\",\"continuation_2_0\":\"At 2-0, Tampines must still chase points and Svay have demonstrated continued scoring against this exact opponent, so continuation remains HIGH.\",\"current_chance_creation\":\"Same-opponent evidence verifies high current chance creation and early conversion rather than relying only on season-long score averages.\",\"goal3_mechanism\":\"Goal three has a direct carrier mechanism through Svay plus a usable Tampines reply; the current-structure 2+1 or 3+0 routes are both credible.\",\"goal4_mechanism\":\"Goal four is researched independently through the Svay carrier and reply-assisted continuation, with the exact reverse providing directly comparable six-goal evidence.\",\"h2h_transferability\":\"The reverse is only one week old and same competition, so it is highly transferable as current structure evidence, but not used as an automatic totals verdict.\",\"match_context\":\"Travel and rest were checked; no verified fatigue or rivalry factor is strong enough to suppress the current scoring mechanisms.\",\"named_failure_mechanism\":\"The main failure is Svay game management after establishing control, which could stop the match at 2-0 despite the strong opening and carrier evidence.\",\"opponent_leakage\":\"Tampines conceded five to Svay in the reverse, including three early, providing direct current evidence of HIGH matchup leakage.\",\"primary_scoring_route\":\"Svay Rieng have a STRONG current carrier demonstrated against this exact defense one week ago, with rapid early scoring and repeatable chance creation.\",\"secondary_reply_route\":\"Tampines retain a USABLE scoring route and scored in the reverse, so the total is not dependent solely on one side even though Svay carry most of the burden.\",\"stall_0_0\":\"A 0-0 stall is still possible, but the exact reverse opened at 9 minutes and produced three Svay goals by 24, making persistent early control a weaker failure route.\",\"stall_1_1\":\"At 1-1, Svay's stronger carrier and qualification pressure preserve multiple paths to the third goal and continuation beyond it.\",\"supported_burden_basis\":\"The research supports a complete G4 investigation from same-opponent evidence; the deterministic certificate compiler, not the O3.25 screenshot, sets the protected burden.\",\"tournament_incentive\":\"Official AFC group format is verified; Svay are in a top-two fight and Tampines have zero points, so both sides have meaningful points pressure.\"},\"completed\":true,\"contract\":\"ASSESSMENT_DEPTH_V3\",\"evidence_epoch_id\":\"DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"market_independent\":true},\"context\":{\"assessment_at_utc\":\"2026-11-05T09:40:00+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"DIRECT /xi has no prior valid block or rank certificate; the current deterministic Football C compiler owns the certificate.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NO_FROZEN_BOARD\",\"direct_request\":true,\"direct_research_completed\":true,\"direct_research_epoch_id\":\"DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4\",\"direct_revision\":\"INITIAL\",\"direct_upstream_state\":\"NOT_RANKED\",\"exception_flag\":false,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":false,\"frozen_board_certified_burden\":null,\"market_disagreement_recheck_basis\":\"The visible O3.25 line is below the football-researched G4 ceiling candidate; the same-opponent carrier and fourth-goal paths were nevertheless rechecked without using price as evidence.\",\"market_disagreement_recheck_evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"market_disagreement_recheck_fields\":[\"route_reliability\",\"chance_quality\",\"burden_completion_quality\",\"continuation_quality\",\"independent_upper_tail\",\"upper_tail_transferability\",\"upper_tail_comparable_context_signal\",\"g4_research_status\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"market_disagreement_recheck_status\":\"COMPLETED\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\"},\"evidence_epoch_id\":\"DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4\",\"match\":{\"activation_basis\":\"The exact reverse opened with Svay goals at 9, 15 and 24 minutes, and both teams' group states create immediate game-state pressure.\",\"activation_evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"activation_ignition\":{\"basis\":\"The exact same matchup showed verified rapid creation and concession, while Tampines' zero-point group state gives the weaker side reason to force a state change.\",\"current_attack_structure\":\"HIGH\",\"early_chance_creation\":\"HIGH\",\"early_concession_opening\":\"HIGH\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"game_state_force\":\"HIGH\",\"weaker_side_state_change\":\"MEDIUM\"},\"activation_quality\":\"HIGH\",\"aggregate_state\":\"SINGLE_GROUP_MATCH_NO_AGGREGATE\",\"away\":\"Tampines Rovers\",\"away_incentive\":\"WIN_PREFERRED\",\"away_route\":\"USABLE\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Current market-independent evidence supports a funded G3 and a complete independent G4 investigation; deterministic compilation owns the final state.\",\"burden_completion_quality\":\"HIGH\",\"burden_protection\":\"HIGH\",\"burden_stall_risk\":\"LOW\",\"carrier\":\"STRONG\",\"carrier_self_fund\":true,\"carrier_self_fund_basis\":\"Svay scored five away against this exact opponent one week ago and produced three goals by 24 minutes, establishing a current three-goal self-funding path.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"The exact reverse ACL2 fixture ended Tampines 1-5 Svay Rieng only one week ago, with Svay scoring at 9, 15 and 24 minutes. Tampines also retain a live current domestic scoring route, while both teams' group positions create points pressure.\",\"competition\":\"AFC Champions League Two\",\"competition_format\":\"Four-team home-and-away group stage; each club plays six group matches and the top two progress to the Round of 16.\",\"competition_kind\":\"CONTINENTAL\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"Current AFC group state, exact reverse fixture and current squad/recent-result evidence are source-backed; no popularity prior is used.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"GROUP_STAGE_MATCHDAY_4_OF_6\",\"competition_structure_basis\":\"Official AFC 2026/27 competition regulations define four-team home-and-away groups and group-ranking rules, with the top two progressing to the Round of 16.\",\"competition_structure_evidence_refs\":[\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"competition_structure_kind\":\"GROUP_STAGE\",\"competition_structure_source_tier\":\"OFFICIAL_COMPETITION\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"HIGH\",\"country\":\"Cambodia\",\"demoted_probation\":false,\"draw_resolution\":\"A group-stage draw stands after 90 minutes.\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"The failure case is post-lead game management; it does not erase Svay's primary scoring route or Tampines' usable reply.\",\"failure_mechanisms\":{},\"failure_resistance\":\"HIGH\",\"fatigue_context\":\"NONE\",\"g3_current_structure_basis\":\"Current same-opponent evidence verifies a STRONG Svay route and a USABLE Tampines reply, with rapid creation against this exact defense.\",\"g3_current_structure_source_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"g3_current_structure_verified\":true,\"g4_carrier_path\":\"SUPPORTED\",\"g4_continuation_after_g3\":\"HIGH\",\"g4_distributed_path\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Svay's carrier produced five against this exact defense one week ago and remains the strongest current route.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"]},\"g4_distributed_path\":{\"basis\":\"A 3+1 or 2+2 distribution is plausible because Tampines retain a usable scoring route, though it is less certain than the Svay carrier.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"]},\"g4_reply_path\":{\"basis\":\"Tampines scored in the reverse and remain capable of contributing after Svay establish a lead, supporting an independent reply-assisted fourth goal.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"]}},\"g4_reply_path\":\"SUPPORTED\",\"g4_research_basis\":\"Goal four is independently supported by the same-opponent rapid-opening 5-1 reverse, Svay's self-funding carrier and a live Tampines reply route; the compiler still decides whether this evidence funds G4.\",\"g4_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"goal_signal_low_draw_trap_rate\":0.06,\"goal_signal_mean_over_three_rate\":0.6,\"goal_signal_mean_over_two_rate\":0.68,\"goal_signal_priority_score\":88,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 0-0, 1-1 and 2-0 stopping states were explicitly reviewed against current same-competition evidence.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"continuation_quality\":{\"basis\":\"Continuation after the third goal was assessed independently from the first-goal route and from bookmaker prices.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"failure_resistance\":{\"basis\":\"Failure resistance reflects whether the primary scoring route survives a weak or absent secondary contribution.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"independent_upper_tail\":{\"basis\":\"The fourth-goal tail was assessed independently and is not inferred from the visible bookmaker total.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]},\"route_reliability\":{\"basis\":\"Current route reliability was checked from the same-competition reverse fixture plus current team structure and availability.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"mechanism_ids\":[]}},\"h2h_basis\":\"The one-week-old reverse fixture is highly transferable as current same-competition structure, but it is used as current mechanism evidence rather than a standalone H2H veto or automatic over signal.\",\"h2h_current_corroboration\":\"VERIFIED\",\"h2h_effect\":\"NOT_MATERIAL\",\"h2h_material_effect\":false,\"h2h_state\":\"CURRENT_COMPETITION_REVIEWED\",\"h2h_transferability\":\"VERIFIED\",\"home\":\"PKR Svay Rieng\",\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"EXPANSIVE\",\"independent_route_quality\":\"HIGH\",\"independent_upper_tail\":true,\"independent_upper_tail_basis\":\"The exact reverse produced six goals with rapid early opening, while Tampines retain a usable reply route; the fourth-goal path is independently supported rather than inferred from the market.\",\"kickoff_ict\":\"2026-11-05T19:15:00+07:00\",\"main_failure\":\"The principal failure is regression from the extreme reverse score if Svay establish a lead and manage the game, leaving a controlled 2-0 endpoint instead of sustained continuation.\",\"market_observability\":\"HIGH\",\"match_context_basis\":\"The short regional away trip is noted but no verified rest, rivalry or fatigue factor is strong enough to override the current scoring structure.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_evidence_refs\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\"],\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_id\":\"AFC2-GG-20261105-SVR-TAM\",\"material_suppression\":false,\"material_suppression_basis\":\"No verified all-route suppression exists; current qualification pressure and the exact reverse fixture point toward an active matchup.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"Current group context, exact same-opponent ACL2 evidence and last-known starting structures are available; confirmed lineups are not independently verified at this freeze.\",\"opponent_leakage\":\"HIGH\",\"qualification_state\":\"Svay Rieng enter second in Group G on four points, level with Shanghai Shenhua, while Tampines are fourth on zero. Svay need a win to protect the top-two route and Tampines need immediate points to remain realistically alive.\",\"raw_operational_viability_grade\":\"A\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"simultaneous_results_note\":\"The other match in the same four-team group remains relevant to qualification, but this fixture has no knockout aggregate.\",\"simultaneous_results_status\":\"VERIFIED\",\"source_urls\":[\"https://www.fotmob.com/matches/tampines-rovers-fc-vs-svay-rieng/2dazs1s0\",\"https://www.beinsports.com/en-mena/football/afc-champions-league-two/tampines-rovers-vs-svay-rieng-2026-10-29\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"supported_line\":3.5,\"supported_line_basis\":\"Research declaration only: current carrier, same-opponent leakage and independent fourth-goal continuation support a G4 investigation; the deterministic compiler owns the certified burden.\",\"team_news_observability\":\"MEDIUM\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_format_status\":\"VERIFIED\",\"tournament_incentive_required\":true,\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"Same-opponent ACL2 evidence and current Tampines attacking openness both support continuation beyond three total goals.\",\"upper_tail_comparable_context_signal\":\"SUPPORTIVE\",\"upper_tail_competition_provenance_basis\":\"The primary extreme-tail evidence is the exact AFC Champions League Two reverse fixture; domestic results are corroboration only.\",\"upper_tail_competition_provenance_verified\":true,\"upper_tail_transferability\":\"HIGH\",\"upper_tail_transferability_basis\":\"The strongest upper-tail evidence comes from the exact same opponent and competition one week earlier, which is directly comparable to this rematch.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"MEDIUM\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+      "Persisted At UTC": null,
+      "Publication Key": null,
+      "Published": false,
+      "Score": null,
+      "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_AND_PRICE"
+    },
+    "sheet_name": "Decision States",
+    "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+    "status": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED"
+  },
+  "xi_assessment_index": {
+    "assessment_at_utc": "2026-11-05T09:40:00+00:00",
+    "assessment_id": "XI-C-DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+    "authority_mode": "DIRECT",
+    "contract": "XI_APPEND_ONLY_EXECUTION_INDEX_V1",
+    "custom_line_review": {
+      "bet_authorized": false,
+      "candidate_line": 2.5,
+      "candidate_odds": null,
+      "execution_authorized": false,
+      "minimum_odds": null,
+      "reason": "Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.",
+      "requires_user_confirmed_quote": true,
+      "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+      "status": "UNQUOTED_CUSTOM_LINE_REVIEW",
+      "user_bookmaker_custom_line_supported": false
+    },
+    "decision": "ACT",
+    "decision_state_persistence_required": true,
+    "decision_state_readback_verified": false,
+    "evaluated_line": 3.25,
+    "evaluated_odds": 2.02,
+    "evidence_epoch_id": "DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "match_id": "AFC2-GG-20261105-SVR-TAM",
+    "match_minute": null,
+    "real_bet_fill_verified": false,
+    "request_id": "XI-DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V4",
+    "score": null,
+    "screenshot_capture_reference": "USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817",
+    "screenshot_observed_at_utc": "2026-11-05T09:40:00+00:00",
+    "source": "GITHUB_XI_RUNTIME_RESULT_NOT_ACTUAL_GOOGLE_SHEETS_READBACK",
+    "visible_user_quote_ladder": [
+      {
+        "line": 3.25,
+        "odds": 2.02
+      }
+    ]
+  }
+}
