@@ -1,0 +1,11 @@
+{
+  "error": "invalid competition_reliability_state='VERIFIED'; allowed: CAUTION, DEMOTED, NEUTRAL, TRUSTED, UNPROVEN",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "36c2db7aa642b6a0f21ed38ce7c136d82287fdcf325e2b5fad903f6ff999bcee",
+  "ok": false,
+  "request_id": "XI-DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V3",
+  "runtime_commit": "ac79b7ecab7fcdfe5f25ba5cc9d44f6d0dabdff3",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
