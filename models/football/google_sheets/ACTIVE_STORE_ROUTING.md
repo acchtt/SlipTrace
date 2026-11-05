@@ -61,15 +61,23 @@ Persist one Decision States row per Assessment ID/evidence epoch. Preserve the
 exact C result and ordinary Evaluated Line / Evaluated Odds columns when an
 observed user screenshot was compared.
 
-The runtime now emits this requirement as
-`decision_state_persistence`. Orchestration must upsert the exact emitted row
-by **Assessment ID**, stamp `Persisted At UTC`, independently refetch the same
-row, and verify every field listed in `readback_assertions`. Until that
-readback succeeds, an evaluated ACT/BOOK/PASS is not publishable and Website
-Picks must not be written. The fail-closed status is
-`DECISION_STATE_PERSISTENCE_READBACK_REQUIRED`; a write/readback failure is
-reported as `ENGINE_EVALUATED_NOT_PUBLISHED`, never silently promoted to an
-official verdict.
+The runtime emits this requirement as `decision_state_persistence`; the
+normal-chat backend mirrors it as `XI_SHEETS_HANDOFF_V1`. Orchestration must
+upsert the exact emitted row by **Assessment ID**, stamp `Persisted At UTC`,
+independently refetch the same row, and verify every field listed in
+`readback_assertions`.
+
+This write/readback is a mandatory **same-turn normal-chat Google Sheets
+operation**. The GitHub XI workflow has no Google Sheets service-account
+credential and therefore persists only the runtime JSON artifact. That artifact
+is audit transport, never workbook persistence.
+
+Until Sheets readback succeeds, an evaluated ACT/BOOK/PASS is not publishable
+and Website Picks must not be written. The fail-closed status is
+`DECISION_STATE_PERSISTENCE_READBACK_REQUIRED`; if the Sheets connector/write
+or readback is unavailable, report `XI_PERSISTENCE_UNAVAILABLE` /
+`ENGINE_EVALUATED_NOT_PUBLISHED`, never silently promote the runtime candidate
+to an official verdict.
 
 This is a process-compliance boundary, not model exposure. Screenshot quotes
 remain user-supplied market evidence; `Actual Bets — Current` remains separate

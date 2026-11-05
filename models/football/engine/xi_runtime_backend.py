@@ -111,6 +111,38 @@ def _assessment_index(request: dict[str, Any], runtime: dict[str, Any]) -> dict[
     }
 
 
+def _sheets_handoff(runtime: dict[str, Any]) -> dict[str, Any]:
+    persistence = runtime.get("decision_state_persistence")
+    if not isinstance(persistence, dict) or persistence.get("required") is not True:
+        return {
+            "contract": "XI_SHEETS_HANDOFF_V1",
+            "required_before_user_verdict": False,
+            "status": "NO_DECISION_STATE_PERSISTENCE_REQUIRED",
+        }
+    row = persistence.get("row")
+    if not isinstance(row, dict):
+        raise ValueError("decision_state_persistence.row required")
+    return {
+        "contract": "XI_SHEETS_HANDOFF_V1",
+        "required_before_user_verdict": True,
+        "status": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
+        "spreadsheet_id": persistence.get("spreadsheet_id"),
+        "sheet_name": persistence.get("sheet_name"),
+        "key_column": persistence.get("key_column"),
+        "assessment_id": row.get("Assessment ID"),
+        "row": row,
+        "readback_assertions": persistence.get("readback_assertions"),
+        "orchestrator_required_actions": [
+            "UPSERT_IMMUTABLE_KEY",
+            "STAMP_PERSISTED_AT_UTC",
+            "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
+            "VERIFY_READBACK_ASSERTIONS",
+        ],
+        "github_runtime_result_is_not_sheets_persistence": True,
+        "fail_closed_status": "XI_PERSISTENCE_UNAVAILABLE",
+    }
+
+
 def execute(request: dict[str, Any]) -> dict[str, Any]:
     try:
         c_football, authority_trace = _authorized_c_football(request)
@@ -135,6 +167,7 @@ def execute(request: dict[str, Any]) -> dict[str, Any]:
             "input_sha256": hashlib.sha256(_canonical(request)).hexdigest(),
             "authority": authority_trace,
             "xi_assessment_index": _assessment_index(request, runtime),
+            "sheets_handoff": _sheets_handoff(runtime),
             "runtime": runtime,
         }
     except Exception as exc:

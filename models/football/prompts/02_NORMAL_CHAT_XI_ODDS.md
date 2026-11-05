@@ -484,7 +484,15 @@ surrogates. Do not publish an official verdict on the strength of GitHub
 storage alone.
 
 Every football-only, screenshot-priced, or strict-decision runtime result emits
-`decision_state_persistence`. Treat that object as a mandatory write contract:
+`decision_state_persistence` and the backend mirrors it as
+`sheets_handoff = XI_SHEETS_HANDOFF_V1`. Treat this as a mandatory **same-turn
+orchestration contract**, not an audit suggestion.
+
+Normal chat must use the connected Google Drive/Sheets capability in the same
+/xi turn. GitHub runtime-result persistence is never a substitute for the
+Google Sheets write/readback.
+
+Treat that object as a mandatory write contract:
 
 1. upsert its exact `row` to the active Google Sheet **Decision States** using
    **Assessment ID** as the immutable key;
@@ -498,9 +506,12 @@ Every football-only, screenshot-priced, or strict-decision runtime result emits
 
 Before readback, `publication_authorized=false` and
 `publication_blocker=DECISION_STATE_PERSISTENCE_READBACK_REQUIRED` are
-binding. If the write or readback cannot be completed, report
+binding. The user-facing /xi turn is incomplete until the Sheets upsert and
+independent refetch finish. If the Google Sheets connector is unavailable, the
+write fails, or the readback differs, return `XI_PERSISTENCE_UNAVAILABLE` /
 `ENGINE_EVALUATED — NOT PUBLISHED`; do **not** narrate the runtime's candidate
-ACT/BOOK as an official verdict.
+ACT/BOOK/PASS as an official verdict and do not ask the user to run another
+command just to persist it.
 
 A screenshot comparison is the user's sole odds authority, but it is still not
 a physical bet or persistence receipt. Actual user exposure remains separate

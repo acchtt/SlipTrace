@@ -188,6 +188,23 @@ class XIRuntimeBackendTests(unittest.TestCase):
             result["runtime"]["price_check"]["status"],
             "OBSERVED_QUOTE_EVALUATED",
         )
+        handoff = result["sheets_handoff"]
+        self.assertTrue(handoff["required_before_user_verdict"])
+        self.assertEqual(
+            handoff["status"],
+            "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
+        )
+        self.assertEqual(handoff["sheet_name"], "Decision States")
+        self.assertEqual(handoff["key_column"], "Assessment ID")
+        self.assertEqual(
+            handoff["assessment_id"],
+            result["runtime"]["decision_state_persistence"]["row"]["Assessment ID"],
+        )
+        self.assertTrue(handoff["github_runtime_result_is_not_sheets_persistence"])
+        self.assertIn(
+            "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
+            handoff["orchestrator_required_actions"],
+        )
 
     def test_contract_error_is_persisted_not_analysis_only(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)

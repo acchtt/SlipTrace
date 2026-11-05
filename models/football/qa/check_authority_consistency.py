@@ -182,9 +182,11 @@ require(
 )
 require(
     "models/football/engine/xi_runtime_backend.py",
-    '"BLOCK", "RANKED", "EXCEPTION"',
+    '"BLOCK", "RANKED", "DIRECT", "EXCEPTION"',
     "BLOCK_RECEIPT_REQUIRED",
     "XI_AUTHORITY_REQUIRED",
+    "XI_SHEETS_HANDOFF_V1",
+    "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
 )
 require(
     "models/football/engine/step2_queue_guard.py",
