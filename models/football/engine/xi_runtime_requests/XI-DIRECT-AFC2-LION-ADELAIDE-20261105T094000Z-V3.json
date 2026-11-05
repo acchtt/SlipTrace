@@ -1,0 +1,347 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V3",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V3",
+    "match": {
+      "match_id": "AFC2-GF-20261105-LCS-ADE",
+      "home": "Lion City Sailors",
+      "away": "Adelaide United",
+      "country": "Singapore",
+      "competition": "AFC Champions League Two",
+      "competition_kind": "CONTINENTAL",
+      "kickoff_ict": "2026-11-05T17:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "VERIFIED",
+      "competition_reliability_reason": "Current AFC group state, exact reverse fixture and current team-form evidence are source-backed; no popularity prior is used.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "MEDIUM",
+      "operational_viability_reason": "Current group context, exact reverse fixture and last-known starting structures are available; confirmed lineups are not independently verified at this freeze.",
+      "source_urls": [
+        "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp",
+        "https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf"
+      ],
+      "evidence_confidence": "HIGH",
+      "common_evidence_basis": "Lion City have a strong current scoring run and beat Adelaide 2-0 in the reverse fixture one week ago. Adelaide have shown a usable ACL2 reply route in earlier group matches but have also conceded repeatedly. The exact reverse remained 0-0 until the 80th minute, which is a material tempo warning.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "STRONG",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "HIGH",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "CARRIER_LED",
+      "burden_completion_quality": "HIGH",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "The exact reverse was scoreless for 79 minutes; Lion City can control territory without converting early, leaving 1-0 or 2-0 as credible stopping states.",
+      "h2h_state": "CURRENT_COMPETITION_REVIEWED",
+      "h2h_effect": "NOT_MATERIAL",
+      "h2h_transferability": "VERIFIED",
+      "h2h_current_corroboration": "VERIFIED",
+      "h2h_material_effect": false,
+      "h2h_basis": "The reverse fixture is highly transferable current evidence, but it is used to calibrate tempo and route strength rather than as a standalone H2H verdict.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only: Lion City's carrier and Adelaide leakage support G3, while the reverse fixture's late ignition blocks a protected G4; the deterministic compiler owns the burden.",
+      "carrier_self_fund": true,
+      "carrier_self_fund_basis": "Lion City have repeatedly produced multiple goals recently and scored twice away against Adelaide, giving the home carrier a credible three-goal self-funding path even without relying on Adelaide.",
+      "independent_upper_tail": true,
+      "independent_upper_tail_basis": "Adelaide's recent defensive leakage leaves a possible fourth goal, but the exact reverse fixture stayed closed until 80 minutes, so the tail is not independently protected.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Current domestic leakage is relevant but only partly transfers to a controlled continental rematch that remained scoreless for 79 minutes.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "The closest comparable context is suppressive in timing, while broader current scoring form is more expansive; the fourth-goal evidence is therefore mixed.",
+      "upper_tail_competition_provenance_verified": true,
+      "upper_tail_competition_provenance_basis": "The reverse AFC Champions League Two fixture is the primary comparable-context anchor; domestic results are only corroboration.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "The main failure is delayed conversion and game control, not destruction of Lion City's primary scoring route.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified evidence removes Lion City's scoring route; suppression is limited to tempo and fourth-goal continuation.",
+      "goal_signal_priority_score": 71,
+      "goal_signal_mean_over_two_rate": 0.6,
+      "goal_signal_mean_over_three_rate": 0.3,
+      "goal_signal_low_draw_trap_rate": 0.14,
+      "g3_current_structure_verified": true,
+      "g3_current_structure_basis": "Current evidence verifies a STRONG Lion City primary route and a USABLE Adelaide reply, while Adelaide's defensive leakage keeps a third-goal path live.",
+      "g3_current_structure_source_refs": [
+        "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+      ],
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "GROUP_STAGE_MATCHDAY_4_OF_6",
+      "competition_format": "Four-team home-and-away group stage; each club plays six group matches and the top two progress to the Round of 16.",
+      "draw_resolution": "A group-stage draw stands after 90 minutes.",
+      "aggregate_state": "SINGLE_GROUP_MATCH_NO_AGGREGATE",
+      "simultaneous_results_status": "VERIFIED",
+      "simultaneous_results_note": "The other match in the same four-team group remains relevant to qualification, but this fixture has no knockout aggregate.",
+      "tiebreak_margin_relevance": "YES",
+      "competition_structure_kind": "GROUP_STAGE",
+      "competition_structure_basis": "Official AFC 2026/27 competition regulations define four-team home-and-away groups and group-ranking rules, with the top two progressing to the Round of 16.",
+      "competition_structure_source_tier": "OFFICIAL_COMPETITION",
+      "competition_structure_evidence_refs": [
+        "https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf"
+      ],
+      "qualification_state": "Lion City lead Group F on seven points, Adelaide are second on six, BG Pathum third on four and Tai Po fourth on zero. Both sides have meaningful top-two incentive, while a draw carries more utility for Lion City.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "incentive_effect": "MIXED",
+      "match_context_review_status": "VERIFIED_MATERIAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BALANCED",
+      "travel_load_context": "AWAY_CONTINENTAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "MIXED",
+      "match_context_basis": "Adelaide's continental travel and group need are relevant, but there is no verified fatigue signal; the exact reverse's slow opening remains the main control caution.",
+      "match_context_evidence_refs": [
+        "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+      ],
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "FAILED",
+      "g4_reply_path": "FAILED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Lion City can self-fund G3, but the exact reverse's delayed opening plus only MEDIUM transferable upper-tail evidence do not protect a fourth total goal.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Lion City have enough current attack to threaten a third or fourth themselves, but the exact reverse does not make the fourth carrier goal dependable.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Adelaide retain a reply route, but current same-competition evidence does not reliably establish a protected 3+1 or 2+2 distribution.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Adelaide can contribute, but the reverse blank and delayed opening make a post-third reply too uncertain to fund G4.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "LION_ADELAIDE_LATE_OPEN_CONTROL": {
+          "basis": "The exact reverse remained 0-0 until the 80th minute and finished 2-0, showing that Lion City control can coexist with delayed conversion and a weak Adelaide reply.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "affected_paths": [
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Current route reliability was rechecked using same-competition and current team evidence.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Continuation after the third goal was assessed separately from the first-goal route and from market prices.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "The 0-0, 1-1 and 2-0 stopping states were explicitly reviewed before pricing.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Failure resistance reflects whether the primary scoring route survives weak contribution from the secondary side.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "The fourth-goal tail was assessed independently and is not inferred from the visible bookmaker total.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        }
+      },
+      "activation_quality": "MEDIUM",
+      "activation_basis": "Lion City's attack is currently strong and Adelaide have incentive to respond, but the exact reverse remaining 0-0 until 80 minutes blocks a HIGH ignition label.",
+      "activation_evidence_refs": [
+        "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+      ],
+      "activation_ignition": {
+        "current_attack_structure": "HIGH",
+        "early_chance_creation": "MEDIUM",
+        "early_concession_opening": "MEDIUM",
+        "game_state_force": "HIGH",
+        "weaker_side_state_change": "MEDIUM",
+        "basis": "Current attacking structure is strong, but same-opponent evidence shows delayed conversion rather than a reliably fast opening.",
+        "evidence_refs": [
+          "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+          "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Current market-independent evidence supports G3 through Lion City's carrier; G4 is explicitly rejected by the same-competition tempo and continuation review."
+    },
+    "context": {
+      "assessment_at_utc": "2026-11-05T09:40:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "DIRECT /xi has no prior valid block or rank certificate; the current deterministic Football C compiler owns the certificate.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "COMPLETED",
+      "market_disagreement_recheck_basis": "The visible O3.25 burden sits materially above the researched G3 certificate, so the carrier, reply, continuation and G4 transferability were rechecked without using the market as football evidence.",
+      "market_disagreement_recheck_fields": [
+        "route_reliability",
+        "chance_quality",
+        "burden_completion_quality",
+        "continuation_quality",
+        "independent_upper_tail",
+        "upper_tail_transferability",
+        "upper_tail_comparable_context_signal",
+        "g4_research_status",
+        "g4_carrier_path",
+        "g4_distributed_path",
+        "g4_reply_path"
+      ],
+      "market_disagreement_recheck_evidence_refs": [
+        "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+      ]
+    },
+    "assessment_depth": {
+      "contract": "ASSESSMENT_DEPTH_V3",
+      "completed": true,
+      "market_independent": true,
+      "evidence_epoch_id": "DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V3",
+      "assessed_at_utc": "2026-11-05T09:40:00+00:00",
+      "evidence_refs": [
+        "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp",
+        "https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf"
+      ],
+      "checks": {
+        "primary_scoring_route": "Lion City carry a STRONG current scoring route and remain the most reliable source of goals in the matchup.",
+        "secondary_reply_route": "Adelaide retain a USABLE reply route from earlier ACL2 scoring, but the reverse fixture showed that contribution can disappear.",
+        "carrier_capacity": "Lion City's carrier is STRONG and can self-fund three, but current evidence does not safely extend that assumption to four.",
+        "current_chance_creation": "Current Lion City structure supports HIGH chance quality, while the exact reverse warns that creation may convert late rather than immediately.",
+        "goal3_mechanism": "Goal three is funded by the Lion City carrier and Adelaide defensive leakage without requiring a strong Adelaide scoring contribution.",
+        "goal4_mechanism": "Goal four is explicitly rejected because same-competition timing and reply evidence do not protect continuation beyond the third goal.",
+        "stall_0_0": "The reverse match stayed 0-0 until the 80th minute, making an extended scoreless phase a real control risk despite Lion City's current form.",
+        "stall_1_1": "At 1-1 Lion City's stronger carrier keeps the third goal live, but the match can still settle into controlled possession rather than opening fully.",
+        "continuation_2_0": "At 2-0 continuation is only MEDIUM because Lion City can protect the result and Adelaide were unable to reply in the reverse.",
+        "opponent_leakage": "Adelaide's current defensive profile provides HIGH leakage for G3, but that leakage is not enough by itself to certify a fourth goal.",
+        "named_failure_mechanism": "The main failure mechanism is delayed conversion under Lion City control, producing a 1-0 or 2-0 endpoint despite territorial superiority.",
+        "availability_replacements": "Confirmed XI is not independently verified yet; current last-known structures preserve the primary Lion City route without assuming unverified starters.",
+        "h2h_transferability": "The one-week-old reverse is directly comparable and is used primarily as tempo and continuation evidence rather than an automatic total prediction.",
+        "tournament_incentive": "Official AFC group format and the current 7-6-4-0 table create meaningful points pressure, but Lion City retain more draw utility than Adelaide.",
+        "match_context": "Adelaide travel was checked, but no verified fatigue signal overrides the stronger same-competition tempo evidence.",
+        "supported_burden_basis": "The football case protects G3/O2.50, while G4 is explicitly rejected; the visible O3.25 price cannot manufacture a higher certificate."
+      }
+    }
+  },
+  "authority": {
+    "mode": "DIRECT",
+    "direct_reference": "DIRECT-AFC2-LION-ADELAIDE-20261105",
+    "user_requested_direct_xi": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V3",
+      "researched_at_utc": "2026-11-05T09:40:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "DIRECT-AFC2-LION-ADELAIDE-20261105",
+      "evidence_refs": [
+        "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp",
+        "https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817",
+    "match_id": "AFC2-GF-20261105-LCS-ADE",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3.25,
+      "odds": 1.89
+    },
+    "observed_at_utc": "2026-11-05T09:40:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
