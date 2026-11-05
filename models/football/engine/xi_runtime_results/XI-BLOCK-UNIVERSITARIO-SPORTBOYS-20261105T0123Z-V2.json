@@ -1,0 +1,11 @@
+{
+  "error": "BLOCK_RECEIPT_REQUIRED: undeclared override of frozen field carrier_self_fund_basis",
+  "error_type": "RankAuthorityError",
+  "failure_class": "BLOCK_AUTHORITY",
+  "input_sha256": "756e26e27bd39de8f3a81b51c828f75d06f8f4db6222d502b2f727922a5f2335",
+  "ok": false,
+  "request_id": "XI-BLOCK-UNIVERSITARIO-SPORTBOYS-20261105T0123Z-V2",
+  "runtime_commit": "9283e5c82c9c4557b4547f58c2acb9ea373fe7d6",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "BLOCK_RECEIPT_REQUIRED"
+}
