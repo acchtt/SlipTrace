@@ -1,0 +1,11 @@
+{
+  "error": "BLOCK_RECEIPT_REQUIRED: undeclared override of frozen field burden_protection",
+  "error_type": "RankAuthorityError",
+  "failure_class": "BLOCK_AUTHORITY",
+  "input_sha256": "e3fc9cc0309a5e0e86f2d195a4b281d0eda6dccb43ae839f89da83c5c25e419d",
+  "ok": false,
+  "request_id": "XI-BLOCK-UNIVERSITARIO-SPORTBOYS-20261105T0123Z-V1",
+  "runtime_commit": "03c67459ac3531d8c0a5c0bb62e870b5c157a598",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "BLOCK_RECEIPT_REQUIRED"
+}
