@@ -1,0 +1,754 @@
+{
+  "authority": {
+    "assessment_depth": {
+      "activation": {
+        "basis": "Kitchee's confirmed attack-heavy XI and must-win pressure improve ignition, but the controlled 2-0 reverse prevents a HIGH label.",
+        "block_selection_only": true,
+        "calibration": "DECLARED_GRADE_ACCEPTED",
+        "certificate_authority": false,
+        "effective_quality": "MEDIUM",
+        "evidence_refs": [
+          "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+          "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310",
+          "https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/"
+        ],
+        "ignition": {
+          "current_attack_structure": 2,
+          "early_chance_creation": 2,
+          "early_concession_opening": 0,
+          "game_state_force": 2,
+          "weaker_side_state_change": 1
+        },
+        "ignition_evidence_refs": [
+          "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+          "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310",
+          "https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/"
+        ],
+        "price_execution_authority": false,
+        "quality": "MEDIUM",
+        "tournament_structure": {
+          "basis": "Official AFC 2026/27 competition regulations define four-team home-and-away groups and group-ranking rules, with the top two progressing to the Round of 16.",
+          "evidence_refs": [
+            "https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf"
+          ],
+          "required": true,
+          "source_tier": "OFFICIAL_COMPETITION",
+          "structure_kind": "GROUP_STAGE",
+          "verified": true
+        }
+      },
+      "assessment_at_utc": "2026-11-05T09:49:17+00:00",
+      "checks": [
+        "availability_replacements",
+        "carrier_capacity",
+        "continuation_2_0",
+        "current_chance_creation",
+        "goal3_mechanism",
+        "goal4_mechanism",
+        "h2h_transferability",
+        "match_context",
+        "named_failure_mechanism",
+        "opponent_leakage",
+        "primary_scoring_route",
+        "secondary_reply_route",
+        "stall_0_0",
+        "stall_1_1",
+        "supported_burden_basis",
+        "tournament_incentive"
+      ],
+      "completed": true,
+      "contract": "ASSESSMENT_DEPTH_V3",
+      "evidence_epoch_id": "DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+      "evidence_ref_count": 4,
+      "market_independent": true,
+      "required": true
+    },
+    "direct_research": {
+      "challenge_reason": "User supplied confirmed starting XIs before kickoff; Kitchee's attacking structure is materially stronger than the pre-XI assessment.",
+      "checked_fields": [
+        "availability_and_replacements",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "competition_format_incentive",
+        "completion_continuation_stall",
+        "failure_mechanisms",
+        "fixture_identity_status",
+        "g4_research_if_g3_funded",
+        "h2h_materiality",
+        "home_scoring_route",
+        "rivalry_rest_travel_fatigue_context",
+        "upper_tail_and_comparable_context"
+      ],
+      "evidence_ref_count": 4,
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+      "researched_at_utc": "2026-11-05T09:49:17+00:00",
+      "revision": "REASSESSMENT",
+      "source_reference": "DIRECT-AFC2-KITCHEE-PPC-20261105-V5-XI",
+      "state_change_basis": "Confirmed Kitchee XI contains Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera together. This directly upgrades the home scoring route and current two-sided completion structure, promoting G3 while leaving G4 rejected by the reverse 2-0 and Phnom Penh draw utility.",
+      "state_change_fields": [
+        "home_route",
+        "independent_route_quality",
+        "chance_quality",
+        "burden_completion_quality",
+        "g4_research_status",
+        "g4_carrier_path",
+        "g4_distributed_path",
+        "g4_reply_path",
+        "g4_continuation_after_g3"
+      ],
+      "state_change_status": "VERIFIED_NEW_FOOTBALL_EVIDENCE",
+      "supersedes_evidence_epoch_id": "DIRECT-AFC2-KITCHEE-PPC-20261105T094000Z-V4",
+      "supersedes_exception_reference": "DIRECT-AFC2-KITCHEE-PPC-20261105-V4",
+      "upstream_state": "WATCH"
+    },
+    "mode": "DIRECT",
+    "rank_state_display": "DIRECT",
+    "rank_state_internal": null,
+    "reference": "DIRECT-AFC2-KITCHEE-PPC-20261105-V5-XI",
+    "user_requested_direct_xi": true
+  },
+  "input_sha256": "1d39b8b0260023a35cc7ae01f6ee99377b83462f8279e6f825c44834990567a5",
+  "ok": true,
+  "request_id": "XI-DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+  "runtime": {
+    "calibration_record": {
+      "automatic_threshold_learning": false,
+      "certified_burden": 2.5,
+      "compiled_board_state": "FOCUS",
+      "control_review": false,
+      "credible_tail_state": "REJECTED",
+      "current_rank": null,
+      "decision": "PASS",
+      "direct_act_ceiling": 2.5,
+      "entry_feasibility_basis": "football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy",
+      "entry_feasibility_state": "PHANTOM_FLOOR",
+      "evidence_epoch": "DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+      "exception_flag": false,
+      "follow_lane": null,
+      "g3_endpoint_pressure": "MODERATE",
+      "goal3_funded": true,
+      "goal3_mechanism_class": "DISTRIBUTED",
+      "goal4_funded": false,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "goal_screen_state": null,
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "match_id": "AFC2-GH-20261105-KIT-PPC",
+      "pass_had_lower_supported_visible_line": false,
+      "rank": null,
+      "rank_scope": null,
+      "researcher_declared_board_state": "FOCUS",
+      "robustness": "FRAGILE",
+      "schema_version": "football-c-calibration-v1",
+      "screenshot_visible_ladder": [
+        {
+          "line": 3.0,
+          "odds": 1.79
+        }
+      ],
+      "selected_evaluated_line": 3.0,
+      "selected_evaluated_odds": 1.79,
+      "selection_authority": "ZERO",
+      "slate_rank": null,
+      "slate_rank_status": null,
+      "sweep_state": null,
+      "upper_tail_pressure": "HIGH"
+    },
+    "decision_state_persistence": {
+      "key_column": "Assessment ID",
+      "missing_persistence_inputs": [],
+      "persistence_input_complete": true,
+      "publication_authorized_before_readback": false,
+      "publication_fail_closed": true,
+      "readback_assertions": [
+        "Assessment ID",
+        "Evidence Epoch ID",
+        "XI Assessment Execution Status",
+        "C Action",
+        "C Supported Line",
+        "Evaluated Line",
+        "Evaluated Odds",
+        "Engine C Result",
+        "Engine Source Revision"
+      ],
+      "readback_required": true,
+      "required": true,
+      "row": {
+        "Assessment At UTC": "2026-11-05T09:49:17+00:00",
+        "Assessment ID": "XI-C-DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+        "C Action": "OBSERVED_PASS_NON_EXECUTABLE",
+        "C Board State": "FOCUS",
+        "C Supported Line": 2.5,
+        "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"REJECTED\",\"current_rank\":null,\"decision\":\"PASS\",\"direct_act_ceiling\":2.5,\"entry_feasibility_basis\":\"football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy\",\"entry_feasibility_state\":\"PHANTOM_FLOOR\",\"evidence_epoch\":\"DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"DISTRIBUTED\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"AFC2-GH-20261105-KIT-PPC\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"FRAGILE\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.0,\"odds\":1.79}],\"selected_evaluated_line\":3.0,\"selected_evaluated_odds\":1.79,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"HIGH\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"price_check\":{\"bet_authorized\":false,\"evidence\":{\"assessment_at_utc\":\"2026-11-05T09:49:17+00:00\",\"bookmaker\":\"User-displayed bookmaker\",\"capture_reference\":\"USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817\",\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"UNQUOTED_CUSTOM_LINE_REVIEW\",\"user_bookmaker_custom_line_supported\":false},\"external_price_searches\":0,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"match_id\":\"AFC2-GH-20261105-KIT-PPC\",\"match_minute\":null,\"observation_age_seconds\":557.0,\"observed_at_utc\":\"2026-11-05T09:40:00+00:00\",\"price_evidence_mode\":\"USER_SCREENSHOT_ONLY\",\"quote\":{\"line\":3.0,\"odds\":1.79},\"replacement_quotes\":0,\"score\":null,\"source\":\"USER_SCREENSHOT\",\"visible_ladder\":[{\"line\":3.0,\"odds\":1.79}]},\"execution_authorized\":false,\"limitations\":[\"SCREENSHOT_NOT_EXECUTION_EVIDENCE\",\"SCREENSHOT_OBSERVATION_NOT_SAME_AS_ASSESSMENT_EPOCH\"],\"model\":{\"book_min_odds\":null,\"book_order_is_exposure\":false,\"book_target_line\":null,\"book_target_state\":\"NO_BOOK_TARGET\",\"bridge_used\":false,\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"REJECTED\",\"current_rank\":null,\"decision\":\"PASS\",\"direct_act_ceiling\":2.5,\"entry_feasibility_basis\":\"football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy\",\"entry_feasibility_state\":\"PHANTOM_FLOOR\",\"evidence_epoch\":\"DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"DISTRIBUTED\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"AFC2-GH-20261105-KIT-PPC\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"FRAGILE\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.0,\"odds\":1.79}],\"selected_evaluated_line\":3.0,\"selected_evaluated_odds\":1.79,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"HIGH\"},\"certificate_completeness_recheck_required\":false,\"conditional_action\":\"PASS\",\"current_price_clears_book_target\":false,\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"UNQUOTED_CUSTOM_LINE_REVIEW\",\"user_bookmaker_custom_line_supported\":false},\"entry_feasibility_basis\":\"football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy\",\"entry_feasibility_state\":\"PHANTOM_FLOOR\",\"execution_authorized\":false,\"frozen_board_g4_research_status\":\"LEGACY_UNKNOWN\",\"goal3_mechanism_class\":\"DISTRIBUTED\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"market_disagreement_gap_goals\":0.5,\"market_disagreement_recheck_basis\":\"Confirmed XI materially upgrades Kitchee's current scoring route, so the G3/G4 structure was rebuilt before comparing the unchanged user screenshot O3 quote.\",\"market_disagreement_recheck_completed\":true,\"market_disagreement_recheck_evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"market_disagreement_recheck_fields\":[\"route_reliability\",\"chance_quality\",\"burden_completion_quality\",\"continuation_quality\",\"independent_upper_tail\",\"upper_tail_transferability\",\"upper_tail_comparable_context_signal\",\"g4_research_status\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"market_disagreement_recheck_missing_fields\":[],\"market_disagreement_recheck_required\":true,\"pass_had_lower_supported_visible_line\":false,\"prior_certificate_reclassification_recheck_required\":false,\"reason\":\"C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears\",\"selected_visible_line\":3.0,\"selected_visible_odds\":1.79,\"snapshot_line_relation\":\"ABOVE_SUPPORTED_BURDEN\",\"supported_line\":2.5,\"supported_visible_line_found\":false,\"visible_ladder_evaluations\":[{\"action\":\"PASS\",\"direct_act_ceiling\":2.5,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.0,\"line_relation\":\"ABOVE_SUPPORTED_BURDEN\",\"odds\":1.79,\"reason\":\"C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears\"}],\"visible_ladder_selection_basis\":\"NO_SUPPORTED_VISIBLE_LINE_LOWEST_VISIBLE_DIAGNOSTIC\",\"wait_min_odds\":null,\"wait_reachability_basis\":null,\"wait_reachable\":false,\"wait_target_line\":null},\"model_bets_created\":false,\"ok\":true,\"priced_publication_authorized\":false,\"quote_research_required\":false,\"status\":\"OBSERVED_QUOTE_EVALUATED\"},\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"DRAW_ACCEPTABLE\",\"away_route\":\"STRONG\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"USABLE\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":false,\"certificate_robustness\":\"FRAGILE\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED\",\"CARRIER_BRANCH_REQUIREMENTS_NOT_MET\",\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":false,\"tournament_tail_bias\":\"MIXED\"},\"certified_supported_burden\":2.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"TWO_SIDED\",\"continuation_quality\":\"MEDIUM\",\"credible_burden_band_high\":2.5,\"credible_burden_band_low\":2.5,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G4_REJECTED_PREMARKET: next-goal tail lacks sufficient transferable or continuation support\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"REJECTED\",\"credible_tail_target_goal\":4,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Confirmed XI supplies new current football evidence that verifies G3 through two strong routes; G4 remains explicitly rejected.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":2.5,\"declared_supported_line_basis\":\"Confirmed XI now verifies a genuine strong-primary/strong-reply G3 structure, but the same-competition reverse and Phnom Penh draw utility still block a protected fourth goal.\",\"direct_act_ceiling\":2.5,\"effective_burden_stall_risk\":\"MEDIUM\",\"effective_continuation_quality\":\"MEDIUM\",\"effective_upper_tail_transferability\":\"LOW\",\"endpoint_control_pressure\":\"MODERATE\",\"execution_strength\":\"FRAGILE\",\"failure_mechanisms\":{\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_reply_path\"],\"basis\":\"Confirmed XI strengthens the third-goal structure, but the exact reverse ended 2-0 and Phnom Penh lead the group with draw utility. Those facts jointly cap continuation beyond G3.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":2.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=DISTRIBUTED_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=SUPPRESSIVE\",\"frozen_supported_line_funding\":true,\"g3_current_structure_basis\":\"Confirmed XI verifies STRONG routes on both sides: Kitchee field Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera, while Phnom Penh retain the established scoring core that produced six goals in three group matches.\",\"g3_current_structure_source_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\"],\"g3_current_structure_verified\":true,\"g3_endpoint_control_pressure\":\"MODERATE\",\"g4_carrier_path\":\"FAILED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_distributed_path\":\"MIXED\",\"g4_evidence_disposition\":\"MIXED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Neither confirmed XI establishes a dependable one-team four-goal carrier in this continental matchup.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"g4_distributed_path\":{\"basis\":\"The stronger Kitchee XI makes 2+2 or 3+1 plausible, but the reverse 2-0 means that distribution remains mixed rather than protected.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"]},\"g4_reply_path\":{\"basis\":\"A post-third reply is possible, but Phnom Penh's draw utility and the controlled reverse prevent it from becoming a dependable fourth-goal mechanism.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"Confirmed XI upgrades Kitchee enough to fund G3, but not G4: neither side self-funds four, the reverse finished 2-0, and Phnom Penh have draw utility as group leaders.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":false,\"goal3_distributed_funded\":true,\"goal3_funded\":true,\"goal3_leakage_funded\":false,\"goal3_mechanism_class\":\"DISTRIBUTED\",\"goal3_two_route_funded\":false,\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 0-0/1-0/2-0 control endpoints remain credible despite the attacking Kitchee XI because the reverse finished 2-0.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"continuation_quality\":{\"basis\":\"Continuation after G3 stays MEDIUM because Phnom Penh can accept control and the reverse never opened beyond two goals.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"failure_resistance\":{\"basis\":\"G3 now has two current routes, but if Kitchee again fail to transfer their attack into ACL2, Phnom Penh may still have to carry most of the scoring burden.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"independent_upper_tail\":{\"basis\":\"No independent fourth-goal path is verified after combining the confirmed XI with the same-competition reverse and group state.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"route_reliability\":{\"basis\":\"Both confirmed starting XIs now provide current scoring routes, but Kitchee's continental conversion remains less proven than the personnel names alone suggest.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]}},\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"MIXED\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_context_basis\":\"Travel and rest were checked; no verified fatigue or rivalry factor is strong enough to override the same-competition scoring evidence.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_positive_pressure\":false,\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_context_suppressive_pressure\":false,\"match_id\":\"AFC2-GH-20261105-KIT-PPC\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"OFFICIAL_TOURNAMENT_FORMAT_INCENTIVES_REQUIRED\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":2.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"MEDIUM\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\":[\"burden_stall_risk\",\"continuation_quality\",\"failure_resistance\",\"g4_carrier_path\",\"g4_reply_path\",\"independent_upper_tail\",\"route_reliability\"]},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_incentive_effect\":\"MIXED\",\"tournament_incentive_required\":true,\"tournament_incentive_resolution\":\"VERIFIED\",\"tournament_positive_pressure\":false,\"tournament_suppressive_pressure\":true,\"tournament_tail_bias\":\"MIXED\",\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"Same-opponent ACL2 evidence still suppresses G4 even though Kitchee's confirmed XI materially strengthens the third-goal route.\",\"upper_tail_comparable_context_signal\":\"SUPPRESSIVE\",\"upper_tail_control_pressure\":\"HIGH\",\"upper_tail_strength\":\"WEAK\",\"upper_tail_transferability\":\"LOW\",\"upper_tail_transferability_basis\":\"The closest same-competition evidence remains the 2-0 reverse, so the attacking XI upgrade is not enough to make the fourth-goal tail transferable.\",\"wait_authorized\":false},\"xi_mode\":\"FOOTBALL_AND_OBSERVED_QUOTE\"}",
+        "Engine Source Revision": "b69a0529d895d1778be2ce874bffdecdbe5279b4",
+        "Evaluated Line": 3.0,
+        "Evaluated Odds": 1.79,
+        "Evidence Epoch ID": "DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+        "Fixture Status": "PREMATCH_CONFIRMED",
+        "Match ID": "AFC2-GH-20261105-KIT-PPC",
+        "Match Minute": null,
+        "Payload JSON": "{\"assessment_depth\":{\"assessed_at_utc\":\"2026-11-05T09:49:17+00:00\",\"checks\":{\"availability_replacements\":\"Confirmed XI resolves the key uncertainty: Kitchee start Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera; Phnom Penh retain their senior first-team core.\",\"carrier_capacity\":\"Neither side is treated as a solo three-goal carrier; the new certificate is distributed across two current STRONG routes.\",\"continuation_2_0\":\"At 2-0 continuation remains only MEDIUM because Phnom Penh can manage a favorable result and the reverse stopped at that exact score.\",\"current_chance_creation\":\"Confirmed Kitchee personnel materially improve current chance creation to HIGH, while Phnom Penh retain their proven group-stage route.\",\"goal3_mechanism\":\"Goal three is now funded through verified current two-sided structure rather than historical domestic scoring alone.\",\"goal4_mechanism\":\"Goal four remains rejected: the reverse ended 2-0, neither side self-funds four, and Phnom Penh have meaningful draw utility.\",\"h2h_transferability\":\"The reverse 2-0 is highly current and transferable as evidence of Kitchee's weak reply, but is not used as a standalone H2H veto.\",\"match_context\":\"Travel, rest and rivalry were checked and no verified contextual factor overrides the current group-stage scoring evidence.\",\"named_failure_mechanism\":\"The main failure is another poor continental transfer from Kitchee's attacking names, allowing Phnom Penh to control a 1-0 or 2-0 endpoint.\",\"opponent_leakage\":\"Leakage remains MEDIUM rather than HIGH; the XI upgrade improves route quality more than it changes the defensive matchup.\",\"primary_scoring_route\":\"Phnom Penh retain a STRONG continental scoring route, with their established senior core confirmed in the starting XI.\",\"secondary_reply_route\":\"Kitchee are upgraded to STRONG because Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera all start in a must-win home setup.\",\"stall_0_0\":\"The stronger Kitchee XI reduces the 0-0 risk, but the reverse and Phnom Penh's control profile keep an extended low-scoring phase credible.\",\"stall_1_1\":\"At 1-1 Kitchee's must-win state and stronger XI keep a third goal live from either side, which is the main reason G3 is now certified.\",\"supported_burden_basis\":\"The lineup update is enough to promote the match from REVIEW_ONLY to a funded G3/O2.50 certificate, but not enough to authorize the visible O3 burden.\",\"tournament_incentive\":\"Official AFC group format is verified; Kitchee need a win to recover qualification position while Phnom Penh have greater draw utility.\"},\"completed\":true,\"contract\":\"ASSESSMENT_DEPTH_V3\",\"evidence_epoch_id\":\"DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"market_independent\":true},\"context\":{\"assessment_at_utc\":\"2026-11-05T09:49:17+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"DIRECT /xi has no prior valid block or rank certificate; the current deterministic Football C compiler owns the certificate.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NO_FROZEN_BOARD\",\"direct_request\":true,\"direct_research_completed\":true,\"direct_research_epoch_id\":\"DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5\",\"direct_revision\":\"REASSESSMENT\",\"direct_upstream_state\":\"WATCH\",\"exception_flag\":false,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":false,\"frozen_board_certified_burden\":null,\"market_disagreement_recheck_basis\":\"Confirmed XI materially upgrades Kitchee's current scoring route, so the G3/G4 structure was rebuilt before comparing the unchanged user screenshot O3 quote.\",\"market_disagreement_recheck_evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"market_disagreement_recheck_fields\":[\"route_reliability\",\"chance_quality\",\"burden_completion_quality\",\"continuation_quality\",\"independent_upper_tail\",\"upper_tail_transferability\",\"upper_tail_comparable_context_signal\",\"g4_research_status\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"market_disagreement_recheck_status\":\"COMPLETED\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\"},\"evidence_epoch_id\":\"DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5\",\"match\":{\"activation_basis\":\"Kitchee's confirmed attack-heavy XI and must-win pressure improve ignition, but the controlled 2-0 reverse prevents a HIGH label.\",\"activation_evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"activation_ignition\":{\"basis\":\"Kitchee now field multiple senior attackers and must chase points, but Phnom Penh have not shown a reliable early-concession pattern in this matchup.\",\"current_attack_structure\":\"HIGH\",\"early_chance_creation\":\"HIGH\",\"early_concession_opening\":\"LOW\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"game_state_force\":\"HIGH\",\"weaker_side_state_change\":\"MEDIUM\"},\"activation_quality\":\"MEDIUM\",\"aggregate_state\":\"SINGLE_GROUP_MATCH_NO_AGGREGATE\",\"away\":\"Phnom Penh Crown\",\"away_incentive\":\"DRAW_ACCEPTABLE\",\"away_route\":\"STRONG\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Confirmed XI supplies new current football evidence that verifies G3 through two strong routes; G4 remains explicitly rejected.\",\"burden_completion_quality\":\"HIGH\",\"burden_protection\":\"MEDIUM\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"USABLE\",\"carrier_self_fund\":false,\"carrier_self_fund_basis\":\"Neither side is accepted as a reliable three-goal solo carrier in this matchup; the third goal is funded by distributed current structure instead.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"Confirmed XI materially upgrades Kitchee's current attacking route: Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera all start, while Kitchee must chase points. Phnom Penh retain their stronger continental route, but the 2-0 reverse still limits confidence in a fourth goal.\",\"competition\":\"AFC Champions League Two\",\"competition_format\":\"Four-team home-and-away group stage; each club plays six group matches and the top two progress to the Round of 16.\",\"competition_kind\":\"CONTINENTAL\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"Current AFC group state, reverse result and current team evidence are available; no league-prestige prior is used.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"GROUP_STAGE_MATCHDAY_4_OF_6\",\"competition_structure_basis\":\"Official AFC 2026/27 competition regulations define four-team home-and-away groups and group-ranking rules, with the top two progressing to the Round of 16.\",\"competition_structure_evidence_refs\":[\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"competition_structure_kind\":\"GROUP_STAGE\",\"competition_structure_source_tier\":\"OFFICIAL_COMPETITION\",\"completion_mode\":\"TWO_SIDED\",\"continuation_quality\":\"MEDIUM\",\"country\":\"Hong Kong\",\"demoted_probation\":false,\"draw_resolution\":\"A group-stage draw stands after 90 minutes.\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"The failure primarily attacks Kitchee's reply route and third-goal completion rather than eliminating Phnom Penh's scoring route.\",\"failure_mechanisms\":{\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_reply_path\"],\"basis\":\"Confirmed XI strengthens the third-goal structure, but the exact reverse ended 2-0 and Phnom Penh lead the group with draw utility. Those facts jointly cap continuation beyond G3.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"g3_current_structure_basis\":\"Confirmed XI verifies STRONG routes on both sides: Kitchee field Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera, while Phnom Penh retain the established scoring core that produced six goals in three group matches.\",\"g3_current_structure_source_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\"],\"g3_current_structure_verified\":true,\"g4_carrier_path\":\"FAILED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_distributed_path\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Neither confirmed XI establishes a dependable one-team four-goal carrier in this continental matchup.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"g4_distributed_path\":{\"basis\":\"The stronger Kitchee XI makes 2+2 or 3+1 plausible, but the reverse 2-0 means that distribution remains mixed rather than protected.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"]},\"g4_reply_path\":{\"basis\":\"A post-third reply is possible, but Phnom Penh's draw utility and the controlled reverse prevent it from becoming a dependable fourth-goal mechanism.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"Confirmed XI upgrades Kitchee enough to fund G3, but not G4: neither side self-funds four, the reverse finished 2-0, and Phnom Penh have draw utility as group leaders.\",\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"goal_signal_low_draw_trap_rate\":0.2,\"goal_signal_mean_over_three_rate\":0.2,\"goal_signal_mean_over_two_rate\":0.4,\"goal_signal_priority_score\":57,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 0-0/1-0/2-0 control endpoints remain credible despite the attacking Kitchee XI because the reverse finished 2-0.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"continuation_quality\":{\"basis\":\"Continuation after G3 stays MEDIUM because Phnom Penh can accept control and the reverse never opened beyond two goals.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"failure_resistance\":{\"basis\":\"G3 now has two current routes, but if Kitchee again fail to transfer their attack into ACL2, Phnom Penh may still have to carry most of the scoring burden.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"independent_upper_tail\":{\"basis\":\"No independent fourth-goal path is verified after combining the confirmed XI with the same-competition reverse and group state.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"route_reliability\":{\"basis\":\"Both confirmed starting XIs now provide current scoring routes, but Kitchee's continental conversion remains less proven than the personnel names alone suggest.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]}},\"h2h_basis\":\"The reverse 2-0 is current same-competition evidence and is used to test Kitchee's reply-route transferability, not as an automatic suppressive H2H veto.\",\"h2h_current_corroboration\":\"VERIFIED\",\"h2h_effect\":\"NOT_MATERIAL\",\"h2h_material_effect\":false,\"h2h_state\":\"CURRENT_COMPETITION_REVIEWED\",\"h2h_transferability\":\"VERIFIED\",\"home\":\"Kitchee SC\",\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"MIXED\",\"independent_route_quality\":\"HIGH\",\"independent_upper_tail\":false,\"independent_upper_tail_basis\":\"The confirmed attacking personnel improve G3, but the reverse 2-0 and Phnom Penh's draw utility do not establish an independent fourth-goal mechanism.\",\"kickoff_ict\":\"2026-11-05T17:00:00+07:00\",\"main_failure\":\"The upgraded Kitchee XI can still fail to convert its domestic-quality personnel in ACL2, allowing Phnom Penh to repeat a controlled 1-0 or 2-0 result.\",\"market_observability\":\"HIGH\",\"match_context_basis\":\"Travel and rest were checked; no verified fatigue or rivalry factor is strong enough to override the same-competition scoring evidence.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_evidence_refs\":[\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_id\":\"AFC2-GH-20261105-KIT-PPC\",\"material_suppression\":false,\"material_suppression_basis\":\"The match still has live scoring routes, but current evidence is insufficient to certify G3 rather than being an all-route hard suppression.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"Confirmed user-supplied XIs are available before kickoff. Kitchee start Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera together; Phnom Penh Crown also field their established senior core.\",\"opponent_leakage\":\"MEDIUM\",\"qualification_state\":\"Phnom Penh Crown lead Group H on nine points, Gangwon have four, Kitchee two and Kuching one. Kitchee need a win to materially improve their top-two chance, while Phnom Penh have substantial draw utility.\",\"raw_operational_viability_grade\":\"A\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"MEDIUM\",\"simultaneous_results_note\":\"The other match in the same four-team group remains relevant to qualification, but this fixture has no knockout aggregate.\",\"simultaneous_results_status\":\"VERIFIED\",\"source_urls\":[\"https://www.fotmob.com/matches/kitchee-vs-phnom-penh-crown/\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\",\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\"],\"supported_line\":2.5,\"supported_line_basis\":\"Confirmed XI now verifies a genuine strong-primary/strong-reply G3 structure, but the same-competition reverse and Phnom Penh draw utility still block a protected fourth goal.\",\"team_news_observability\":\"HIGH\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_format_status\":\"VERIFIED\",\"tournament_incentive_required\":true,\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"Same-opponent ACL2 evidence still suppresses G4 even though Kitchee's confirmed XI materially strengthens the third-goal route.\",\"upper_tail_comparable_context_signal\":\"SUPPRESSIVE\",\"upper_tail_transferability\":\"LOW\",\"upper_tail_transferability_basis\":\"The closest same-competition evidence remains the 2-0 reverse, so the attacking XI upgrade is not enough to make the fourth-goal tail transferable.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"HIGH\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+        "Persisted At UTC": null,
+        "Publication Key": null,
+        "Published": false,
+        "Score": null,
+        "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_AND_PRICE"
+      },
+      "sheet_name": "Decision States",
+      "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+      "status_before_readback": "DECISION_STATE_PERSISTENCE_REQUIRED",
+      "store": "GOOGLE_SHEETS"
+    },
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "price_check": {
+      "bet_authorized": false,
+      "evidence": {
+        "assessment_at_utc": "2026-11-05T09:49:17+00:00",
+        "bookmaker": "User-displayed bookmaker",
+        "capture_reference": "USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817",
+        "custom_line_review": {
+          "bet_authorized": false,
+          "candidate_line": 2.5,
+          "candidate_odds": null,
+          "execution_authorized": false,
+          "minimum_odds": null,
+          "reason": "Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.",
+          "requires_user_confirmed_quote": true,
+          "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+          "status": "UNQUOTED_CUSTOM_LINE_REVIEW",
+          "user_bookmaker_custom_line_supported": false
+        },
+        "external_price_searches": 0,
+        "fixture_status": "PREMATCH_CONFIRMED",
+        "match_id": "AFC2-GH-20261105-KIT-PPC",
+        "match_minute": null,
+        "observation_age_seconds": 557.0,
+        "observed_at_utc": "2026-11-05T09:40:00+00:00",
+        "price_evidence_mode": "USER_SCREENSHOT_ONLY",
+        "quote": {
+          "line": 3.0,
+          "odds": 1.79
+        },
+        "replacement_quotes": 0,
+        "score": null,
+        "source": "USER_SCREENSHOT",
+        "visible_ladder": [
+          {
+            "line": 3.0,
+            "odds": 1.79
+          }
+        ]
+      },
+      "execution_authorized": false,
+      "limitations": [
+        "SCREENSHOT_NOT_EXECUTION_EVIDENCE",
+        "SCREENSHOT_OBSERVATION_NOT_SAME_AS_ASSESSMENT_EPOCH"
+      ],
+      "model": {
+        "book_min_odds": null,
+        "book_order_is_exposure": false,
+        "book_target_line": null,
+        "book_target_state": "NO_BOOK_TARGET",
+        "bridge_used": false,
+        "calibration_record": {
+          "automatic_threshold_learning": false,
+          "certified_burden": 2.5,
+          "compiled_board_state": "FOCUS",
+          "control_review": false,
+          "credible_tail_state": "REJECTED",
+          "current_rank": null,
+          "decision": "PASS",
+          "direct_act_ceiling": 2.5,
+          "entry_feasibility_basis": "football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy",
+          "entry_feasibility_state": "PHANTOM_FLOOR",
+          "evidence_epoch": "DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+          "exception_flag": false,
+          "follow_lane": null,
+          "g3_endpoint_pressure": "MODERATE",
+          "goal3_funded": true,
+          "goal3_mechanism_class": "DISTRIBUTED",
+          "goal4_funded": false,
+          "goal5_funded": false,
+          "goal6_funded": false,
+          "goal_screen_state": null,
+          "intermediate_burden_profile": {
+            "authorized_lines": [],
+            "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+            "eligible": false,
+            "max_direct_line": null
+          },
+          "match_id": "AFC2-GH-20261105-KIT-PPC",
+          "pass_had_lower_supported_visible_line": false,
+          "rank": null,
+          "rank_scope": null,
+          "researcher_declared_board_state": "FOCUS",
+          "robustness": "FRAGILE",
+          "schema_version": "football-c-calibration-v1",
+          "screenshot_visible_ladder": [
+            {
+              "line": 3.0,
+              "odds": 1.79
+            }
+          ],
+          "selected_evaluated_line": 3.0,
+          "selected_evaluated_odds": 1.79,
+          "selection_authority": "ZERO",
+          "slate_rank": null,
+          "slate_rank_status": null,
+          "sweep_state": null,
+          "upper_tail_pressure": "HIGH"
+        },
+        "certificate_completeness_recheck_required": false,
+        "conditional_action": "PASS",
+        "current_price_clears_book_target": false,
+        "custom_line_review": {
+          "bet_authorized": false,
+          "candidate_line": 2.5,
+          "candidate_odds": null,
+          "execution_authorized": false,
+          "minimum_odds": null,
+          "reason": "Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.",
+          "requires_user_confirmed_quote": true,
+          "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+          "status": "UNQUOTED_CUSTOM_LINE_REVIEW",
+          "user_bookmaker_custom_line_supported": false
+        },
+        "entry_feasibility_basis": "football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy",
+        "entry_feasibility_state": "PHANTOM_FLOOR",
+        "execution_authorized": false,
+        "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+        "goal3_mechanism_class": "DISTRIBUTED",
+        "intermediate_burden_profile": {
+          "authorized_lines": [],
+          "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+          "eligible": false,
+          "max_direct_line": null
+        },
+        "market_disagreement_gap_goals": 0.5,
+        "market_disagreement_recheck_basis": "Confirmed XI materially upgrades Kitchee's current scoring route, so the G3/G4 structure was rebuilt before comparing the unchanged user screenshot O3 quote.",
+        "market_disagreement_recheck_completed": true,
+        "market_disagreement_recheck_evidence_refs": [
+          "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+          "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310",
+          "https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/"
+        ],
+        "market_disagreement_recheck_fields": [
+          "route_reliability",
+          "chance_quality",
+          "burden_completion_quality",
+          "continuation_quality",
+          "independent_upper_tail",
+          "upper_tail_transferability",
+          "upper_tail_comparable_context_signal",
+          "g4_research_status",
+          "g4_carrier_path",
+          "g4_distributed_path",
+          "g4_reply_path"
+        ],
+        "market_disagreement_recheck_missing_fields": [],
+        "market_disagreement_recheck_required": true,
+        "pass_had_lower_supported_visible_line": false,
+        "prior_certificate_reclassification_recheck_required": false,
+        "reason": "C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears",
+        "selected_visible_line": 3.0,
+        "selected_visible_odds": 1.79,
+        "snapshot_line_relation": "ABOVE_SUPPORTED_BURDEN",
+        "supported_line": 2.5,
+        "supported_visible_line_found": false,
+        "visible_ladder_evaluations": [
+          {
+            "action": "PASS",
+            "direct_act_ceiling": 2.5,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 3.0,
+            "line_relation": "ABOVE_SUPPORTED_BURDEN",
+            "odds": 1.79,
+            "reason": "C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears"
+          }
+        ],
+        "visible_ladder_selection_basis": "NO_SUPPORTED_VISIBLE_LINE_LOWEST_VISIBLE_DIAGNOSTIC",
+        "wait_min_odds": null,
+        "wait_reachability_basis": null,
+        "wait_reachable": false,
+        "wait_target_line": null
+      },
+      "model_bets_created": false,
+      "ok": true,
+      "priced_publication_authorized": false,
+      "quote_research_required": false,
+      "status": "OBSERVED_QUOTE_EVALUATED"
+    },
+    "priced_publication_authorized": false,
+    "publication_blocker": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
+    "quote_research_required": false,
+    "quotes_required": false,
+    "rank_state_display": "FOCUS",
+    "rank_state_internal": "FOCUS",
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "DRAW_ACCEPTABLE",
+      "away_route": "STRONG",
+      "bet_authorized": false,
+      "board_state": 2,
+      "board_state_mismatch": false,
+      "burden_completion_quality": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "USABLE",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": false,
+        "certificate_robustness": "FRAGILE",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED",
+          "CARRIER_BRANCH_REQUIREMENTS_NOT_MET",
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": false,
+        "tournament_tail_bias": "MIXED"
+      },
+      "certified_supported_burden": 2.5,
+      "chance_quality": "HIGH",
+      "completion_mode": "TWO_SIDED",
+      "continuation_quality": "MEDIUM",
+      "credible_burden_band_high": 2.5,
+      "credible_burden_band_low": 2.5,
+      "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+      "credible_tail_basis": "G4_REJECTED_PREMARKET: next-goal tail lacks sufficient transferable or continuation support",
+      "credible_tail_execution_authority": false,
+      "credible_tail_market_independent": true,
+      "credible_tail_state": "REJECTED",
+      "credible_tail_target_goal": 4,
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_board_state": "FOCUS",
+      "declared_board_state_basis": "Confirmed XI supplies new current football evidence that verifies G3 through two strong routes; G4 remains explicitly rejected.",
+      "declared_board_state_source": "board_state",
+      "declared_supported_line": 2.5,
+      "declared_supported_line_basis": "Confirmed XI now verifies a genuine strong-primary/strong-reply G3 structure, but the same-competition reverse and Phnom Penh draw utility still block a protected fourth goal.",
+      "direct_act_ceiling": 2.5,
+      "effective_burden_stall_risk": "MEDIUM",
+      "effective_continuation_quality": "MEDIUM",
+      "effective_upper_tail_transferability": "LOW",
+      "endpoint_control_pressure": "MODERATE",
+      "execution_strength": "FRAGILE",
+      "failure_mechanisms": {
+        "KITCHEE_PPC_CONFIRMED_XI_G3_ONLY": {
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_reply_path"
+          ],
+          "basis": "Confirmed XI strengthens the third-goal structure, but the exact reverse ended 2-0 and Phnom Penh lead the group with draw utility. Those facts jointly cap continuation beyond G3.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+            "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310",
+            "https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT"
+        }
+      },
+      "failure_resistance": "MEDIUM",
+      "fatigue_context": "NONE",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 2.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=DISTRIBUTED_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=SUPPRESSIVE",
+      "frozen_supported_line_funding": true,
+      "g3_current_structure_basis": "Confirmed XI verifies STRONG routes on both sides: Kitchee field Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera, while Phnom Penh retain the established scoring core that produced six goals in three group matches.",
+      "g3_current_structure_source_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+        "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310"
+      ],
+      "g3_current_structure_verified": true,
+      "g3_endpoint_control_pressure": "MODERATE",
+      "g4_carrier_path": "FAILED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_distributed_path": "MIXED",
+      "g4_evidence_disposition": "MIXED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_diagnostic": "MIXED",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Neither confirmed XI establishes a dependable one-team four-goal carrier in this continental matchup.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+            "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310",
+            "https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/"
+          ],
+          "mechanism_ids": [
+            "KITCHEE_PPC_CONFIRMED_XI_G3_ONLY"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "The stronger Kitchee XI makes 2+2 or 3+1 plausible, but the reverse 2-0 means that distribution remains mixed rather than protected.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+            "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310",
+            "https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "A post-third reply is possible, but Phnom Penh's draw utility and the controlled reverse prevent it from becoming a dependable fourth-goal mechanism.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+            "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310",
+            "https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/"
+          ],
+          "mechanism_ids": [
+            "KITCHEE_PPC_CONFIRMED_XI_G3_ONLY"
+          ]
+        }
+      },
+      "g4_reply_path": "FAILED",
+      "g4_research_basis": "Confirmed XI upgrades Kitchee enough to fund G3, but not G4: neither side self-funds four, the reverse finished 2-0, and Phnom Penh have draw utility as group leaders.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_status_normalized_from_mixed": false,
+      "goal3_carrier_funded": false,
+      "goal3_distributed_funded": true,
+      "goal3_funded": true,
+      "goal3_leakage_funded": false,
+      "goal3_mechanism_class": "DISTRIBUTED",
+      "goal3_two_route_funded": false,
+      "goal4_funded": false,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "The 0-0/1-0/2-0 control endpoints remain credible despite the attacking Kitchee XI because the reverse finished 2-0.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+            "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310",
+            "https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/"
+          ],
+          "mechanism_ids": [
+            "KITCHEE_PPC_CONFIRMED_XI_G3_ONLY"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Continuation after G3 stays MEDIUM because Phnom Penh can accept control and the reverse never opened beyond two goals.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+            "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310",
+            "https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/"
+          ],
+          "mechanism_ids": [
+            "KITCHEE_PPC_CONFIRMED_XI_G3_ONLY"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "G3 now has two current routes, but if Kitchee again fail to transfer their attack into ACL2, Phnom Penh may still have to carry most of the scoring burden.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+            "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310",
+            "https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/"
+          ],
+          "mechanism_ids": [
+            "KITCHEE_PPC_CONFIRMED_XI_G3_ONLY"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent fourth-goal path is verified after combining the confirmed XI with the same-competition reverse and group state.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+            "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310",
+            "https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/"
+          ],
+          "mechanism_ids": [
+            "KITCHEE_PPC_CONFIRMED_XI_G3_ONLY"
+          ]
+        },
+        "route_reliability": {
+          "basis": "Both confirmed starting XIs now provide current scoring routes, but Kitchee's continental conversion remains less proven than the personnel names alone suggest.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a",
+            "USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310",
+            "https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/"
+          ],
+          "mechanism_ids": [
+            "KITCHEE_PPC_CONFIRMED_XI_G3_ONLY"
+          ]
+        }
+      },
+      "home_incentive": "WIN_PREFERRED",
+      "home_route": "STRONG",
+      "incentive_effect": "MIXED",
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_context_basis": "Travel and rest were checked; no verified fatigue or rivalry factor is strong enough to override the same-competition scoring evidence.",
+      "match_context_effect": "NEUTRAL",
+      "match_context_positive_pressure": false,
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "match_context_suppressive_pressure": false,
+      "match_id": "AFC2-GH-20261105-KIT-PPC",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": true,
+        "reason": "OFFICIAL_TOURNAMENT_FORMAT_INCENTIVES_REQUIRED",
+        "status": "IN_SCOPE"
+      },
+      "prospective_tail_ceiling": 2.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "rank_state_display": "FOCUS",
+      "rank_state_internal": "FOCUS",
+      "rest_load_context": "BALANCED",
+      "rivalry_context": "NEUTRAL",
+      "route_reliability": "MEDIUM",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {
+        "KITCHEE_PPC_CONFIRMED_XI_G3_ONLY": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "failure_resistance",
+          "g4_carrier_path",
+          "g4_reply_path",
+          "independent_upper_tail",
+          "route_reliability"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "YES",
+      "tournament_incentive_effect": "MIXED",
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_positive_pressure": false,
+      "tournament_suppressive_pressure": true,
+      "tournament_tail_bias": "MIXED",
+      "travel_load_context": "AWAY_CONTINENTAL",
+      "upper_tail_comparable_context_basis": "Same-opponent ACL2 evidence still suppresses G4 even though Kitchee's confirmed XI materially strengthens the third-goal route.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_control_pressure": "HIGH",
+      "upper_tail_strength": "WEAK",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "The closest same-competition evidence remains the 2-0 reverse, so the attacking XI upgrade is not enough to make the fourth-goal tail transferable.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_AND_OBSERVED_QUOTE"
+  },
+  "runtime_commit": "b69a0529d895d1778be2ce874bffdecdbe5279b4",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "sheets_handoff": {
+    "assessment_id": "XI-C-DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+    "contract": "XI_SHEETS_HANDOFF_V1",
+    "fail_closed_status": "XI_PERSISTENCE_UNAVAILABLE",
+    "github_runtime_result_is_not_sheets_persistence": true,
+    "key_column": "Assessment ID",
+    "orchestrator_required_actions": [
+      "UPSERT_IMMUTABLE_KEY",
+      "STAMP_PERSISTED_AT_UTC",
+      "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
+      "VERIFY_READBACK_ASSERTIONS"
+    ],
+    "readback_assertions": [
+      "Assessment ID",
+      "Evidence Epoch ID",
+      "XI Assessment Execution Status",
+      "C Action",
+      "C Supported Line",
+      "Evaluated Line",
+      "Evaluated Odds",
+      "Engine C Result",
+      "Engine Source Revision"
+    ],
+    "required_before_user_verdict": true,
+    "row": {
+      "Assessment At UTC": "2026-11-05T09:49:17+00:00",
+      "Assessment ID": "XI-C-DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+      "C Action": "OBSERVED_PASS_NON_EXECUTABLE",
+      "C Board State": "FOCUS",
+      "C Supported Line": 2.5,
+      "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"REJECTED\",\"current_rank\":null,\"decision\":\"PASS\",\"direct_act_ceiling\":2.5,\"entry_feasibility_basis\":\"football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy\",\"entry_feasibility_state\":\"PHANTOM_FLOOR\",\"evidence_epoch\":\"DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"DISTRIBUTED\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"AFC2-GH-20261105-KIT-PPC\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"FRAGILE\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.0,\"odds\":1.79}],\"selected_evaluated_line\":3.0,\"selected_evaluated_odds\":1.79,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"HIGH\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"price_check\":{\"bet_authorized\":false,\"evidence\":{\"assessment_at_utc\":\"2026-11-05T09:49:17+00:00\",\"bookmaker\":\"User-displayed bookmaker\",\"capture_reference\":\"USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817\",\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"UNQUOTED_CUSTOM_LINE_REVIEW\",\"user_bookmaker_custom_line_supported\":false},\"external_price_searches\":0,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"match_id\":\"AFC2-GH-20261105-KIT-PPC\",\"match_minute\":null,\"observation_age_seconds\":557.0,\"observed_at_utc\":\"2026-11-05T09:40:00+00:00\",\"price_evidence_mode\":\"USER_SCREENSHOT_ONLY\",\"quote\":{\"line\":3.0,\"odds\":1.79},\"replacement_quotes\":0,\"score\":null,\"source\":\"USER_SCREENSHOT\",\"visible_ladder\":[{\"line\":3.0,\"odds\":1.79}]},\"execution_authorized\":false,\"limitations\":[\"SCREENSHOT_NOT_EXECUTION_EVIDENCE\",\"SCREENSHOT_OBSERVATION_NOT_SAME_AS_ASSESSMENT_EPOCH\"],\"model\":{\"book_min_odds\":null,\"book_order_is_exposure\":false,\"book_target_line\":null,\"book_target_state\":\"NO_BOOK_TARGET\",\"bridge_used\":false,\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"REJECTED\",\"current_rank\":null,\"decision\":\"PASS\",\"direct_act_ceiling\":2.5,\"entry_feasibility_basis\":\"football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy\",\"entry_feasibility_state\":\"PHANTOM_FLOOR\",\"evidence_epoch\":\"DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"DISTRIBUTED\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"AFC2-GH-20261105-KIT-PPC\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"FRAGILE\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.0,\"odds\":1.79}],\"selected_evaluated_line\":3.0,\"selected_evaluated_odds\":1.79,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"HIGH\"},\"certificate_completeness_recheck_required\":false,\"conditional_action\":\"PASS\",\"current_price_clears_book_target\":false,\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"UNQUOTED_CUSTOM_LINE_REVIEW\",\"user_bookmaker_custom_line_supported\":false},\"entry_feasibility_basis\":\"football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy\",\"entry_feasibility_state\":\"PHANTOM_FLOOR\",\"execution_authorized\":false,\"frozen_board_g4_research_status\":\"LEGACY_UNKNOWN\",\"goal3_mechanism_class\":\"DISTRIBUTED\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"market_disagreement_gap_goals\":0.5,\"market_disagreement_recheck_basis\":\"Confirmed XI materially upgrades Kitchee's current scoring route, so the G3/G4 structure was rebuilt before comparing the unchanged user screenshot O3 quote.\",\"market_disagreement_recheck_completed\":true,\"market_disagreement_recheck_evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"market_disagreement_recheck_fields\":[\"route_reliability\",\"chance_quality\",\"burden_completion_quality\",\"continuation_quality\",\"independent_upper_tail\",\"upper_tail_transferability\",\"upper_tail_comparable_context_signal\",\"g4_research_status\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"market_disagreement_recheck_missing_fields\":[],\"market_disagreement_recheck_required\":true,\"pass_had_lower_supported_visible_line\":false,\"prior_certificate_reclassification_recheck_required\":false,\"reason\":\"C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears\",\"selected_visible_line\":3.0,\"selected_visible_odds\":1.79,\"snapshot_line_relation\":\"ABOVE_SUPPORTED_BURDEN\",\"supported_line\":2.5,\"supported_visible_line_found\":false,\"visible_ladder_evaluations\":[{\"action\":\"PASS\",\"direct_act_ceiling\":2.5,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.0,\"line_relation\":\"ABOVE_SUPPORTED_BURDEN\",\"odds\":1.79,\"reason\":\"C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears\"}],\"visible_ladder_selection_basis\":\"NO_SUPPORTED_VISIBLE_LINE_LOWEST_VISIBLE_DIAGNOSTIC\",\"wait_min_odds\":null,\"wait_reachability_basis\":null,\"wait_reachable\":false,\"wait_target_line\":null},\"model_bets_created\":false,\"ok\":true,\"priced_publication_authorized\":false,\"quote_research_required\":false,\"status\":\"OBSERVED_QUOTE_EVALUATED\"},\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"DRAW_ACCEPTABLE\",\"away_route\":\"STRONG\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"USABLE\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":false,\"certificate_robustness\":\"FRAGILE\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED\",\"CARRIER_BRANCH_REQUIREMENTS_NOT_MET\",\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":false,\"tournament_tail_bias\":\"MIXED\"},\"certified_supported_burden\":2.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"TWO_SIDED\",\"continuation_quality\":\"MEDIUM\",\"credible_burden_band_high\":2.5,\"credible_burden_band_low\":2.5,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G4_REJECTED_PREMARKET: next-goal tail lacks sufficient transferable or continuation support\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"REJECTED\",\"credible_tail_target_goal\":4,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Confirmed XI supplies new current football evidence that verifies G3 through two strong routes; G4 remains explicitly rejected.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":2.5,\"declared_supported_line_basis\":\"Confirmed XI now verifies a genuine strong-primary/strong-reply G3 structure, but the same-competition reverse and Phnom Penh draw utility still block a protected fourth goal.\",\"direct_act_ceiling\":2.5,\"effective_burden_stall_risk\":\"MEDIUM\",\"effective_continuation_quality\":\"MEDIUM\",\"effective_upper_tail_transferability\":\"LOW\",\"endpoint_control_pressure\":\"MODERATE\",\"execution_strength\":\"FRAGILE\",\"failure_mechanisms\":{\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_reply_path\"],\"basis\":\"Confirmed XI strengthens the third-goal structure, but the exact reverse ended 2-0 and Phnom Penh lead the group with draw utility. Those facts jointly cap continuation beyond G3.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":2.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=DISTRIBUTED_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=SUPPRESSIVE\",\"frozen_supported_line_funding\":true,\"g3_current_structure_basis\":\"Confirmed XI verifies STRONG routes on both sides: Kitchee field Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera, while Phnom Penh retain the established scoring core that produced six goals in three group matches.\",\"g3_current_structure_source_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\"],\"g3_current_structure_verified\":true,\"g3_endpoint_control_pressure\":\"MODERATE\",\"g4_carrier_path\":\"FAILED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_distributed_path\":\"MIXED\",\"g4_evidence_disposition\":\"MIXED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Neither confirmed XI establishes a dependable one-team four-goal carrier in this continental matchup.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"g4_distributed_path\":{\"basis\":\"The stronger Kitchee XI makes 2+2 or 3+1 plausible, but the reverse 2-0 means that distribution remains mixed rather than protected.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"]},\"g4_reply_path\":{\"basis\":\"A post-third reply is possible, but Phnom Penh's draw utility and the controlled reverse prevent it from becoming a dependable fourth-goal mechanism.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"Confirmed XI upgrades Kitchee enough to fund G3, but not G4: neither side self-funds four, the reverse finished 2-0, and Phnom Penh have draw utility as group leaders.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":false,\"goal3_distributed_funded\":true,\"goal3_funded\":true,\"goal3_leakage_funded\":false,\"goal3_mechanism_class\":\"DISTRIBUTED\",\"goal3_two_route_funded\":false,\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 0-0/1-0/2-0 control endpoints remain credible despite the attacking Kitchee XI because the reverse finished 2-0.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"continuation_quality\":{\"basis\":\"Continuation after G3 stays MEDIUM because Phnom Penh can accept control and the reverse never opened beyond two goals.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"failure_resistance\":{\"basis\":\"G3 now has two current routes, but if Kitchee again fail to transfer their attack into ACL2, Phnom Penh may still have to carry most of the scoring burden.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"independent_upper_tail\":{\"basis\":\"No independent fourth-goal path is verified after combining the confirmed XI with the same-competition reverse and group state.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"route_reliability\":{\"basis\":\"Both confirmed starting XIs now provide current scoring routes, but Kitchee's continental conversion remains less proven than the personnel names alone suggest.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]}},\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"MIXED\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_context_basis\":\"Travel and rest were checked; no verified fatigue or rivalry factor is strong enough to override the same-competition scoring evidence.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_positive_pressure\":false,\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_context_suppressive_pressure\":false,\"match_id\":\"AFC2-GH-20261105-KIT-PPC\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"OFFICIAL_TOURNAMENT_FORMAT_INCENTIVES_REQUIRED\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":2.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"MEDIUM\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\":[\"burden_stall_risk\",\"continuation_quality\",\"failure_resistance\",\"g4_carrier_path\",\"g4_reply_path\",\"independent_upper_tail\",\"route_reliability\"]},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_incentive_effect\":\"MIXED\",\"tournament_incentive_required\":true,\"tournament_incentive_resolution\":\"VERIFIED\",\"tournament_positive_pressure\":false,\"tournament_suppressive_pressure\":true,\"tournament_tail_bias\":\"MIXED\",\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"Same-opponent ACL2 evidence still suppresses G4 even though Kitchee's confirmed XI materially strengthens the third-goal route.\",\"upper_tail_comparable_context_signal\":\"SUPPRESSIVE\",\"upper_tail_control_pressure\":\"HIGH\",\"upper_tail_strength\":\"WEAK\",\"upper_tail_transferability\":\"LOW\",\"upper_tail_transferability_basis\":\"The closest same-competition evidence remains the 2-0 reverse, so the attacking XI upgrade is not enough to make the fourth-goal tail transferable.\",\"wait_authorized\":false},\"xi_mode\":\"FOOTBALL_AND_OBSERVED_QUOTE\"}",
+      "Engine Source Revision": "b69a0529d895d1778be2ce874bffdecdbe5279b4",
+      "Evaluated Line": 3.0,
+      "Evaluated Odds": 1.79,
+      "Evidence Epoch ID": "DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+      "Fixture Status": "PREMATCH_CONFIRMED",
+      "Match ID": "AFC2-GH-20261105-KIT-PPC",
+      "Match Minute": null,
+      "Payload JSON": "{\"assessment_depth\":{\"assessed_at_utc\":\"2026-11-05T09:49:17+00:00\",\"checks\":{\"availability_replacements\":\"Confirmed XI resolves the key uncertainty: Kitchee start Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera; Phnom Penh retain their senior first-team core.\",\"carrier_capacity\":\"Neither side is treated as a solo three-goal carrier; the new certificate is distributed across two current STRONG routes.\",\"continuation_2_0\":\"At 2-0 continuation remains only MEDIUM because Phnom Penh can manage a favorable result and the reverse stopped at that exact score.\",\"current_chance_creation\":\"Confirmed Kitchee personnel materially improve current chance creation to HIGH, while Phnom Penh retain their proven group-stage route.\",\"goal3_mechanism\":\"Goal three is now funded through verified current two-sided structure rather than historical domestic scoring alone.\",\"goal4_mechanism\":\"Goal four remains rejected: the reverse ended 2-0, neither side self-funds four, and Phnom Penh have meaningful draw utility.\",\"h2h_transferability\":\"The reverse 2-0 is highly current and transferable as evidence of Kitchee's weak reply, but is not used as a standalone H2H veto.\",\"match_context\":\"Travel, rest and rivalry were checked and no verified contextual factor overrides the current group-stage scoring evidence.\",\"named_failure_mechanism\":\"The main failure is another poor continental transfer from Kitchee's attacking names, allowing Phnom Penh to control a 1-0 or 2-0 endpoint.\",\"opponent_leakage\":\"Leakage remains MEDIUM rather than HIGH; the XI upgrade improves route quality more than it changes the defensive matchup.\",\"primary_scoring_route\":\"Phnom Penh retain a STRONG continental scoring route, with their established senior core confirmed in the starting XI.\",\"secondary_reply_route\":\"Kitchee are upgraded to STRONG because Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera all start in a must-win home setup.\",\"stall_0_0\":\"The stronger Kitchee XI reduces the 0-0 risk, but the reverse and Phnom Penh's control profile keep an extended low-scoring phase credible.\",\"stall_1_1\":\"At 1-1 Kitchee's must-win state and stronger XI keep a third goal live from either side, which is the main reason G3 is now certified.\",\"supported_burden_basis\":\"The lineup update is enough to promote the match from REVIEW_ONLY to a funded G3/O2.50 certificate, but not enough to authorize the visible O3 burden.\",\"tournament_incentive\":\"Official AFC group format is verified; Kitchee need a win to recover qualification position while Phnom Penh have greater draw utility.\"},\"completed\":true,\"contract\":\"ASSESSMENT_DEPTH_V3\",\"evidence_epoch_id\":\"DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"market_independent\":true},\"context\":{\"assessment_at_utc\":\"2026-11-05T09:49:17+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"DIRECT /xi has no prior valid block or rank certificate; the current deterministic Football C compiler owns the certificate.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NO_FROZEN_BOARD\",\"direct_request\":true,\"direct_research_completed\":true,\"direct_research_epoch_id\":\"DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5\",\"direct_revision\":\"REASSESSMENT\",\"direct_upstream_state\":\"WATCH\",\"exception_flag\":false,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":false,\"frozen_board_certified_burden\":null,\"market_disagreement_recheck_basis\":\"Confirmed XI materially upgrades Kitchee's current scoring route, so the G3/G4 structure was rebuilt before comparing the unchanged user screenshot O3 quote.\",\"market_disagreement_recheck_evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"market_disagreement_recheck_fields\":[\"route_reliability\",\"chance_quality\",\"burden_completion_quality\",\"continuation_quality\",\"independent_upper_tail\",\"upper_tail_transferability\",\"upper_tail_comparable_context_signal\",\"g4_research_status\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"market_disagreement_recheck_status\":\"COMPLETED\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\"},\"evidence_epoch_id\":\"DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5\",\"match\":{\"activation_basis\":\"Kitchee's confirmed attack-heavy XI and must-win pressure improve ignition, but the controlled 2-0 reverse prevents a HIGH label.\",\"activation_evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"activation_ignition\":{\"basis\":\"Kitchee now field multiple senior attackers and must chase points, but Phnom Penh have not shown a reliable early-concession pattern in this matchup.\",\"current_attack_structure\":\"HIGH\",\"early_chance_creation\":\"HIGH\",\"early_concession_opening\":\"LOW\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"game_state_force\":\"HIGH\",\"weaker_side_state_change\":\"MEDIUM\"},\"activation_quality\":\"MEDIUM\",\"aggregate_state\":\"SINGLE_GROUP_MATCH_NO_AGGREGATE\",\"away\":\"Phnom Penh Crown\",\"away_incentive\":\"DRAW_ACCEPTABLE\",\"away_route\":\"STRONG\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Confirmed XI supplies new current football evidence that verifies G3 through two strong routes; G4 remains explicitly rejected.\",\"burden_completion_quality\":\"HIGH\",\"burden_protection\":\"MEDIUM\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"USABLE\",\"carrier_self_fund\":false,\"carrier_self_fund_basis\":\"Neither side is accepted as a reliable three-goal solo carrier in this matchup; the third goal is funded by distributed current structure instead.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"Confirmed XI materially upgrades Kitchee's current attacking route: Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera all start, while Kitchee must chase points. Phnom Penh retain their stronger continental route, but the 2-0 reverse still limits confidence in a fourth goal.\",\"competition\":\"AFC Champions League Two\",\"competition_format\":\"Four-team home-and-away group stage; each club plays six group matches and the top two progress to the Round of 16.\",\"competition_kind\":\"CONTINENTAL\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"Current AFC group state, reverse result and current team evidence are available; no league-prestige prior is used.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"GROUP_STAGE_MATCHDAY_4_OF_6\",\"competition_structure_basis\":\"Official AFC 2026/27 competition regulations define four-team home-and-away groups and group-ranking rules, with the top two progressing to the Round of 16.\",\"competition_structure_evidence_refs\":[\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"competition_structure_kind\":\"GROUP_STAGE\",\"competition_structure_source_tier\":\"OFFICIAL_COMPETITION\",\"completion_mode\":\"TWO_SIDED\",\"continuation_quality\":\"MEDIUM\",\"country\":\"Hong Kong\",\"demoted_probation\":false,\"draw_resolution\":\"A group-stage draw stands after 90 minutes.\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"The failure primarily attacks Kitchee's reply route and third-goal completion rather than eliminating Phnom Penh's scoring route.\",\"failure_mechanisms\":{\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_reply_path\"],\"basis\":\"Confirmed XI strengthens the third-goal structure, but the exact reverse ended 2-0 and Phnom Penh lead the group with draw utility. Those facts jointly cap continuation beyond G3.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"g3_current_structure_basis\":\"Confirmed XI verifies STRONG routes on both sides: Kitchee field Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera, while Phnom Penh retain the established scoring core that produced six goals in three group matches.\",\"g3_current_structure_source_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\"],\"g3_current_structure_verified\":true,\"g4_carrier_path\":\"FAILED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_distributed_path\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Neither confirmed XI establishes a dependable one-team four-goal carrier in this continental matchup.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"g4_distributed_path\":{\"basis\":\"The stronger Kitchee XI makes 2+2 or 3+1 plausible, but the reverse 2-0 means that distribution remains mixed rather than protected.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"]},\"g4_reply_path\":{\"basis\":\"A post-third reply is possible, but Phnom Penh's draw utility and the controlled reverse prevent it from becoming a dependable fourth-goal mechanism.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"Confirmed XI upgrades Kitchee enough to fund G3, but not G4: neither side self-funds four, the reverse finished 2-0, and Phnom Penh have draw utility as group leaders.\",\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"goal_signal_low_draw_trap_rate\":0.2,\"goal_signal_mean_over_three_rate\":0.2,\"goal_signal_mean_over_two_rate\":0.4,\"goal_signal_priority_score\":57,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 0-0/1-0/2-0 control endpoints remain credible despite the attacking Kitchee XI because the reverse finished 2-0.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"continuation_quality\":{\"basis\":\"Continuation after G3 stays MEDIUM because Phnom Penh can accept control and the reverse never opened beyond two goals.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"failure_resistance\":{\"basis\":\"G3 now has two current routes, but if Kitchee again fail to transfer their attack into ACL2, Phnom Penh may still have to carry most of the scoring burden.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"independent_upper_tail\":{\"basis\":\"No independent fourth-goal path is verified after combining the confirmed XI with the same-competition reverse and group state.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]},\"route_reliability\":{\"basis\":\"Both confirmed starting XIs now provide current scoring routes, but Kitchee's continental conversion remains less proven than the personnel names alone suggest.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\"],\"mechanism_ids\":[\"KITCHEE_PPC_CONFIRMED_XI_G3_ONLY\"]}},\"h2h_basis\":\"The reverse 2-0 is current same-competition evidence and is used to test Kitchee's reply-route transferability, not as an automatic suppressive H2H veto.\",\"h2h_current_corroboration\":\"VERIFIED\",\"h2h_effect\":\"NOT_MATERIAL\",\"h2h_material_effect\":false,\"h2h_state\":\"CURRENT_COMPETITION_REVIEWED\",\"h2h_transferability\":\"VERIFIED\",\"home\":\"Kitchee SC\",\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"MIXED\",\"independent_route_quality\":\"HIGH\",\"independent_upper_tail\":false,\"independent_upper_tail_basis\":\"The confirmed attacking personnel improve G3, but the reverse 2-0 and Phnom Penh's draw utility do not establish an independent fourth-goal mechanism.\",\"kickoff_ict\":\"2026-11-05T17:00:00+07:00\",\"main_failure\":\"The upgraded Kitchee XI can still fail to convert its domestic-quality personnel in ACL2, allowing Phnom Penh to repeat a controlled 1-0 or 2-0 result.\",\"market_observability\":\"HIGH\",\"match_context_basis\":\"Travel and rest were checked; no verified fatigue or rivalry factor is strong enough to override the same-competition scoring evidence.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_evidence_refs\":[\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_id\":\"AFC2-GH-20261105-KIT-PPC\",\"material_suppression\":false,\"material_suppression_basis\":\"The match still has live scoring routes, but current evidence is insufficient to certify G3 rather than being an all-route hard suppression.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"Confirmed user-supplied XIs are available before kickoff. Kitchee start Camarasa, Camargo, Juninho, Mingazov, Revilla and Riera together; Phnom Penh Crown also field their established senior core.\",\"opponent_leakage\":\"MEDIUM\",\"qualification_state\":\"Phnom Penh Crown lead Group H on nine points, Gangwon have four, Kitchee two and Kuching one. Kitchee need a win to materially improve their top-two chance, while Phnom Penh have substantial draw utility.\",\"raw_operational_viability_grade\":\"A\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"MEDIUM\",\"simultaneous_results_note\":\"The other match in the same four-team group remains relevant to qualification, but this fixture has no knockout aggregate.\",\"simultaneous_results_status\":\"VERIFIED\",\"source_urls\":[\"https://www.fotmob.com/matches/kitchee-vs-phnom-penh-crown/\",\"https://stadiro.com/matches/asia/afc-champions-league-2/2026-11-05/kitchee-v-phnom-penh-crown/\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\",\"USER_LINEUP_SCREENSHOT:file_00000000953482119a9003bde042fc4a\",\"USER_LINEUP_SCREENSHOT:file_000000002a8c82118ed52717c856b310\"],\"supported_line\":2.5,\"supported_line_basis\":\"Confirmed XI now verifies a genuine strong-primary/strong-reply G3 structure, but the same-competition reverse and Phnom Penh draw utility still block a protected fourth goal.\",\"team_news_observability\":\"HIGH\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_format_status\":\"VERIFIED\",\"tournament_incentive_required\":true,\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"Same-opponent ACL2 evidence still suppresses G4 even though Kitchee's confirmed XI materially strengthens the third-goal route.\",\"upper_tail_comparable_context_signal\":\"SUPPRESSIVE\",\"upper_tail_transferability\":\"LOW\",\"upper_tail_transferability_basis\":\"The closest same-competition evidence remains the 2-0 reverse, so the attacking XI upgrade is not enough to make the fourth-goal tail transferable.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"HIGH\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+      "Persisted At UTC": null,
+      "Publication Key": null,
+      "Published": false,
+      "Score": null,
+      "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_AND_PRICE"
+    },
+    "sheet_name": "Decision States",
+    "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+    "status": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED"
+  },
+  "xi_assessment_index": {
+    "assessment_at_utc": "2026-11-05T09:49:17+00:00",
+    "assessment_id": "XI-C-DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+    "authority_mode": "DIRECT",
+    "contract": "XI_APPEND_ONLY_EXECUTION_INDEX_V1",
+    "custom_line_review": {
+      "bet_authorized": false,
+      "candidate_line": 2.5,
+      "candidate_odds": null,
+      "execution_authorized": false,
+      "minimum_odds": null,
+      "reason": "Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.",
+      "requires_user_confirmed_quote": true,
+      "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+      "status": "UNQUOTED_CUSTOM_LINE_REVIEW",
+      "user_bookmaker_custom_line_supported": false
+    },
+    "decision": "PASS",
+    "decision_state_persistence_required": true,
+    "decision_state_readback_verified": false,
+    "evaluated_line": 3.0,
+    "evaluated_odds": 1.79,
+    "evidence_epoch_id": "DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "match_id": "AFC2-GH-20261105-KIT-PPC",
+    "match_minute": null,
+    "real_bet_fill_verified": false,
+    "request_id": "XI-DIRECT-AFC2-KITCHEE-PPC-20261105T094917Z-V5",
+    "score": null,
+    "screenshot_capture_reference": "USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817",
+    "screenshot_observed_at_utc": "2026-11-05T09:40:00+00:00",
+    "source": "GITHUB_XI_RUNTIME_RESULT_NOT_ACTUAL_GOOGLE_SHEETS_READBACK",
+    "visible_user_quote_ladder": [
+      {
+        "line": 3.0,
+        "odds": 1.79
+      }
+    ]
+  }
+}
