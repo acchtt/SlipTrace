@@ -1,0 +1,11 @@
+{
+  "error": "invalid competition_reliability_state='VERIFIED'; allowed: CAUTION, DEMOTED, NEUTRAL, TRUSTED, UNPROVEN",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "59b92f8667878fc174399b3b5a21b244461056d1b88fbdc64a4a6b3dc1dcd8e3",
+  "ok": false,
+  "request_id": "XI-DIRECT-AFC2-SVAY-TAMPINES-20261105T094000Z-V3",
+  "runtime_commit": "de20168ef3d5c304052082f53e17c359120f53bd",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
