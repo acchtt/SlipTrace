@@ -101,8 +101,12 @@ persisted result in the same turn. Manual conversational block ordering is not
 an authorized fallback; if both paths fail, return `BLOCK_RUNTIME_UNAVAILABLE`.
 
 If the user supplies a screenshot, evaluate only that exact visible ladder
-through the existing XI runtime, then persist to Decision States and
-independently read back before publishing a priced verdict.
+through the existing XI runtime. In the **same /xi turn**, consume the runtime's
+`XI_SHEETS_HANDOFF_V1`, upsert the exact emitted row to Decision States by
+Assessment ID with the connected Google Sheets capability, stamp Persisted At
+UTC, independently refetch it, and verify the declared readback fields before
+publishing a priced verdict. GitHub JSON alone is not persistence. Failure to
+write/read back returns `XI_PERSISTENCE_UNAVAILABLE`.
 
 ## /rank
 
