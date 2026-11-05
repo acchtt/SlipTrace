@@ -1,0 +1,647 @@
+{
+  "authority": {
+    "assessment_depth": {
+      "activation": {
+        "basis": "Corinthians' away profile combines a 100% scoring rate with 2.0 goals conceded per match, while Sao Paulo have scored in every relevant home match; relegation pressure raises the chance of a game state that must open.",
+        "block_selection_only": true,
+        "certificate_authority": false,
+        "evidence_refs": [
+          "https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml",
+          "https://ge.globo.com/futebol/times/sao-paulo/noticia/2026/11/04/afundar-o-rival-e-esquecer-o-z-4-o-que-vale-para-o-sao-paulo-o-classico-contra-o-corinthians.ghtml"
+        ],
+        "price_execution_authority": false,
+        "quality": "HIGH"
+      },
+      "assessment_at_utc": "2026-11-05T00:42:00+00:00",
+      "checks": [
+        "availability_replacements",
+        "carrier_capacity",
+        "continuation_2_0",
+        "current_chance_creation",
+        "goal3_mechanism",
+        "goal4_mechanism",
+        "h2h_transferability",
+        "match_context",
+        "named_failure_mechanism",
+        "opponent_leakage",
+        "primary_scoring_route",
+        "secondary_reply_route",
+        "stall_0_0",
+        "stall_1_1",
+        "supported_burden_basis",
+        "tournament_incentive"
+      ],
+      "completed": true,
+      "contract": "ASSESSMENT_DEPTH_V2",
+      "evidence_epoch_id": "XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z",
+      "evidence_ref_count": 6,
+      "market_independent": true,
+      "required": true
+    },
+    "block_evidence_epoch_id": "BLOCK-BRA0730-SAO-COR-PREMATCH-20261105",
+    "block_input_sha256": "2efeb11da4305e00aed4fcdcca66ad2da3def569a7c12c9222472ab747b8d11c",
+    "block_order": [
+      "BRA-A-20261104-SAO-COR",
+      "BRA-A-20261104-BOT-ATM"
+    ],
+    "block_priority_policy": "BLOCK_PRIORITY_V1",
+    "block_priority_rank": 1,
+    "frozen_match_sha256": "1a9388efb65a0f6fd00a1fe6d6b8153e64631ec90789cb195453dd0187b2e233",
+    "global_rank_is_selection_authority": false,
+    "match_id": "BRA-A-20261104-SAO-COR",
+    "material_evidence_updates": [
+      "carrier_self_fund",
+      "carrier_self_fund_basis",
+      "common_evidence_basis",
+      "continuation_quality",
+      "failure_mechanisms",
+      "g3_current_structure_basis",
+      "g3_current_structure_source_refs",
+      "g4_carrier_path",
+      "g4_continuation_after_g3",
+      "g4_distributed_path",
+      "g4_path_evidence",
+      "g4_reply_path",
+      "g4_research_basis",
+      "g4_research_status",
+      "grade_evidence",
+      "independent_upper_tail",
+      "independent_upper_tail_basis",
+      "main_failure",
+      "upper_tail_comparable_context_basis",
+      "upper_tail_comparable_context_signal",
+      "upper_tail_transferability",
+      "upper_tail_transferability_basis",
+      "xi_robustness"
+    ],
+    "mode": "BLOCK",
+    "xi_evidence_epoch_id": "XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z"
+  },
+  "input_sha256": "67a569cf2f8d7f7e32571a2dbc1b8c188c9f255e0f77c83503931bcb84f7f5e9",
+  "ok": true,
+  "request_id": "XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z",
+  "runtime": {
+    "calibration_record": {
+      "automatic_threshold_learning": false,
+      "certified_burden": 2.5,
+      "compiled_board_state": "FOCUS",
+      "control_review": false,
+      "credible_tail_state": "REJECTED",
+      "current_rank": null,
+      "decision": "ACT",
+      "direct_act_ceiling": 2.5,
+      "entry_feasibility_basis": "an exact visible screenshot line clears direct ACT policy",
+      "entry_feasibility_state": "EXECUTABLE_NOW",
+      "evidence_epoch": "XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z",
+      "exception_flag": false,
+      "follow_lane": null,
+      "g3_endpoint_pressure": "MODERATE",
+      "goal3_funded": true,
+      "goal3_mechanism_class": "LEAKAGE",
+      "goal4_funded": false,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "goal_screen_state": null,
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "match_id": "BRA-A-20261104-SAO-COR",
+      "pass_had_lower_supported_visible_line": false,
+      "rank": null,
+      "rank_scope": null,
+      "researcher_declared_board_state": "FOCUS",
+      "robustness": "FRAGILE",
+      "schema_version": "football-c-calibration-v1",
+      "screenshot_visible_ladder": [
+        {
+          "line": 1.75,
+          "odds": 1.8
+        }
+      ],
+      "selected_evaluated_line": 1.75,
+      "selected_evaluated_odds": 1.8,
+      "selection_authority": "ZERO",
+      "slate_rank": null,
+      "slate_rank_status": null,
+      "sweep_state": null,
+      "upper_tail_pressure": "MODERATE"
+    },
+    "decision_state_persistence": {
+      "key_column": "Assessment ID",
+      "missing_persistence_inputs": [],
+      "persistence_input_complete": true,
+      "publication_authorized_before_readback": false,
+      "publication_fail_closed": true,
+      "readback_assertions": [
+        "Assessment ID",
+        "Evidence Epoch ID",
+        "XI Assessment Execution Status",
+        "C Action",
+        "C Supported Line",
+        "Evaluated Line",
+        "Evaluated Odds",
+        "Engine C Result",
+        "Engine Source Revision"
+      ],
+      "readback_required": true,
+      "required": true,
+      "row": {
+        "Assessment At UTC": "2026-11-05T00:42:00+00:00",
+        "Assessment ID": "XI-C-XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z",
+        "C Action": "OBSERVED_ACT_NON_EXECUTABLE",
+        "C Board State": "FOCUS",
+        "C Supported Line": 2.5,
+        "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"REJECTED\",\"current_rank\":null,\"decision\":\"ACT\",\"direct_act_ceiling\":2.5,\"entry_feasibility_basis\":\"an exact visible screenshot line clears direct ACT policy\",\"entry_feasibility_state\":\"EXECUTABLE_NOW\",\"evidence_epoch\":\"XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"LEAKAGE\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"BRA-A-20261104-SAO-COR\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"FRAGILE\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":1.75,\"odds\":1.8}],\"selected_evaluated_line\":1.75,\"selected_evaluated_odds\":1.8,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"price_check\":{\"bet_authorized\":false,\"evidence\":{\"assessment_at_utc\":\"2026-11-05T00:42:00+00:00\",\"bookmaker\":\"User-displayed bookmaker\",\"capture_reference\":\"USER_ODDS_SCREENSHOT:file_000000005ef08211853bca429908347f\",\"custom_line_review\":{\"execution_authorized\":false,\"status\":\"CUSTOM_LINE_NOT_BELOW_VISIBLE_LADDER\"},\"external_price_searches\":0,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"match_id\":\"BRA-A-20261104-SAO-COR\",\"match_minute\":null,\"observation_age_seconds\":0.0,\"observed_at_utc\":\"2026-11-05T00:42:00+00:00\",\"price_evidence_mode\":\"USER_SCREENSHOT_ONLY\",\"quote\":{\"line\":1.75,\"odds\":1.8},\"replacement_quotes\":0,\"score\":null,\"source\":\"USER_SCREENSHOT\",\"visible_ladder\":[{\"line\":1.75,\"odds\":1.8}]},\"execution_authorized\":false,\"limitations\":[\"SCREENSHOT_NOT_EXECUTION_EVIDENCE\"],\"model\":{\"book_min_odds\":null,\"book_order_is_exposure\":false,\"book_target_line\":null,\"book_target_state\":\"NO_BOOK_TARGET\",\"bridge_used\":false,\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"REJECTED\",\"current_rank\":null,\"decision\":\"ACT\",\"direct_act_ceiling\":2.5,\"entry_feasibility_basis\":\"an exact visible screenshot line clears direct ACT policy\",\"entry_feasibility_state\":\"EXECUTABLE_NOW\",\"evidence_epoch\":\"XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"LEAKAGE\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"BRA-A-20261104-SAO-COR\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"FRAGILE\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":1.75,\"odds\":1.8}],\"selected_evaluated_line\":1.75,\"selected_evaluated_odds\":1.8,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"certificate_completeness_recheck_required\":false,\"conditional_action\":\"ACT\",\"current_price_clears_book_target\":false,\"custom_line_review\":{\"execution_authorized\":false,\"status\":\"CUSTOM_LINE_NOT_BELOW_VISIBLE_LADDER\"},\"entry_feasibility_basis\":\"an exact visible screenshot line clears direct ACT policy\",\"entry_feasibility_state\":\"EXECUTABLE_NOW\",\"execution_authorized\":false,\"frozen_board_g4_research_status\":\"LEGACY_UNKNOWN\",\"goal3_mechanism_class\":\"LEAKAGE\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"market_disagreement_gap_goals\":-0.75,\"market_disagreement_recheck_basis\":\"NOT_REQUIRED\",\"market_disagreement_recheck_completed\":true,\"market_disagreement_recheck_evidence_refs\":[],\"market_disagreement_recheck_fields\":[],\"market_disagreement_recheck_missing_fields\":[],\"market_disagreement_recheck_required\":false,\"pass_had_lower_supported_visible_line\":false,\"prior_certificate_reclassification_recheck_required\":false,\"reason\":\"FRAGILE certificate retained only at funded G3 floor\",\"selected_visible_line\":1.75,\"selected_visible_odds\":1.8,\"snapshot_line_relation\":\"BELOW_SUPPORTED_BURDEN\",\"supported_line\":2.5,\"supported_visible_line_found\":true,\"visible_ladder_evaluations\":[{\"action\":\"ACT\",\"direct_act_ceiling\":2.5,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"line\":1.75,\"line_relation\":\"BELOW_SUPPORTED_BURDEN\",\"odds\":1.8,\"reason\":\"FRAGILE certificate retained only at funded G3 floor\"}],\"visible_ladder_selection_basis\":\"HIGHEST_VISIBLE_EXECUTABLE_SUPPORTED_LINE\",\"wait_min_odds\":null,\"wait_reachability_basis\":null,\"wait_reachable\":false,\"wait_target_line\":null},\"model_bets_created\":false,\"ok\":true,\"priced_publication_authorized\":false,\"quote_research_required\":false,\"status\":\"OBSERVED_QUOTE_EVALUATED\"},\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"WIN_PREFERRED\",\"away_route\":\"USABLE\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"USABLE\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":false,\"certificate_robustness\":\"FRAGILE\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED\",\"CARRIER_BRANCH_REQUIREMENTS_NOT_MET\",\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":false,\"tournament_tail_bias\":\"MIXED\"},\"certified_supported_burden\":2.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"TWO_SIDED\",\"continuation_quality\":\"MEDIUM\",\"credible_burden_band_high\":2.5,\"credible_burden_band_low\":2.5,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G4_REJECTED_PREMARKET: next-goal tail lacks sufficient transferable or continuation support\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"REJECTED\",\"credible_tail_target_goal\":4,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Two current routes plus heavy Corinthians away leakage create a credible G3 case, subject to deterministic compilation.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":2.5,\"declared_supported_line_basis\":\"A reliable Sao Paulo home scoring route plus Corinthians scoring in every second-half away match and conceding 2.0 per away match independently support G3; the derby/control endpoint prevents aggressive pre-XI expansion above G3.\",\"direct_act_ceiling\":2.5,\"effective_burden_stall_risk\":\"MEDIUM\",\"effective_continuation_quality\":\"MEDIUM\",\"effective_upper_tail_transferability\":\"LOW\",\"endpoint_control_pressure\":\"MODERATE\",\"execution_strength\":\"FRAGILE\",\"failure_mechanisms\":{\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"Derby control plus both sides leaving a major finishing option on the bench can stop continuation after one or two goals even when both scoring routes remain viable.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"HIGH\",\"fatigue_context\":\"NONE\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":2.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=DISTRIBUTED_G3,LEAKAGE_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=MIXED\",\"frozen_supported_line_funding\":true,\"g3_current_structure_basis\":\"Sao Paulo retain Artur, Lucas Moura and Luciano; Corinthians retain Garro and Yuri Alberto. Combined with Sao Paulo scoring in every relevant home split and Corinthians scoring in every relevant away split while conceding heavily, G3 remains structurally live.\",\"g3_current_structure_source_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"g3_current_structure_verified\":true,\"g3_endpoint_control_pressure\":\"MODERATE\",\"g4_carrier_path\":\"FAILED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_distributed_path\":\"FAILED\",\"g4_evidence_disposition\":\"NEGATIVE\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"NEGATIVE\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Sao Paulo's current XI lacks a protected three-goal self-funding carrier with Calleri benched.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]},\"g4_distributed_path\":{\"basis\":\"Both teams can score, but a protected 2+2 or 3+1 split is not established with Memphis and Calleri outside the starting XI.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]},\"g4_reply_path\":{\"basis\":\"A post-third reply is plausible but not dependable enough in a survival derby with strong low-endpoint utility.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"Calleri and Memphis are both on the bench. The remaining starting attacks preserve G3, but no carrier, 2+2/3+1 distribution, or post-third reply path is independently reliable enough to protect G4 in a high-pressure derby.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":false,\"goal3_distributed_funded\":true,\"goal3_funded\":true,\"goal3_leakage_funded\":true,\"goal3_mechanism_class\":\"LEAKAGE\",\"goal3_two_route_funded\":false,\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"Derby pressure and the confirmed personnel create credible 1-0/1-1/2-0 endpoints, so stall risk remains MEDIUM.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]},\"continuation_quality\":{\"basis\":\"G3 continuation remains plausible, but the confirmed finishing downgrade limits continuation beyond the third goal to MEDIUM.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]},\"failure_resistance\":{\"basis\":\"Two independent scoring routes keep G3 failure resistance HIGH even though G4 is not protected.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]},\"independent_upper_tail\":{\"basis\":\"No independently protected fourth-goal mechanism remains after the confirmed-XI update.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]},\"route_reliability\":{\"basis\":\"Both current routes remain source-backed and the confirmed starters preserve the principal creators; route reliability stays HIGH.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]}},\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"MIXED\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_context_basis\":\"This is a major Sao Paulo derby with survival consequences. Derby intensity can increase transitions and errors but also creates control risk; it is therefore treated as MIXED rather than automatically expansive.\",\"match_context_effect\":\"MIXED\",\"match_context_positive_pressure\":false,\"match_context_review_status\":\"VERIFIED_MATERIAL\",\"match_context_suppressive_pressure\":false,\"match_id\":\"BRA-A-20261104-SAO-COR\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"UNREGISTERED_COMPETITIVE_LEAGUE_GOAL_RESEARCH_REQUIRED\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":2.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"RIVALRY\",\"route_reliability\":\"HIGH\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\":[\"burden_stall_risk\",\"continuation_quality\",\"failure_resistance\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\",\"independent_upper_tail\",\"route_reliability\"]},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_incentive_effect\":\"MIXED\",\"tournament_incentive_required\":true,\"tournament_incentive_resolution\":\"VERIFIED\",\"tournament_positive_pressure\":false,\"tournament_suppressive_pressure\":false,\"tournament_tail_bias\":\"MIXED\",\"travel_load_context\":\"NORMAL\",\"upper_tail_comparable_context_basis\":\"Current home/away scoring remains supportive of G3, but the confirmed starting attacks are less expansive than the pre-XI projection above the third goal.\",\"upper_tail_comparable_context_signal\":\"MIXED\",\"upper_tail_control_pressure\":\"MODERATE\",\"upper_tail_strength\":\"WEAK\",\"upper_tail_transferability\":\"LOW\",\"upper_tail_transferability_basis\":\"The broad high-tail case from Corinthians away leakage is downgraded by the confirmed starting personnel and derby-control risk.\",\"wait_authorized\":false},\"xi_mode\":\"FOOTBALL_AND_OBSERVED_QUOTE\"}",
+        "Engine Source Revision": "c4309c4129fc30cb5472a6b56f3d0ba7a6e63b25",
+        "Evaluated Line": 1.75,
+        "Evaluated Odds": 1.8,
+        "Evidence Epoch ID": "XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z",
+        "Fixture Status": "PREMATCH_CONFIRMED",
+        "Match ID": "BRA-A-20261104-SAO-COR",
+        "Match Minute": null,
+        "Payload JSON": "{\"assessment_depth\":{\"assessed_at_utc\":\"2026-11-05T00:42:00+00:00\",\"checks\":{\"availability_replacements\":\"Confirmed Sao Paulo XI starts Artur, Lucas Moura and Luciano with Calleri benched. Confirmed Corinthians XI starts Garro and Yuri Alberto with Memphis benched.\",\"carrier_capacity\":\"Neither starting XI is accepted as a three-goal self-funding carrier under the confirmed teams.\",\"continuation_2_0\":\"At 2-0 the trailing side has survival incentive to chase, but the starting personnel do not make the reply reliable enough for G4.\",\"current_chance_creation\":\"The confirmed creators remain present on both sides and the season home/away scoring splits remain current.\",\"goal3_mechanism\":\"G3 remains supported by two current routes plus HIGH Corinthians away leakage.\",\"goal4_mechanism\":\"G4 is rejected after the confirmed XI check because Calleri and Memphis are benched and no separate carrier/distributed/reply path survives.\",\"h2h_transferability\":\"Historical derby H2H is non-material; current 2026 home/away structure dominates.\",\"match_context\":\"Major derby plus survival stakes create both activation and control risk; net context remains MIXED.\",\"named_failure_mechanism\":\"The main failure is derby control combined with both teams benching a major finishing option.\",\"opponent_leakage\":\"Corinthians' away leakage remains HIGH from the frozen block evidence.\",\"primary_scoring_route\":\"Sao Paulo retain a STRONG home route through Artur, Lucas Moura and Luciano; Calleri moves to the bench, so the route remains strong but not self-funding.\",\"secondary_reply_route\":\"Corinthians retain an USABLE reply through Garro and Yuri Alberto; Memphis is on the bench, reducing the upper tail but not eliminating the reply.\",\"stall_0_0\":\"A derby 0-0/1-0 control phase remains credible if finishing is inefficient, but both teams' relevant scoring streaks keep G3 live.\",\"stall_1_1\":\"At 1-1 both survival/table incentive and two live routes support a third goal; a fourth is not protected.\",\"supported_burden_basis\":\"The confirmed-XI recheck preserves G3/O2.5 but rejects the old pre-XI G4 tail before any screenshot price is considered.\",\"tournament_incentive\":\"Sao Paulo can effectively secure safety; Corinthians are in the relegation zone. Incentive is strong but classified MIXED rather than automatically expansive.\"},\"completed\":true,\"contract\":\"ASSESSMENT_DEPTH_V2\",\"evidence_epoch_id\":\"XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z\",\"evidence_refs\":[\"https://www.cbf.com.br/futebol-brasileiro/tabelas/campeonato-brasileiro/serie-a/2026?documento=Regulamento\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\",\"https://ge.globo.com/futebol/times/sao-paulo/noticia/2026/11/04/afundar-o-rival-e-esquecer-o-z-4-o-que-vale-para-o-sao-paulo-o-classico-contra-o-corinthians.ghtml\",\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\"],\"market_independent\":true},\"context\":{\"assessment_at_utc\":\"2026-11-05T00:42:00+00:00\",\"block_authority\":true,\"block_evidence_epoch_id\":\"BLOCK-BRA0730-SAO-COR-PREMATCH-20261105\",\"block_priority_policy\":\"BLOCK_PRIORITY_V1\",\"block_priority_rank\":1,\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"Confirmed starting XIs were incorporated under the user's prematch-freeze instruction. The deterministic compiler owns any burden downgrade; no certificate is increased from the screenshot market.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NOT_UPGRADED\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":true,\"frozen_board_certified_burden\":3.5,\"market_disagreement_recheck_basis\":\"Confirmed lineups and the frozen football evidence were reconciled before price comparison; the displayed in-play minute/score are intentionally ignored under the user's prematch-freeze instruction.\",\"market_disagreement_recheck_evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\"],\"market_disagreement_recheck_fields\":[\"chance_quality\",\"route_reliability\",\"burden_completion_quality\",\"continuation_quality\",\"independent_upper_tail\",\"upper_tail_transferability\",\"upper_tail_comparable_context_signal\",\"g4_research_status\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"market_disagreement_recheck_status\":\"COMPLETED\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\"},\"evidence_epoch_id\":\"XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z\",\"match\":{\"activation_basis\":\"Corinthians' away profile combines a 100% scoring rate with 2.0 goals conceded per match, while Sao Paulo have scored in every relevant home match; relegation pressure raises the chance of a game state that must open.\",\"activation_evidence_refs\":[\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\",\"https://ge.globo.com/futebol/times/sao-paulo/noticia/2026/11/04/afundar-o-rival-e-esquecer-o-z-4-o-que-vale-para-o-sao-paulo-o-classico-contra-o-corinthians.ghtml\"],\"activation_quality\":\"HIGH\",\"aggregate_state\":\"SINGLE_LEAGUE_MATCH_NO_AGGREGATE\",\"away\":\"Corinthians\",\"away_incentive\":\"WIN_PREFERRED\",\"away_route\":\"USABLE\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Two current routes plus heavy Corinthians away leakage create a credible G3 case, subject to deterministic compilation.\",\"burden_completion_quality\":\"HIGH\",\"burden_protection\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"USABLE\",\"carrier_self_fund\":false,\"carrier_self_fund_basis\":\"Sao Paulo retain a strong route through Artur/Lucas/Luciano, but with Calleri benched the starting XI is not treated as a reliable three-goal self-funding carrier.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"Confirmed XI: Sao Paulo start Artur, Lucas Moura and Luciano, with Calleri on the bench; Corinthians start Yuri Alberto with Garro, Kaio Cesar and Matheus Bidu, while Memphis Depay is benched. Both routes remain live, but the original pre-XI upper tail is reduced because the strongest Sao Paulo box finisher and Corinthians' highest-ceiling secondary attacker do not start.\",\"competition\":\"Serie A\",\"competition_format\":\"20-team double round-robin Serie A; 38 matches per club. Final table governs title, continental qualification and relegation; bottom four are relegated.\",\"competition_kind\":\"DOMESTIC_LEAGUE\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"Brazil Serie A is a senior competitive league with strong lineup, market and team-news observability; the assessment uses current competition evidence rather than popularity.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"ROUND_34_OF_38\",\"completion_mode\":\"TWO_SIDED\",\"continuation_quality\":\"MEDIUM\",\"country\":\"Brazil\",\"demoted_probation\":false,\"draw_resolution\":\"League draw stands after 90 minutes.\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"The failure mechanism is a low-scoring derby endpoint, not destruction of both scoring routes.\",\"failure_mechanisms\":{\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"Derby control plus both sides leaving a major finishing option on the bench can stop continuation after one or two goals even when both scoring routes remain viable.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"HIGH\",\"fatigue_context\":\"NONE\",\"g3_current_structure_basis\":\"Sao Paulo retain Artur, Lucas Moura and Luciano; Corinthians retain Garro and Yuri Alberto. Combined with Sao Paulo scoring in every relevant home split and Corinthians scoring in every relevant away split while conceding heavily, G3 remains structurally live.\",\"g3_current_structure_source_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"g3_current_structure_verified\":true,\"g4_carrier_path\":\"FAILED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_distributed_path\":\"FAILED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Sao Paulo's current XI lacks a protected three-goal self-funding carrier with Calleri benched.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]},\"g4_distributed_path\":{\"basis\":\"Both teams can score, but a protected 2+2 or 3+1 split is not established with Memphis and Calleri outside the starting XI.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]},\"g4_reply_path\":{\"basis\":\"A post-third reply is plausible but not dependable enough in a survival derby with strong low-endpoint utility.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"Calleri and Memphis are both on the bench. The remaining starting attacks preserve G3, but no carrier, 2+2/3+1 distribution, or post-third reply path is independently reliable enough to protect G4 in a high-pressure derby.\",\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"goal_signal_low_draw_trap_rate\":0.16,\"goal_signal_mean_over_three_rate\":0.38,\"goal_signal_mean_over_two_rate\":0.64,\"goal_signal_priority_score\":73,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"Derby pressure and the confirmed personnel create credible 1-0/1-1/2-0 endpoints, so stall risk remains MEDIUM.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]},\"continuation_quality\":{\"basis\":\"G3 continuation remains plausible, but the confirmed finishing downgrade limits continuation beyond the third goal to MEDIUM.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]},\"failure_resistance\":{\"basis\":\"Two independent scoring routes keep G3 failure resistance HIGH even though G4 is not protected.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]},\"independent_upper_tail\":{\"basis\":\"No independently protected fourth-goal mechanism remains after the confirmed-XI update.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]},\"route_reliability\":{\"basis\":\"Both current routes remain source-backed and the confirmed starters preserve the principal creators; route reliability stays HIGH.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047\",\"USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\"],\"mechanism_ids\":[\"DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED\"]}},\"h2h_basis\":\"The derby/direct matchup is acknowledged but no old H2H result is allowed to override current 2026 league structure.\",\"h2h_current_corroboration\":\"NOT_APPLICABLE\",\"h2h_effect\":\"NOT_MATERIAL\",\"h2h_material_effect\":false,\"h2h_state\":\"REVIEWED_NOT_MATERIAL\",\"h2h_transferability\":\"NOT_TRANSFERABLE\",\"home\":\"Sao Paulo\",\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"MIXED\",\"independent_route_quality\":\"HIGH\",\"independent_upper_tail\":false,\"independent_upper_tail_basis\":\"The confirmed XI removes enough finishing weight from both sides that the fourth-goal route is no longer independently protected despite Corinthians' season-long away leakage.\",\"kickoff_ict\":\"2026-11-05T07:30:00+07:00\",\"main_failure\":\"The derby can settle at 1-0, 1-1 or 2-0 if Sao Paulo's possession does not convert without Calleri starting and Corinthians' reply lacks a second high-end finisher with Memphis benched.\",\"market_observability\":\"HIGH\",\"match_context_basis\":\"This is a major Sao Paulo derby with survival consequences. Derby intensity can increase transitions and errors but also creates control risk; it is therefore treated as MIXED rather than automatically expansive.\",\"match_context_effect\":\"MIXED\",\"match_context_evidence_refs\":[\"https://www.cbf.com.br/futebol-brasileiro/tabelas/campeonato-brasileiro/serie-a/2026?documento=Regulamento\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\"],\"match_context_review_status\":\"VERIFIED_MATERIAL\",\"match_id\":\"BRA-A-20261104-SAO-COR\",\"material_suppression\":false,\"material_suppression_basis\":\"No current evidence erases both routes; both teams have scored consistently in the relevant home/away split.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"Pre-match probable lineups, current table context and current league scoring evidence are available from CBF/ge.\",\"opponent_leakage\":\"HIGH\",\"qualification_state\":\"Sao Paulo enter 10th on 43 points and need roughly two more points to reach the usual 45-point safety mark; Corinthians enter 17th on 36 points in the relegation zone, so Corinthians have acute survival need while Sao Paulo can effectively secure safety with a win.\",\"raw_operational_viability_grade\":\"A\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"RIVALRY\",\"route_reliability\":\"HIGH\",\"simultaneous_results_note\":\"Round 34 is not a final simultaneous round.\",\"simultaneous_results_status\":\"NOT_APPLICABLE\",\"source_urls\":[\"https://www.cbf.com.br/futebol-brasileiro/tabelas/campeonato-brasileiro/serie-a/2026?documento=Regulamento\",\"https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml\",\"https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml\",\"https://ge.globo.com/futebol/times/sao-paulo/noticia/2026/11/04/afundar-o-rival-e-esquecer-o-z-4-o-que-vale-para-o-sao-paulo-o-classico-contra-o-corinthians.ghtml\"],\"supported_line\":2.5,\"supported_line_basis\":\"A reliable Sao Paulo home scoring route plus Corinthians scoring in every second-half away match and conceding 2.0 per away match independently support G3; the derby/control endpoint prevents aggressive pre-XI expansion above G3.\",\"team_news_observability\":\"HIGH\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_format_status\":\"VERIFIED\",\"tournament_incentive_required\":true,\"travel_load_context\":\"NORMAL\",\"upper_tail_comparable_context_basis\":\"Current home/away scoring remains supportive of G3, but the confirmed starting attacks are less expansive than the pre-XI projection above the third goal.\",\"upper_tail_comparable_context_signal\":\"MIXED\",\"upper_tail_transferability\":\"LOW\",\"upper_tail_transferability_basis\":\"The broad high-tail case from Corinthians away leakage is downgraded by the confirmed starting personnel and derby-control risk.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"HIGH\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+        "Persisted At UTC": null,
+        "Publication Key": null,
+        "Published": false,
+        "Score": null,
+        "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_AND_PRICE"
+      },
+      "sheet_name": "Decision States",
+      "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+      "status_before_readback": "DECISION_STATE_PERSISTENCE_REQUIRED",
+      "store": "GOOGLE_SHEETS"
+    },
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "price_check": {
+      "bet_authorized": false,
+      "evidence": {
+        "assessment_at_utc": "2026-11-05T00:42:00+00:00",
+        "bookmaker": "User-displayed bookmaker",
+        "capture_reference": "USER_ODDS_SCREENSHOT:file_000000005ef08211853bca429908347f",
+        "custom_line_review": {
+          "execution_authorized": false,
+          "status": "CUSTOM_LINE_NOT_BELOW_VISIBLE_LADDER"
+        },
+        "external_price_searches": 0,
+        "fixture_status": "PREMATCH_CONFIRMED",
+        "match_id": "BRA-A-20261104-SAO-COR",
+        "match_minute": null,
+        "observation_age_seconds": 0.0,
+        "observed_at_utc": "2026-11-05T00:42:00+00:00",
+        "price_evidence_mode": "USER_SCREENSHOT_ONLY",
+        "quote": {
+          "line": 1.75,
+          "odds": 1.8
+        },
+        "replacement_quotes": 0,
+        "score": null,
+        "source": "USER_SCREENSHOT",
+        "visible_ladder": [
+          {
+            "line": 1.75,
+            "odds": 1.8
+          }
+        ]
+      },
+      "execution_authorized": false,
+      "limitations": [
+        "SCREENSHOT_NOT_EXECUTION_EVIDENCE"
+      ],
+      "model": {
+        "book_min_odds": null,
+        "book_order_is_exposure": false,
+        "book_target_line": null,
+        "book_target_state": "NO_BOOK_TARGET",
+        "bridge_used": false,
+        "calibration_record": {
+          "automatic_threshold_learning": false,
+          "certified_burden": 2.5,
+          "compiled_board_state": "FOCUS",
+          "control_review": false,
+          "credible_tail_state": "REJECTED",
+          "current_rank": null,
+          "decision": "ACT",
+          "direct_act_ceiling": 2.5,
+          "entry_feasibility_basis": "an exact visible screenshot line clears direct ACT policy",
+          "entry_feasibility_state": "EXECUTABLE_NOW",
+          "evidence_epoch": "XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z",
+          "exception_flag": false,
+          "follow_lane": null,
+          "g3_endpoint_pressure": "MODERATE",
+          "goal3_funded": true,
+          "goal3_mechanism_class": "LEAKAGE",
+          "goal4_funded": false,
+          "goal5_funded": false,
+          "goal6_funded": false,
+          "goal_screen_state": null,
+          "intermediate_burden_profile": {
+            "authorized_lines": [],
+            "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+            "eligible": false,
+            "max_direct_line": null
+          },
+          "match_id": "BRA-A-20261104-SAO-COR",
+          "pass_had_lower_supported_visible_line": false,
+          "rank": null,
+          "rank_scope": null,
+          "researcher_declared_board_state": "FOCUS",
+          "robustness": "FRAGILE",
+          "schema_version": "football-c-calibration-v1",
+          "screenshot_visible_ladder": [
+            {
+              "line": 1.75,
+              "odds": 1.8
+            }
+          ],
+          "selected_evaluated_line": 1.75,
+          "selected_evaluated_odds": 1.8,
+          "selection_authority": "ZERO",
+          "slate_rank": null,
+          "slate_rank_status": null,
+          "sweep_state": null,
+          "upper_tail_pressure": "MODERATE"
+        },
+        "certificate_completeness_recheck_required": false,
+        "conditional_action": "ACT",
+        "current_price_clears_book_target": false,
+        "custom_line_review": {
+          "execution_authorized": false,
+          "status": "CUSTOM_LINE_NOT_BELOW_VISIBLE_LADDER"
+        },
+        "entry_feasibility_basis": "an exact visible screenshot line clears direct ACT policy",
+        "entry_feasibility_state": "EXECUTABLE_NOW",
+        "execution_authorized": false,
+        "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+        "goal3_mechanism_class": "LEAKAGE",
+        "intermediate_burden_profile": {
+          "authorized_lines": [],
+          "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+          "eligible": false,
+          "max_direct_line": null
+        },
+        "market_disagreement_gap_goals": -0.75,
+        "market_disagreement_recheck_basis": "NOT_REQUIRED",
+        "market_disagreement_recheck_completed": true,
+        "market_disagreement_recheck_evidence_refs": [],
+        "market_disagreement_recheck_fields": [],
+        "market_disagreement_recheck_missing_fields": [],
+        "market_disagreement_recheck_required": false,
+        "pass_had_lower_supported_visible_line": false,
+        "prior_certificate_reclassification_recheck_required": false,
+        "reason": "FRAGILE certificate retained only at funded G3 floor",
+        "selected_visible_line": 1.75,
+        "selected_visible_odds": 1.8,
+        "snapshot_line_relation": "BELOW_SUPPORTED_BURDEN",
+        "supported_line": 2.5,
+        "supported_visible_line_found": true,
+        "visible_ladder_evaluations": [
+          {
+            "action": "ACT",
+            "direct_act_ceiling": 2.5,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 1.75,
+            "line_relation": "BELOW_SUPPORTED_BURDEN",
+            "odds": 1.8,
+            "reason": "FRAGILE certificate retained only at funded G3 floor"
+          }
+        ],
+        "visible_ladder_selection_basis": "HIGHEST_VISIBLE_EXECUTABLE_SUPPORTED_LINE",
+        "wait_min_odds": null,
+        "wait_reachability_basis": null,
+        "wait_reachable": false,
+        "wait_target_line": null
+      },
+      "model_bets_created": false,
+      "ok": true,
+      "priced_publication_authorized": false,
+      "quote_research_required": false,
+      "status": "OBSERVED_QUOTE_EVALUATED"
+    },
+    "priced_publication_authorized": false,
+    "publication_blocker": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
+    "quote_research_required": false,
+    "quotes_required": false,
+    "rank_state_display": "FOCUS",
+    "rank_state_internal": "FOCUS",
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "WIN_PREFERRED",
+      "away_route": "USABLE",
+      "bet_authorized": false,
+      "board_state": 2,
+      "board_state_mismatch": false,
+      "burden_completion_quality": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "USABLE",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": false,
+        "certificate_robustness": "FRAGILE",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED",
+          "CARRIER_BRANCH_REQUIREMENTS_NOT_MET",
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": false,
+        "tournament_tail_bias": "MIXED"
+      },
+      "certified_supported_burden": 2.5,
+      "chance_quality": "HIGH",
+      "completion_mode": "TWO_SIDED",
+      "continuation_quality": "MEDIUM",
+      "credible_burden_band_high": 2.5,
+      "credible_burden_band_low": 2.5,
+      "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+      "credible_tail_basis": "G4_REJECTED_PREMARKET: next-goal tail lacks sufficient transferable or continuation support",
+      "credible_tail_execution_authority": false,
+      "credible_tail_market_independent": true,
+      "credible_tail_state": "REJECTED",
+      "credible_tail_target_goal": 4,
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_board_state": "FOCUS",
+      "declared_board_state_basis": "Two current routes plus heavy Corinthians away leakage create a credible G3 case, subject to deterministic compilation.",
+      "declared_board_state_source": "board_state",
+      "declared_supported_line": 2.5,
+      "declared_supported_line_basis": "A reliable Sao Paulo home scoring route plus Corinthians scoring in every second-half away match and conceding 2.0 per away match independently support G3; the derby/control endpoint prevents aggressive pre-XI expansion above G3.",
+      "direct_act_ceiling": 2.5,
+      "effective_burden_stall_risk": "MEDIUM",
+      "effective_continuation_quality": "MEDIUM",
+      "effective_upper_tail_transferability": "LOW",
+      "endpoint_control_pressure": "MODERATE",
+      "execution_strength": "FRAGILE",
+      "failure_mechanisms": {
+        "DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED": {
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "Derby control plus both sides leaving a major finishing option on the bench can stop continuation after one or two goals even when both scoring routes remain viable.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047",
+            "USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8",
+            "https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml",
+            "https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT"
+        }
+      },
+      "failure_resistance": "HIGH",
+      "fatigue_context": "NONE",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 2.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=DISTRIBUTED_G3,LEAKAGE_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=MIXED",
+      "frozen_supported_line_funding": true,
+      "g3_current_structure_basis": "Sao Paulo retain Artur, Lucas Moura and Luciano; Corinthians retain Garro and Yuri Alberto. Combined with Sao Paulo scoring in every relevant home split and Corinthians scoring in every relevant away split while conceding heavily, G3 remains structurally live.",
+      "g3_current_structure_source_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047",
+        "USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8",
+        "https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml"
+      ],
+      "g3_current_structure_verified": true,
+      "g3_endpoint_control_pressure": "MODERATE",
+      "g4_carrier_path": "FAILED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_distributed_path": "FAILED",
+      "g4_evidence_disposition": "NEGATIVE",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_diagnostic": "NEGATIVE",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Sao Paulo's current XI lacks a protected three-goal self-funding carrier with Calleri benched.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047",
+            "USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8",
+            "https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml",
+            "https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml"
+          ],
+          "mechanism_ids": [
+            "DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Both teams can score, but a protected 2+2 or 3+1 split is not established with Memphis and Calleri outside the starting XI.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047",
+            "USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8",
+            "https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml",
+            "https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml"
+          ],
+          "mechanism_ids": [
+            "DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "A post-third reply is plausible but not dependable enough in a survival derby with strong low-endpoint utility.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047",
+            "USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8",
+            "https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml",
+            "https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml"
+          ],
+          "mechanism_ids": [
+            "DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED"
+          ]
+        }
+      },
+      "g4_reply_path": "FAILED",
+      "g4_research_basis": "Calleri and Memphis are both on the bench. The remaining starting attacks preserve G3, but no carrier, 2+2/3+1 distribution, or post-third reply path is independently reliable enough to protect G4 in a high-pressure derby.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_status_normalized_from_mixed": false,
+      "goal3_carrier_funded": false,
+      "goal3_distributed_funded": true,
+      "goal3_funded": true,
+      "goal3_leakage_funded": true,
+      "goal3_mechanism_class": "LEAKAGE",
+      "goal3_two_route_funded": false,
+      "goal4_funded": false,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "Derby pressure and the confirmed personnel create credible 1-0/1-1/2-0 endpoints, so stall risk remains MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047",
+            "USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8",
+            "https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml",
+            "https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml"
+          ],
+          "mechanism_ids": [
+            "DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "G3 continuation remains plausible, but the confirmed finishing downgrade limits continuation beyond the third goal to MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047",
+            "USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8",
+            "https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml",
+            "https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml"
+          ],
+          "mechanism_ids": [
+            "DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Two independent scoring routes keep G3 failure resistance HIGH even though G4 is not protected.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047",
+            "USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8",
+            "https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml",
+            "https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml"
+          ],
+          "mechanism_ids": [
+            "DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independently protected fourth-goal mechanism remains after the confirmed-XI update.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047",
+            "USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8",
+            "https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml",
+            "https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml"
+          ],
+          "mechanism_ids": [
+            "DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED"
+          ]
+        },
+        "route_reliability": {
+          "basis": "Both current routes remain source-backed and the confirmed starters preserve the principal creators; route reliability stays HIGH.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000ce10820787e53d838cc13047",
+            "USER_LINEUP_SCREENSHOT:file_00000000b6ec8211aedc735d25530af8",
+            "https://ge.globo.com/sp/futebol/brasileirao-serie-a/noticia/2026/11/04/sao-paulo-x-corinthians-onde-assistir-ao-vivo-horario-e-escalacoes.ghtml",
+            "https://ge.globo.com/gato-mestre/dicas/noticia/2026/11/02/palpites-e-dicas-para-sao-paulo-x-corinthians-pelo-brasileirao.ghtml"
+          ],
+          "mechanism_ids": [
+            "DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED"
+          ]
+        }
+      },
+      "home_incentive": "WIN_PREFERRED",
+      "home_route": "STRONG",
+      "incentive_effect": "MIXED",
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_context_basis": "This is a major Sao Paulo derby with survival consequences. Derby intensity can increase transitions and errors but also creates control risk; it is therefore treated as MIXED rather than automatically expansive.",
+      "match_context_effect": "MIXED",
+      "match_context_positive_pressure": false,
+      "match_context_review_status": "VERIFIED_MATERIAL",
+      "match_context_suppressive_pressure": false,
+      "match_id": "BRA-A-20261104-SAO-COR",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": true,
+        "reason": "UNREGISTERED_COMPETITIVE_LEAGUE_GOAL_RESEARCH_REQUIRED",
+        "status": "IN_SCOPE"
+      },
+      "prospective_tail_ceiling": 2.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "rank_state_display": "FOCUS",
+      "rank_state_internal": "FOCUS",
+      "rest_load_context": "BALANCED",
+      "rivalry_context": "RIVALRY",
+      "route_reliability": "HIGH",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {
+        "DERBY_CONTROL_WITH_BOTH_MAIN_FINISHERS_BENCHED": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "failure_resistance",
+          "g4_carrier_path",
+          "g4_distributed_path",
+          "g4_reply_path",
+          "independent_upper_tail",
+          "route_reliability"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "YES",
+      "tournament_incentive_effect": "MIXED",
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_positive_pressure": false,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "MIXED",
+      "travel_load_context": "NORMAL",
+      "upper_tail_comparable_context_basis": "Current home/away scoring remains supportive of G3, but the confirmed starting attacks are less expansive than the pre-XI projection above the third goal.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_control_pressure": "MODERATE",
+      "upper_tail_strength": "WEAK",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "The broad high-tail case from Corinthians away leakage is downgraded by the confirmed starting personnel and derby-control risk.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_AND_OBSERVED_QUOTE"
+  },
+  "runtime_commit": "c4309c4129fc30cb5472a6b56f3d0ba7a6e63b25",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "xi_assessment_index": {
+    "assessment_at_utc": "2026-11-05T00:42:00+00:00",
+    "assessment_id": "XI-C-XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z",
+    "authority_mode": "BLOCK",
+    "contract": "XI_APPEND_ONLY_EXECUTION_INDEX_V1",
+    "custom_line_review": {
+      "execution_authorized": false,
+      "status": "CUSTOM_LINE_NOT_BELOW_VISIBLE_LADDER"
+    },
+    "decision": "ACT",
+    "decision_state_persistence_required": true,
+    "decision_state_readback_verified": false,
+    "evaluated_line": 1.75,
+    "evaluated_odds": 1.8,
+    "evidence_epoch_id": "XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "match_id": "BRA-A-20261104-SAO-COR",
+    "match_minute": null,
+    "real_bet_fill_verified": false,
+    "request_id": "XI-BRA0730-SAO-COR-PREMATCHFREEZE-20261105T0042Z",
+    "score": null,
+    "screenshot_capture_reference": "USER_ODDS_SCREENSHOT:file_000000005ef08211853bca429908347f",
+    "screenshot_observed_at_utc": "2026-11-05T00:42:00+00:00",
+    "source": "GITHUB_XI_RUNTIME_RESULT_NOT_ACTUAL_GOOGLE_SHEETS_READBACK",
+    "visible_user_quote_ladder": [
+      {
+        "line": 1.75,
+        "odds": 1.8
+      }
+    ]
+  }
+}
