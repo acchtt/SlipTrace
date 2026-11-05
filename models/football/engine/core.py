@@ -203,6 +203,12 @@ class MatchAssessment:
     opponent_leakage: Grade | None = None
     burden_stall_risk: Grade | None = None
 
+    # Explicit research disposition for the fourth-goal investigation. This is
+    # distinct from deterministic G4 funding and lets the execution bridge
+    # respect a fresh completed rejection instead of re-expanding to O3.00
+    # from generic near-tail evidence.
+    g4_research_status: str | None = None
+
     # C2-owned matchup leakage. Never copy C's completion/stall diagnostics
     # into C2. Missing independent leakage evidence leaves prior C2 unchanged.
     c2_opponent_leakage: Grade | None = None
@@ -2632,6 +2638,10 @@ def c_intermediate_burden_profile(
 
     credible = credible_burden_profile(a, "c")
     state = str(credible["credible_tail_state"])
+    explicit_g4_rejected = a.g4_research_status in {
+        "G4_RESEARCH_COMPLETE_REJECTED",
+        "G4_RESEARCH_COMPLETE_MIXED",
+    }
     if state not in {"MIXED", "NEAR_FUNDED"}:
         return {
             "eligible": False,
@@ -2662,7 +2672,8 @@ def c_intermediate_burden_profile(
     }
 
     strong_near_tail = (
-        state == "NEAR_FUNDED"
+        not explicit_g4_rejected
+        and state == "NEAR_FUNDED"
         and (
             (a.carrier == CarrierStrength.STRONG and a.carrier_self_fund)
             or a.independent_route_quality == Grade.HIGH
@@ -2678,7 +2689,8 @@ def c_intermediate_burden_profile(
     # paths now live in this single function, so branch ordering cannot change
     # the robustness standard.
     robust_independent_o300 = (
-        robustness >= 2
+        not explicit_g4_rejected
+        and robustness >= 2
         and a.independent_upper_tail
         and effective_tail is not None
         and effective_tail >= Grade.MEDIUM
@@ -2694,7 +2706,8 @@ def c_intermediate_burden_profile(
         line_states["3.00"] = "AUTHORIZED"
 
     strict_o325 = (
-        robustness >= 2
+        not explicit_g4_rejected
+        and robustness >= 2
         and strong_near_tail
         and a.independent_upper_tail
         and effective_tail is not None
@@ -2724,6 +2737,8 @@ def c_intermediate_burden_profile(
         "basis": (
             "CANONICAL_SETTLEMENT_AWARE_G3_EXTENSION; certificate remains O2.50; "
             f"robustness={robustness}; credible_tail={state}; authorized={authorized}; "
+            f"g4_research_status={a.g4_research_status or 'UNSPECIFIED'}; "
+            "explicit COMPLETE_REJECTED/MIXED caps the G3 extension at O2.75; "
             "O3.25 requires ROBUST independent transferable fourth-goal evidence; "
             "O3.50 requires funded G4"
         ),
