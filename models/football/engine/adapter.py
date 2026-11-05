@@ -930,6 +930,11 @@ def parse_assessment(
             _enum(Grade, _required(obj, "burden_stall_risk"), "burden_stall_risk")
             if require_c_completion else None
         ),
+        g4_research_status=(
+            str(obj.get("g4_research_status")).strip()
+            if require_c_completion and obj.get("g4_research_status") is not None
+            else None
+        ),
         c2_opponent_leakage=(
             _enum(Grade, _required(obj, "c2_opponent_leakage"), "c2_opponent_leakage")
             if not require_c_completion and "c2_opponent_leakage" in obj else None

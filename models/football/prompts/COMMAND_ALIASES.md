@@ -82,7 +82,7 @@ A user request such as `/block 23:00-00:00`, `assess the 23:00 block`, or
 `assess matches from 23:00 to 00:00` routes here.
 
 Resolve the complete requested kickoff cohort before judging any candidate.
-Assess every in-scope unstarted fixture to ASSESSMENT_DEPTH_V2, then compile
+Assess every in-scope unstarted fixture to ASSESSMENT_DEPTH_V3, then compile
 the complete block through `engine/block_runtime.py` / `BLOCK_PRIORITY_V1`. No candidate may be omitted because /rank
 did not select it, because FOLLOW is full, or because another fixture already
 has a cleaner certificate.
@@ -90,7 +90,7 @@ has a cleaner certificate.
 For runtime authority, the block request itself is explicit user authorization
 to use the existing full EXCEPTION research contract for each candidate. New
 assessment epochs require source-backed activation evidence under
-ASSESSMENT_DEPTH_V2. This does not relax Football C certificates. Existing rank
+ASSESSMENT_DEPTH_V3. This does not relax Football C certificates. Existing rank
 data and FOLLOW lanes are secondary comparison metadata only.
 
 No odds are required to finish block selection. The block runtime is football-
@@ -155,7 +155,7 @@ Authority order is BLOCK -> RANKED -> DIRECT -> explicit EXCEPTION. A valid
 persisted BLOCK_PRIORITY_V1 receipt is sufficient routine authority; /rank is
 not required between /block and /xi. If the user directly selects one exact
 fixture with /xi and neither BLOCK nor RANKED authority exists, perform the
-fresh full ASSESSMENT_DEPTH_V2 research in the same turn and use DIRECT rather
+fresh full ASSESSMENT_DEPTH_V3 research in the same turn and use DIRECT rather
 than blocking.
 
 Order:

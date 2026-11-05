@@ -15,6 +15,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from block_priority import BlockPriorityError, activation_profile, tournament_structure_profile
+
 
 class RankAuthorityError(ValueError):
     pass
@@ -57,8 +59,10 @@ BLOCK_AUTHORITY_OWNED_FIELDS = frozenset({
 POLICY_LOCK_EFFECTIVE_UTC = datetime.fromisoformat("2026-10-24T18:00:00+00:00")
 ASSESSMENT_DEPTH_V1_EFFECTIVE_UTC = datetime.fromisoformat("2026-11-02T01:45:00+00:00")
 ASSESSMENT_DEPTH_V2_EFFECTIVE_UTC = datetime.fromisoformat("2026-11-04T00:00:00+00:00")
+ASSESSMENT_DEPTH_V3_EFFECTIVE_UTC = datetime.fromisoformat("2026-11-05T08:15:00+00:00")
 ASSESSMENT_DEPTH_V1_CONTRACT = "ASSESSMENT_DEPTH_V1"
 ASSESSMENT_DEPTH_V2_CONTRACT = "ASSESSMENT_DEPTH_V2"
+ASSESSMENT_DEPTH_V3_CONTRACT = "ASSESSMENT_DEPTH_V3"
 ASSESSMENT_DEPTH_REQUIRED_CHECKS = frozenset({
     "primary_scoring_route",
     "secondary_reply_route",
@@ -416,7 +420,9 @@ def _validate_assessment_depth(supplied: dict[str, Any]) -> dict[str, Any]:
         }
 
     expected_contract = (
-        ASSESSMENT_DEPTH_V2_CONTRACT
+        ASSESSMENT_DEPTH_V3_CONTRACT
+        if assessment_at >= ASSESSMENT_DEPTH_V3_EFFECTIVE_UTC
+        else ASSESSMENT_DEPTH_V2_CONTRACT
         if assessment_at >= ASSESSMENT_DEPTH_V2_EFFECTIVE_UTC
         else ASSESSMENT_DEPTH_V1_CONTRACT
     )
@@ -507,7 +513,7 @@ def _validate_assessment_depth(supplied: dict[str, Any]) -> dict[str, Any]:
         )
 
     activation_trace = None
-    if expected_contract == ASSESSMENT_DEPTH_V2_CONTRACT:
+    if expected_contract in {ASSESSMENT_DEPTH_V2_CONTRACT, ASSESSMENT_DEPTH_V3_CONTRACT}:
         match = supplied.get("match")
         if not isinstance(match, dict):
             raise RankAuthorityError(
@@ -558,6 +564,41 @@ def _validate_assessment_depth(supplied: dict[str, Any]) -> dict[str, Any]:
             "certificate_authority": False,
             "price_execution_authority": False,
         }
+
+        if expected_contract == ASSESSMENT_DEPTH_V3_CONTRACT:
+            if not isinstance(match.get("activation_ignition"), dict):
+                raise RankAuthorityError(
+                    "ASSESSMENT_RESEARCH_INCOMPLETE: V3 requires structured "
+                    "activation_ignition evidence"
+                )
+            try:
+                calibrated_activation = activation_profile(match)
+                tournament_trace = tournament_structure_profile(match)
+            except BlockPriorityError as exc:
+                raise RankAuthorityError(
+                    "ASSESSMENT_RESEARCH_INCOMPLETE: " + str(exc)
+                ) from exc
+            if (
+                activation_quality == "HIGH"
+                and calibrated_activation["effective_activation_quality"] != "HIGH"
+            ):
+                raise RankAuthorityError(
+                    "ASSESSMENT_RESEARCH_INCOMPLETE: HIGH activation does not "
+                    "clear structured ignition requirements"
+                )
+            activation_trace["effective_quality"] = calibrated_activation[
+                "effective_activation_quality"
+            ]
+            activation_trace["ignition"] = calibrated_activation[
+                "activation_ignition"
+            ]
+            activation_trace["calibration"] = calibrated_activation[
+                "activation_calibration"
+            ]
+            activation_trace["ignition_evidence_refs"] = calibrated_activation[
+                "activation_ignition_evidence_refs"
+            ]
+            activation_trace["tournament_structure"] = tournament_trace
 
     return {
         "required": True,
@@ -728,9 +769,13 @@ def authorize_c_football(
                 "BLOCK_RECEIPT_REQUIRED: block-led /xi requires football_assessment"
             )
         depth = _validate_assessment_depth(supplied)
-        if depth.get("contract") != ASSESSMENT_DEPTH_V2_CONTRACT:
+        if depth.get("contract") not in {
+            ASSESSMENT_DEPTH_V2_CONTRACT,
+            ASSESSMENT_DEPTH_V3_CONTRACT,
+        }:
             raise RankAuthorityError(
-                "BLOCK_RECEIPT_REQUIRED: block-led /xi requires ASSESSMENT_DEPTH_V2"
+                "BLOCK_RECEIPT_REQUIRED: block-led /xi requires current "
+                "ASSESSMENT_DEPTH_V2/V3"
             )
         supplied_match = supplied.get("match")
         if not isinstance(supplied_match, dict):

@@ -7,8 +7,10 @@ sys.path.insert(0, str(ENGINE))
 
 from block_priority import (  # noqa: E402
     BlockPriorityError,
+    activation_profile,
     block_priority_key,
     rank_block,
+    tournament_structure_profile,
 )
 from block_runtime import BlockRuntimeError, run_block  # noqa: E402
 from xi_authority import RankAuthorityError, _validate_assessment_depth  # noqa: E402
@@ -54,6 +56,21 @@ def raw(
             "https://club.example/current-attack",
             "https://league.example/current-defence",
         ],
+        "activation_ignition": {
+            "current_attack_structure": activation,
+            "early_chance_creation": activation,
+            "early_concession_opening": "MEDIUM",
+            "game_state_force": activation,
+            "weaker_side_state_change": "MEDIUM",
+            "basis": (
+                "Current attacking structure and early-opening evidence are "
+                "assessed separately from full-match historical total rates."
+            ),
+            "evidence_refs": [
+                "https://club.example/current-attack",
+                "https://league.example/current-defence",
+            ],
+        },
         "independent_upper_tail": False,
         "upper_tail_transferability": "MEDIUM",
     }
@@ -199,6 +216,66 @@ class BlockPriorityTests(unittest.TestCase):
         with self.assertRaisesRegex(BlockPriorityError, "activation_evidence_refs"):
             block_priority_key(row, compiled("thin"))
 
+    def test_high_activation_is_capped_without_real_ignition(self):
+        row = raw("inflated", activation="HIGH")
+        row["activation_ignition"].update(
+            early_chance_creation="LOW",
+            early_concession_opening="LOW",
+            weaker_side_state_change="LOW",
+        )
+        profile = activation_profile(row)
+        self.assertEqual(profile["activation_quality"], "HIGH")
+        self.assertEqual(profile["effective_activation_quality"], "MEDIUM")
+        self.assertEqual(
+            profile["activation_calibration"],
+            "HIGH_CAPPED_INSUFFICIENT_IGNITION",
+        )
+
+    def test_tournament_structure_requires_primary_format_proof(self):
+        row = raw("cup")
+        row.update(
+            tournament_incentive_required=True,
+            competition_stage="QUARTERFINAL_FIRST_LEG",
+            aggregate_state="FIRST_LEG_AGGREGATE_STARTS_0_0",
+        )
+        with self.assertRaisesRegex(
+            BlockPriorityError, "competition_structure_kind"
+        ):
+            tournament_structure_profile(row)
+
+        row.update(
+            competition_structure_kind="KNOCKOUT_FIRST_LEG",
+            competition_structure_basis=(
+                "Official competition regulations confirm this is the first leg "
+                "of a two-leg quarterfinal tie."
+            ),
+            competition_structure_source_tier="OFFICIAL_COMPETITION",
+            competition_structure_evidence_refs=[
+                "https://league.example/official-regulations"
+            ],
+        )
+        profile = tournament_structure_profile(row)
+        self.assertEqual(profile["structure_kind"], "KNOCKOUT_FIRST_LEG")
+
+    def test_two_leg_knockout_cannot_claim_no_aggregate(self):
+        row = raw("bad-cup")
+        row.update(
+            tournament_incentive_required=True,
+            competition_stage="QUARTERFINAL_FIRST_LEG",
+            aggregate_state="SINGLE_MATCH_NO_AGGREGATE",
+            competition_structure_kind="KNOCKOUT_FIRST_LEG",
+            competition_structure_basis=(
+                "Official competition regulations identify a two-leg knockout "
+                "quarterfinal with this fixture as leg one."
+            ),
+            competition_structure_source_tier="OFFICIAL_COMPETITION",
+            competition_structure_evidence_refs=[
+                "https://league.example/official-regulations"
+            ],
+        )
+        with self.assertRaisesRegex(BlockPriorityError, "two-leg knockout"):
+            tournament_structure_profile(row)
+
     def test_outcome_or_price_fields_are_forbidden(self):
         row = raw("bad")
         row["final_score"] = "4-3"
@@ -233,6 +310,21 @@ class BlockRuntimeTests(unittest.TestCase):
             "https://example.com/current-attack",
             "https://example.org/current-leakage",
         ]
+        row["activation_ignition"] = {
+            "current_attack_structure": activation,
+            "early_chance_creation": activation,
+            "early_concession_opening": "MEDIUM",
+            "game_state_force": activation,
+            "weaker_side_state_change": "MEDIUM",
+            "basis": (
+                "The current structure and early opening evidence are frozen "
+                "separately from full-time score history."
+            ),
+            "evidence_refs": [
+                "https://example.com/current-attack",
+                "https://example.org/current-leakage",
+            ],
+        }
         return row
 
     def test_runtime_is_football_only_and_never_publishes_action(self):
@@ -305,6 +397,18 @@ class AssessmentDepthV2Tests(unittest.TestCase):
                     "opening patterns jointly support a high activation grade."
                 ),
                 activation_evidence_refs=refs,
+                activation_ignition={
+                    "current_attack_structure": "HIGH",
+                    "early_chance_creation": "HIGH",
+                    "early_concession_opening": "MEDIUM",
+                    "game_state_force": "HIGH",
+                    "weaker_side_state_change": "MEDIUM",
+                    "basis": (
+                        "Current structure and early-opening evidence support "
+                        "activation independently of full-match total history."
+                    ),
+                    "evidence_refs": refs,
+                },
             )
         return {
             "evidence_epoch_id": "DEPTH-V2-EPOCH",
@@ -341,6 +445,51 @@ class AssessmentDepthV2Tests(unittest.TestCase):
                     activation=False,
                 )
             )
+
+    def test_v3_rejects_inflated_high_activation(self):
+        payload = self._payload(
+            "2026-11-05T08:16:00+00:00",
+            "ASSESSMENT_DEPTH_V3",
+        )
+        payload["match"]["activation_ignition"].update(
+            early_chance_creation="LOW",
+            early_concession_opening="LOW",
+        )
+        with self.assertRaisesRegex(
+            RankAuthorityError, "HIGH activation does not clear"
+        ):
+            _validate_assessment_depth(payload)
+
+    def test_v3_requires_official_tournament_structure_when_applicable(self):
+        payload = self._payload(
+            "2026-11-05T08:16:00+00:00",
+            "ASSESSMENT_DEPTH_V3",
+        )
+        payload["match"]["tournament_incentive_required"] = True
+        with self.assertRaisesRegex(
+            RankAuthorityError, "competition_structure_kind"
+        ):
+            _validate_assessment_depth(payload)
+
+        payload["match"].update(
+            competition_stage="QUARTERFINAL_FIRST_LEG",
+            aggregate_state="FIRST_LEG_AGGREGATE_STARTS_0_0",
+            competition_structure_kind="KNOCKOUT_FIRST_LEG",
+            competition_structure_basis=(
+                "Official competition regulations confirm this fixture is the "
+                "first leg of a two-leg quarterfinal."
+            ),
+            competition_structure_source_tier="OFFICIAL_COMPETITION",
+            competition_structure_evidence_refs=[
+                "https://league.example/official-regulations"
+            ],
+        )
+        trace = _validate_assessment_depth(payload)
+        self.assertEqual(trace["contract"], "ASSESSMENT_DEPTH_V3")
+        self.assertEqual(
+            trace["activation"]["tournament_structure"]["structure_kind"],
+            "KNOCKOUT_FIRST_LEG",
+        )
 
     def test_v2_activation_is_selection_only(self):
         trace = _validate_assessment_depth(

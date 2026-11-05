@@ -48,6 +48,30 @@ competitive early, and whether the weaker side can force a game-state change.
 Activation is **selection evidence only**. It cannot fund G3/G4/G5/G6, change
 the supported burden, authorize ACT/BOOK, or use bookmaker prices/results.
 
+## ASSESSMENT_DEPTH_V3
+
+Effective for new assessment epochs from 2026-11-05 08:15 UTC.
+
+V3 retains every V2 conclusion and closes two observed failure modes.
+
+**Ignition calibration:** HIGH activation must be supported by structured
+current-from-0-0 evidence. Freeze current attack structure, early chance
+creation, early concession/opening behavior, game-state forcing pressure and
+the weaker side's ability to change state. HIGH requires at least two HIGH
+signals, one of which must be early chance creation or early concession/opening,
+plus at least MEDIUM current attack structure. Full-match over rates, historical
+scorelines and generic table urgency are corroboration only.
+
+**Tournament structure proof:** any fixture requiring tournament incentive must
+freeze the actual structure kind (regular league, group stage, knockout first
+leg, knockout second leg, single elimination, final or other verified), a
+substantive basis, and at least one official-competition or primary-organizer
+format source. Stage and aggregate state must be internally consistent.
+Unknown/secondary-only structure evidence blocks normal production assessment.
+
+These fields are prospective evidence only. They do not use odds or outcomes
+and do not rewrite historical V1/V2 epochs.
+
 ## BLOCK_COMPARISON_V1
 
 When several credible fixtures share one kickoff window, assess them as one comparison block after each candidate reaches the same ASSESSMENT_DEPTH_V1 floor.

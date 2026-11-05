@@ -89,6 +89,7 @@ require(
     "BLOCK_DISCRIMINATION_V3",
     "BLOCK_PRIORITY_V1",
     "ASSESSMENT_DEPTH_V2",
+    "ASSESSMENT_DEPTH_V3",
 )
 require(
     "models/football/engine/core.py",
@@ -150,7 +151,10 @@ require(
     "pinned_engine_policy_fingerprint",
     "ASSESSMENT_DEPTH_V1",
     "ASSESSMENT_DEPTH_V2",
+    "ASSESSMENT_DEPTH_V3",
     "activation_quality",
+    "activation_ignition",
+    "tournament_structure_profile",
     "ASSESSMENT_RESEARCH_INCOMPLETE",
     "stall_0_0",
     "stall_1_1",
@@ -170,6 +174,9 @@ require(
     "models/football/engine/block_priority.py",
     'POLICY = "BLOCK_PRIORITY_V1"',
     "activation_quality",
+    "effective_activation_quality",
+    "activation_ignition",
+    "competition_structure_kind",
     "mechanism_is_late_tiebreaker",
     "outcome_fields_read",
 )

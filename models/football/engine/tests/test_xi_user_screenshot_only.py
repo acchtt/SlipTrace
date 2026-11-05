@@ -279,6 +279,56 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertEqual(calibration["decision"], "ACT")
         self.assertTrue(calibration["exception_flag"])
 
+    def test_explicit_g4_rejection_caps_strong_carrier_at_o275(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        row = robust_g3_book_match(
+            carrier="STRONG",
+            carrier_self_fund=True,
+            carrier_self_fund_basis=(
+                "The home carrier can independently fund goal three but not a "
+                "protected fourth goal."
+            ),
+            independent_upper_tail=False,
+            independent_upper_tail_basis=(
+                "Fresh current research rejects every independent fourth-goal path."
+            ),
+            upper_tail_transferability="MEDIUM",
+            upper_tail_comparable_context_signal="MIXED",
+            continuation_quality="MEDIUM",
+            g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
+            g4_carrier_path="MIXED",
+            g4_distributed_path="FAILED",
+            g4_reply_path="FAILED",
+            g4_continuation_after_g3="MEDIUM",
+            g4_research_basis=(
+                "Current G4 research is complete and explicitly rejects a "
+                "protected fourth-goal mechanism."
+            ),
+        )
+        c["match"] = attach_g4_evidence(row)
+        c["context"].update(
+            thesis_state="PRESERVED",
+            primary_mechanism_intact=True,
+            material_veto=False,
+            material_event_since_frozen="NONE_VERIFIED",
+            frozen_board_certified_burden=2.5,
+        )
+        complete_market_disagreement_recheck(c)
+        shot = snapshot(c)
+        shot.pop("quote")
+        shot["quotes"] = [
+            {"line": 2.75, "odds": 2.04},
+            {"line": 3.0, "odds": 2.35},
+        ]
+        out = run_xi(c, shot)
+        profile = out["price_check"]["model"]["intermediate_burden_profile"]
+        self.assertEqual(profile["max_direct_line"], 2.75)
+        self.assertEqual(profile["line_states"]["3.00"], "NOT_AUTHORIZED")
+        self.assertEqual(
+            out["price_check"]["model"]["selected_visible_line"],
+            2.75,
+        )
+
     def test_non_visible_lower_line_can_be_custom_book_target(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         row = robust_g3_book_match(

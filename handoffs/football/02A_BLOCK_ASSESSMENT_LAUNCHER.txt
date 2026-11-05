@@ -14,7 +14,7 @@ Operational role: PRIMARY ASSESSMENT
 
 2. Resolve the complete requested kickoff block before judging any fixture.
 
-3. Assess every in-scope candidate to equal ASSESSMENT_DEPTH_V2.
+3. Assess every in-scope candidate to equal ASSESSMENT_DEPTH_V3.
 
 4. Compare the block with BLOCK_PRIORITY_V1. Global /rank and FOLLOW remain
    secondary audit metadata; mechanism class is a late tiebreaker.
@@ -42,3 +42,8 @@ CRITICAL:
 - Complete block, equal depth, football-first comparison.
 - Never turn research incompleteness into PASS.
 - Never let a rank omission hide a block candidate.
+
+8. For new epochs after the 2026-11-05 calibration boundary, freeze structured
+   activation_ignition evidence and official/primary competition-structure proof.
+   HIGH activation without real early-opening evidence is invalid; tournament
+   structure uncertainty blocks normal assessment.

@@ -18,6 +18,27 @@ POLICY = "BLOCK_PRIORITY_V1"
 ACTIVATION_CONTRACT = "ASSESSMENT_DEPTH_V2"
 
 _GRADE = {"LOW": 0, "MEDIUM": 1, "HIGH": 2}
+_IGNITION = {"UNAVAILABLE": -1, "LOW": 0, "MEDIUM": 1, "HIGH": 2}
+_IGNITION_FIELDS = (
+    "current_attack_structure",
+    "early_chance_creation",
+    "early_concession_opening",
+    "game_state_force",
+    "weaker_side_state_change",
+)
+_COMPETITION_STRUCTURE_KINDS = {
+    "LEAGUE_REGULAR",
+    "GROUP_STAGE",
+    "KNOCKOUT_FIRST_LEG",
+    "KNOCKOUT_SECOND_LEG",
+    "SINGLE_ELIMINATION",
+    "FINAL",
+    "OTHER_VERIFIED",
+}
+_COMPETITION_STRUCTURE_SOURCE_TIERS = {
+    "OFFICIAL_COMPETITION",
+    "PRIMARY_ORGANIZER",
+}
 _ROUTE = {"NONE": 0, "WEAK": 0, "USABLE": 1, "STRONG": 2}
 _BOARD = {"PASS": 0, "WATCH": 1, "FOCUS": 2}
 _PRESSURE = {"HIGH": 0, "MODERATE": 1, "NONE": 2}
@@ -98,10 +119,16 @@ def _validate_prematch_only(row: dict[str, Any], *, label: str) -> None:
 
 
 def activation_profile(raw: dict[str, Any]) -> dict[str, Any]:
-    """Validate the source-backed block-only activation assessment."""
+    """Validate and calibrate the source-backed block-only activation assessment.
 
-    quality = _text(raw.get("activation_quality"))
-    if quality not in _GRADE:
+    Declared HIGH is never trusted from full-match score history alone. It needs
+    structured ignition evidence showing that the current matchup can actually
+    open from 0-0. Historical V2 rows without that structure remain readable
+    but their HIGH grade is conservatively capped to MEDIUM.
+    """
+
+    declared_quality = _text(raw.get("activation_quality"))
+    if declared_quality not in _GRADE:
         raise BlockPriorityError(
             f"{raw.get('match_id')}: activation_quality must be LOW/MEDIUM/HIGH"
         )
@@ -119,11 +146,145 @@ def activation_profile(raw: dict[str, Any]) -> dict[str, Any]:
         raise BlockPriorityError(
             f"{raw.get('match_id')}: activation_evidence_refs requires two sources"
         )
+
+    ignition = raw.get("activation_ignition")
+    ignition_scores: dict[str, int] = {}
+    ignition_basis = None
+    ignition_refs: list[str] = []
+    if isinstance(ignition, dict):
+        for field in _IGNITION_FIELDS:
+            value = _text(ignition.get(field))
+            if value not in _IGNITION:
+                raise BlockPriorityError(
+                    f"{raw.get('match_id')}: activation_ignition.{field} must be "
+                    "LOW/MEDIUM/HIGH/UNAVAILABLE"
+                )
+            ignition_scores[field] = _IGNITION[value]
+        ignition_basis = ignition.get("basis")
+        if not isinstance(ignition_basis, str) or len(ignition_basis.strip()) < 24:
+            raise BlockPriorityError(
+                f"{raw.get('match_id')}: activation_ignition.basis must be substantive"
+            )
+        raw_refs = ignition.get("evidence_refs")
+        ignition_refs = (
+            [ref.strip() for ref in raw_refs if isinstance(ref, str) and ref.strip()]
+            if isinstance(raw_refs, list) else []
+        )
+        if len(set(ignition_refs)) < 2:
+            raise BlockPriorityError(
+                f"{raw.get('match_id')}: activation_ignition.evidence_refs requires "
+                "two sources"
+            )
+    elif ignition is not None:
+        raise BlockPriorityError(
+            f"{raw.get('match_id')}: activation_ignition must be an object"
+        )
+
+    effective_quality = declared_quality
+    calibration = "DECLARED_GRADE_ACCEPTED"
+    if declared_quality == "HIGH":
+        high_count = sum(value == _IGNITION["HIGH"] for value in ignition_scores.values())
+        early_high = any(
+            ignition_scores.get(field) == _IGNITION["HIGH"]
+            for field in ("early_chance_creation", "early_concession_opening")
+        )
+        current_structure_ok = (
+            ignition_scores.get("current_attack_structure", -1)
+            >= _IGNITION["MEDIUM"]
+        )
+        if not ignition_scores:
+            effective_quality = "MEDIUM"
+            calibration = "HIGH_CAPPED_MISSING_STRUCTURED_IGNITION"
+        elif high_count < 2 or not early_high or not current_structure_ok:
+            effective_quality = "MEDIUM"
+            calibration = "HIGH_CAPPED_INSUFFICIENT_IGNITION"
+
     return {
-        "activation_quality": quality,
-        "activation_score": _GRADE[quality],
+        "activation_quality": declared_quality,
+        "effective_activation_quality": effective_quality,
+        "activation_score": _GRADE[effective_quality],
         "activation_basis": basis.strip(),
         "activation_evidence_refs": list(dict.fromkeys(normalized)),
+        "activation_ignition": ignition_scores,
+        "activation_ignition_basis": (
+            ignition_basis.strip() if isinstance(ignition_basis, str) else None
+        ),
+        "activation_ignition_evidence_refs": list(dict.fromkeys(ignition_refs)),
+        "activation_calibration": calibration,
+    }
+
+
+def tournament_structure_profile(raw: dict[str, Any]) -> dict[str, Any]:
+    """Fail closed on unsupported or internally inconsistent tournament state."""
+
+    required = raw.get("tournament_incentive_required") is True
+    if not required:
+        return {
+            "required": False,
+            "verified": True,
+            "structure_kind": "NOT_APPLICABLE",
+            "source_tier": "NOT_APPLICABLE",
+        }
+
+    kind = _text(raw.get("competition_structure_kind"))
+    if kind not in _COMPETITION_STRUCTURE_KINDS:
+        raise BlockPriorityError(
+            f"{raw.get('match_id')}: competition_structure_kind must be one of "
+            + ", ".join(sorted(_COMPETITION_STRUCTURE_KINDS))
+        )
+    basis = raw.get("competition_structure_basis")
+    if not isinstance(basis, str) or len(basis.strip()) < 24:
+        raise BlockPriorityError(
+            f"{raw.get('match_id')}: competition_structure_basis must be substantive"
+        )
+    source_tier = _text(raw.get("competition_structure_source_tier"))
+    if source_tier not in _COMPETITION_STRUCTURE_SOURCE_TIERS:
+        raise BlockPriorityError(
+            f"{raw.get('match_id')}: competition structure requires an official "
+            "competition or primary-organizer source"
+        )
+    refs = raw.get("competition_structure_evidence_refs")
+    normalized = (
+        [ref.strip() for ref in refs if isinstance(ref, str) and ref.strip()]
+        if isinstance(refs, list) else []
+    )
+    if len(set(normalized)) < 1:
+        raise BlockPriorityError(
+            f"{raw.get('match_id')}: competition_structure_evidence_refs requires "
+            "at least one official/primary source"
+        )
+
+    stage = _text(raw.get("competition_stage"))
+    aggregate = _text(raw.get("aggregate_state"))
+    knockout_tokens = (
+        "QUARTER", "SEMI", "FINAL", "PLAYOFF", "KNOCKOUT", "ROUND_OF", "LAST_"
+    )
+    if any(token in stage for token in knockout_tokens) and kind in {
+        "LEAGUE_REGULAR", "GROUP_STAGE"
+    }:
+        raise BlockPriorityError(
+            f"{raw.get('match_id')}: knockout competition_stage conflicts with "
+            f"competition_structure_kind={kind}"
+        )
+    if kind in {"KNOCKOUT_FIRST_LEG", "KNOCKOUT_SECOND_LEG"}:
+        if "NO_AGGREGATE" in aggregate or "SINGLE_MATCH_NO_AGGREGATE" in aggregate:
+            raise BlockPriorityError(
+                f"{raw.get('match_id')}: two-leg knockout cannot use no-aggregate state"
+            )
+    if kind in {"LEAGUE_REGULAR", "GROUP_STAGE"} and (
+        "FIRST_LEG" in aggregate or "SECOND_LEG" in aggregate
+    ):
+        raise BlockPriorityError(
+            f"{raw.get('match_id')}: regular/group stage conflicts with leg aggregate state"
+        )
+
+    return {
+        "required": True,
+        "verified": True,
+        "structure_kind": kind,
+        "source_tier": source_tier,
+        "evidence_refs": list(dict.fromkeys(normalized)),
+        "basis": basis.strip(),
     }
 
 
@@ -219,6 +380,7 @@ def block_priority_key(
     _validate_prematch_only(raw, label=str(raw.get("match_id") or "raw"))
     _validate_prematch_only(compiled, label=str(compiled.get("match_id") or "compiled"))
     activation = activation_profile(raw)
+    tournament_structure_profile(raw)
     viability = _hard_viability(raw, compiled)
     leakage = _grade(raw, "opponent_leakage")
     continuation = _grade(raw, "continuation_quality")
@@ -258,6 +420,7 @@ def priority_diagnostics(
     compiled: dict[str, Any],
 ) -> dict[str, Any]:
     activation = activation_profile(raw)
+    tournament = tournament_structure_profile(raw)
     viability = _hard_viability(raw, compiled)
     return {
         "policy": POLICY,
@@ -265,6 +428,10 @@ def priority_diagnostics(
         "hard_viability_tier": viability[0],
         "goal3_accessible": bool(viability[1]),
         "activation_quality": activation["activation_quality"],
+        "effective_activation_quality": activation["effective_activation_quality"],
+        "activation_calibration": activation["activation_calibration"],
+        "competition_structure_kind": tournament["structure_kind"],
+        "competition_structure_source_tier": tournament["source_tier"],
         "opponent_leakage": _text(raw.get("opponent_leakage")),
         "continuation_quality": _text(raw.get("continuation_quality")),
         "credible_tail_state": _text(compiled.get("credible_tail_state")),

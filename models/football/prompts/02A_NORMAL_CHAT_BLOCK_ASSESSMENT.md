@@ -25,17 +25,38 @@ popularity, route count or an existing certificate.
 
 ## 2. Equal-depth Football C research
 
-Every credible candidate must reach `ASSESSMENT_DEPTH_V2`.
+Every new candidate from the 2026-11-05 calibration boundary must reach
+`ASSESSMENT_DEPTH_V3`. Historical V1/V2 epochs remain immutable/readable.
 
-V2 retains every V1 football conclusion and additionally freezes:
+V3 retains V2 and additionally freezes structured ignition:
 
 - `activation_quality = LOW | MEDIUM | HIGH`;
-- `activation_basis`; and
-- `activation_evidence_refs` with at least two football sources.
+- `activation_basis` and at least two activation references;
+- `activation_ignition.current_attack_structure`;
+- `activation_ignition.early_chance_creation`;
+- `activation_ignition.early_concession_opening`;
+- `activation_ignition.game_state_force`;
+- `activation_ignition.weaker_side_state_change`;
+- a substantive ignition basis and at least two ignition references.
 
-Activation is prematch football evidence about how readily the fixture can
-become goal-active. It is block-selection-only evidence and cannot create a
-certificate, supported burden or priced action.
+A declared HIGH activation requires at least two HIGH ignition signals, including
+HIGH early chance creation or HIGH early-concession/opening evidence, with at
+least MEDIUM current attack structure. Recent 3+/4+ scorelines or tournament
+urgency alone cannot create HIGH activation.
+
+Every fixture with mandatory tournament incentive must also freeze:
+
+- `competition_structure_kind`;
+- `competition_structure_basis`;
+- `competition_structure_source_tier = OFFICIAL_COMPETITION | PRIMARY_ORGANIZER`;
+- `competition_structure_evidence_refs`.
+
+Knockout legs, aggregate state, draw utility and stage must be internally
+consistent. Missing official/primary format proof is a research blocker, not a
+normal football verdict.
+
+Activation remains selection-only evidence and cannot create a certificate,
+supported burden or priced action.
 
 Research incompleteness is not a football PASS.
 
