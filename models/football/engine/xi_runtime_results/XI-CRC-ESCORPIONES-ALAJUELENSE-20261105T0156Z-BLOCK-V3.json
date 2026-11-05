@@ -1,0 +1,11 @@
+{
+  "error": "missing required field: material_event_since_frozen",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "de1d80fd437f62a3fb123706216f31c2293436bc6f05e0078d020640593aed7d",
+  "ok": false,
+  "request_id": "XI-CRC-ESCORPIONES-ALAJUELENSE-20261105T0156Z-BLOCK-V3",
+  "runtime_commit": "12d02f23e54049990bdf0c4027c33d67c7292f3c",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
