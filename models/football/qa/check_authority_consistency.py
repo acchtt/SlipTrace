@@ -154,7 +154,7 @@ require(
     "ASSESSMENT_DEPTH_V3",
     "activation_quality",
     "activation_ignition",
-    "competition_structure_kind",
+    "tournament_structure_profile",
     "ASSESSMENT_RESEARCH_INCOMPLETE",
     "stall_0_0",
     "stall_1_1",
