@@ -1,0 +1,729 @@
+{
+  "authority": {
+    "assessment_depth": {
+      "activation": {
+        "basis": "Lion City's attack is currently strong and Adelaide have incentive to respond, but the exact reverse remaining 0-0 until 80 minutes blocks a HIGH ignition label.",
+        "block_selection_only": true,
+        "calibration": "DECLARED_GRADE_ACCEPTED",
+        "certificate_authority": false,
+        "effective_quality": "MEDIUM",
+        "evidence_refs": [
+          "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+          "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+        ],
+        "ignition": {
+          "current_attack_structure": 2,
+          "early_chance_creation": 1,
+          "early_concession_opening": 1,
+          "game_state_force": 2,
+          "weaker_side_state_change": 1
+        },
+        "ignition_evidence_refs": [
+          "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+          "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+        ],
+        "price_execution_authority": false,
+        "quality": "MEDIUM",
+        "tournament_structure": {
+          "basis": "Official AFC 2026/27 competition regulations define four-team home-and-away groups and group-ranking rules, with the top two progressing to the Round of 16.",
+          "evidence_refs": [
+            "https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf"
+          ],
+          "required": true,
+          "source_tier": "OFFICIAL_COMPETITION",
+          "structure_kind": "GROUP_STAGE",
+          "verified": true
+        }
+      },
+      "assessment_at_utc": "2026-11-05T09:40:00+00:00",
+      "checks": [
+        "availability_replacements",
+        "carrier_capacity",
+        "continuation_2_0",
+        "current_chance_creation",
+        "goal3_mechanism",
+        "goal4_mechanism",
+        "h2h_transferability",
+        "match_context",
+        "named_failure_mechanism",
+        "opponent_leakage",
+        "primary_scoring_route",
+        "secondary_reply_route",
+        "stall_0_0",
+        "stall_1_1",
+        "supported_burden_basis",
+        "tournament_incentive"
+      ],
+      "completed": true,
+      "contract": "ASSESSMENT_DEPTH_V3",
+      "evidence_epoch_id": "DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+      "evidence_ref_count": 3,
+      "market_independent": true,
+      "required": true
+    },
+    "direct_research": {
+      "challenge_reason": null,
+      "checked_fields": [
+        "availability_and_replacements",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "competition_format_incentive",
+        "completion_continuation_stall",
+        "failure_mechanisms",
+        "fixture_identity_status",
+        "g4_research_if_g3_funded",
+        "h2h_materiality",
+        "home_scoring_route",
+        "rivalry_rest_travel_fatigue_context",
+        "upper_tail_and_comparable_context"
+      ],
+      "evidence_ref_count": 3,
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+      "researched_at_utc": "2026-11-05T09:40:00+00:00",
+      "revision": "INITIAL",
+      "source_reference": "DIRECT-AFC2-LION-ADELAIDE-20261105-V4",
+      "state_change_basis": null,
+      "state_change_fields": [],
+      "state_change_status": null,
+      "supersedes_evidence_epoch_id": null,
+      "supersedes_exception_reference": null,
+      "upstream_state": "NOT_RANKED"
+    },
+    "mode": "DIRECT",
+    "rank_state_display": "DIRECT",
+    "rank_state_internal": null,
+    "reference": "DIRECT-AFC2-LION-ADELAIDE-20261105-V4",
+    "user_requested_direct_xi": true
+  },
+  "input_sha256": "94c3410ff9d88a6b6e0b7f8bc758193ab7a411902badf7ada62ab69934bfedcf",
+  "ok": true,
+  "request_id": "XI-DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+  "runtime": {
+    "calibration_record": {
+      "automatic_threshold_learning": false,
+      "certified_burden": 2.5,
+      "compiled_board_state": "FOCUS",
+      "control_review": false,
+      "credible_tail_state": "MIXED",
+      "current_rank": null,
+      "decision": "PASS",
+      "direct_act_ceiling": 2.5,
+      "entry_feasibility_basis": "football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy",
+      "entry_feasibility_state": "PHANTOM_FLOOR",
+      "evidence_epoch": "DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+      "exception_flag": false,
+      "follow_lane": null,
+      "g3_endpoint_pressure": "MODERATE",
+      "goal3_funded": true,
+      "goal3_mechanism_class": "CARRIER",
+      "goal4_funded": false,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "goal_screen_state": null,
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "match_id": "AFC2-GF-20261105-LCS-ADE",
+      "pass_had_lower_supported_visible_line": false,
+      "rank": null,
+      "rank_scope": null,
+      "researcher_declared_board_state": "FOCUS",
+      "robustness": "FRAGILE",
+      "schema_version": "football-c-calibration-v1",
+      "screenshot_visible_ladder": [
+        {
+          "line": 3.25,
+          "odds": 1.89
+        }
+      ],
+      "selected_evaluated_line": 3.25,
+      "selected_evaluated_odds": 1.89,
+      "selection_authority": "ZERO",
+      "slate_rank": null,
+      "slate_rank_status": null,
+      "sweep_state": null,
+      "upper_tail_pressure": "MODERATE"
+    },
+    "decision_state_persistence": {
+      "key_column": "Assessment ID",
+      "missing_persistence_inputs": [],
+      "persistence_input_complete": true,
+      "publication_authorized_before_readback": false,
+      "publication_fail_closed": true,
+      "readback_assertions": [
+        "Assessment ID",
+        "Evidence Epoch ID",
+        "XI Assessment Execution Status",
+        "C Action",
+        "C Supported Line",
+        "Evaluated Line",
+        "Evaluated Odds",
+        "Engine C Result",
+        "Engine Source Revision"
+      ],
+      "readback_required": true,
+      "required": true,
+      "row": {
+        "Assessment At UTC": "2026-11-05T09:40:00+00:00",
+        "Assessment ID": "XI-C-DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+        "C Action": "OBSERVED_PASS_NON_EXECUTABLE",
+        "C Board State": "FOCUS",
+        "C Supported Line": 2.5,
+        "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"MIXED\",\"current_rank\":null,\"decision\":\"PASS\",\"direct_act_ceiling\":2.5,\"entry_feasibility_basis\":\"football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy\",\"entry_feasibility_state\":\"PHANTOM_FLOOR\",\"evidence_epoch\":\"DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"AFC2-GF-20261105-LCS-ADE\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"FRAGILE\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.25,\"odds\":1.89}],\"selected_evaluated_line\":3.25,\"selected_evaluated_odds\":1.89,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"price_check\":{\"bet_authorized\":false,\"evidence\":{\"assessment_at_utc\":\"2026-11-05T09:40:00+00:00\",\"bookmaker\":\"User-displayed bookmaker\",\"capture_reference\":\"USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817\",\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"UNQUOTED_CUSTOM_LINE_REVIEW\",\"user_bookmaker_custom_line_supported\":false},\"external_price_searches\":0,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"match_id\":\"AFC2-GF-20261105-LCS-ADE\",\"match_minute\":null,\"observation_age_seconds\":0.0,\"observed_at_utc\":\"2026-11-05T09:40:00+00:00\",\"price_evidence_mode\":\"USER_SCREENSHOT_ONLY\",\"quote\":{\"line\":3.25,\"odds\":1.89},\"replacement_quotes\":0,\"score\":null,\"source\":\"USER_SCREENSHOT\",\"visible_ladder\":[{\"line\":3.25,\"odds\":1.89}]},\"execution_authorized\":false,\"limitations\":[\"SCREENSHOT_NOT_EXECUTION_EVIDENCE\"],\"model\":{\"book_min_odds\":null,\"book_order_is_exposure\":false,\"book_target_line\":null,\"book_target_state\":\"NO_BOOK_TARGET\",\"bridge_used\":false,\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"MIXED\",\"current_rank\":null,\"decision\":\"PASS\",\"direct_act_ceiling\":2.5,\"entry_feasibility_basis\":\"football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy\",\"entry_feasibility_state\":\"PHANTOM_FLOOR\",\"evidence_epoch\":\"DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"AFC2-GF-20261105-LCS-ADE\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"FRAGILE\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.25,\"odds\":1.89}],\"selected_evaluated_line\":3.25,\"selected_evaluated_odds\":1.89,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"certificate_completeness_recheck_required\":false,\"conditional_action\":\"PASS\",\"current_price_clears_book_target\":false,\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"UNQUOTED_CUSTOM_LINE_REVIEW\",\"user_bookmaker_custom_line_supported\":false},\"entry_feasibility_basis\":\"football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy\",\"entry_feasibility_state\":\"PHANTOM_FLOOR\",\"execution_authorized\":false,\"frozen_board_g4_research_status\":\"LEGACY_UNKNOWN\",\"goal3_mechanism_class\":\"CARRIER\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"market_disagreement_gap_goals\":0.75,\"market_disagreement_recheck_basis\":\"The visible O3.25 burden sits materially above the researched G3 certificate, so the carrier, reply, continuation and G4 transferability were rechecked without using the market as football evidence.\",\"market_disagreement_recheck_completed\":true,\"market_disagreement_recheck_evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"market_disagreement_recheck_fields\":[\"route_reliability\",\"chance_quality\",\"burden_completion_quality\",\"continuation_quality\",\"independent_upper_tail\",\"upper_tail_transferability\",\"upper_tail_comparable_context_signal\",\"g4_research_status\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"market_disagreement_recheck_missing_fields\":[],\"market_disagreement_recheck_required\":true,\"pass_had_lower_supported_visible_line\":false,\"prior_certificate_reclassification_recheck_required\":false,\"reason\":\"C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears\",\"selected_visible_line\":3.25,\"selected_visible_odds\":1.89,\"snapshot_line_relation\":\"ABOVE_SUPPORTED_BURDEN\",\"supported_line\":2.5,\"supported_visible_line_found\":false,\"visible_ladder_evaluations\":[{\"action\":\"PASS\",\"direct_act_ceiling\":2.5,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.25,\"line_relation\":\"ABOVE_SUPPORTED_BURDEN\",\"odds\":1.89,\"reason\":\"C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears\"}],\"visible_ladder_selection_basis\":\"NO_SUPPORTED_VISIBLE_LINE_LOWEST_VISIBLE_DIAGNOSTIC\",\"wait_min_odds\":null,\"wait_reachability_basis\":null,\"wait_reachable\":false,\"wait_target_line\":null},\"model_bets_created\":false,\"ok\":true,\"priced_publication_authorized\":false,\"quote_research_required\":false,\"status\":\"OBSERVED_QUOTE_EVALUATED\"},\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"WIN_PREFERRED\",\"away_route\":\"USABLE\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":true,\"certificate_robustness\":\"FRAGILE\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":false,\"tournament_tail_bias\":\"MIXED\"},\"certified_supported_burden\":2.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"MEDIUM\",\"credible_burden_band_high\":3.0,\"credible_burden_band_low\":2.5,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G4_MIXED_PREMARKET: credible upper-tail evidence exists but lacks the protected carrier/distributed shape for NEAR_FUNDED\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"MIXED\",\"credible_tail_target_goal\":4,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Current market-independent evidence supports G3 through Lion City's carrier; G4 is explicitly rejected by the same-competition tempo and continuation review.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":2.5,\"declared_supported_line_basis\":\"Research declaration only: Lion City's carrier and Adelaide leakage support G3, while the reverse fixture's late ignition blocks a protected G4; the deterministic compiler owns the burden.\",\"direct_act_ceiling\":2.5,\"effective_burden_stall_risk\":\"MEDIUM\",\"effective_continuation_quality\":\"MEDIUM\",\"effective_upper_tail_transferability\":\"MEDIUM\",\"endpoint_control_pressure\":\"MODERATE\",\"execution_strength\":\"FRAGILE\",\"failure_mechanisms\":{\"LION_ADELAIDE_LATE_OPEN_CONTROL\":{\"affected_paths\":[\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"The exact reverse remained 0-0 until the 80th minute and finished 2-0, showing that Lion City control can coexist with delayed conversion and a weak Adelaide reply.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":2.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=CARRIER_G3,LEAKAGE_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=MIXED\",\"frozen_supported_line_funding\":true,\"g3_current_structure_basis\":\"Current evidence verifies a STRONG Lion City primary route and a USABLE Adelaide reply, while Adelaide's defensive leakage keeps a third-goal path live.\",\"g3_current_structure_source_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"g3_current_structure_verified\":true,\"g3_endpoint_control_pressure\":\"MODERATE\",\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_distributed_path\":\"FAILED\",\"g4_evidence_disposition\":\"MIXED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Lion City have enough current attack to threaten a third or fourth themselves, but the exact reverse does not make the fourth carrier goal dependable.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"]},\"g4_distributed_path\":{\"basis\":\"Adelaide retain a reply route, but current same-competition evidence does not reliably establish a protected 3+1 or 2+2 distribution.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"g4_reply_path\":{\"basis\":\"Adelaide can contribute, but the reverse blank and delayed opening make a post-third reply too uncertain to fund G4.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"Lion City can self-fund G3, but the exact reverse's delayed opening plus only MEDIUM transferable upper-tail evidence do not protect a fourth total goal.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":true,\"goal3_distributed_funded\":false,\"goal3_funded\":true,\"goal3_leakage_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal3_two_route_funded\":false,\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 0-0, 1-1 and 2-0 stopping states were explicitly reviewed before pricing.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"continuation_quality\":{\"basis\":\"Continuation after the third goal was assessed separately from the first-goal route and from market prices.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"failure_resistance\":{\"basis\":\"Failure resistance reflects whether the primary scoring route survives weak contribution from the secondary side.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"independent_upper_tail\":{\"basis\":\"The fourth-goal tail was assessed independently and is not inferred from the visible bookmaker total.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"route_reliability\":{\"basis\":\"Current route reliability was rechecked using same-competition and current team evidence.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]}},\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"MIXED\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_context_basis\":\"Adelaide's continental travel and group need are relevant, but there is no verified fatigue signal; the exact reverse's slow opening remains the main control caution.\",\"match_context_effect\":\"MIXED\",\"match_context_positive_pressure\":false,\"match_context_review_status\":\"VERIFIED_MATERIAL\",\"match_context_suppressive_pressure\":false,\"match_id\":\"AFC2-GF-20261105-LCS-ADE\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"OFFICIAL_TOURNAMENT_FORMAT_INCENTIVES_REQUIRED\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":2.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{\"LION_ADELAIDE_LATE_OPEN_CONTROL\":[\"burden_stall_risk\",\"continuation_quality\",\"failure_resistance\",\"g4_distributed_path\",\"g4_reply_path\",\"independent_upper_tail\",\"route_reliability\"]},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_incentive_effect\":\"MIXED\",\"tournament_incentive_required\":true,\"tournament_incentive_resolution\":\"VERIFIED\",\"tournament_positive_pressure\":false,\"tournament_suppressive_pressure\":false,\"tournament_tail_bias\":\"MIXED\",\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"The closest comparable context is suppressive in timing, while broader current scoring form is more expansive; the fourth-goal evidence is therefore mixed.\",\"upper_tail_comparable_context_signal\":\"MIXED\",\"upper_tail_control_pressure\":\"MODERATE\",\"upper_tail_strength\":\"WEAK\",\"upper_tail_transferability\":\"MEDIUM\",\"upper_tail_transferability_basis\":\"Current domestic leakage is relevant but only partly transfers to a controlled continental rematch that remained scoreless for 79 minutes.\",\"wait_authorized\":false},\"xi_mode\":\"FOOTBALL_AND_OBSERVED_QUOTE\"}",
+        "Engine Source Revision": "03511370df0a24b5481f97c249718b4ddc05decc",
+        "Evaluated Line": 3.25,
+        "Evaluated Odds": 1.89,
+        "Evidence Epoch ID": "DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+        "Fixture Status": "PREMATCH_CONFIRMED",
+        "Match ID": "AFC2-GF-20261105-LCS-ADE",
+        "Match Minute": null,
+        "Payload JSON": "{\"assessment_depth\":{\"assessed_at_utc\":\"2026-11-05T09:40:00+00:00\",\"checks\":{\"availability_replacements\":\"Confirmed XI is not independently verified yet; current last-known structures preserve the primary Lion City route without assuming unverified starters.\",\"carrier_capacity\":\"Lion City's carrier is STRONG and can self-fund three, but current evidence does not safely extend that assumption to four.\",\"continuation_2_0\":\"At 2-0 continuation is only MEDIUM because Lion City can protect the result and Adelaide were unable to reply in the reverse.\",\"current_chance_creation\":\"Current Lion City structure supports HIGH chance quality, while the exact reverse warns that creation may convert late rather than immediately.\",\"goal3_mechanism\":\"Goal three is funded by the Lion City carrier and Adelaide defensive leakage without requiring a strong Adelaide scoring contribution.\",\"goal4_mechanism\":\"Goal four is explicitly rejected because same-competition timing and reply evidence do not protect continuation beyond the third goal.\",\"h2h_transferability\":\"The one-week-old reverse is directly comparable and is used primarily as tempo and continuation evidence rather than an automatic total prediction.\",\"match_context\":\"Adelaide travel was checked, but no verified fatigue signal overrides the stronger same-competition tempo evidence.\",\"named_failure_mechanism\":\"The main failure mechanism is delayed conversion under Lion City control, producing a 1-0 or 2-0 endpoint despite territorial superiority.\",\"opponent_leakage\":\"Adelaide's current defensive profile provides HIGH leakage for G3, but that leakage is not enough by itself to certify a fourth goal.\",\"primary_scoring_route\":\"Lion City carry a STRONG current scoring route and remain the most reliable source of goals in the matchup.\",\"secondary_reply_route\":\"Adelaide retain a USABLE reply route from earlier ACL2 scoring, but the reverse fixture showed that contribution can disappear.\",\"stall_0_0\":\"The reverse match stayed 0-0 until the 80th minute, making an extended scoreless phase a real control risk despite Lion City's current form.\",\"stall_1_1\":\"At 1-1 Lion City's stronger carrier keeps the third goal live, but the match can still settle into controlled possession rather than opening fully.\",\"supported_burden_basis\":\"The football case protects G3/O2.50, while G4 is explicitly rejected; the visible O3.25 price cannot manufacture a higher certificate.\",\"tournament_incentive\":\"Official AFC group format and the current 7-6-4-0 table create meaningful points pressure, but Lion City retain more draw utility than Adelaide.\"},\"completed\":true,\"contract\":\"ASSESSMENT_DEPTH_V3\",\"evidence_epoch_id\":\"DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"market_independent\":true},\"context\":{\"assessment_at_utc\":\"2026-11-05T09:40:00+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"DIRECT /xi has no prior valid block or rank certificate; the current deterministic Football C compiler owns the certificate.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NO_FROZEN_BOARD\",\"direct_request\":true,\"direct_research_completed\":true,\"direct_research_epoch_id\":\"DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4\",\"direct_revision\":\"INITIAL\",\"direct_upstream_state\":\"NOT_RANKED\",\"exception_flag\":false,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":false,\"frozen_board_certified_burden\":null,\"market_disagreement_recheck_basis\":\"The visible O3.25 burden sits materially above the researched G3 certificate, so the carrier, reply, continuation and G4 transferability were rechecked without using the market as football evidence.\",\"market_disagreement_recheck_evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"market_disagreement_recheck_fields\":[\"route_reliability\",\"chance_quality\",\"burden_completion_quality\",\"continuation_quality\",\"independent_upper_tail\",\"upper_tail_transferability\",\"upper_tail_comparable_context_signal\",\"g4_research_status\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"market_disagreement_recheck_status\":\"COMPLETED\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\"},\"evidence_epoch_id\":\"DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4\",\"match\":{\"activation_basis\":\"Lion City's attack is currently strong and Adelaide have incentive to respond, but the exact reverse remaining 0-0 until 80 minutes blocks a HIGH ignition label.\",\"activation_evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"activation_ignition\":{\"basis\":\"Current attacking structure is strong, but same-opponent evidence shows delayed conversion rather than a reliably fast opening.\",\"current_attack_structure\":\"HIGH\",\"early_chance_creation\":\"MEDIUM\",\"early_concession_opening\":\"MEDIUM\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"game_state_force\":\"HIGH\",\"weaker_side_state_change\":\"MEDIUM\"},\"activation_quality\":\"MEDIUM\",\"aggregate_state\":\"SINGLE_GROUP_MATCH_NO_AGGREGATE\",\"away\":\"Adelaide United\",\"away_incentive\":\"WIN_PREFERRED\",\"away_route\":\"USABLE\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Current market-independent evidence supports G3 through Lion City's carrier; G4 is explicitly rejected by the same-competition tempo and continuation review.\",\"burden_completion_quality\":\"HIGH\",\"burden_protection\":\"MEDIUM\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"carrier_self_fund\":true,\"carrier_self_fund_basis\":\"Lion City have repeatedly produced multiple goals recently and scored twice away against Adelaide, giving the home carrier a credible three-goal self-funding path even without relying on Adelaide.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"Lion City have a strong current scoring run and beat Adelaide 2-0 in the reverse fixture one week ago. Adelaide have shown a usable ACL2 reply route in earlier group matches but have also conceded repeatedly. The exact reverse remained 0-0 until the 80th minute, which is a material tempo warning.\",\"competition\":\"AFC Champions League Two\",\"competition_format\":\"Four-team home-and-away group stage; each club plays six group matches and the top two progress to the Round of 16.\",\"competition_kind\":\"CONTINENTAL\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"Current AFC group state, exact reverse fixture and current team-form evidence are source-backed; no popularity prior is used.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"GROUP_STAGE_MATCHDAY_4_OF_6\",\"competition_structure_basis\":\"Official AFC 2026/27 competition regulations define four-team home-and-away groups and group-ranking rules, with the top two progressing to the Round of 16.\",\"competition_structure_evidence_refs\":[\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"competition_structure_kind\":\"GROUP_STAGE\",\"competition_structure_source_tier\":\"OFFICIAL_COMPETITION\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"MEDIUM\",\"country\":\"Singapore\",\"demoted_probation\":false,\"draw_resolution\":\"A group-stage draw stands after 90 minutes.\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"The main failure is delayed conversion and game control, not destruction of Lion City's primary scoring route.\",\"failure_mechanisms\":{\"LION_ADELAIDE_LATE_OPEN_CONTROL\":{\"affected_paths\":[\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"The exact reverse remained 0-0 until the 80th minute and finished 2-0, showing that Lion City control can coexist with delayed conversion and a weak Adelaide reply.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"g3_current_structure_basis\":\"Current evidence verifies a STRONG Lion City primary route and a USABLE Adelaide reply, while Adelaide's defensive leakage keeps a third-goal path live.\",\"g3_current_structure_source_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"g3_current_structure_verified\":true,\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_distributed_path\":\"FAILED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Lion City have enough current attack to threaten a third or fourth themselves, but the exact reverse does not make the fourth carrier goal dependable.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"]},\"g4_distributed_path\":{\"basis\":\"Adelaide retain a reply route, but current same-competition evidence does not reliably establish a protected 3+1 or 2+2 distribution.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"g4_reply_path\":{\"basis\":\"Adelaide can contribute, but the reverse blank and delayed opening make a post-third reply too uncertain to fund G4.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"Lion City can self-fund G3, but the exact reverse's delayed opening plus only MEDIUM transferable upper-tail evidence do not protect a fourth total goal.\",\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"goal_signal_low_draw_trap_rate\":0.14,\"goal_signal_mean_over_three_rate\":0.3,\"goal_signal_mean_over_two_rate\":0.6,\"goal_signal_priority_score\":71,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 0-0, 1-1 and 2-0 stopping states were explicitly reviewed before pricing.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"continuation_quality\":{\"basis\":\"Continuation after the third goal was assessed separately from the first-goal route and from market prices.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"failure_resistance\":{\"basis\":\"Failure resistance reflects whether the primary scoring route survives weak contribution from the secondary side.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"independent_upper_tail\":{\"basis\":\"The fourth-goal tail was assessed independently and is not inferred from the visible bookmaker total.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"route_reliability\":{\"basis\":\"Current route reliability was rechecked using same-competition and current team evidence.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]}},\"h2h_basis\":\"The reverse fixture is highly transferable current evidence, but it is used to calibrate tempo and route strength rather than as a standalone H2H verdict.\",\"h2h_current_corroboration\":\"VERIFIED\",\"h2h_effect\":\"NOT_MATERIAL\",\"h2h_material_effect\":false,\"h2h_state\":\"CURRENT_COMPETITION_REVIEWED\",\"h2h_transferability\":\"VERIFIED\",\"home\":\"Lion City Sailors\",\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"MIXED\",\"independent_route_quality\":\"MEDIUM\",\"independent_upper_tail\":true,\"independent_upper_tail_basis\":\"Adelaide's recent defensive leakage leaves a possible fourth goal, but the exact reverse fixture stayed closed until 80 minutes, so the tail is not independently protected.\",\"kickoff_ict\":\"2026-11-05T17:00:00+07:00\",\"main_failure\":\"The exact reverse was scoreless for 79 minutes; Lion City can control territory without converting early, leaving 1-0 or 2-0 as credible stopping states.\",\"market_observability\":\"HIGH\",\"match_context_basis\":\"Adelaide's continental travel and group need are relevant, but there is no verified fatigue signal; the exact reverse's slow opening remains the main control caution.\",\"match_context_effect\":\"MIXED\",\"match_context_evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"match_context_review_status\":\"VERIFIED_MATERIAL\",\"match_id\":\"AFC2-GF-20261105-LCS-ADE\",\"material_suppression\":false,\"material_suppression_basis\":\"No verified evidence removes Lion City's scoring route; suppression is limited to tempo and fourth-goal continuation.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"Current group context, exact reverse fixture and last-known starting structures are available; confirmed lineups are not independently verified at this freeze.\",\"opponent_leakage\":\"HIGH\",\"qualification_state\":\"Lion City lead Group F on seven points, Adelaide are second on six, BG Pathum third on four and Tai Po fourth on zero. Both sides have meaningful top-two incentive, while a draw carries more utility for Lion City.\",\"raw_operational_viability_grade\":\"A\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"simultaneous_results_note\":\"The other match in the same four-team group remains relevant to qualification, but this fixture has no knockout aggregate.\",\"simultaneous_results_status\":\"VERIFIED\",\"source_urls\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"supported_line\":2.5,\"supported_line_basis\":\"Research declaration only: Lion City's carrier and Adelaide leakage support G3, while the reverse fixture's late ignition blocks a protected G4; the deterministic compiler owns the burden.\",\"team_news_observability\":\"MEDIUM\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_format_status\":\"VERIFIED\",\"tournament_incentive_required\":true,\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"The closest comparable context is suppressive in timing, while broader current scoring form is more expansive; the fourth-goal evidence is therefore mixed.\",\"upper_tail_comparable_context_signal\":\"MIXED\",\"upper_tail_competition_provenance_basis\":\"The reverse AFC Champions League Two fixture is the primary comparable-context anchor; domestic results are only corroboration.\",\"upper_tail_competition_provenance_verified\":true,\"upper_tail_transferability\":\"MEDIUM\",\"upper_tail_transferability_basis\":\"Current domestic leakage is relevant but only partly transfers to a controlled continental rematch that remained scoreless for 79 minutes.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"MEDIUM\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+        "Persisted At UTC": null,
+        "Publication Key": null,
+        "Published": false,
+        "Score": null,
+        "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_AND_PRICE"
+      },
+      "sheet_name": "Decision States",
+      "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+      "status_before_readback": "DECISION_STATE_PERSISTENCE_REQUIRED",
+      "store": "GOOGLE_SHEETS"
+    },
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "price_check": {
+      "bet_authorized": false,
+      "evidence": {
+        "assessment_at_utc": "2026-11-05T09:40:00+00:00",
+        "bookmaker": "User-displayed bookmaker",
+        "capture_reference": "USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817",
+        "custom_line_review": {
+          "bet_authorized": false,
+          "candidate_line": 2.5,
+          "candidate_odds": null,
+          "execution_authorized": false,
+          "minimum_odds": null,
+          "reason": "Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.",
+          "requires_user_confirmed_quote": true,
+          "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+          "status": "UNQUOTED_CUSTOM_LINE_REVIEW",
+          "user_bookmaker_custom_line_supported": false
+        },
+        "external_price_searches": 0,
+        "fixture_status": "PREMATCH_CONFIRMED",
+        "match_id": "AFC2-GF-20261105-LCS-ADE",
+        "match_minute": null,
+        "observation_age_seconds": 0.0,
+        "observed_at_utc": "2026-11-05T09:40:00+00:00",
+        "price_evidence_mode": "USER_SCREENSHOT_ONLY",
+        "quote": {
+          "line": 3.25,
+          "odds": 1.89
+        },
+        "replacement_quotes": 0,
+        "score": null,
+        "source": "USER_SCREENSHOT",
+        "visible_ladder": [
+          {
+            "line": 3.25,
+            "odds": 1.89
+          }
+        ]
+      },
+      "execution_authorized": false,
+      "limitations": [
+        "SCREENSHOT_NOT_EXECUTION_EVIDENCE"
+      ],
+      "model": {
+        "book_min_odds": null,
+        "book_order_is_exposure": false,
+        "book_target_line": null,
+        "book_target_state": "NO_BOOK_TARGET",
+        "bridge_used": false,
+        "calibration_record": {
+          "automatic_threshold_learning": false,
+          "certified_burden": 2.5,
+          "compiled_board_state": "FOCUS",
+          "control_review": false,
+          "credible_tail_state": "MIXED",
+          "current_rank": null,
+          "decision": "PASS",
+          "direct_act_ceiling": 2.5,
+          "entry_feasibility_basis": "football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy",
+          "entry_feasibility_state": "PHANTOM_FLOOR",
+          "evidence_epoch": "DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+          "exception_flag": false,
+          "follow_lane": null,
+          "g3_endpoint_pressure": "MODERATE",
+          "goal3_funded": true,
+          "goal3_mechanism_class": "CARRIER",
+          "goal4_funded": false,
+          "goal5_funded": false,
+          "goal6_funded": false,
+          "goal_screen_state": null,
+          "intermediate_burden_profile": {
+            "authorized_lines": [],
+            "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+            "eligible": false,
+            "max_direct_line": null
+          },
+          "match_id": "AFC2-GF-20261105-LCS-ADE",
+          "pass_had_lower_supported_visible_line": false,
+          "rank": null,
+          "rank_scope": null,
+          "researcher_declared_board_state": "FOCUS",
+          "robustness": "FRAGILE",
+          "schema_version": "football-c-calibration-v1",
+          "screenshot_visible_ladder": [
+            {
+              "line": 3.25,
+              "odds": 1.89
+            }
+          ],
+          "selected_evaluated_line": 3.25,
+          "selected_evaluated_odds": 1.89,
+          "selection_authority": "ZERO",
+          "slate_rank": null,
+          "slate_rank_status": null,
+          "sweep_state": null,
+          "upper_tail_pressure": "MODERATE"
+        },
+        "certificate_completeness_recheck_required": false,
+        "conditional_action": "PASS",
+        "current_price_clears_book_target": false,
+        "custom_line_review": {
+          "bet_authorized": false,
+          "candidate_line": 2.5,
+          "candidate_odds": null,
+          "execution_authorized": false,
+          "minimum_odds": null,
+          "reason": "Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.",
+          "requires_user_confirmed_quote": true,
+          "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+          "status": "UNQUOTED_CUSTOM_LINE_REVIEW",
+          "user_bookmaker_custom_line_supported": false
+        },
+        "entry_feasibility_basis": "football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy",
+        "entry_feasibility_state": "PHANTOM_FLOOR",
+        "execution_authorized": false,
+        "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+        "goal3_mechanism_class": "CARRIER",
+        "intermediate_burden_profile": {
+          "authorized_lines": [],
+          "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+          "eligible": false,
+          "max_direct_line": null
+        },
+        "market_disagreement_gap_goals": 0.75,
+        "market_disagreement_recheck_basis": "The visible O3.25 burden sits materially above the researched G3 certificate, so the carrier, reply, continuation and G4 transferability were rechecked without using the market as football evidence.",
+        "market_disagreement_recheck_completed": true,
+        "market_disagreement_recheck_evidence_refs": [
+          "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+          "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+        ],
+        "market_disagreement_recheck_fields": [
+          "route_reliability",
+          "chance_quality",
+          "burden_completion_quality",
+          "continuation_quality",
+          "independent_upper_tail",
+          "upper_tail_transferability",
+          "upper_tail_comparable_context_signal",
+          "g4_research_status",
+          "g4_carrier_path",
+          "g4_distributed_path",
+          "g4_reply_path"
+        ],
+        "market_disagreement_recheck_missing_fields": [],
+        "market_disagreement_recheck_required": true,
+        "pass_had_lower_supported_visible_line": false,
+        "prior_certificate_reclassification_recheck_required": false,
+        "reason": "C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears",
+        "selected_visible_line": 3.25,
+        "selected_visible_odds": 1.89,
+        "snapshot_line_relation": "ABOVE_SUPPORTED_BURDEN",
+        "supported_line": 2.5,
+        "supported_visible_line_found": false,
+        "visible_ladder_evaluations": [
+          {
+            "action": "PASS",
+            "direct_act_ceiling": 2.5,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 3.25,
+            "line_relation": "ABOVE_SUPPORTED_BURDEN",
+            "odds": 1.89,
+            "reason": "C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears"
+          }
+        ],
+        "visible_ladder_selection_basis": "NO_SUPPORTED_VISIBLE_LINE_LOWEST_VISIBLE_DIAGNOSTIC",
+        "wait_min_odds": null,
+        "wait_reachability_basis": null,
+        "wait_reachable": false,
+        "wait_target_line": null
+      },
+      "model_bets_created": false,
+      "ok": true,
+      "priced_publication_authorized": false,
+      "quote_research_required": false,
+      "status": "OBSERVED_QUOTE_EVALUATED"
+    },
+    "priced_publication_authorized": false,
+    "publication_blocker": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
+    "quote_research_required": false,
+    "quotes_required": false,
+    "rank_state_display": "FOCUS",
+    "rank_state_internal": "FOCUS",
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "WIN_PREFERRED",
+      "away_route": "USABLE",
+      "bet_authorized": false,
+      "board_state": 2,
+      "board_state_mismatch": false,
+      "burden_completion_quality": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "STRONG",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": true,
+        "certificate_robustness": "FRAGILE",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": false,
+        "tournament_tail_bias": "MIXED"
+      },
+      "certified_supported_burden": 2.5,
+      "chance_quality": "HIGH",
+      "completion_mode": "CARRIER_LED",
+      "continuation_quality": "MEDIUM",
+      "credible_burden_band_high": 3.0,
+      "credible_burden_band_low": 2.5,
+      "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+      "credible_tail_basis": "G4_MIXED_PREMARKET: credible upper-tail evidence exists but lacks the protected carrier/distributed shape for NEAR_FUNDED",
+      "credible_tail_execution_authority": false,
+      "credible_tail_market_independent": true,
+      "credible_tail_state": "MIXED",
+      "credible_tail_target_goal": 4,
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_board_state": "FOCUS",
+      "declared_board_state_basis": "Current market-independent evidence supports G3 through Lion City's carrier; G4 is explicitly rejected by the same-competition tempo and continuation review.",
+      "declared_board_state_source": "board_state",
+      "declared_supported_line": 2.5,
+      "declared_supported_line_basis": "Research declaration only: Lion City's carrier and Adelaide leakage support G3, while the reverse fixture's late ignition blocks a protected G4; the deterministic compiler owns the burden.",
+      "direct_act_ceiling": 2.5,
+      "effective_burden_stall_risk": "MEDIUM",
+      "effective_continuation_quality": "MEDIUM",
+      "effective_upper_tail_transferability": "MEDIUM",
+      "endpoint_control_pressure": "MODERATE",
+      "execution_strength": "FRAGILE",
+      "failure_mechanisms": {
+        "LION_ADELAIDE_LATE_OPEN_CONTROL": {
+          "affected_paths": [
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "The exact reverse remained 0-0 until the 80th minute and finished 2-0, showing that Lion City control can coexist with delayed conversion and a weak Adelaide reply.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT"
+        }
+      },
+      "failure_resistance": "MEDIUM",
+      "fatigue_context": "NONE",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 2.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=CARRIER_G3,LEAKAGE_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=MIXED",
+      "frozen_supported_line_funding": true,
+      "g3_current_structure_basis": "Current evidence verifies a STRONG Lion City primary route and a USABLE Adelaide reply, while Adelaide's defensive leakage keeps a third-goal path live.",
+      "g3_current_structure_source_refs": [
+        "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+      ],
+      "g3_current_structure_verified": true,
+      "g3_endpoint_control_pressure": "MODERATE",
+      "g4_carrier_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_distributed_path": "FAILED",
+      "g4_evidence_disposition": "MIXED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_diagnostic": "MIXED",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Lion City have enough current attack to threaten a third or fourth themselves, but the exact reverse does not make the fourth carrier goal dependable.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Adelaide retain a reply route, but current same-competition evidence does not reliably establish a protected 3+1 or 2+2 distribution.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Adelaide can contribute, but the reverse blank and delayed opening make a post-third reply too uncertain to fund G4.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        }
+      },
+      "g4_reply_path": "FAILED",
+      "g4_research_basis": "Lion City can self-fund G3, but the exact reverse's delayed opening plus only MEDIUM transferable upper-tail evidence do not protect a fourth total goal.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_status_normalized_from_mixed": false,
+      "goal3_carrier_funded": true,
+      "goal3_distributed_funded": false,
+      "goal3_funded": true,
+      "goal3_leakage_funded": true,
+      "goal3_mechanism_class": "CARRIER",
+      "goal3_two_route_funded": false,
+      "goal4_funded": false,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "The 0-0, 1-1 and 2-0 stopping states were explicitly reviewed before pricing.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Continuation after the third goal was assessed separately from the first-goal route and from market prices.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Failure resistance reflects whether the primary scoring route survives weak contribution from the secondary side.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "The fourth-goal tail was assessed independently and is not inferred from the visible bookmaker total.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        },
+        "route_reliability": {
+          "basis": "Current route reliability was rechecked using same-competition and current team evidence.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp"
+          ],
+          "mechanism_ids": [
+            "LION_ADELAIDE_LATE_OPEN_CONTROL"
+          ]
+        }
+      },
+      "home_incentive": "WIN_PREFERRED",
+      "home_route": "STRONG",
+      "incentive_effect": "MIXED",
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_context_basis": "Adelaide's continental travel and group need are relevant, but there is no verified fatigue signal; the exact reverse's slow opening remains the main control caution.",
+      "match_context_effect": "MIXED",
+      "match_context_positive_pressure": false,
+      "match_context_review_status": "VERIFIED_MATERIAL",
+      "match_context_suppressive_pressure": false,
+      "match_id": "AFC2-GF-20261105-LCS-ADE",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": true,
+        "reason": "OFFICIAL_TOURNAMENT_FORMAT_INCENTIVES_REQUIRED",
+        "status": "IN_SCOPE"
+      },
+      "prospective_tail_ceiling": 2.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "rank_state_display": "FOCUS",
+      "rank_state_internal": "FOCUS",
+      "rest_load_context": "BALANCED",
+      "rivalry_context": "NEUTRAL",
+      "route_reliability": "HIGH",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {
+        "LION_ADELAIDE_LATE_OPEN_CONTROL": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "failure_resistance",
+          "g4_distributed_path",
+          "g4_reply_path",
+          "independent_upper_tail",
+          "route_reliability"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "YES",
+      "tournament_incentive_effect": "MIXED",
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_positive_pressure": false,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "MIXED",
+      "travel_load_context": "AWAY_CONTINENTAL",
+      "upper_tail_comparable_context_basis": "The closest comparable context is suppressive in timing, while broader current scoring form is more expansive; the fourth-goal evidence is therefore mixed.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_control_pressure": "MODERATE",
+      "upper_tail_strength": "WEAK",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Current domestic leakage is relevant but only partly transfers to a controlled continental rematch that remained scoreless for 79 minutes.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_AND_OBSERVED_QUOTE"
+  },
+  "runtime_commit": "03511370df0a24b5481f97c249718b4ddc05decc",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "sheets_handoff": {
+    "assessment_id": "XI-C-DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+    "contract": "XI_SHEETS_HANDOFF_V1",
+    "fail_closed_status": "XI_PERSISTENCE_UNAVAILABLE",
+    "github_runtime_result_is_not_sheets_persistence": true,
+    "key_column": "Assessment ID",
+    "orchestrator_required_actions": [
+      "UPSERT_IMMUTABLE_KEY",
+      "STAMP_PERSISTED_AT_UTC",
+      "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
+      "VERIFY_READBACK_ASSERTIONS"
+    ],
+    "readback_assertions": [
+      "Assessment ID",
+      "Evidence Epoch ID",
+      "XI Assessment Execution Status",
+      "C Action",
+      "C Supported Line",
+      "Evaluated Line",
+      "Evaluated Odds",
+      "Engine C Result",
+      "Engine Source Revision"
+    ],
+    "required_before_user_verdict": true,
+    "row": {
+      "Assessment At UTC": "2026-11-05T09:40:00+00:00",
+      "Assessment ID": "XI-C-DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+      "C Action": "OBSERVED_PASS_NON_EXECUTABLE",
+      "C Board State": "FOCUS",
+      "C Supported Line": 2.5,
+      "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"MIXED\",\"current_rank\":null,\"decision\":\"PASS\",\"direct_act_ceiling\":2.5,\"entry_feasibility_basis\":\"football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy\",\"entry_feasibility_state\":\"PHANTOM_FLOOR\",\"evidence_epoch\":\"DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"AFC2-GF-20261105-LCS-ADE\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"FRAGILE\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.25,\"odds\":1.89}],\"selected_evaluated_line\":3.25,\"selected_evaluated_odds\":1.89,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"price_check\":{\"bet_authorized\":false,\"evidence\":{\"assessment_at_utc\":\"2026-11-05T09:40:00+00:00\",\"bookmaker\":\"User-displayed bookmaker\",\"capture_reference\":\"USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817\",\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"UNQUOTED_CUSTOM_LINE_REVIEW\",\"user_bookmaker_custom_line_supported\":false},\"external_price_searches\":0,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"match_id\":\"AFC2-GF-20261105-LCS-ADE\",\"match_minute\":null,\"observation_age_seconds\":0.0,\"observed_at_utc\":\"2026-11-05T09:40:00+00:00\",\"price_evidence_mode\":\"USER_SCREENSHOT_ONLY\",\"quote\":{\"line\":3.25,\"odds\":1.89},\"replacement_quotes\":0,\"score\":null,\"source\":\"USER_SCREENSHOT\",\"visible_ladder\":[{\"line\":3.25,\"odds\":1.89}]},\"execution_authorized\":false,\"limitations\":[\"SCREENSHOT_NOT_EXECUTION_EVIDENCE\"],\"model\":{\"book_min_odds\":null,\"book_order_is_exposure\":false,\"book_target_line\":null,\"book_target_state\":\"NO_BOOK_TARGET\",\"bridge_used\":false,\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"MIXED\",\"current_rank\":null,\"decision\":\"PASS\",\"direct_act_ceiling\":2.5,\"entry_feasibility_basis\":\"football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy\",\"entry_feasibility_state\":\"PHANTOM_FLOOR\",\"evidence_epoch\":\"DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"AFC2-GF-20261105-LCS-ADE\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"FRAGILE\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.25,\"odds\":1.89}],\"selected_evaluated_line\":3.25,\"selected_evaluated_odds\":1.89,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"certificate_completeness_recheck_required\":false,\"conditional_action\":\"PASS\",\"current_price_clears_book_target\":false,\"custom_line_review\":{\"bet_authorized\":false,\"candidate_line\":2.5,\"candidate_odds\":null,\"execution_authorized\":false,\"minimum_odds\":null,\"reason\":\"Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.\",\"requires_user_confirmed_quote\":true,\"source\":\"FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE\",\"status\":\"UNQUOTED_CUSTOM_LINE_REVIEW\",\"user_bookmaker_custom_line_supported\":false},\"entry_feasibility_basis\":\"football direct ceiling is O2.50, but no ACT or authorized custom BOOK target clears current execution policy\",\"entry_feasibility_state\":\"PHANTOM_FLOOR\",\"execution_authorized\":false,\"frozen_board_g4_research_status\":\"LEGACY_UNKNOWN\",\"goal3_mechanism_class\":\"CARRIER\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"market_disagreement_gap_goals\":0.75,\"market_disagreement_recheck_basis\":\"The visible O3.25 burden sits materially above the researched G3 certificate, so the carrier, reply, continuation and G4 transferability were rechecked without using the market as football evidence.\",\"market_disagreement_recheck_completed\":true,\"market_disagreement_recheck_evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"market_disagreement_recheck_fields\":[\"route_reliability\",\"chance_quality\",\"burden_completion_quality\",\"continuation_quality\",\"independent_upper_tail\",\"upper_tail_transferability\",\"upper_tail_comparable_context_signal\",\"g4_research_status\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"market_disagreement_recheck_missing_fields\":[],\"market_disagreement_recheck_required\":true,\"pass_had_lower_supported_visible_line\":false,\"prior_certificate_reclassification_recheck_required\":false,\"reason\":\"C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears\",\"selected_visible_line\":3.25,\"selected_visible_odds\":1.89,\"snapshot_line_relation\":\"ABOVE_SUPPORTED_BURDEN\",\"supported_line\":2.5,\"supported_visible_line_found\":false,\"visible_ladder_evaluations\":[{\"action\":\"PASS\",\"direct_act_ceiling\":2.5,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.25,\"line_relation\":\"ABOVE_SUPPORTED_BURDEN\",\"odds\":1.89,\"reason\":\"C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears\"}],\"visible_ladder_selection_basis\":\"NO_SUPPORTED_VISIBLE_LINE_LOWEST_VISIBLE_DIAGNOSTIC\",\"wait_min_odds\":null,\"wait_reachability_basis\":null,\"wait_reachable\":false,\"wait_target_line\":null},\"model_bets_created\":false,\"ok\":true,\"priced_publication_authorized\":false,\"quote_research_required\":false,\"status\":\"OBSERVED_QUOTE_EVALUATED\"},\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"WIN_PREFERRED\",\"away_route\":\"USABLE\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":true,\"certificate_robustness\":\"FRAGILE\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":false,\"tournament_tail_bias\":\"MIXED\"},\"certified_supported_burden\":2.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"MEDIUM\",\"credible_burden_band_high\":3.0,\"credible_burden_band_low\":2.5,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G4_MIXED_PREMARKET: credible upper-tail evidence exists but lacks the protected carrier/distributed shape for NEAR_FUNDED\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"MIXED\",\"credible_tail_target_goal\":4,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Current market-independent evidence supports G3 through Lion City's carrier; G4 is explicitly rejected by the same-competition tempo and continuation review.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":2.5,\"declared_supported_line_basis\":\"Research declaration only: Lion City's carrier and Adelaide leakage support G3, while the reverse fixture's late ignition blocks a protected G4; the deterministic compiler owns the burden.\",\"direct_act_ceiling\":2.5,\"effective_burden_stall_risk\":\"MEDIUM\",\"effective_continuation_quality\":\"MEDIUM\",\"effective_upper_tail_transferability\":\"MEDIUM\",\"endpoint_control_pressure\":\"MODERATE\",\"execution_strength\":\"FRAGILE\",\"failure_mechanisms\":{\"LION_ADELAIDE_LATE_OPEN_CONTROL\":{\"affected_paths\":[\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"The exact reverse remained 0-0 until the 80th minute and finished 2-0, showing that Lion City control can coexist with delayed conversion and a weak Adelaide reply.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":2.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=CARRIER_G3,LEAKAGE_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=MIXED\",\"frozen_supported_line_funding\":true,\"g3_current_structure_basis\":\"Current evidence verifies a STRONG Lion City primary route and a USABLE Adelaide reply, while Adelaide's defensive leakage keeps a third-goal path live.\",\"g3_current_structure_source_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"g3_current_structure_verified\":true,\"g3_endpoint_control_pressure\":\"MODERATE\",\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_distributed_path\":\"FAILED\",\"g4_evidence_disposition\":\"MIXED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Lion City have enough current attack to threaten a third or fourth themselves, but the exact reverse does not make the fourth carrier goal dependable.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"]},\"g4_distributed_path\":{\"basis\":\"Adelaide retain a reply route, but current same-competition evidence does not reliably establish a protected 3+1 or 2+2 distribution.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"g4_reply_path\":{\"basis\":\"Adelaide can contribute, but the reverse blank and delayed opening make a post-third reply too uncertain to fund G4.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"Lion City can self-fund G3, but the exact reverse's delayed opening plus only MEDIUM transferable upper-tail evidence do not protect a fourth total goal.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":true,\"goal3_distributed_funded\":false,\"goal3_funded\":true,\"goal3_leakage_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal3_two_route_funded\":false,\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 0-0, 1-1 and 2-0 stopping states were explicitly reviewed before pricing.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"continuation_quality\":{\"basis\":\"Continuation after the third goal was assessed separately from the first-goal route and from market prices.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"failure_resistance\":{\"basis\":\"Failure resistance reflects whether the primary scoring route survives weak contribution from the secondary side.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"independent_upper_tail\":{\"basis\":\"The fourth-goal tail was assessed independently and is not inferred from the visible bookmaker total.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"route_reliability\":{\"basis\":\"Current route reliability was rechecked using same-competition and current team evidence.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]}},\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"MIXED\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_context_basis\":\"Adelaide's continental travel and group need are relevant, but there is no verified fatigue signal; the exact reverse's slow opening remains the main control caution.\",\"match_context_effect\":\"MIXED\",\"match_context_positive_pressure\":false,\"match_context_review_status\":\"VERIFIED_MATERIAL\",\"match_context_suppressive_pressure\":false,\"match_id\":\"AFC2-GF-20261105-LCS-ADE\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"OFFICIAL_TOURNAMENT_FORMAT_INCENTIVES_REQUIRED\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":2.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{\"LION_ADELAIDE_LATE_OPEN_CONTROL\":[\"burden_stall_risk\",\"continuation_quality\",\"failure_resistance\",\"g4_distributed_path\",\"g4_reply_path\",\"independent_upper_tail\",\"route_reliability\"]},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_incentive_effect\":\"MIXED\",\"tournament_incentive_required\":true,\"tournament_incentive_resolution\":\"VERIFIED\",\"tournament_positive_pressure\":false,\"tournament_suppressive_pressure\":false,\"tournament_tail_bias\":\"MIXED\",\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"The closest comparable context is suppressive in timing, while broader current scoring form is more expansive; the fourth-goal evidence is therefore mixed.\",\"upper_tail_comparable_context_signal\":\"MIXED\",\"upper_tail_control_pressure\":\"MODERATE\",\"upper_tail_strength\":\"WEAK\",\"upper_tail_transferability\":\"MEDIUM\",\"upper_tail_transferability_basis\":\"Current domestic leakage is relevant but only partly transfers to a controlled continental rematch that remained scoreless for 79 minutes.\",\"wait_authorized\":false},\"xi_mode\":\"FOOTBALL_AND_OBSERVED_QUOTE\"}",
+      "Engine Source Revision": "03511370df0a24b5481f97c249718b4ddc05decc",
+      "Evaluated Line": 3.25,
+      "Evaluated Odds": 1.89,
+      "Evidence Epoch ID": "DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+      "Fixture Status": "PREMATCH_CONFIRMED",
+      "Match ID": "AFC2-GF-20261105-LCS-ADE",
+      "Match Minute": null,
+      "Payload JSON": "{\"assessment_depth\":{\"assessed_at_utc\":\"2026-11-05T09:40:00+00:00\",\"checks\":{\"availability_replacements\":\"Confirmed XI is not independently verified yet; current last-known structures preserve the primary Lion City route without assuming unverified starters.\",\"carrier_capacity\":\"Lion City's carrier is STRONG and can self-fund three, but current evidence does not safely extend that assumption to four.\",\"continuation_2_0\":\"At 2-0 continuation is only MEDIUM because Lion City can protect the result and Adelaide were unable to reply in the reverse.\",\"current_chance_creation\":\"Current Lion City structure supports HIGH chance quality, while the exact reverse warns that creation may convert late rather than immediately.\",\"goal3_mechanism\":\"Goal three is funded by the Lion City carrier and Adelaide defensive leakage without requiring a strong Adelaide scoring contribution.\",\"goal4_mechanism\":\"Goal four is explicitly rejected because same-competition timing and reply evidence do not protect continuation beyond the third goal.\",\"h2h_transferability\":\"The one-week-old reverse is directly comparable and is used primarily as tempo and continuation evidence rather than an automatic total prediction.\",\"match_context\":\"Adelaide travel was checked, but no verified fatigue signal overrides the stronger same-competition tempo evidence.\",\"named_failure_mechanism\":\"The main failure mechanism is delayed conversion under Lion City control, producing a 1-0 or 2-0 endpoint despite territorial superiority.\",\"opponent_leakage\":\"Adelaide's current defensive profile provides HIGH leakage for G3, but that leakage is not enough by itself to certify a fourth goal.\",\"primary_scoring_route\":\"Lion City carry a STRONG current scoring route and remain the most reliable source of goals in the matchup.\",\"secondary_reply_route\":\"Adelaide retain a USABLE reply route from earlier ACL2 scoring, but the reverse fixture showed that contribution can disappear.\",\"stall_0_0\":\"The reverse match stayed 0-0 until the 80th minute, making an extended scoreless phase a real control risk despite Lion City's current form.\",\"stall_1_1\":\"At 1-1 Lion City's stronger carrier keeps the third goal live, but the match can still settle into controlled possession rather than opening fully.\",\"supported_burden_basis\":\"The football case protects G3/O2.50, while G4 is explicitly rejected; the visible O3.25 price cannot manufacture a higher certificate.\",\"tournament_incentive\":\"Official AFC group format and the current 7-6-4-0 table create meaningful points pressure, but Lion City retain more draw utility than Adelaide.\"},\"completed\":true,\"contract\":\"ASSESSMENT_DEPTH_V3\",\"evidence_epoch_id\":\"DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"market_independent\":true},\"context\":{\"assessment_at_utc\":\"2026-11-05T09:40:00+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"DIRECT /xi has no prior valid block or rank certificate; the current deterministic Football C compiler owns the certificate.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NO_FROZEN_BOARD\",\"direct_request\":true,\"direct_research_completed\":true,\"direct_research_epoch_id\":\"DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4\",\"direct_revision\":\"INITIAL\",\"direct_upstream_state\":\"NOT_RANKED\",\"exception_flag\":false,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":false,\"frozen_board_certified_burden\":null,\"market_disagreement_recheck_basis\":\"The visible O3.25 burden sits materially above the researched G3 certificate, so the carrier, reply, continuation and G4 transferability were rechecked without using the market as football evidence.\",\"market_disagreement_recheck_evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"market_disagreement_recheck_fields\":[\"route_reliability\",\"chance_quality\",\"burden_completion_quality\",\"continuation_quality\",\"independent_upper_tail\",\"upper_tail_transferability\",\"upper_tail_comparable_context_signal\",\"g4_research_status\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"market_disagreement_recheck_status\":\"COMPLETED\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\"},\"evidence_epoch_id\":\"DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4\",\"match\":{\"activation_basis\":\"Lion City's attack is currently strong and Adelaide have incentive to respond, but the exact reverse remaining 0-0 until 80 minutes blocks a HIGH ignition label.\",\"activation_evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"activation_ignition\":{\"basis\":\"Current attacking structure is strong, but same-opponent evidence shows delayed conversion rather than a reliably fast opening.\",\"current_attack_structure\":\"HIGH\",\"early_chance_creation\":\"MEDIUM\",\"early_concession_opening\":\"MEDIUM\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"game_state_force\":\"HIGH\",\"weaker_side_state_change\":\"MEDIUM\"},\"activation_quality\":\"MEDIUM\",\"aggregate_state\":\"SINGLE_GROUP_MATCH_NO_AGGREGATE\",\"away\":\"Adelaide United\",\"away_incentive\":\"WIN_PREFERRED\",\"away_route\":\"USABLE\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Current market-independent evidence supports G3 through Lion City's carrier; G4 is explicitly rejected by the same-competition tempo and continuation review.\",\"burden_completion_quality\":\"HIGH\",\"burden_protection\":\"MEDIUM\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"carrier_self_fund\":true,\"carrier_self_fund_basis\":\"Lion City have repeatedly produced multiple goals recently and scored twice away against Adelaide, giving the home carrier a credible three-goal self-funding path even without relying on Adelaide.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"Lion City have a strong current scoring run and beat Adelaide 2-0 in the reverse fixture one week ago. Adelaide have shown a usable ACL2 reply route in earlier group matches but have also conceded repeatedly. The exact reverse remained 0-0 until the 80th minute, which is a material tempo warning.\",\"competition\":\"AFC Champions League Two\",\"competition_format\":\"Four-team home-and-away group stage; each club plays six group matches and the top two progress to the Round of 16.\",\"competition_kind\":\"CONTINENTAL\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"Current AFC group state, exact reverse fixture and current team-form evidence are source-backed; no popularity prior is used.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"GROUP_STAGE_MATCHDAY_4_OF_6\",\"competition_structure_basis\":\"Official AFC 2026/27 competition regulations define four-team home-and-away groups and group-ranking rules, with the top two progressing to the Round of 16.\",\"competition_structure_evidence_refs\":[\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"competition_structure_kind\":\"GROUP_STAGE\",\"competition_structure_source_tier\":\"OFFICIAL_COMPETITION\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"MEDIUM\",\"country\":\"Singapore\",\"demoted_probation\":false,\"draw_resolution\":\"A group-stage draw stands after 90 minutes.\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"The main failure is delayed conversion and game control, not destruction of Lion City's primary scoring route.\",\"failure_mechanisms\":{\"LION_ADELAIDE_LATE_OPEN_CONTROL\":{\"affected_paths\":[\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"The exact reverse remained 0-0 until the 80th minute and finished 2-0, showing that Lion City control can coexist with delayed conversion and a weak Adelaide reply.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"g3_current_structure_basis\":\"Current evidence verifies a STRONG Lion City primary route and a USABLE Adelaide reply, while Adelaide's defensive leakage keeps a third-goal path live.\",\"g3_current_structure_source_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"g3_current_structure_verified\":true,\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_distributed_path\":\"FAILED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Lion City have enough current attack to threaten a third or fourth themselves, but the exact reverse does not make the fourth carrier goal dependable.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"]},\"g4_distributed_path\":{\"basis\":\"Adelaide retain a reply route, but current same-competition evidence does not reliably establish a protected 3+1 or 2+2 distribution.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"g4_reply_path\":{\"basis\":\"Adelaide can contribute, but the reverse blank and delayed opening make a post-third reply too uncertain to fund G4.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"Lion City can self-fund G3, but the exact reverse's delayed opening plus only MEDIUM transferable upper-tail evidence do not protect a fourth total goal.\",\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"goal_signal_low_draw_trap_rate\":0.14,\"goal_signal_mean_over_three_rate\":0.3,\"goal_signal_mean_over_two_rate\":0.6,\"goal_signal_priority_score\":71,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 0-0, 1-1 and 2-0 stopping states were explicitly reviewed before pricing.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"continuation_quality\":{\"basis\":\"Continuation after the third goal was assessed separately from the first-goal route and from market prices.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"failure_resistance\":{\"basis\":\"Failure resistance reflects whether the primary scoring route survives weak contribution from the secondary side.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"independent_upper_tail\":{\"basis\":\"The fourth-goal tail was assessed independently and is not inferred from the visible bookmaker total.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]},\"route_reliability\":{\"basis\":\"Current route reliability was rechecked using same-competition and current team evidence.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"mechanism_ids\":[\"LION_ADELAIDE_LATE_OPEN_CONTROL\"]}},\"h2h_basis\":\"The reverse fixture is highly transferable current evidence, but it is used to calibrate tempo and route strength rather than as a standalone H2H verdict.\",\"h2h_current_corroboration\":\"VERIFIED\",\"h2h_effect\":\"NOT_MATERIAL\",\"h2h_material_effect\":false,\"h2h_state\":\"CURRENT_COMPETITION_REVIEWED\",\"h2h_transferability\":\"VERIFIED\",\"home\":\"Lion City Sailors\",\"home_incentive\":\"WIN_PREFERRED\",\"home_route\":\"STRONG\",\"incentive_effect\":\"MIXED\",\"independent_route_quality\":\"MEDIUM\",\"independent_upper_tail\":true,\"independent_upper_tail_basis\":\"Adelaide's recent defensive leakage leaves a possible fourth goal, but the exact reverse fixture stayed closed until 80 minutes, so the tail is not independently protected.\",\"kickoff_ict\":\"2026-11-05T17:00:00+07:00\",\"main_failure\":\"The exact reverse was scoreless for 79 minutes; Lion City can control territory without converting early, leaving 1-0 or 2-0 as credible stopping states.\",\"market_observability\":\"HIGH\",\"match_context_basis\":\"Adelaide's continental travel and group need are relevant, but there is no verified fatigue signal; the exact reverse's slow opening remains the main control caution.\",\"match_context_effect\":\"MIXED\",\"match_context_evidence_refs\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\"],\"match_context_review_status\":\"VERIFIED_MATERIAL\",\"match_id\":\"AFC2-GF-20261105-LCS-ADE\",\"material_suppression\":false,\"material_suppression_basis\":\"No verified evidence removes Lion City's scoring route; suppression is limited to tempo and fourth-goal continuation.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"Current group context, exact reverse fixture and last-known starting structures are available; confirmed lineups are not independently verified at this freeze.\",\"opponent_leakage\":\"HIGH\",\"qualification_state\":\"Lion City lead Group F on seven points, Adelaide are second on six, BG Pathum third on four and Tai Po fourth on zero. Both sides have meaningful top-two incentive, while a draw carries more utility for Lion City.\",\"raw_operational_viability_grade\":\"A\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"simultaneous_results_note\":\"The other match in the same four-team group remains relevant to qualification, but this fixture has no knockout aggregate.\",\"simultaneous_results_status\":\"VERIFIED\",\"source_urls\":[\"https://www.fotmob.com/matches/adelaide-united-vs-lion-city-sailors-fc/1az9bmp\",\"https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-adelaide-united-fc-aus-0-2-lion-city-sailors-fc-sgp\",\"https://assets.the-afc.com/downloads/tournament-regulations/AFC-Champions-League-Two-2026-27-Competition-Regulations-Jun18upd.pdf\"],\"supported_line\":2.5,\"supported_line_basis\":\"Research declaration only: Lion City's carrier and Adelaide leakage support G3, while the reverse fixture's late ignition blocks a protected G4; the deterministic compiler owns the burden.\",\"team_news_observability\":\"MEDIUM\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_format_status\":\"VERIFIED\",\"tournament_incentive_required\":true,\"travel_load_context\":\"AWAY_CONTINENTAL\",\"upper_tail_comparable_context_basis\":\"The closest comparable context is suppressive in timing, while broader current scoring form is more expansive; the fourth-goal evidence is therefore mixed.\",\"upper_tail_comparable_context_signal\":\"MIXED\",\"upper_tail_competition_provenance_basis\":\"The reverse AFC Champions League Two fixture is the primary comparable-context anchor; domestic results are only corroboration.\",\"upper_tail_competition_provenance_verified\":true,\"upper_tail_transferability\":\"MEDIUM\",\"upper_tail_transferability_basis\":\"Current domestic leakage is relevant but only partly transfers to a controlled continental rematch that remained scoreless for 79 minutes.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"MEDIUM\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+      "Persisted At UTC": null,
+      "Publication Key": null,
+      "Published": false,
+      "Score": null,
+      "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_AND_PRICE"
+    },
+    "sheet_name": "Decision States",
+    "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+    "status": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED"
+  },
+  "xi_assessment_index": {
+    "assessment_at_utc": "2026-11-05T09:40:00+00:00",
+    "assessment_id": "XI-C-DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+    "authority_mode": "DIRECT",
+    "contract": "XI_APPEND_ONLY_EXECUTION_INDEX_V1",
+    "custom_line_review": {
+      "bet_authorized": false,
+      "candidate_line": 2.5,
+      "candidate_odds": null,
+      "execution_authorized": false,
+      "minimum_odds": null,
+      "reason": "Ask for actual offered custom-line odds; do not assume availability or execute from the original screenshot. Preserve score, minute and timestamp for started-fixture exceptions.",
+      "requires_user_confirmed_quote": true,
+      "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+      "status": "UNQUOTED_CUSTOM_LINE_REVIEW",
+      "user_bookmaker_custom_line_supported": false
+    },
+    "decision": "PASS",
+    "decision_state_persistence_required": true,
+    "decision_state_readback_verified": false,
+    "evaluated_line": 3.25,
+    "evaluated_odds": 1.89,
+    "evidence_epoch_id": "DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "match_id": "AFC2-GF-20261105-LCS-ADE",
+    "match_minute": null,
+    "real_bet_fill_verified": false,
+    "request_id": "XI-DIRECT-AFC2-LION-ADELAIDE-20261105T094000Z-V4",
+    "score": null,
+    "screenshot_capture_reference": "USER_ODDS_SCREENSHOT:file_0000000077748211a7542a07327b7817",
+    "screenshot_observed_at_utc": "2026-11-05T09:40:00+00:00",
+    "source": "GITHUB_XI_RUNTIME_RESULT_NOT_ACTUAL_GOOGLE_SHEETS_READBACK",
+    "visible_user_quote_ladder": [
+      {
+        "line": 3.25,
+        "odds": 1.89
+      }
+    ]
+  }
+}
