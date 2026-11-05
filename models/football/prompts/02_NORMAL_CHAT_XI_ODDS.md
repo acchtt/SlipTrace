@@ -222,6 +222,22 @@ football fields. Exception authority never silently promotes WATCH/PASS to FOCUS
 
 Do not replay Step-1 source/status in Step 2.
 
+## V3 post-audit evidence gate
+
+For assessment epochs at or after 2026-11-05 08:15 UTC, /xi requires
+`ASSESSMENT_DEPTH_V3`.
+
+V3 carries forward the block's structured ignition and competition-structure
+proof. If a legacy block receipt lacks those fields, current /xi research may
+supply them as explicit material football updates; do not invent or silently
+infer them. A HIGH activation label that fails the ignition gate is invalid.
+
+If fresh G4 research finishes as `G4_RESEARCH_COMPLETE_REJECTED` (or legacy
+complete-mixed normalized to rejection), the settlement-aware G3 extension is
+capped at **O2.75**. O3.00/O3.25 may not be restored by generic NEAR_FUNDED
+tail evidence after that explicit fourth-goal rejection. O3.50 still requires
+funded G4.
+
 ## Football assessment
 
 Freeze the current factual match state once. Start from the matching rank
