@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_effect='SUPPRESSIVE_TOTAL'; allowed: MIXED, NOT_MATERIAL, OPEN, SUPPRESSIVE, UNAVAILABLE",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "9380880ae32ea80b9b448e74c4dc18e1d5757b1f9cb129163e3b353903869bb1",
+  "ok": false,
+  "request_id": "XI-DIRECT-K2-GIMPO-ANSAN-20261107T071100Z-V1",
+  "runtime_commit": "4b38cc98b57215437bdc9e50128275f14623d596",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
