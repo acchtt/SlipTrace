@@ -1,0 +1,11 @@
+{
+  "error": "missing required field: g4_research_basis",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "308752184aecf2390732c6b72c08264c2b7622a026197be5079e9fd1dd0e72df",
+  "ok": false,
+  "request_id": "XI-DIRECT-K2-GIMPO-ANSAN-20261107T071100Z-V3",
+  "runtime_commit": "4b6be99893050cc3cdba7dbc87712d88fb2e9d65",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
