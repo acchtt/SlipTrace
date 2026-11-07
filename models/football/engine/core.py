@@ -2837,6 +2837,32 @@ def _healthy_wait(ctx: ModelQuoteContext) -> bool:
 
 
 MAX_C_PREGOAL_UNSUPPORTED_WAIT_DROP = 0.25
+MAX_C_PREGOAL_BOOK_DROP = 0.25
+
+
+def _c_book_target_is_pregoal_reachable(
+    ctx: ModelQuoteContext,
+    target_line: float,
+) -> bool:
+    """Require lower-line BOOK targets to be realistically reachable pre-goal.
+
+    A non-visible/custom BOOK target is still a future entry plan. It must not
+    bypass the same line-decay realism that already applies to WAIT simply
+    because the bookmaker can expose alternate totals. If the requested target
+    sits more than one normal Asian-total step (0.25) below the observed line,
+    the target is treated as execution-invalid unless that exact lower line was
+    independently observed/confirmed in a separate price epoch.
+
+    Same-line price-only targets are unaffected here.
+    """
+
+    _validate_quarter_line(target_line)
+    if target_line >= ctx.quote.line - 1e-9:
+        return True
+    return (
+        ctx.quote.line - target_line
+        <= MAX_C_PREGOAL_BOOK_DROP + 1e-9
+    )
 
 
 def _c_wait_target_is_pregoal_reachable(
@@ -3097,9 +3123,21 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
                 same_line_observed
                 and ctx.quote.odds + 1e-9 >= target_min_odds
             )
+            if (
+                not same_line_observed
+                and not _c_book_target_is_pregoal_reachable(ctx, target_line)
+            ):
+                return Decision(
+                    Action.PASS,
+                    (
+                        f"custom BOOK O{target_line:.2f} is {ctx.quote.line - target_line:.2f} "
+                        "goals below the observed burden; more than 0.25 is not a "
+                        "realistically reachable pre-goal line-decay target"
+                    ),
+                )
             if not same_line_observed:
                 reason = (
-                    f"G3 protected certificate remains O2.50; custom non-visible "
+                    f"G3 protected certificate remains O2.50; reachable custom "
                     f"BOOK O{target_line:.2f} @ {target_min_odds:.2f}+ is authorized; "
                     "the visible higher-line odds are not reused for this target; "
                     "PENDING_UNFILLED with zero exposure until the custom fill is confirmed"
@@ -3134,6 +3172,15 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             and custom_target is not None
         ):
             target_line, target_min_odds = custom_target
+            if not _c_book_target_is_pregoal_reachable(ctx, target_line):
+                return Decision(
+                    Action.PASS,
+                    (
+                        f"custom BOOK O{target_line:.2f} is {ctx.quote.line - target_line:.2f} "
+                        "goals below the observed burden; more than 0.25 is not a "
+                        "realistically reachable pre-goal line-decay target"
+                    ),
+                )
             return Decision(
                 Action.BOOK,
                 (
@@ -3194,6 +3241,15 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
         custom_target = c_custom_book_target(a, ctx.board_state)
         if custom_target is not None:
             target_line, target_min_odds = custom_target
+            if not _c_book_target_is_pregoal_reachable(ctx, target_line):
+                return Decision(
+                    Action.PASS,
+                    (
+                        f"visible burden exceeds direct ACT ceiling O{direct_act_ceiling:.2f}; "
+                        f"custom BOOK O{target_line:.2f} is {ctx.quote.line - target_line:.2f} "
+                        "goals lower and is not realistically reachable pre-goal"
+                    ),
+                )
             return Decision(
                 Action.BOOK,
                 (
