@@ -1,0 +1,305 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-DIRECT-EPL-FULHAM-NEWCASTLE-20261107T145700Z-V1",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "DIRECT-EPL-FULHAM-NEWCASTLE-20261107T145700Z-EPOCH-V1",
+    "match": {
+      "country": "England",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-11-07T22:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "Established senior top-flight competition with official fixture, competition-format and current team-news channels.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "evidence_confidence": "HIGH",
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "MATCHWEEK_10_OF_38",
+      "competition_format": "20-team home-and-away league; each club plays 38 matches. Three points for a win, one for a draw; bottom three are relegated.",
+      "draw_resolution": "A regular-season draw stands after 90 minutes.",
+      "aggregate_state": "SINGLE_LEAGUE_MATCH_NO_AGGREGATE",
+      "simultaneous_results_status": "VERIFIED",
+      "simultaneous_results_note": "Normal Matchweek 10 fixture; no final-round simultaneous dependency is required for the current incentive read.",
+      "tiebreak_margin_relevance": "YES",
+      "competition_structure_kind": "LEAGUE_REGULAR",
+      "competition_structure_basis": "Official Premier League format confirms 20 clubs, home-and-away schedule, 38 matches per club and league-table placement.",
+      "competition_structure_source_tier": "OFFICIAL_COMPETITION",
+      "competition_structure_evidence_refs": [
+        "https://www.premierleague.com/en/premier-league-explained"
+      ],
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "incentive_effect": "NEUTRAL",
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BALANCED",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "NEUTRAL",
+      "match_context_basis": "Normal league scheduling with no verified rivalry, rest, travel or fatigue factor strong enough to override the scoring structure.",
+      "match_context_evidence_refs": [
+        "https://www.premierleague.com/en/news/4725574"
+      ],
+      "upper_tail_competition_provenance_verified": true,
+      "match_id": "1793613",
+      "home": "Fulham",
+      "away": "Newcastle United",
+      "operational_viability_reason": "Both starting XIs are available before kickoff; Newcastle's XI is confirmed by the club and Fulham's by current team-sheet reporting.",
+      "source_urls": [
+        "https://publishing-hub-pre-prod.newcastleunited.com/en/news/confirmed-line-up-four-changes-at-fulham",
+        "https://dave.sport/news/fulham-vs-newcastle-line-ups/",
+        "https://staging-aws.sports.yahoo.com/articles/fulham-vs-newcastle-united-match-050000632.html",
+        "https://www.premierleague.com/en/news/4739425/fulham-1-0-hull-city",
+        "https://www.premierleague.com/en/premier-league-explained",
+        "https://www.premierleague.com/en/news/4725574",
+        "GITHUB:block_selection_receipts/BLOCK-20261107-2034-2300.json#1793613"
+      ],
+      "common_evidence_basis": "The lightweight sweep froze only a 37 goal-priority score (40% 3+, 30% 4+, carrier 1.3, reply 1.15) and screened the fixture out. Current XIs add attacking names—Fulham start Bobb, King, Iwobi and Gonzalo while Newcastle start Wissa, Osula, Barnes and Murphy—but Fulham have conceded only three goals in their last six league matches and Newcastle arrive in poor form with midfield disruption. The current structure remains balanced rather than strongly goal-positive.",
+      "home_route": "USABLE",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "HIGH",
+      "main_failure": "Fulham's improved defensive control suppresses Newcastle while Fulham's own striker route remains modest, producing 0-0, 1-0, 1-1 or 2-0.",
+      "h2h_state": "RECENT_SAME_VENUE_REVIEWED",
+      "h2h_effect": "SUPPRESSIVE",
+      "h2h_transferability": "VERIFIED",
+      "h2h_current_corroboration": "VERIFIED",
+      "h2h_material_effect": true,
+      "h2h_basis": "The most recent league meeting at Craven Cottage finished Fulham 2-0 Newcastle, and Fulham's current defensive improvement corroborates that suppressive control mechanism.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only: current football does not independently verify a strong enough G3 route; the deterministic compiler owns the certificate.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Neither side has a current STRONG self-funding three-goal carrier in this matchup.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "Current same-competition evidence and Fulham's defensive form do not independently support a fourth-goal tail.",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "The closest current context is suppressive, not expansive.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_comparable_context_basis": "Fulham's low-concession run and the 2-0 recent same-venue H2H outweigh generic attacking names.",
+      "upper_tail_competition_provenance_basis": "The assessment uses current Premier League form and current lineups.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "The issue is absence of a STRONG scoring route rather than a single route being destroyed.",
+      "material_suppression": false,
+      "material_suppression_basis": "The fixture is not globally vetoed, but the current profile is not strong enough to certify G3.",
+      "goal_signal_priority_score": 37,
+      "goal_signal_mean_over_two_rate": 0.4,
+      "goal_signal_mean_over_three_rate": 0.3,
+      "goal_signal_low_draw_trap_rate": 0.15,
+      "g3_current_structure_verified": false,
+      "qualification_state": "Normal Premier League Matchweek 10. Fulham and Newcastle both need league points but neither has special final-stage or aggregate pressure.",
+      "g4_research_status": "G4_NOT_APPLICABLE",
+      "g4_carrier_path": "NOT_APPLICABLE",
+      "g4_distributed_path": "NOT_APPLICABLE",
+      "g4_reply_path": "NOT_APPLICABLE",
+      "g4_continuation_after_g3": "NOT_APPLICABLE",
+      "g4_research_basis": "G4 research is not applicable because G3 is not independently funded by the current evidence.",
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Both teams have usable attacking personnel, but neither route is currently STRONG in this matchup.",
+          "evidence_refs": [
+            "https://publishing-hub-pre-prod.newcastleunited.com/en/news/confirmed-line-up-four-changes-at-fulham",
+            "https://dave.sport/news/fulham-vs-newcastle-line-ups/",
+            "https://staging-aws.sports.yahoo.com/articles/fulham-vs-newcastle-united-match-050000632.html"
+          ],
+          "mechanism_ids": []
+        },
+        "continuation_quality": {
+          "basis": "Fulham's defensive improvement and recent 2-0 H2H cap continuation at MEDIUM.",
+          "evidence_refs": [
+            "https://staging-aws.sports.yahoo.com/articles/fulham-vs-newcastle-united-match-050000632.html",
+            "https://www.premierleague.com/en/news/4739425/fulham-1-0-hull-city"
+          ],
+          "mechanism_ids": []
+        },
+        "burden_stall_risk": {
+          "basis": "Fulham have conceded only three in six league matches, making low-output control a material current risk.",
+          "evidence_refs": [
+            "https://staging-aws.sports.yahoo.com/articles/fulham-vs-newcastle-united-match-050000632.html",
+            "https://www.premierleague.com/en/news/4739425/fulham-1-0-hull-city"
+          ],
+          "mechanism_ids": []
+        },
+        "failure_resistance": {
+          "basis": "Without a STRONG carrier, G3 is vulnerable to either side failing to contribute.",
+          "evidence_refs": [
+            "https://publishing-hub-pre-prod.newcastleunited.com/en/news/confirmed-line-up-four-changes-at-fulham",
+            "https://staging-aws.sports.yahoo.com/articles/fulham-vs-newcastle-united-match-050000632.html"
+          ],
+          "mechanism_ids": []
+        },
+        "independent_upper_tail": {
+          "basis": "No independent fourth-goal path is supported in the closest current context.",
+          "evidence_refs": [
+            "https://staging-aws.sports.yahoo.com/articles/fulham-vs-newcastle-united-match-050000632.html",
+            "https://www.premierleague.com/en/news/4739425/fulham-1-0-hull-city"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "activation_quality": "MEDIUM",
+      "activation_basis": "Newcastle's confirmed front four is more aggressive than the sweep snapshot, but Fulham's current defensive control prevents a HIGH ignition label.",
+      "activation_evidence_refs": [
+        "https://publishing-hub-pre-prod.newcastleunited.com/en/news/confirmed-line-up-four-changes-at-fulham",
+        "https://dave.sport/news/fulham-vs-newcastle-line-ups/",
+        "https://staging-aws.sports.yahoo.com/articles/fulham-vs-newcastle-united-match-050000632.html"
+      ],
+      "activation_ignition": {
+        "current_attack_structure": "MEDIUM",
+        "early_chance_creation": "MEDIUM",
+        "early_concession_opening": "LOW",
+        "game_state_force": "MEDIUM",
+        "weaker_side_state_change": "MEDIUM",
+        "basis": "Both XIs contain attacking options, but verified early-opening and concession evidence is insufficient for HIGH activation.",
+        "evidence_refs": [
+          "https://publishing-hub-pre-prod.newcastleunited.com/en/news/confirmed-line-up-four-changes-at-fulham",
+          "https://dave.sport/news/fulham-vs-newcastle-line-ups/",
+          "https://staging-aws.sports.yahoo.com/articles/fulham-vs-newcastle-united-match-050000632.html"
+        ]
+      },
+      "board_state": "C-WATCH",
+      "board_state_basis": "Current lineup evidence improves observability but does not create a funded G3 certificate."
+    },
+    "context": {
+      "assessment_at_utc": "2026-11-07T14:57:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-WATCH",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Lightweight /block receipt is selection metadata only; exact-user DIRECT assessment independently compiles the Football C certificate.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "COMPLETED",
+      "market_disagreement_recheck_basis": "Football evidence was frozen independently before comparing the user screenshot burden.",
+      "market_disagreement_recheck_fields": [
+        "route_reliability",
+        "chance_quality",
+        "burden_completion_quality",
+        "continuation_quality",
+        "independent_upper_tail",
+        "upper_tail_transferability",
+        "upper_tail_comparable_context_signal"
+      ],
+      "market_disagreement_recheck_evidence_refs": [
+        "https://publishing-hub-pre-prod.newcastleunited.com/en/news/confirmed-line-up-four-changes-at-fulham",
+        "https://dave.sport/news/fulham-vs-newcastle-line-ups/",
+        "https://staging-aws.sports.yahoo.com/articles/fulham-vs-newcastle-united-match-050000632.html",
+        "https://www.premierleague.com/en/news/4739425/fulham-1-0-hull-city",
+        "https://www.premierleague.com/en/premier-league-explained",
+        "https://www.premierleague.com/en/news/4725574",
+        "GITHUB:block_selection_receipts/BLOCK-20261107-2034-2300.json#1793613"
+      ]
+    },
+    "assessment_depth": {
+      "contract": "ASSESSMENT_DEPTH_V3",
+      "completed": true,
+      "market_independent": true,
+      "evidence_epoch_id": "DIRECT-EPL-FULHAM-NEWCASTLE-20261107T145700Z-EPOCH-V1",
+      "assessed_at_utc": "2026-11-07T14:57:00+00:00",
+      "evidence_refs": [
+        "https://publishing-hub-pre-prod.newcastleunited.com/en/news/confirmed-line-up-four-changes-at-fulham",
+        "https://dave.sport/news/fulham-vs-newcastle-line-ups/",
+        "https://staging-aws.sports.yahoo.com/articles/fulham-vs-newcastle-united-match-050000632.html",
+        "https://www.premierleague.com/en/news/4739425/fulham-1-0-hull-city",
+        "https://www.premierleague.com/en/premier-league-explained",
+        "https://www.premierleague.com/en/news/4725574",
+        "GITHUB:block_selection_receipts/BLOCK-20261107-2034-2300.json#1793613"
+      ],
+      "checks": {
+        "primary_scoring_route": "Fulham's Bobb/King/Iwobi/Gonzalo unit is USABLE but not STRONG on current conversion evidence.",
+        "secondary_reply_route": "Newcastle start Wissa, Osula, Barnes and Murphy, but recent form and midfield disruption keep the away route USABLE.",
+        "carrier_capacity": "No current STRONG self-funding three-goal carrier.",
+        "current_chance_creation": "Current XI names are positive but chance quality remains MEDIUM.",
+        "goal3_mechanism": "No carrier, leakage or verified current-structure path independently funds G3.",
+        "goal4_mechanism": "Not applicable because G3 is unfunded.",
+        "stall_0_0": "Fulham's defensive run makes 0-0/1-0 materially credible.",
+        "stall_1_1": "At 1-1 neither side has a verified strong enough continuation path to guarantee a third.",
+        "continuation_2_0": "The recent same-venue 2-0 H2H is a direct control warning.",
+        "opponent_leakage": "Leakage is MEDIUM, not HIGH.",
+        "named_failure_mechanism": "Fulham defensive control plus modest conversion on both sides.",
+        "availability_replacements": "Current XIs are available; Newcastle's official XI includes Wissa, Osula, Barnes and Murphy but lacks Joelinton and suspended Ramsey.",
+        "h2h_transferability": "Recent same-venue 2-0 is transferable and corroborated by Fulham's current defensive form.",
+        "tournament_incentive": "Normal Premier League Matchweek 10 with no special tournament pressure.",
+        "match_context": "No material rest/travel/fatigue override.",
+        "supported_burden_basis": "Current evidence does not certify G3, so the visible O3 cannot be executed."
+      }
+    }
+  },
+  "authority": {
+    "mode": "DIRECT",
+    "direct_reference": "DIRECT-DIRECT-EPL-FULHAM-NEWCASTLE-20261107T145700Z-V1",
+    "user_requested_direct_xi": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "DIRECT-EPL-FULHAM-NEWCASTLE-20261107T145700Z-EPOCH-V1",
+      "researched_at_utc": "2026-11-07T14:57:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "DIRECT-DIRECT-EPL-FULHAM-NEWCASTLE-20261107T145700Z-V1",
+      "evidence_refs": [
+        "https://publishing-hub-pre-prod.newcastleunited.com/en/news/confirmed-line-up-four-changes-at-fulham",
+        "https://dave.sport/news/fulham-vs-newcastle-line-ups/",
+        "https://staging-aws.sports.yahoo.com/articles/fulham-vs-newcastle-united-match-050000632.html",
+        "https://www.premierleague.com/en/news/4739425/fulham-1-0-hull-city",
+        "https://www.premierleague.com/en/premier-league-explained",
+        "https://www.premierleague.com/en/news/4725574",
+        "GITHUB:block_selection_receipts/BLOCK-20261107-2034-2300.json#1793613"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "USER_ODDS_SCREENSHOT:file_00000000d03482119cd86b2b67152ec2",
+    "match_id": "1793613",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3,
+      "odds": 2.01
+    },
+    "observed_at_utc": "2026-11-07T14:51:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null,
+    "custom_lines_available": true
+  }
+}
