@@ -350,7 +350,8 @@ profile** between G3/O2.50 and G4/O3.50.
 
 The certified line remains O2.50 unless G4 is actually funded. Intermediate
 authority is settlement-aware execution authority, not a certificate upgrade.
-BOOK remains zero exposure until fill confirmation. The user's bookmaker
+BOOK remains zero exposure until fill confirmation.
+A non-visible/lower-line BOOK is also subject to **pre-goal reachability**: if the target line is more than 0.25 goals below the observed screenshot burden, it must not be published as a routine BOOK/decay target unless that exact lower line is independently observed/confirmed in a new price epoch. This prevents high-ignition matches from scoring before a distant target can realistically arrive. The user's bookmaker
 supports custom total lines/target odds, so a BOOK target does **not** need to
 appear in the screenshot ladder and is not limited by the visible-line gap.
 Screenshot-only authority still applies to observed prices: no unseen current
