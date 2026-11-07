@@ -66,8 +66,12 @@ must not rescue a weak goal signal.
 
 ## 3. Stage B — rank the qualified survivors only
 
-Rank only `QUALIFIED_FOR_BLOCK_RANK` and, when useful, the strongest
-`RESERVE_SIGNAL` rows.
+Build the display pool from `QUALIFIED_FOR_BLOCK_RANK`, the strongest
+`RESERVE_SIGNAL` rows, **and high-score `RESEARCH_BLOCKED` rows**. A blocked row
+is displayable when its frozen V4 goal `priority_score >= 60` (the active strong
+GOAL_PRIORITY score floor) or its frozen goal screen is already
+`DISCOVERY_GOAL_QUALIFIED`. Keep its blocker visible; display inclusion does not
+resolve research, format, identity or observability requirements.
 
 Use a bounded rank-lite comparison built from the Stage-A evidence.
 
@@ -110,9 +114,20 @@ Within the same promotion band compare:
 Do not compile a protected O2.50/O3.50 certificate at /block. Do not run the
 full Football C XI runtime for every candidate.
 
-Default output is a compact shortlist of **up to three promoted fixtures** plus
-the remaining block dispositions. If fewer than three clear the intake floor,
-promote fewer. Never fill the shortlist with weak matches just to reach a cap.
+Default output is a compact **five-match block board**. Fill up to five slots
+from the strongest rankable candidates plus eligible high-score blocked rows.
+Use explicit display states:
+
+- `PROMOTED_FOR_XI` — lightweight block selection cleared;
+- `RESERVE_SIGNAL` — qualified but below the promoted priority;
+- `HIGH_SCORE_RESEARCH_BLOCKED` — frozen score >=60 / GOAL_PRIORITY-quality,
+  but unresolved research/format/identity/observability blocks normal promotion.
+
+A `HIGH_SCORE_RESEARCH_BLOCKED` row may appear inside the five-match board when
+its frozen signal is stronger than lower displayed reserves, but it has **zero
+/xi authority until the named blocker is resolved**. Do not silently replace it
+with a weaker ready match merely to keep the board all-actionable. If fewer than
+five credible/high-score rows exist, show fewer; never pad with weak matches.
 
 ## 4. Relationship to /xi
 
