@@ -257,6 +257,24 @@ legacy unlocked rank receipt. It fails closed with
 current checked-context contract. Historical pre-activation assessment epochs
 remain readable for immutable audit/replay.
 
+### Lightweight /block high-4+ rescue
+
+The low-usage /block promotion layer has one prospective threshold-cliff repair.
+For **Band-A** senior/top-flight fixtures, a frozen `GOAL_REVIEW` or
+`RESERVE_SIGNAL` row is admitted to the five-match promotion comparison when:
+
+- mean 4+ rate >= 0.55;
+- carrier route >= 1.75;
+- low-draw-trap rate <= 0.20;
+- fixture identity and researchability are verified;
+- no explicit exclusion or unresolved format/incentive blocker applies.
+
+This state is `HIGH_4PLUS_RESCUE`. It is selection metadata only: it does not
+change the frozen sweep lane, manufacture GOAL_PRIORITY, certify G3/G4, or
+authorize price/exposure. In the Band-A rank-lite comparison, rescued 4+ strength
+is considered before the raw composite priority score so a 55-59 score cannot
+be hidden solely by the 60-point sweep threshold.
+
 ### Ranking calibration
 
 C ranks current G3 mechanism quality and burden-normalized clearability before
