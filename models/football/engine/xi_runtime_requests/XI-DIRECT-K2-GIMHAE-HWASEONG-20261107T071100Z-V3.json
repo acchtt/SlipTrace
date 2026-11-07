@@ -1,0 +1,318 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-DIRECT-K2-GIMHAE-HWASEONG-20261107T071100Z-V3",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "DIRECT-K2-GIMHAE-HWASEONG-20261107T071100Z-V3",
+    "match": {
+      "country": "South Korea",
+      "competition": "K League 2",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "K League 2 is a senior professional domestic league with official schedule/table/competition-format evidence and strong current fixture observability; no popularity prior is used.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "MEDIUM",
+      "evidence_confidence": "HIGH",
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "ROUND_32_OF_34",
+      "competition_format": "17-team double round-robin; 32 league matches per club. Final positions 1-2 are automatically promoted and positions 3-6 enter the K League 2 promotion playoffs.",
+      "draw_resolution": "League draw stands after 90 minutes.",
+      "aggregate_state": "SINGLE_LEAGUE_MATCH_NO_AGGREGATE",
+      "simultaneous_results_status": "VERIFIED",
+      "simultaneous_results_note": "Other Round 32 fixtures can alter nearby positions, but this is not the final simultaneous round and the current points requirements are independently known.",
+      "tiebreak_margin_relevance": "YES",
+      "competition_structure_kind": "LEAGUE_REGULAR",
+      "competition_structure_basis": "Official K League 2 2026 competition regulations define a 17-team, 34-round double round-robin; positions 1-2 promote automatically and 3-6 enter the promotion playoffs.",
+      "competition_structure_source_tier": "OFFICIAL_COMPETITION",
+      "competition_structure_evidence_refs": [
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BALANCED",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "NEUTRAL",
+      "match_context_basis": "No verified rivalry, compressed-rest, travel or fatigue factor is strong enough to override the current K League 2 scoring structure.",
+      "match_context_evidence_refs": [
+        "https://www.kleague.com/news_view.do?category=league&orderBy=seq&page=1&seq=96747&viewOption=album",
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "failure_attacks_route": false,
+      "material_suppression": false,
+      "upper_tail_competition_provenance_verified": true,
+      "upper_tail_competition_provenance_basis": "The primary scoring and tail evidence is from current K League 2 matches; no cup or friendly scoreline is used to create the certificate.",
+      "match_id": "K2-20261107-GIMHAE-HWASEONG",
+      "home": "Gimhae City",
+      "away": "Hwaseong",
+      "kickoff_ict": "2026-11-07T16:30:00+07:00",
+      "operational_viability_reason": "Current K League 2 table, form, exact 2026 reverse result and last-known team structures are available; confirmed XIs are not yet published.",
+      "source_urls": [
+        "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+        "https://stadiro.com/teams/south-korea/gimhae/",
+        "https://stadiro.com/teams/south-korea/hwaseong/?follow=1",
+        "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/",
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "h2h_state": "CURRENT_COMPETITION_REVIEWED",
+      "h2h_effect": "SUPPRESSIVE",
+      "h2h_transferability": "VERIFIED",
+      "h2h_current_corroboration": "VERIFIED",
+      "h2h_material_effect": true,
+      "h2h_basis": "Hwaseong won the 2026 reverse 2-0. Older meetings are draw-heavy, so the exact current-season result is the relevant control anchor while Gimhae's recent defensive collapse is treated separately.",
+      "qualification_state": "Hwaseong are 6th on 45 points from 30 matches, the final promotion-playoff position, with Chungnam Asan three points behind and still having an extra match. Hwaseong therefore need a win to protect the top-six place. Gimhae are 17th on 18 points and are outside the promotion race.",
+      "home_incentive": "PLACEMENT_ONLY",
+      "away_incentive": "MUST_WIN",
+      "incentive_effect": "EXPANSIVE",
+      "common_evidence_basis": "Gimhae have conceded 60 in 29 league matches and have conceded in 15 consecutive matches; their last five totals are 3-3, 2-1, 2-6, 1-1 and 0-2. Hwaseong have 44 goals in 30 but are winless in five, scoring 0,1,2,0,2 in those games. The matchup therefore combines extreme Gimhae leakage with a currently inconsistent away carrier.",
+      "home_route": "USABLE",
+      "away_route": "STRONG",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "CARRIER_LED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Hwaseong's five-match winless run and the 2-0 reverse can produce another controlled away win, while Gimhae's home reply is not reliable enough to force a fourth goal.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Gimhae's 60 conceded and persistent concession streak give Hwaseong a matchup-specific STRONG route and HIGH leakage path to G3; current Hwaseong form and the 2-0 reverse prevent stronger upper-tail protection.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Hwaseong have the matchup edge but their current five-match scoring run is not strong enough to assume three goals alone.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "Gimhae's recent high totals create raw fourth-goal potential, but Hwaseong away matches and the exact reverse do not provide an independent transferable G4 mechanism.",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "The 2-0 reverse and Hwaseong's low-scoring recent away profile outweigh broader Gimhae openness above the third goal.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_comparable_context_basis": "Exact current-season H2H and Hwaseong's recent away results suppress the upper tail despite Gimhae leakage.",
+      "failure_attacks_route_basis": "The failure attacks continuation after Hwaseong establish control, not the primary away scoring route.",
+      "material_suppression_basis": "Gimhae's persistent defensive leakage keeps the primary scoring route live.",
+      "goal_signal_priority_score": 64,
+      "goal_signal_mean_over_two_rate": 0.5,
+      "goal_signal_mean_over_three_rate": 0.4,
+      "goal_signal_low_draw_trap_rate": 0.24,
+      "g3_current_structure_verified": false,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_carrier_path": "FAILED",
+      "g4_distributed_path": "FAILED",
+      "g4_reply_path": "FAILED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "G3 is leakage-funded, but neither a solo Hwaseong fourth-goal route nor a reliable Gimhae reply is established in the closest comparable evidence.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Hwaseong's current scoring form is too inconsistent to self-fund four against Gimhae despite the defensive mismatch.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://stadiro.com/teams/south-korea/hwaseong/?follow=1"
+          ],
+          "mechanism_ids": [
+            "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Gimhae can contribute, but the reverse 2-0 and Hwaseong's recent away totals do not protect a 3+1 or 2+2 distribution.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+          ],
+          "mechanism_ids": [
+            "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Gimhae have scored in four straight, but the exact reverse blank and Hwaseong's generally stronger defense prevent a dependable post-third reply.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+          ],
+          "mechanism_ids": [
+            "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL": {
+          "basis": "Hwaseong won the exact 2026 reverse 2-0 and have recently played several low-total away matches; that control mechanism can stop the game after two or three goals.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "The away route is supported by Gimhae's 60 conceded, but Hwaseong's recent form keeps reliability at MEDIUM.",
+          "evidence_refs": [
+            "https://stadiro.com/teams/south-korea/gimhae/",
+            "https://stadiro.com/teams/south-korea/hwaseong/?follow=1"
+          ],
+          "mechanism_ids": []
+        },
+        "continuation_quality": {
+          "basis": "Gimhae openness supports continuation, but the 2-0 reverse and Hwaseong's recent low totals cap it at MEDIUM.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+          ],
+          "mechanism_ids": [
+            "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "A controlled 0-2/1-1 endpoint remains credible despite Gimhae's leakage.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+          ],
+          "mechanism_ids": [
+            "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "The third goal can be supplied by matchup leakage, but the structure is not robust if Hwaseong's poor form persists.",
+          "evidence_refs": [
+            "https://stadiro.com/teams/south-korea/gimhae/",
+            "https://stadiro.com/teams/south-korea/hwaseong/?follow=1"
+          ],
+          "mechanism_ids": []
+        },
+        "independent_upper_tail": {
+          "basis": "The fourth goal has no independent same-opponent or current-away support.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+          ],
+          "mechanism_ids": [
+            "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL"
+          ]
+        }
+      },
+      "activation_quality": "MEDIUM",
+      "activation_basis": "Gimhae have conceded in 15 straight and scored in four straight, while Hwaseong need a win for the playoff cutoff; however, verified early-opening evidence is insufficient for a V3 HIGH label.",
+      "activation_evidence_refs": [
+        "https://stadiro.com/teams/south-korea/gimhae/",
+        "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+      ],
+      "activation_ignition": {
+        "current_attack_structure": "MEDIUM",
+        "early_chance_creation": "MEDIUM",
+        "early_concession_opening": "MEDIUM",
+        "game_state_force": "HIGH",
+        "weaker_side_state_change": "MEDIUM",
+        "basis": "The table state should force Hwaseong and Gimhae's defense is persistently leaky, but the source set does not establish the required HIGH early-creation or early-concession signal.",
+        "evidence_refs": [
+          "https://stadiro.com/teams/south-korea/gimhae/",
+          "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "High Gimhae leakage creates a real G3 route for Hwaseong, but the certificate is expected to remain fragile and G4 is rejected."
+    },
+    "context": {
+      "assessment_at_utc": "2026-11-07T07:11:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Direct football-only compilation for the user-requested K League 2 kickoff block; deterministic Football C owns the certificate.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "NOT_REQUIRED",
+      "market_disagreement_recheck_basis": "No market quote supplied; football-only assessment.",
+      "market_disagreement_recheck_fields": [],
+      "market_disagreement_recheck_evidence_refs": []
+    },
+    "assessment_depth": {
+      "contract": "ASSESSMENT_DEPTH_V3",
+      "completed": true,
+      "market_independent": true,
+      "evidence_epoch_id": "DIRECT-K2-GIMHAE-HWASEONG-20261107T071100Z-V3",
+      "assessed_at_utc": "2026-11-07T07:11:00+00:00",
+      "evidence_refs": [
+        "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+        "https://stadiro.com/teams/south-korea/gimhae/",
+        "https://stadiro.com/teams/south-korea/hwaseong/?follow=1",
+        "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/",
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "checks": {
+        "primary_scoring_route": "Gimhae City route=USABLE; Gimhae's 60 conceded and persistent concession streak give Hwaseong a matchup-specific STRONG route and HIGH leakage path to G3; current Hwaseong form and the 2-0 reverse prevent stronger upper-tail protection.",
+        "secondary_reply_route": "Hwaseong route=STRONG; current reply quality is frozen independently of any market.",
+        "carrier_capacity": "Hwaseong have the matchup edge but their current five-match scoring run is not strong enough to assume three goals alone.",
+        "current_chance_creation": "chance_quality=MEDIUM; route_reliability=MEDIUM; evidence basis: Gimhae have conceded 60 in 29 league matches and have conceded in 15 consecutive matches; their last five totals are 3-3, 2-1, 2-6, 1-1 and 0-2. Hwaseong have 44 goals in 30 but are winless in five, scoring 0,1,2,0,2 in those games. The matchup therefore combines extreme Gimhae leakage with a currently inconsistent away carrier.",
+        "goal3_mechanism": "Current G3 mechanism research: Gimhae's 60 conceded and persistent concession streak give Hwaseong a matchup-specific STRONG route and HIGH leakage path to G3; current Hwaseong form and the 2-0 reverse prevent stronger upper-tail protection.",
+        "goal4_mechanism": "G3 is leakage-funded, but neither a solo Hwaseong fourth-goal route nor a reliable Gimhae reply is established in the closest comparable evidence.",
+        "stall_0_0": "0-0 control risk is represented by burden_stall_risk=MEDIUM; main failure: Hwaseong's five-match winless run and the 2-0 reverse can produce another controlled away win, while Gimhae's home reply is not reliable enough to force a fourth goal.",
+        "stall_1_1": "1-1 continuation is represented by continuation_quality=MEDIUM; no generic two-route promotion is assumed.",
+        "continuation_2_0": "2-0 continuation is assessed separately; Exact current-season H2H and Hwaseong's recent away results suppress the upper tail despite Gimhae leakage.",
+        "opponent_leakage": "opponent_leakage=HIGH; Gimhae have conceded 60 in 29 league matches and have conceded in 15 consecutive matches; their last five totals are 3-3, 2-1, 2-6, 1-1 and 0-2. Hwaseong have 44 goals in 30 but are winless in five, scoring 0,1,2,0,2 in those games. The matchup therefore combines extreme Gimhae leakage with a currently inconsistent away carrier.",
+        "named_failure_mechanism": "Hwaseong's five-match winless run and the 2-0 reverse can produce another controlled away win, while Gimhae's home reply is not reliable enough to force a fourth goal.",
+        "availability_replacements": "Confirmed starting XIs are not yet published; last-known structures are used without assuming unverified starters, and no availability-based upgrade is applied.",
+        "h2h_transferability": "Hwaseong won the 2026 reverse 2-0. Older meetings are draw-heavy, so the exact current-season result is the relevant control anchor while Gimhae's recent defensive collapse is treated separately.",
+        "tournament_incentive": "Hwaseong are 6th on 45 points from 30 matches, the final promotion-playoff position, with Chungnam Asan three points behind and still having an extra match. Hwaseong therefore need a win to protect the top-six place. Gimhae are 17th on 18 points and are outside the promotion race.",
+        "match_context": "No verified rivalry, compressed-rest, travel or fatigue factor is strong enough to override the current K League 2 scoring structure.",
+        "supported_burden_basis": "Gimhae's 60 conceded and persistent concession streak give Hwaseong a matchup-specific STRONG route and HIGH leakage path to G3; current Hwaseong form and the 2-0 reverse prevent stronger upper-tail protection."
+      }
+    }
+  },
+  "authority": {
+    "mode": "DIRECT",
+    "direct_reference": "DIRECT-K2-1630-GIMHAE-HWASEONG-20261107-V3",
+    "user_requested_direct_xi": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "DIRECT-K2-GIMHAE-HWASEONG-20261107T071100Z-V3",
+      "researched_at_utc": "2026-11-07T07:11:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "DIRECT-K2-1630-GIMHAE-HWASEONG-20261107-V3",
+      "evidence_refs": [
+        "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+        "https://stadiro.com/teams/south-korea/gimhae/",
+        "https://stadiro.com/teams/south-korea/hwaseong/?follow=1",
+        "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/",
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
