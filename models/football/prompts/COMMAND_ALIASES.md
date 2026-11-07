@@ -6,7 +6,7 @@ Only the first slash command routes the message.
 
 | Command | Active authority |
 |---|---|
-| /block [window] | **Primary** equal-depth Football C kickoff-block assessment |
+| /block [window] | **Primary low-usage selector:** sweep whole block + rank qualified survivors |
 | /sweep [window] | V4 source-backed intake/supporting source capture |
 | /rank | **Secondary** V4 Football C whole-slate comparison/audit board |
 | /xi | Football C XI/price check using BLOCK first, RANKED second, DIRECT one-off fallback |
@@ -76,37 +76,30 @@ epoch, then remap reusable research by exact fixture identity.
 Do not invoke retired V1-V3 checkpoint, repair, ZIP or capacity workflows, and
 do not use Work acquisition orchestration as the default new-sweep route.
 
-## /block — primary workflow
+## /block — primary low-usage workflow
 
 A user request such as `/block 23:00-00:00`, `assess the 23:00 block`, or
-`assess matches from 23:00 to 00:00` routes here.
+`assess matches from 23:00 to 00:00` means **combine sweep + rank inside that
+kickoff block**, not deep-assess every fixture.
 
-Resolve the complete requested kickoff cohort before judging any candidate.
-Assess every in-scope unstarted fixture to ASSESSMENT_DEPTH_V3, then compile
-the complete block through `engine/block_runtime.py` / `BLOCK_PRIORITY_V1`. No candidate may be omitted because /rank
-did not select it, because FOLLOW is full, or because another fixture already
-has a cleaner certificate.
+Resolve the complete unstarted cohort, run lightweight goals-first sweep
+qualification on every fixture, then rank only the qualified survivors using
+the bounded block-selection evidence. By default promote at most three
+fixtures; fewer when the block does not contain three credible candidates.
 
-For runtime authority, the block request itself is explicit user authorization
-to use the existing full EXCEPTION research contract for each candidate. New
-assessment epochs require source-backed activation evidence under
-ASSESSMENT_DEPTH_V3. This does not relax Football C certificates. Existing rank
-data and FOLLOW lanes are secondary comparison metadata only.
+Do **not** run ASSESSMENT_DEPTH_V3, G4 evidence research, full H2H/failure-tree
+research, Football C certificate compilation, XI runtime or Decision States
+persistence for every block fixture. Those expensive steps are deferred to
+`/xi` for a selected exact fixture.
 
-No odds are required to finish block selection. The block runtime is football-
-only and cannot emit ACT/BOOK/PASS. Execute it directly when callable; otherwise
-write one `football-block-runtime-v1` request under
-`models/football/engine/block_runtime_requests/` and consume the matching
-persisted result in the same turn. Manual conversational block ordering is not
-an authorized fallback; if both paths fail, return `BLOCK_RUNTIME_UNAVAILABLE`.
+A lightweight /block result is selection metadata only and has no price or
+exposure authority. New lightweight block receipts do not use
+`authority.mode=BLOCK`; when the user later requests `/xi`, use an existing
+compatible historical BLOCK/RANKED receipt if one exists, otherwise perform the
+normal exact-user DIRECT full assessment for that selected fixture.
 
-If the user supplies a screenshot, evaluate only that exact visible ladder
-through the existing XI runtime. In the **same /xi turn**, consume the runtime's
-`XI_SHEETS_HANDOFF_V1`, upsert the exact emitted row to Decision States by
-Assessment ID with the connected Google Sheets capability, stamp Persisted At
-UTC, independently refetch it, and verify the declared readback fields before
-publishing a priced verdict. GitHub JSON alone is not persistence. Failure to
-write/read back returns `XI_PERSISTENCE_UNAVAILABLE`.
+No bookmaker odds are searched during /block. A user-supplied screenshot is
+handled later by /xi under screenshot-only price authority.
 
 ## /rank
 
@@ -151,12 +144,11 @@ audit metadata only.
 
 /xi is one command. The user does not need separate assess/bet commands.
 
-Authority order is BLOCK -> RANKED -> DIRECT -> explicit EXCEPTION. A valid
-persisted BLOCK_PRIORITY_V1 receipt is sufficient routine authority; /rank is
-not required between /block and /xi. If the user directly selects one exact
-fixture with /xi and neither BLOCK nor RANKED authority exists, perform the
-fresh full ASSESSMENT_DEPTH_V3 research in the same turn and use DIRECT rather
-than blocking.
+Authority order remains historical/full BLOCK -> RANKED -> DIRECT -> explicit EXCEPTION.
+A new lightweight /block shortlist is selection metadata, not full BLOCK
+authority. If the user selects one of those fixtures with /xi and no compatible
+historical full BLOCK or RANKED receipt exists, perform the fresh full
+ASSESSMENT_DEPTH_V3 research in that /xi turn and use DIRECT.
 
 Order:
 
