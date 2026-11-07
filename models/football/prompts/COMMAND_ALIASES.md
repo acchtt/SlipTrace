@@ -93,8 +93,13 @@ operational promotion bands: verified senior top-flight/continental fixtures
 fixtures; a regional/obscure lower-tier row may overtake only when its frozen
 goal signal is materially stronger (default >=15 priority-score points) AND
 its current researchability/XI channels are verified. A weak top-flight signal
-still cannot be rescued by league status. By default promote at most three
-fixtures; fewer when the block does not contain three credible candidates.
+still cannot be rescued by league status. The block display is **up to five
+matches**. In addition to rankable survivors, include any unresolved
+`RESEARCH_BLOCKED` fixture whose frozen V4 goal `priority_score >= 60` (or whose
+frozen goal screen is `DISCOVERY_GOAL_QUALIFIED`) as
+`HIGH_SCORE_RESEARCH_BLOCKED`. Such a row may occupy a top-five display slot but
+must retain its blocker and has no /xi authority until the blocker is resolved.
+Show fewer than five only when the block has fewer credible/high-score rows.
 
 Do **not** run ASSESSMENT_DEPTH_V3, G4 evidence research, full H2H/failure-tree
 research, Football C certificate compilation, XI runtime or Decision States
