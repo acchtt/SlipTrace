@@ -102,14 +102,37 @@ raw 3+/4+ rates are huge. This is an operational reliability rule, not a
 league-prestige prediction bonus: a weak Band A goal signal is still screened
 out and cannot be rescued by status.
 
+Before the normal within-band ordering, apply one narrow **HIGH_4PLUS_RESCUE**
+to Band-A fixtures only. A `GOAL_REVIEW` / `RESERVE_SIGNAL` row enters the
+five-match promotion comparison when all frozen sweep conditions are true:
+
+- mean 4+ rate >= **0.55**;
+- carrier route >= **1.75**;
+- low-draw-trap rate <= **0.20**;
+- fixture identity/researchability is verified;
+- no explicit exclusion or unresolved competition-format blocker applies.
+
+This is a promotion rescue, not a goal certificate and not an automatic top-five
+slot. It exists specifically to prevent the composite-score threshold from
+burying a top-flight fixture whose upper-tail sample is already strong. Do not
+require priority_score >=60 for this rescue, and do not convert the row to
+GOAL_PRIORITY in the frozen sweep receipt.
+
+For rescued rows, compare the **4+ rate before the raw priority score**. A
+rescued row may outrank a non-rescued same-band candidate when its upper-tail
+signal is materially stronger, even if its composite score is lower. Never
+use league status alone to trigger the rescue.
+
 Within the same promotion band compare:
 
 1. current scoring-route strength;
 2. opponent leakage / opening tendency;
-3. recent comparable 3+ / 4+ signal;
-4. game-state / incentive pressure;
-5. endpoint/control risk;
-6. observability and XI readiness.
+3. recent comparable **4+ signal**, including HIGH_4PLUS_RESCUE status;
+4. recent comparable 3+ signal;
+5. game-state / incentive pressure;
+6. endpoint/control risk;
+7. observability and XI readiness;
+8. raw composite priority score as a later tiebreak, not a threshold cliff.
 
 Do not compile a protected O2.50/O3.50 certificate at /block. Do not run the
 full Football C XI runtime for every candidate.
@@ -119,6 +142,8 @@ from the strongest rankable candidates plus eligible high-score blocked rows.
 Use explicit display states:
 
 - `PROMOTED_FOR_XI` — lightweight block selection cleared;
+- `HIGH_4PLUS_RESCUE` — Band-A review/reserve row admitted to promotion
+  comparison by the 4+ >=55%, carrier >=1.75, trap <=20% rescue;
 - `RESERVE_SIGNAL` — qualified but below the promoted priority;
 - `HIGH_SCORE_RESEARCH_BLOCKED` — frozen score >=60 / GOAL_PRIORITY-quality,
   but unresolved research/format/identity/observability blocks normal promotion.
