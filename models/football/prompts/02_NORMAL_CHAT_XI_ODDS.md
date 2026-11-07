@@ -564,3 +564,8 @@ For BOOK always print the protected certificate, target line, minimum odds, and
 that the order is **not exposure until independently confirmed filled**.
 
 Do not mention retired models unless the user asks for historical audit.
+
+
+## BOOK pre-goal reachability repair — 2026-11-07
+
+A lower-line/non-visible BOOK target may not sit more than 0.25 goals below the observed screenshot burden and still be described as reachable. A gap of 0.50+ requires either an independently observed/confirmed lower custom quote in a new price epoch or PASS at the original screenshot. Do not use a distant decay target to chase a high-ignition match.
