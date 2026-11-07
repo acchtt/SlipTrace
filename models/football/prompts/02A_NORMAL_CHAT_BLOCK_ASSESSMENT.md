@@ -69,7 +69,36 @@ must not rescue a weak goal signal.
 Rank only `QUALIFIED_FOR_BLOCK_RANK` and, when useful, the strongest
 `RESERVE_SIGNAL` rows.
 
-Use a bounded rank-lite comparison built from the Stage-A evidence:
+Use a bounded rank-lite comparison built from the Stage-A evidence.
+
+**Do not copy the raw /sweep research order into the shortlist.** Sweep priority
+is a workload order; block promotion is a separate operational selection step.
+
+First assign every qualified survivor an operational promotion band:
+
+- **Band A — preferred:** senior top-flight men/women, senior continental
+  competition, or another established professional competition with current
+  fixture identity and researchability channels verified. Women's domestic
+  top flights explicitly belong here when identity is verified.
+- **Band B — normal:** researched professional lower divisions / second tiers
+  with adequate current channels.
+- **Band C — low-tier caution:** regional, semi-professional, amateur, reserve,
+  obscure lower-tier or otherwise weak-observability competitions.
+
+A Band C fixture may not displace a credible Band A fixture merely because its
+raw recent-goal score is extreme. Cross-band promotion from C over A requires
+both:
+
+1. a materially stronger frozen goal signal (default: at least **15 priority
+   score points** higher); and
+2. verified current researchability plus likely XI/team-news availability.
+
+If either condition fails, keep the low-tier fixture as RESERVE even when its
+raw 3+/4+ rates are huge. This is an operational reliability rule, not a
+league-prestige prediction bonus: a weak Band A goal signal is still screened
+out and cannot be rescued by status.
+
+Within the same promotion band compare:
 
 1. current scoring-route strength;
 2. opponent leakage / opening tendency;
