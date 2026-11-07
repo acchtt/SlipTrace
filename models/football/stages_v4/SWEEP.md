@@ -129,10 +129,16 @@ already established in this sweep. Keep each active research **batch** at
 targeted in-scope rows require history.
 
 This is workload control only, not a whole-slate cap. It cannot create
-GOAL_PRIORITY/GOAL_REVIEW or a Football C certificate. Non-target discovery
-rows may remain visible as `DEFERRED_RESEARCH_BACKLOG`; those rows are outside
-the claimed rank universe and the deferred count must be reported. Never call a
-ranking globally exhaustive beyond the resolved/admitted eligible cohort.
+GOAL_PRIORITY/GOAL_REVIEW or a Football C certificate. **The resulting sweep
+research order is also not a promotion/ranking authority.** A low-tier fixture
+may appear early in sweep research because its raw goal signal is extreme; that
+does not entitle it to outrank a comparable verified top-flight/professional
+fixture in /block or /rank. Downstream selection must apply its own operational
+reliability and execution-readiness comparison after the common goals-first
+qualification gate. Non-target discovery rows may remain visible as
+`DEFERRED_RESEARCH_BACKLOG`; those rows are outside the claimed rank universe
+and the deferred count must be reported. Never call a ranking globally
+exhaustive beyond the resolved/admitted eligible cohort.
 
 If accidental manual research already happened before the source gate, preserve
 it as provisional evidence. After the canonical source arrives, attach it only
