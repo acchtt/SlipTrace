@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_transferability='HIGH'; allowed: LIMITED, NOT_TRANSFERABLE, UNAVAILABLE, VERIFIED",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "ab1011f3485618eafb2a3a9785d34dd5f1bb4dd235d84eb5c47a2e0d97297ec6",
+  "ok": false,
+  "request_id": "XI-DIRECT-K2-GIMPO-ANSAN-20261107T071100Z-V2",
+  "runtime_commit": "7561bac02017dcefac148fe4df626779ed11c18e",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
