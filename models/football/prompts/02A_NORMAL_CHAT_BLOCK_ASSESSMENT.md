@@ -30,7 +30,13 @@ Do not deep-research every fixture merely because it exists in the block.
 
 ## 2. Stage A — lightweight sweep
 
-Run the whole block through the same goals-first intake logic used by /sweep.
+Run the whole block through the **same active V4 /sweep intake filter policy**.
+The only extra precondition is the requested kickoff-block boundary. After that,
+reuse the same /sweep inclusion/exclusion rules, user exclusion list,
+competition/fixture eligibility, operational-observability gates, source
+quality gates and goals-first qualification thresholds. /block must not invent
+or loosen a separate filter policy.
+
 For every fixture collect only enough source-backed information to decide
 whether it deserves ranking attention:
 
