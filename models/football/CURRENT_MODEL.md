@@ -129,58 +129,34 @@ cheap-filter fields. This bounded lane grants a Football C assessment only; it
 does not create G3, FOCUS, FOLLOW, /xi authority or exposure. Remaining
 negative-screen controls retain zero production rank authority.
 
-## /block — primary equal-depth block assessment
+## /block — low-usage sweep + rank hybrid
 
 **Conversation surface: NORMAL CHAT.**
 
-Authority: `prompts/02A_NORMAL_CHAT_BLOCK_ASSESSMENT.md` plus
-`procedures/FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md`.
+Authority: `prompts/02A_NORMAL_CHAT_BLOCK_ASSESSMENT.md`.
 
-This is the primary production assessment workflow from 2026-11-03 onward.
-Resolve the complete requested kickoff block first, then assess every in-scope
-candidate to the same ASSESSMENT_DEPTH_V2 floor before comparing them. Do not
-use /rank position, FOLLOW capacity, league prestige or an existing certificate
-as a pre-assessment filter.
+New /block calls are selection workflows, not full Football C assessments.
+Resolve the entire requested unstarted kickoff cohort, apply lightweight
+goals-first sweep qualification to every fixture, then rank only the qualified
+survivors. Promote at most three credible fixtures by default.
 
-A block request is an explicit user authorization to run the existing full
-EXCEPTION research/authority path for each block candidate when independent
-Football C runtime authority is needed. New epochs require ASSESSMENT_DEPTH_V2,
-including source-backed activation_quality / activation_basis /
-activation_evidence_refs. Activation is block-selection-only evidence: it cannot
-fund G3/G4/G5/G6, change supported burden or authorize price execution.
+The cost boundary is explicit: do not require ASSESSMENT_DEPTH_V3, full H2H,
+G4 research, failure-tree analysis, certificate compilation, XI runtime or
+Decision States persistence for every fixture merely to choose which matches
+deserve attention.
 
-After each candidate compiles through Football C, `BLOCK_PRIORITY_V1` supplies
-the deterministic block order. It compares hard viability/G3 accessibility,
-activation, leakage, continuation, credible upper tail, endpoint resistance,
-chance quality, burden completion, frozen goal signal, clearability and
-certificate quality before using G3 mechanism class as a late tiebreaker.
-Global /rank and FOLLOW lanes remain secondary audit metadata.
+A lightweight block shortlist is market-independent selection metadata only.
+It does not create a supported burden and has no ACT/BOOK/PASS authority.
 
-Normal chat must execute `engine/block_runtime.py` directly when callable. If
-local execution is unavailable, create exactly one
-`football-block-runtime-v1` request under
-`engine/block_runtime_requests/<request-id>.json`, consume the persisted
-`engine/block_runtime_results/<request-id>.json` in the same turn, and use
-that result as the block order. Never substitute conversational/manual ordering
-for BLOCK_PRIORITY_V1. If both direct and backend execution fail, return
-`BLOCK_RUNTIME_UNAVAILABLE` rather than inventing an order.
+When /xi is later requested for a selected fixture, reuse a compatible
+historical full BLOCK/RANKED receipt when one genuinely exists; otherwise
+perform the full ASSESSMENT_DEPTH_V3 assessment for that exact fixture via the
+normal DIRECT path. This intentionally moves the expensive research from the
+whole block to only the fixture(s) the user actually wants to execute.
 
-This is an orchestration use of the already-existing exception contract, not a
-relaxation of certificate, price, XI, H2H, incentive, persistence or
-publication gates. Every candidate keeps a distinct evidence epoch and Decision
-States row.
-
-If a valid rank row exists, retain it only as secondary comparison metadata.
-The block assessment itself must remain independently researched and must not
-inherit rank ordering as football evidence. /rank may be run later for
-whole-slate comparison/audit, but a no-rank or low-rank state cannot prevent a
-fixture from receiving block assessment.
-
-No odds are required for the football assessment. When the user supplies a
-screenshot for a block candidate, the block runtime itself remains football-only.
-Evaluate the screenshot only through the existing deterministic Football C XI
-runtime. Do not search replacement odds. Do not publish ACT/BOOK/PASS before a
-Decision States write, independent readback and Step2 publication guard.
+Historical full `football-block-runtime-v1` receipts remain immutable and
+readable, but the old equal-depth full-block workflow is retired for new
+/block calls.
 
 ## 2026-11-05 morning calibration repair
 
@@ -472,8 +448,8 @@ engine/adapter.py and engine/xi_portable.py.
 
 Every /xi:
 
-1. resolves authority in order BLOCK -> RANKED -> exact-user DIRECT -> explicit
-   EXCEPTION;
+1. resolves authority in order historical/full BLOCK -> RANKED -> exact-user DIRECT -> explicit
+   EXCEPTION; a new lightweight /block shortlist alone is selection metadata,
 2. completes Football C assessment without requiring odds;
 3. executes the deterministic runtime directly when callable, otherwise through
    `xi_runtime_backend.py` via the request/result GitHub bridge;
