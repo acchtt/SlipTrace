@@ -1,0 +1,518 @@
+{
+  "authority": {
+    "assessment_depth": {
+      "activation": {
+        "basis": "Seoul's promotion pressure and both clubs' recent scoring create a live opening route, but no source-backed early-chance or early-concession evidence clears the V3 HIGH-activation requirement.",
+        "block_selection_only": true,
+        "calibration": "DECLARED_GRADE_ACCEPTED",
+        "certificate_authority": false,
+        "effective_quality": "MEDIUM",
+        "evidence_refs": [
+          "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+          "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557"
+        ],
+        "ignition": {
+          "current_attack_structure": 2,
+          "early_chance_creation": 1,
+          "early_concession_opening": 1,
+          "game_state_force": 2,
+          "weaker_side_state_change": 1
+        },
+        "ignition_evidence_refs": [
+          "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+          "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557"
+        ],
+        "price_execution_authority": false,
+        "quality": "MEDIUM",
+        "tournament_structure": {
+          "basis": "Official K League 2 2026 competition regulations define a 17-team, 34-round double round-robin; positions 1-2 promote automatically and 3-6 enter the promotion playoffs.",
+          "evidence_refs": [
+            "https://www.kleague.com/about/competition.do"
+          ],
+          "required": true,
+          "source_tier": "OFFICIAL_COMPETITION",
+          "structure_kind": "LEAGUE_REGULAR",
+          "verified": true
+        }
+      },
+      "assessment_at_utc": "2026-11-07T07:11:00+00:00",
+      "checks": [
+        "availability_replacements",
+        "carrier_capacity",
+        "continuation_2_0",
+        "current_chance_creation",
+        "goal3_mechanism",
+        "goal4_mechanism",
+        "h2h_transferability",
+        "match_context",
+        "named_failure_mechanism",
+        "opponent_leakage",
+        "primary_scoring_route",
+        "secondary_reply_route",
+        "stall_0_0",
+        "stall_1_1",
+        "supported_burden_basis",
+        "tournament_incentive"
+      ],
+      "completed": true,
+      "contract": "ASSESSMENT_DEPTH_V3",
+      "evidence_epoch_id": "DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3",
+      "evidence_ref_count": 4,
+      "market_independent": true,
+      "required": true
+    },
+    "direct_research": {
+      "challenge_reason": null,
+      "checked_fields": [
+        "availability_and_replacements",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "competition_format_incentive",
+        "completion_continuation_stall",
+        "failure_mechanisms",
+        "fixture_identity_status",
+        "g4_research_if_g3_funded",
+        "h2h_materiality",
+        "home_scoring_route",
+        "rivalry_rest_travel_fatigue_context",
+        "upper_tail_and_comparable_context"
+      ],
+      "evidence_ref_count": 4,
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3",
+      "researched_at_utc": "2026-11-07T07:11:00+00:00",
+      "revision": "INITIAL",
+      "source_reference": "DIRECT-K2-1630-SEOUL-E-JEONNAM-20261107-V3",
+      "state_change_basis": null,
+      "state_change_fields": [],
+      "state_change_status": null,
+      "supersedes_evidence_epoch_id": null,
+      "supersedes_exception_reference": null,
+      "upstream_state": "NOT_RANKED"
+    },
+    "mode": "DIRECT",
+    "rank_state_display": "DIRECT",
+    "rank_state_internal": null,
+    "reference": "DIRECT-K2-1630-SEOUL-E-JEONNAM-20261107-V3",
+    "user_requested_direct_xi": true
+  },
+  "input_sha256": "b79808f12d20868feaba54ea6f9ba83a52aa2c9b0792b2192c7b14ead26d7e2c",
+  "ok": true,
+  "request_id": "XI-DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3",
+  "runtime": {
+    "calibration_record": {
+      "automatic_threshold_learning": false,
+      "certified_burden": 2.5,
+      "compiled_board_state": "FOCUS",
+      "control_review": false,
+      "credible_tail_state": "REJECTED",
+      "current_rank": null,
+      "decision": "REVIEW_ONLY",
+      "direct_act_ceiling": null,
+      "entry_feasibility_basis": null,
+      "entry_feasibility_state": null,
+      "evidence_epoch": "DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3",
+      "exception_flag": false,
+      "follow_lane": null,
+      "g3_endpoint_pressure": "HIGH",
+      "goal3_funded": true,
+      "goal3_mechanism_class": "CARRIER",
+      "goal4_funded": false,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "goal_screen_state": null,
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "G3_FLOOR_NOT_EXECUTION_AUTHORIZED",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "match_id": "K2-20261107-SEOUL-E-JEONNAM",
+      "pass_had_lower_supported_visible_line": false,
+      "rank": null,
+      "rank_scope": null,
+      "researcher_declared_board_state": "FOCUS",
+      "robustness": "ROBUST",
+      "schema_version": "football-c-calibration-v1",
+      "screenshot_visible_ladder": [],
+      "selected_evaluated_line": null,
+      "selected_evaluated_odds": null,
+      "selection_authority": "ZERO",
+      "slate_rank": null,
+      "slate_rank_status": null,
+      "sweep_state": null,
+      "upper_tail_pressure": "HIGH"
+    },
+    "decision_state_persistence": {
+      "key_column": "Assessment ID",
+      "missing_persistence_inputs": [],
+      "persistence_input_complete": true,
+      "publication_authorized_before_readback": false,
+      "publication_fail_closed": true,
+      "readback_assertions": [
+        "Assessment ID",
+        "Evidence Epoch ID",
+        "XI Assessment Execution Status",
+        "C Action",
+        "C Supported Line",
+        "Evaluated Line",
+        "Evaluated Odds",
+        "Engine C Result",
+        "Engine Source Revision"
+      ],
+      "readback_required": true,
+      "required": true,
+      "row": {
+        "Assessment At UTC": "2026-11-07T07:11:00+00:00",
+        "Assessment ID": "XI-C-DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3",
+        "C Action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+        "C Board State": "FOCUS",
+        "C Supported Line": 2.5,
+        "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"REJECTED\",\"current_rank\":null,\"decision\":\"REVIEW_ONLY\",\"direct_act_ceiling\":null,\"entry_feasibility_basis\":null,\"entry_feasibility_state\":null,\"evidence_epoch\":\"DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"HIGH\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"G3_FLOOR_NOT_EXECUTION_AUTHORIZED\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"K2-20261107-SEOUL-E-JEONNAM\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"ROBUST\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[],\"selected_evaluated_line\":null,\"selected_evaluated_odds\":null,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"HIGH\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"PLACEMENT_ONLY\",\"away_route\":\"USABLE\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":true,\"certificate_robustness\":\"ROBUST\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED\",\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":false,\"tournament_tail_bias\":\"EXPANSIVE\"},\"certified_supported_burden\":2.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"MEDIUM\",\"credible_burden_band_high\":2.5,\"credible_burden_band_low\":2.5,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G4_REJECTED_PREMARKET: next-goal tail lacks sufficient transferable or continuation support\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"REJECTED\",\"credible_tail_target_goal\":4,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Strong Seoul route plus Jeonnam leakage fund G3; the exact reverse caps the upper tail.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":2.5,\"declared_supported_line_basis\":\"Seoul's strong current attack plus Jeonnam's heavy league leakage independently support the third goal, while the exact 1-0 reverse blocks automatic promotion to a protected fourth goal.\",\"direct_act_ceiling\":null,\"effective_burden_stall_risk\":\"LOW\",\"effective_continuation_quality\":\"HIGH\",\"effective_upper_tail_transferability\":\"LOW\",\"endpoint_control_pressure\":\"HIGH\",\"execution_strength\":\"ROBUST\",\"failure_mechanisms\":{\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\":{\"affected_paths\":[\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"The current-season reverse finished Jeonnam 0-1 Seoul E-Land, showing that this matchup can remain controlled even when broader form is open.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":2.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=CARRIER_G3,LEAKAGE_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=SUPPRESSIVE\",\"frozen_supported_line_funding\":true,\"g3_current_structure_basis\":\"Seoul retain a STRONG current route, Jeonnam have scored in four of their last five while conceding heavily, and the current K League 2 structure verifies a strong-primary plus usable-reply third-goal path.\",\"g3_current_structure_source_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"],\"g3_current_structure_verified\":true,\"g3_endpoint_control_pressure\":\"HIGH\",\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_distributed_path\":\"FAILED\",\"g4_evidence_disposition\":\"MIXED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Seoul can score multiple goals, but the exact reverse does not establish a dependable fourth goal from the home carrier alone.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"]},\"g4_distributed_path\":{\"basis\":\"Jeonnam's recent reply is usable but the exact same-season matchup did not support a 3+1 or 2+2 distribution.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"g4_reply_path\":{\"basis\":\"Jeonnam have scored in four of five recent matches, but were blanked by Seoul in the current-season reverse, so a post-third reply is not protected.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"The recent league form creates fourth-goal potential, but the exact 1-0 reverse and only MEDIUM continuation prevent a protected G4.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":true,\"goal3_distributed_funded\":false,\"goal3_funded\":true,\"goal3_leakage_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal3_two_route_funded\":false,\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 1-0 reverse keeps a real controlled endpoint despite recent high totals.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"continuation_quality\":{\"basis\":\"Recent totals are open but the exact reverse caps continuation at MEDIUM.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"failure_resistance\":{\"basis\":\"G3 can survive weak Jeonnam contribution through Seoul's carrier, but the total becomes more fragile beyond three.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"],\"mechanism_ids\":[]},\"independent_upper_tail\":{\"basis\":\"A fourth goal is plausible from recent league form but fails transferability against the exact reverse.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"route_reliability\":{\"basis\":\"Seoul's season scoring and current home attack remain reliable against a heavily conceding Jeonnam defense.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"],\"mechanism_ids\":[]}},\"home_incentive\":\"MUST_WIN\",\"home_route\":\"STRONG\",\"incentive_effect\":\"EXPANSIVE\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"G3_FLOOR_NOT_EXECUTION_AUTHORIZED\",\"eligible\":false,\"max_direct_line\":null},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_context_basis\":\"No verified rivalry, compressed-rest, travel or fatigue factor is strong enough to override the current K League 2 scoring structure.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_positive_pressure\":false,\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_context_suppressive_pressure\":false,\"match_id\":\"K2-20261107-SEOUL-E-JEONNAM\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"RESEARCHED_LEAGUE_CONDITIONAL\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":2.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\":[\"burden_stall_risk\",\"continuation_quality\",\"g4_distributed_path\",\"g4_reply_path\",\"independent_upper_tail\"]},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_incentive_effect\":\"EXPANSIVE\",\"tournament_incentive_required\":true,\"tournament_incentive_resolution\":\"VERIFIED\",\"tournament_positive_pressure\":true,\"tournament_suppressive_pressure\":false,\"tournament_tail_bias\":\"EXPANSIVE\",\"travel_load_context\":\"NORMAL\",\"upper_tail_comparable_context_basis\":\"Exact same-season opponent evidence is suppressive above G3 even though recent league form is expansive.\",\"upper_tail_comparable_context_signal\":\"SUPPRESSIVE\",\"upper_tail_control_pressure\":\"HIGH\",\"upper_tail_strength\":\"WEAK\",\"upper_tail_transferability\":\"LOW\",\"upper_tail_transferability_basis\":\"The closest same-opponent K League 2 evidence is the 1-0 reverse, which overrides broader recent high totals for G4 transferability.\",\"wait_authorized\":false}}",
+        "Engine Source Revision": "e9ba12e1700756c72703d6225143bda47e892a56",
+        "Evaluated Line": null,
+        "Evaluated Odds": null,
+        "Evidence Epoch ID": "DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3",
+        "Fixture Status": "PREMATCH_CONFIRMED",
+        "Match ID": "K2-20261107-SEOUL-E-JEONNAM",
+        "Match Minute": null,
+        "Payload JSON": "{\"assessment_depth\":{\"assessed_at_utc\":\"2026-11-07T07:11:00+00:00\",\"checks\":{\"availability_replacements\":\"Confirmed starting XIs are not yet published; last-known structures are used without assuming unverified starters, and no availability-based upgrade is applied.\",\"carrier_capacity\":\"Seoul have scored six against Gimhae and two in multiple recent league matches, and their season attack is strong enough to retain a credible three-goal self-funding route against a 52-goal-conceded Jeonnam defense.\",\"continuation_2_0\":\"2-0 continuation is assessed separately; Exact same-season opponent evidence is suppressive above G3 even though recent league form is expansive.\",\"current_chance_creation\":\"chance_quality=HIGH; route_reliability=HIGH; evidence basis: Seoul E-Land have scored 54 in 29 league matches and their last five include 6-2 over Gimhae and a 4-2 loss at Yongin. Jeonnam have conceded 52 in 29 and their last five are 2-2, 2-4, 1-2, 2-1 and 0-3; they scored in four of those five. The closest H2H this season was only 1-0, so G3 and G4 must be separated.\",\"goal3_mechanism\":\"Current G3 mechanism research: Seoul's strong current attack plus Jeonnam's heavy league leakage independently support the third goal, while the exact 1-0 reverse blocks automatic promotion to a protected fourth goal.\",\"goal4_mechanism\":\"The recent league form creates fourth-goal potential, but the exact 1-0 reverse and only MEDIUM continuation prevent a protected G4.\",\"h2h_transferability\":\"The 2026 reverse meeting finished Jeonnam 0-1 Seoul E-Land, which is highly transferable as an upper-tail control warning, although both teams' more recent K League 2 form has become substantially more open.\",\"match_context\":\"No verified rivalry, compressed-rest, travel or fatigue factor is strong enough to override the current K League 2 scoring structure.\",\"named_failure_mechanism\":\"Seoul can dominate and still reproduce the controlled 1-0/2-0 endpoint seen in the reverse fixture if Jeonnam's recent reply route disappears.\",\"opponent_leakage\":\"opponent_leakage=HIGH; Seoul E-Land have scored 54 in 29 league matches and their last five include 6-2 over Gimhae and a 4-2 loss at Yongin. Jeonnam have conceded 52 in 29 and their last five are 2-2, 2-4, 1-2, 2-1 and 0-3; they scored in four of those five. The closest H2H this season was only 1-0, so G3 and G4 must be separated.\",\"primary_scoring_route\":\"Seoul E-Land route=STRONG; Seoul's strong current attack plus Jeonnam's heavy league leakage independently support the third goal, while the exact 1-0 reverse blocks automatic promotion to a protected fourth goal.\",\"secondary_reply_route\":\"Jeonnam Dragons route=USABLE; current reply quality is frozen independently of any market.\",\"stall_0_0\":\"0-0 control risk is represented by burden_stall_risk=MEDIUM; main failure: Seoul can dominate and still reproduce the controlled 1-0/2-0 endpoint seen in the reverse fixture if Jeonnam's recent reply route disappears.\",\"stall_1_1\":\"1-1 continuation is represented by continuation_quality=MEDIUM; no generic two-route promotion is assumed.\",\"supported_burden_basis\":\"Seoul's strong current attack plus Jeonnam's heavy league leakage independently support the third goal, while the exact 1-0 reverse blocks automatic promotion to a protected fourth goal.\",\"tournament_incentive\":\"Seoul E-Land are 3rd on 54 points from 29 matches, three points behind 2nd-place Suwon FC and one point ahead of Daegu. With three matches left, Seoul have direct-promotion and playoff-seeding incentive. Jeonnam are 15th on 25 and cannot reach the current top-six cutoff.\"},\"completed\":true,\"contract\":\"ASSESSMENT_DEPTH_V3\",\"evidence_epoch_id\":\"DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\",\"https://www.kleague.com/about/competition.do\"],\"market_independent\":true},\"context\":{\"assessment_at_utc\":\"2026-11-07T07:11:00+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"Direct football-only compilation for the user-requested K League 2 kickoff block; deterministic Football C owns the certificate.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NO_FROZEN_BOARD\",\"direct_request\":true,\"direct_research_completed\":true,\"direct_research_epoch_id\":\"DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3\",\"direct_revision\":\"INITIAL\",\"direct_upstream_state\":\"NOT_RANKED\",\"exception_flag\":false,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":false,\"frozen_board_certified_burden\":null,\"market_disagreement_recheck_basis\":\"No market quote supplied; football-only assessment.\",\"market_disagreement_recheck_evidence_refs\":[],\"market_disagreement_recheck_fields\":[],\"market_disagreement_recheck_status\":\"NOT_REQUIRED\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\"},\"evidence_epoch_id\":\"DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3\",\"match\":{\"activation_basis\":\"Seoul's promotion pressure and both clubs' recent scoring create a live opening route, but no source-backed early-chance or early-concession evidence clears the V3 HIGH-activation requirement.\",\"activation_evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"activation_ignition\":{\"basis\":\"Seoul have strong current attack structure and must chase automatic promotion; Jeonnam's recent openness provides a reply route, but verified early-opening evidence is insufficient for HIGH activation.\",\"current_attack_structure\":\"HIGH\",\"early_chance_creation\":\"MEDIUM\",\"early_concession_opening\":\"MEDIUM\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"game_state_force\":\"HIGH\",\"weaker_side_state_change\":\"MEDIUM\"},\"activation_quality\":\"MEDIUM\",\"aggregate_state\":\"SINGLE_LEAGUE_MATCH_NO_AGGREGATE\",\"away\":\"Jeonnam Dragons\",\"away_incentive\":\"PLACEMENT_ONLY\",\"away_route\":\"USABLE\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Strong Seoul route plus Jeonnam leakage fund G3; the exact reverse caps the upper tail.\",\"burden_completion_quality\":\"HIGH\",\"burden_protection\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"carrier_self_fund\":true,\"carrier_self_fund_basis\":\"Seoul have scored six against Gimhae and two in multiple recent league matches, and their season attack is strong enough to retain a credible three-goal self-funding route against a 52-goal-conceded Jeonnam defense.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"Seoul E-Land have scored 54 in 29 league matches and their last five include 6-2 over Gimhae and a 4-2 loss at Yongin. Jeonnam have conceded 52 in 29 and their last five are 2-2, 2-4, 1-2, 2-1 and 0-3; they scored in four of those five. The closest H2H this season was only 1-0, so G3 and G4 must be separated.\",\"competition\":\"K League 2\",\"competition_format\":\"17-team double round-robin; 32 league matches per club. Final positions 1-2 are automatically promoted and positions 3-6 enter the K League 2 promotion playoffs.\",\"competition_kind\":\"DOMESTIC_LEAGUE\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"K League 2 is a senior professional domestic league with official schedule/table/competition-format evidence and strong current fixture observability; no popularity prior is used.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"ROUND_32_OF_34\",\"competition_structure_basis\":\"Official K League 2 2026 competition regulations define a 17-team, 34-round double round-robin; positions 1-2 promote automatically and 3-6 enter the promotion playoffs.\",\"competition_structure_evidence_refs\":[\"https://www.kleague.com/about/competition.do\"],\"competition_structure_kind\":\"LEAGUE_REGULAR\",\"competition_structure_source_tier\":\"OFFICIAL_COMPETITION\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"MEDIUM\",\"country\":\"South Korea\",\"demoted_probation\":false,\"draw_resolution\":\"League draw stands after 90 minutes.\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"The failure mechanism attacks continuation beyond the third goal rather than Seoul's primary scoring route.\",\"failure_mechanisms\":{\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\":{\"affected_paths\":[\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"The current-season reverse finished Jeonnam 0-1 Seoul E-Land, showing that this matchup can remain controlled even when broader form is open.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"g3_current_structure_basis\":\"Seoul retain a STRONG current route, Jeonnam have scored in four of their last five while conceding heavily, and the current K League 2 structure verifies a strong-primary plus usable-reply third-goal path.\",\"g3_current_structure_source_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"],\"g3_current_structure_verified\":true,\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_distributed_path\":\"FAILED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Seoul can score multiple goals, but the exact reverse does not establish a dependable fourth goal from the home carrier alone.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"]},\"g4_distributed_path\":{\"basis\":\"Jeonnam's recent reply is usable but the exact same-season matchup did not support a 3+1 or 2+2 distribution.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"g4_reply_path\":{\"basis\":\"Jeonnam have scored in four of five recent matches, but were blanked by Seoul in the current-season reverse, so a post-third reply is not protected.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"The recent league form creates fourth-goal potential, but the exact 1-0 reverse and only MEDIUM continuation prevent a protected G4.\",\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"goal_signal_low_draw_trap_rate\":0.18,\"goal_signal_mean_over_three_rate\":0.4,\"goal_signal_mean_over_two_rate\":0.8,\"goal_signal_priority_score\":78,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 1-0 reverse keeps a real controlled endpoint despite recent high totals.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"continuation_quality\":{\"basis\":\"Recent totals are open but the exact reverse caps continuation at MEDIUM.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"failure_resistance\":{\"basis\":\"G3 can survive weak Jeonnam contribution through Seoul's carrier, but the total becomes more fragile beyond three.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"],\"mechanism_ids\":[]},\"independent_upper_tail\":{\"basis\":\"A fourth goal is plausible from recent league form but fails transferability against the exact reverse.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"route_reliability\":{\"basis\":\"Seoul's season scoring and current home attack remain reliable against a heavily conceding Jeonnam defense.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"],\"mechanism_ids\":[]}},\"h2h_basis\":\"The 2026 reverse meeting finished Jeonnam 0-1 Seoul E-Land, which is highly transferable as an upper-tail control warning, although both teams' more recent K League 2 form has become substantially more open.\",\"h2h_current_corroboration\":\"VERIFIED\",\"h2h_effect\":\"SUPPRESSIVE\",\"h2h_material_effect\":true,\"h2h_state\":\"CURRENT_COMPETITION_REVIEWED\",\"h2h_transferability\":\"VERIFIED\",\"home\":\"Seoul E-Land\",\"home_incentive\":\"MUST_WIN\",\"home_route\":\"STRONG\",\"incentive_effect\":\"EXPANSIVE\",\"independent_route_quality\":\"MEDIUM\",\"independent_upper_tail\":true,\"independent_upper_tail_basis\":\"Recent Jeonnam league matches are highly open and can produce a fourth goal, but the exact 2026 reverse remained 1-0 so the upper tail is not transferable enough to certify G4.\",\"kickoff_ict\":\"2026-11-07T16:30:00+07:00\",\"main_failure\":\"Seoul can dominate and still reproduce the controlled 1-0/2-0 endpoint seen in the reverse fixture if Jeonnam's recent reply route disappears.\",\"market_observability\":\"HIGH\",\"match_context_basis\":\"No verified rivalry, compressed-rest, travel or fatigue factor is strong enough to override the current K League 2 scoring structure.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_evidence_refs\":[\"https://www.kleague.com/news_view.do?category=league&orderBy=seq&page=1&seq=96747&viewOption=album\",\"https://www.kleague.com/about/competition.do\"],\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_id\":\"K2-20261107-SEOUL-E-JEONNAM\",\"material_suppression\":false,\"material_suppression_basis\":\"No current evidence suppresses Seoul's scoring route; the main control risk is the upper tail.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"Official standings/format plus current K League 2 form and last-known lineups are available; confirmed starting XIs are not yet published at the assessment freeze.\",\"opponent_leakage\":\"HIGH\",\"qualification_state\":\"Seoul E-Land are 3rd on 54 points from 29 matches, three points behind 2nd-place Suwon FC and one point ahead of Daegu. With three matches left, Seoul have direct-promotion and playoff-seeding incentive. Jeonnam are 15th on 25 and cannot reach the current top-six cutoff.\",\"raw_operational_viability_grade\":\"A\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"simultaneous_results_note\":\"Other Round 32 fixtures can alter nearby positions, but this is not the final simultaneous round and the current points requirements are independently known.\",\"simultaneous_results_status\":\"VERIFIED\",\"source_urls\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\",\"https://www.kleague.com/about/competition.do\"],\"supported_line\":2.5,\"supported_line_basis\":\"Seoul's strong current attack plus Jeonnam's heavy league leakage independently support the third goal, while the exact 1-0 reverse blocks automatic promotion to a protected fourth goal.\",\"team_news_observability\":\"MEDIUM\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_format_status\":\"VERIFIED\",\"tournament_incentive_required\":true,\"travel_load_context\":\"NORMAL\",\"upper_tail_comparable_context_basis\":\"Exact same-season opponent evidence is suppressive above G3 even though recent league form is expansive.\",\"upper_tail_comparable_context_signal\":\"SUPPRESSIVE\",\"upper_tail_competition_provenance_basis\":\"The primary scoring and tail evidence is from current K League 2 matches; no cup or friendly scoreline is used to create the certificate.\",\"upper_tail_competition_provenance_verified\":true,\"upper_tail_transferability\":\"LOW\",\"upper_tail_transferability_basis\":\"The closest same-opponent K League 2 evidence is the 1-0 reverse, which overrides broader recent high totals for G4 transferability.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"MEDIUM\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+        "Persisted At UTC": null,
+        "Publication Key": null,
+        "Published": false,
+        "Score": null,
+        "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_ONLY"
+      },
+      "sheet_name": "Decision States",
+      "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+      "status_before_readback": "DECISION_STATE_PERSISTENCE_REQUIRED",
+      "store": "GOOGLE_SHEETS"
+    },
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "quote_research_required": false,
+    "quotes_required": false,
+    "rank_state_display": "FOCUS",
+    "rank_state_internal": "FOCUS",
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "PLACEMENT_ONLY",
+      "away_route": "USABLE",
+      "bet_authorized": false,
+      "board_state": 2,
+      "board_state_mismatch": false,
+      "burden_completion_quality": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "STRONG",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": true,
+        "certificate_robustness": "ROBUST",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED",
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": false,
+        "tournament_tail_bias": "EXPANSIVE"
+      },
+      "certified_supported_burden": 2.5,
+      "chance_quality": "HIGH",
+      "completion_mode": "CARRIER_LED",
+      "continuation_quality": "MEDIUM",
+      "credible_burden_band_high": 2.5,
+      "credible_burden_band_low": 2.5,
+      "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+      "credible_tail_basis": "G4_REJECTED_PREMARKET: next-goal tail lacks sufficient transferable or continuation support",
+      "credible_tail_execution_authority": false,
+      "credible_tail_market_independent": true,
+      "credible_tail_state": "REJECTED",
+      "credible_tail_target_goal": 4,
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_board_state": "FOCUS",
+      "declared_board_state_basis": "Strong Seoul route plus Jeonnam leakage fund G3; the exact reverse caps the upper tail.",
+      "declared_board_state_source": "board_state",
+      "declared_supported_line": 2.5,
+      "declared_supported_line_basis": "Seoul's strong current attack plus Jeonnam's heavy league leakage independently support the third goal, while the exact 1-0 reverse blocks automatic promotion to a protected fourth goal.",
+      "direct_act_ceiling": null,
+      "effective_burden_stall_risk": "LOW",
+      "effective_continuation_quality": "HIGH",
+      "effective_upper_tail_transferability": "LOW",
+      "endpoint_control_pressure": "HIGH",
+      "execution_strength": "ROBUST",
+      "failure_mechanisms": {
+        "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL": {
+          "affected_paths": [
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "The current-season reverse finished Jeonnam 0-1 Seoul E-Land, showing that this matchup can remain controlled even when broader form is open.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT"
+        }
+      },
+      "failure_resistance": "MEDIUM",
+      "fatigue_context": "NONE",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 2.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=CARRIER_G3,LEAKAGE_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=SUPPRESSIVE",
+      "frozen_supported_line_funding": true,
+      "g3_current_structure_basis": "Seoul retain a STRONG current route, Jeonnam have scored in four of their last five while conceding heavily, and the current K League 2 structure verifies a strong-primary plus usable-reply third-goal path.",
+      "g3_current_structure_source_refs": [
+        "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+        "https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/"
+      ],
+      "g3_current_structure_verified": true,
+      "g3_endpoint_control_pressure": "HIGH",
+      "g4_carrier_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_distributed_path": "FAILED",
+      "g4_evidence_disposition": "MIXED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_diagnostic": "MIXED",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Seoul can score multiple goals, but the exact reverse does not establish a dependable fourth goal from the home carrier alone.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Jeonnam's recent reply is usable but the exact same-season matchup did not support a 3+1 or 2+2 distribution.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557"
+          ],
+          "mechanism_ids": [
+            "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Jeonnam have scored in four of five recent matches, but were blanked by Seoul in the current-season reverse, so a post-third reply is not protected.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557"
+          ],
+          "mechanism_ids": [
+            "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL"
+          ]
+        }
+      },
+      "g4_reply_path": "FAILED",
+      "g4_research_basis": "The recent league form creates fourth-goal potential, but the exact 1-0 reverse and only MEDIUM continuation prevent a protected G4.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_status_normalized_from_mixed": false,
+      "goal3_carrier_funded": true,
+      "goal3_distributed_funded": false,
+      "goal3_funded": true,
+      "goal3_leakage_funded": true,
+      "goal3_mechanism_class": "CARRIER",
+      "goal3_two_route_funded": false,
+      "goal4_funded": false,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "The 1-0 reverse keeps a real controlled endpoint despite recent high totals.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor"
+          ],
+          "mechanism_ids": [
+            "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Recent totals are open but the exact reverse caps continuation at MEDIUM.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557"
+          ],
+          "mechanism_ids": [
+            "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "G3 can survive weak Jeonnam contribution through Seoul's carrier, but the total becomes more fragile beyond three.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/"
+          ],
+          "mechanism_ids": []
+        },
+        "independent_upper_tail": {
+          "basis": "A fourth goal is plausible from recent league form but fails transferability against the exact reverse.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557"
+          ],
+          "mechanism_ids": [
+            "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL"
+          ]
+        },
+        "route_reliability": {
+          "basis": "Seoul's season scoring and current home attack remain reliable against a heavily conceding Jeonnam defense.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "home_incentive": "MUST_WIN",
+      "home_route": "STRONG",
+      "incentive_effect": "EXPANSIVE",
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "G3_FLOOR_NOT_EXECUTION_AUTHORIZED",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_context_basis": "No verified rivalry, compressed-rest, travel or fatigue factor is strong enough to override the current K League 2 scoring structure.",
+      "match_context_effect": "NEUTRAL",
+      "match_context_positive_pressure": false,
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "match_context_suppressive_pressure": false,
+      "match_id": "K2-20261107-SEOUL-E-JEONNAM",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": true,
+        "reason": "RESEARCHED_LEAGUE_CONDITIONAL",
+        "status": "IN_SCOPE"
+      },
+      "prospective_tail_ceiling": 2.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "rank_state_display": "FOCUS",
+      "rank_state_internal": "FOCUS",
+      "rest_load_context": "BALANCED",
+      "rivalry_context": "NEUTRAL",
+      "route_reliability": "HIGH",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {
+        "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "g4_distributed_path",
+          "g4_reply_path",
+          "independent_upper_tail"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "YES",
+      "tournament_incentive_effect": "EXPANSIVE",
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_positive_pressure": true,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "EXPANSIVE",
+      "travel_load_context": "NORMAL",
+      "upper_tail_comparable_context_basis": "Exact same-season opponent evidence is suppressive above G3 even though recent league form is expansive.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_control_pressure": "HIGH",
+      "upper_tail_strength": "WEAK",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "The closest same-opponent K League 2 evidence is the 1-0 reverse, which overrides broader recent high totals for G4 transferability.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_ASSESSMENT"
+  },
+  "runtime_commit": "e9ba12e1700756c72703d6225143bda47e892a56",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "sheets_handoff": {
+    "assessment_id": "XI-C-DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3",
+    "contract": "XI_SHEETS_HANDOFF_V1",
+    "fail_closed_status": "XI_PERSISTENCE_UNAVAILABLE",
+    "github_runtime_result_is_not_sheets_persistence": true,
+    "key_column": "Assessment ID",
+    "orchestrator_required_actions": [
+      "UPSERT_IMMUTABLE_KEY",
+      "STAMP_PERSISTED_AT_UTC",
+      "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
+      "VERIFY_READBACK_ASSERTIONS"
+    ],
+    "readback_assertions": [
+      "Assessment ID",
+      "Evidence Epoch ID",
+      "XI Assessment Execution Status",
+      "C Action",
+      "C Supported Line",
+      "Evaluated Line",
+      "Evaluated Odds",
+      "Engine C Result",
+      "Engine Source Revision"
+    ],
+    "required_before_user_verdict": true,
+    "row": {
+      "Assessment At UTC": "2026-11-07T07:11:00+00:00",
+      "Assessment ID": "XI-C-DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3",
+      "C Action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "C Board State": "FOCUS",
+      "C Supported Line": 2.5,
+      "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"REJECTED\",\"current_rank\":null,\"decision\":\"REVIEW_ONLY\",\"direct_act_ceiling\":null,\"entry_feasibility_basis\":null,\"entry_feasibility_state\":null,\"evidence_epoch\":\"DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"HIGH\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"G3_FLOOR_NOT_EXECUTION_AUTHORIZED\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"K2-20261107-SEOUL-E-JEONNAM\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"rank_scope\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"ROBUST\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[],\"selected_evaluated_line\":null,\"selected_evaluated_odds\":null,\"selection_authority\":\"ZERO\",\"slate_rank\":null,\"slate_rank_status\":null,\"sweep_state\":null,\"upper_tail_pressure\":\"HIGH\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"PLACEMENT_ONLY\",\"away_route\":\"USABLE\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":true,\"certificate_robustness\":\"ROBUST\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED\",\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":false,\"tournament_tail_bias\":\"EXPANSIVE\"},\"certified_supported_burden\":2.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"MEDIUM\",\"credible_burden_band_high\":2.5,\"credible_burden_band_low\":2.5,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G4_REJECTED_PREMARKET: next-goal tail lacks sufficient transferable or continuation support\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"REJECTED\",\"credible_tail_target_goal\":4,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Strong Seoul route plus Jeonnam leakage fund G3; the exact reverse caps the upper tail.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":2.5,\"declared_supported_line_basis\":\"Seoul's strong current attack plus Jeonnam's heavy league leakage independently support the third goal, while the exact 1-0 reverse blocks automatic promotion to a protected fourth goal.\",\"direct_act_ceiling\":null,\"effective_burden_stall_risk\":\"LOW\",\"effective_continuation_quality\":\"HIGH\",\"effective_upper_tail_transferability\":\"LOW\",\"endpoint_control_pressure\":\"HIGH\",\"execution_strength\":\"ROBUST\",\"failure_mechanisms\":{\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\":{\"affected_paths\":[\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"The current-season reverse finished Jeonnam 0-1 Seoul E-Land, showing that this matchup can remain controlled even when broader form is open.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":2.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=CARRIER_G3,LEAKAGE_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=SUPPRESSIVE\",\"frozen_supported_line_funding\":true,\"g3_current_structure_basis\":\"Seoul retain a STRONG current route, Jeonnam have scored in four of their last five while conceding heavily, and the current K League 2 structure verifies a strong-primary plus usable-reply third-goal path.\",\"g3_current_structure_source_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"],\"g3_current_structure_verified\":true,\"g3_endpoint_control_pressure\":\"HIGH\",\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_distributed_path\":\"FAILED\",\"g4_evidence_disposition\":\"MIXED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Seoul can score multiple goals, but the exact reverse does not establish a dependable fourth goal from the home carrier alone.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"]},\"g4_distributed_path\":{\"basis\":\"Jeonnam's recent reply is usable but the exact same-season matchup did not support a 3+1 or 2+2 distribution.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"g4_reply_path\":{\"basis\":\"Jeonnam have scored in four of five recent matches, but were blanked by Seoul in the current-season reverse, so a post-third reply is not protected.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"The recent league form creates fourth-goal potential, but the exact 1-0 reverse and only MEDIUM continuation prevent a protected G4.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":true,\"goal3_distributed_funded\":false,\"goal3_funded\":true,\"goal3_leakage_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal3_two_route_funded\":false,\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 1-0 reverse keeps a real controlled endpoint despite recent high totals.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"continuation_quality\":{\"basis\":\"Recent totals are open but the exact reverse caps continuation at MEDIUM.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"failure_resistance\":{\"basis\":\"G3 can survive weak Jeonnam contribution through Seoul's carrier, but the total becomes more fragile beyond three.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"],\"mechanism_ids\":[]},\"independent_upper_tail\":{\"basis\":\"A fourth goal is plausible from recent league form but fails transferability against the exact reverse.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"route_reliability\":{\"basis\":\"Seoul's season scoring and current home attack remain reliable against a heavily conceding Jeonnam defense.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"],\"mechanism_ids\":[]}},\"home_incentive\":\"MUST_WIN\",\"home_route\":\"STRONG\",\"incentive_effect\":\"EXPANSIVE\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"G3_FLOOR_NOT_EXECUTION_AUTHORIZED\",\"eligible\":false,\"max_direct_line\":null},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_context_basis\":\"No verified rivalry, compressed-rest, travel or fatigue factor is strong enough to override the current K League 2 scoring structure.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_positive_pressure\":false,\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_context_suppressive_pressure\":false,\"match_id\":\"K2-20261107-SEOUL-E-JEONNAM\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"RESEARCHED_LEAGUE_CONDITIONAL\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":2.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\":[\"burden_stall_risk\",\"continuation_quality\",\"g4_distributed_path\",\"g4_reply_path\",\"independent_upper_tail\"]},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_incentive_effect\":\"EXPANSIVE\",\"tournament_incentive_required\":true,\"tournament_incentive_resolution\":\"VERIFIED\",\"tournament_positive_pressure\":true,\"tournament_suppressive_pressure\":false,\"tournament_tail_bias\":\"EXPANSIVE\",\"travel_load_context\":\"NORMAL\",\"upper_tail_comparable_context_basis\":\"Exact same-season opponent evidence is suppressive above G3 even though recent league form is expansive.\",\"upper_tail_comparable_context_signal\":\"SUPPRESSIVE\",\"upper_tail_control_pressure\":\"HIGH\",\"upper_tail_strength\":\"WEAK\",\"upper_tail_transferability\":\"LOW\",\"upper_tail_transferability_basis\":\"The closest same-opponent K League 2 evidence is the 1-0 reverse, which overrides broader recent high totals for G4 transferability.\",\"wait_authorized\":false}}",
+      "Engine Source Revision": "e9ba12e1700756c72703d6225143bda47e892a56",
+      "Evaluated Line": null,
+      "Evaluated Odds": null,
+      "Evidence Epoch ID": "DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3",
+      "Fixture Status": "PREMATCH_CONFIRMED",
+      "Match ID": "K2-20261107-SEOUL-E-JEONNAM",
+      "Match Minute": null,
+      "Payload JSON": "{\"assessment_depth\":{\"assessed_at_utc\":\"2026-11-07T07:11:00+00:00\",\"checks\":{\"availability_replacements\":\"Confirmed starting XIs are not yet published; last-known structures are used without assuming unverified starters, and no availability-based upgrade is applied.\",\"carrier_capacity\":\"Seoul have scored six against Gimhae and two in multiple recent league matches, and their season attack is strong enough to retain a credible three-goal self-funding route against a 52-goal-conceded Jeonnam defense.\",\"continuation_2_0\":\"2-0 continuation is assessed separately; Exact same-season opponent evidence is suppressive above G3 even though recent league form is expansive.\",\"current_chance_creation\":\"chance_quality=HIGH; route_reliability=HIGH; evidence basis: Seoul E-Land have scored 54 in 29 league matches and their last five include 6-2 over Gimhae and a 4-2 loss at Yongin. Jeonnam have conceded 52 in 29 and their last five are 2-2, 2-4, 1-2, 2-1 and 0-3; they scored in four of those five. The closest H2H this season was only 1-0, so G3 and G4 must be separated.\",\"goal3_mechanism\":\"Current G3 mechanism research: Seoul's strong current attack plus Jeonnam's heavy league leakage independently support the third goal, while the exact 1-0 reverse blocks automatic promotion to a protected fourth goal.\",\"goal4_mechanism\":\"The recent league form creates fourth-goal potential, but the exact 1-0 reverse and only MEDIUM continuation prevent a protected G4.\",\"h2h_transferability\":\"The 2026 reverse meeting finished Jeonnam 0-1 Seoul E-Land, which is highly transferable as an upper-tail control warning, although both teams' more recent K League 2 form has become substantially more open.\",\"match_context\":\"No verified rivalry, compressed-rest, travel or fatigue factor is strong enough to override the current K League 2 scoring structure.\",\"named_failure_mechanism\":\"Seoul can dominate and still reproduce the controlled 1-0/2-0 endpoint seen in the reverse fixture if Jeonnam's recent reply route disappears.\",\"opponent_leakage\":\"opponent_leakage=HIGH; Seoul E-Land have scored 54 in 29 league matches and their last five include 6-2 over Gimhae and a 4-2 loss at Yongin. Jeonnam have conceded 52 in 29 and their last five are 2-2, 2-4, 1-2, 2-1 and 0-3; they scored in four of those five. The closest H2H this season was only 1-0, so G3 and G4 must be separated.\",\"primary_scoring_route\":\"Seoul E-Land route=STRONG; Seoul's strong current attack plus Jeonnam's heavy league leakage independently support the third goal, while the exact 1-0 reverse blocks automatic promotion to a protected fourth goal.\",\"secondary_reply_route\":\"Jeonnam Dragons route=USABLE; current reply quality is frozen independently of any market.\",\"stall_0_0\":\"0-0 control risk is represented by burden_stall_risk=MEDIUM; main failure: Seoul can dominate and still reproduce the controlled 1-0/2-0 endpoint seen in the reverse fixture if Jeonnam's recent reply route disappears.\",\"stall_1_1\":\"1-1 continuation is represented by continuation_quality=MEDIUM; no generic two-route promotion is assumed.\",\"supported_burden_basis\":\"Seoul's strong current attack plus Jeonnam's heavy league leakage independently support the third goal, while the exact 1-0 reverse blocks automatic promotion to a protected fourth goal.\",\"tournament_incentive\":\"Seoul E-Land are 3rd on 54 points from 29 matches, three points behind 2nd-place Suwon FC and one point ahead of Daegu. With three matches left, Seoul have direct-promotion and playoff-seeding incentive. Jeonnam are 15th on 25 and cannot reach the current top-six cutoff.\"},\"completed\":true,\"contract\":\"ASSESSMENT_DEPTH_V3\",\"evidence_epoch_id\":\"DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\",\"https://www.kleague.com/about/competition.do\"],\"market_independent\":true},\"context\":{\"assessment_at_utc\":\"2026-11-07T07:11:00+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"Direct football-only compilation for the user-requested K League 2 kickoff block; deterministic Football C owns the certificate.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NO_FROZEN_BOARD\",\"direct_request\":true,\"direct_research_completed\":true,\"direct_research_epoch_id\":\"DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3\",\"direct_revision\":\"INITIAL\",\"direct_upstream_state\":\"NOT_RANKED\",\"exception_flag\":false,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":false,\"frozen_board_certified_burden\":null,\"market_disagreement_recheck_basis\":\"No market quote supplied; football-only assessment.\",\"market_disagreement_recheck_evidence_refs\":[],\"market_disagreement_recheck_fields\":[],\"market_disagreement_recheck_status\":\"NOT_REQUIRED\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\"},\"evidence_epoch_id\":\"DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3\",\"match\":{\"activation_basis\":\"Seoul's promotion pressure and both clubs' recent scoring create a live opening route, but no source-backed early-chance or early-concession evidence clears the V3 HIGH-activation requirement.\",\"activation_evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"activation_ignition\":{\"basis\":\"Seoul have strong current attack structure and must chase automatic promotion; Jeonnam's recent openness provides a reply route, but verified early-opening evidence is insufficient for HIGH activation.\",\"current_attack_structure\":\"HIGH\",\"early_chance_creation\":\"MEDIUM\",\"early_concession_opening\":\"MEDIUM\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"game_state_force\":\"HIGH\",\"weaker_side_state_change\":\"MEDIUM\"},\"activation_quality\":\"MEDIUM\",\"aggregate_state\":\"SINGLE_LEAGUE_MATCH_NO_AGGREGATE\",\"away\":\"Jeonnam Dragons\",\"away_incentive\":\"PLACEMENT_ONLY\",\"away_route\":\"USABLE\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Strong Seoul route plus Jeonnam leakage fund G3; the exact reverse caps the upper tail.\",\"burden_completion_quality\":\"HIGH\",\"burden_protection\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"carrier_self_fund\":true,\"carrier_self_fund_basis\":\"Seoul have scored six against Gimhae and two in multiple recent league matches, and their season attack is strong enough to retain a credible three-goal self-funding route against a 52-goal-conceded Jeonnam defense.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"Seoul E-Land have scored 54 in 29 league matches and their last five include 6-2 over Gimhae and a 4-2 loss at Yongin. Jeonnam have conceded 52 in 29 and their last five are 2-2, 2-4, 1-2, 2-1 and 0-3; they scored in four of those five. The closest H2H this season was only 1-0, so G3 and G4 must be separated.\",\"competition\":\"K League 2\",\"competition_format\":\"17-team double round-robin; 32 league matches per club. Final positions 1-2 are automatically promoted and positions 3-6 enter the K League 2 promotion playoffs.\",\"competition_kind\":\"DOMESTIC_LEAGUE\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"K League 2 is a senior professional domestic league with official schedule/table/competition-format evidence and strong current fixture observability; no popularity prior is used.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"ROUND_32_OF_34\",\"competition_structure_basis\":\"Official K League 2 2026 competition regulations define a 17-team, 34-round double round-robin; positions 1-2 promote automatically and 3-6 enter the promotion playoffs.\",\"competition_structure_evidence_refs\":[\"https://www.kleague.com/about/competition.do\"],\"competition_structure_kind\":\"LEAGUE_REGULAR\",\"competition_structure_source_tier\":\"OFFICIAL_COMPETITION\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"MEDIUM\",\"country\":\"South Korea\",\"demoted_probation\":false,\"draw_resolution\":\"League draw stands after 90 minutes.\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"The failure mechanism attacks continuation beyond the third goal rather than Seoul's primary scoring route.\",\"failure_mechanisms\":{\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\":{\"affected_paths\":[\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"The current-season reverse finished Jeonnam 0-1 Seoul E-Land, showing that this matchup can remain controlled even when broader form is open.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"g3_current_structure_basis\":\"Seoul retain a STRONG current route, Jeonnam have scored in four of their last five while conceding heavily, and the current K League 2 structure verifies a strong-primary plus usable-reply third-goal path.\",\"g3_current_structure_source_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"],\"g3_current_structure_verified\":true,\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_distributed_path\":\"FAILED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Seoul can score multiple goals, but the exact reverse does not establish a dependable fourth goal from the home carrier alone.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"]},\"g4_distributed_path\":{\"basis\":\"Jeonnam's recent reply is usable but the exact same-season matchup did not support a 3+1 or 2+2 distribution.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"g4_reply_path\":{\"basis\":\"Jeonnam have scored in four of five recent matches, but were blanked by Seoul in the current-season reverse, so a post-third reply is not protected.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]}},\"g4_reply_path\":\"FAILED\",\"g4_research_basis\":\"The recent league form creates fourth-goal potential, but the exact 1-0 reverse and only MEDIUM continuation prevent a protected G4.\",\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"goal_signal_low_draw_trap_rate\":0.18,\"goal_signal_mean_over_three_rate\":0.4,\"goal_signal_mean_over_two_rate\":0.8,\"goal_signal_priority_score\":78,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"The 1-0 reverse keeps a real controlled endpoint despite recent high totals.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"continuation_quality\":{\"basis\":\"Recent totals are open but the exact reverse caps continuation at MEDIUM.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"failure_resistance\":{\"basis\":\"G3 can survive weak Jeonnam contribution through Seoul's carrier, but the total becomes more fragile beyond three.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"],\"mechanism_ids\":[]},\"independent_upper_tail\":{\"basis\":\"A fourth goal is plausible from recent league form but fails transferability against the exact reverse.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\"],\"mechanism_ids\":[\"SEOUL_JEONNAM_EXACT_REVERSE_CONTROL\"]},\"route_reliability\":{\"basis\":\"Seoul's season scoring and current home attack remain reliable against a heavily conceding Jeonnam defense.\",\"evidence_refs\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\"],\"mechanism_ids\":[]}},\"h2h_basis\":\"The 2026 reverse meeting finished Jeonnam 0-1 Seoul E-Land, which is highly transferable as an upper-tail control warning, although both teams' more recent K League 2 form has become substantially more open.\",\"h2h_current_corroboration\":\"VERIFIED\",\"h2h_effect\":\"SUPPRESSIVE\",\"h2h_material_effect\":true,\"h2h_state\":\"CURRENT_COMPETITION_REVIEWED\",\"h2h_transferability\":\"VERIFIED\",\"home\":\"Seoul E-Land\",\"home_incentive\":\"MUST_WIN\",\"home_route\":\"STRONG\",\"incentive_effect\":\"EXPANSIVE\",\"independent_route_quality\":\"MEDIUM\",\"independent_upper_tail\":true,\"independent_upper_tail_basis\":\"Recent Jeonnam league matches are highly open and can produce a fourth goal, but the exact 2026 reverse remained 1-0 so the upper tail is not transferable enough to certify G4.\",\"kickoff_ict\":\"2026-11-07T16:30:00+07:00\",\"main_failure\":\"Seoul can dominate and still reproduce the controlled 1-0/2-0 endpoint seen in the reverse fixture if Jeonnam's recent reply route disappears.\",\"market_observability\":\"HIGH\",\"match_context_basis\":\"No verified rivalry, compressed-rest, travel or fatigue factor is strong enough to override the current K League 2 scoring structure.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_evidence_refs\":[\"https://www.kleague.com/news_view.do?category=league&orderBy=seq&page=1&seq=96747&viewOption=album\",\"https://www.kleague.com/about/competition.do\"],\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_id\":\"K2-20261107-SEOUL-E-JEONNAM\",\"material_suppression\":false,\"material_suppression_basis\":\"No current evidence suppresses Seoul's scoring route; the main control risk is the upper tail.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"Official standings/format plus current K League 2 form and last-known lineups are available; confirmed starting XIs are not yet published at the assessment freeze.\",\"opponent_leakage\":\"HIGH\",\"qualification_state\":\"Seoul E-Land are 3rd on 54 points from 29 matches, three points behind 2nd-place Suwon FC and one point ahead of Daegu. With three matches left, Seoul have direct-promotion and playoff-seeding incentive. Jeonnam are 15th on 25 and cannot reach the current top-six cutoff.\",\"raw_operational_viability_grade\":\"A\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"HIGH\",\"simultaneous_results_note\":\"Other Round 32 fixtures can alter nearby positions, but this is not the final simultaneous round and the current points requirements are independently known.\",\"simultaneous_results_status\":\"VERIFIED\",\"source_urls\":[\"https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor\",\"https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/\",\"https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557\",\"https://www.kleague.com/about/competition.do\"],\"supported_line\":2.5,\"supported_line_basis\":\"Seoul's strong current attack plus Jeonnam's heavy league leakage independently support the third goal, while the exact 1-0 reverse blocks automatic promotion to a protected fourth goal.\",\"team_news_observability\":\"MEDIUM\",\"tiebreak_margin_relevance\":\"YES\",\"tournament_format_status\":\"VERIFIED\",\"tournament_incentive_required\":true,\"travel_load_context\":\"NORMAL\",\"upper_tail_comparable_context_basis\":\"Exact same-season opponent evidence is suppressive above G3 even though recent league form is expansive.\",\"upper_tail_comparable_context_signal\":\"SUPPRESSIVE\",\"upper_tail_competition_provenance_basis\":\"The primary scoring and tail evidence is from current K League 2 matches; no cup or friendly scoreline is used to create the certificate.\",\"upper_tail_competition_provenance_verified\":true,\"upper_tail_transferability\":\"LOW\",\"upper_tail_transferability_basis\":\"The closest same-opponent K League 2 evidence is the 1-0 reverse, which overrides broader recent high totals for G4 transferability.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"MEDIUM\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+      "Persisted At UTC": null,
+      "Publication Key": null,
+      "Published": false,
+      "Score": null,
+      "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_ONLY"
+    },
+    "sheet_name": "Decision States",
+    "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+    "status": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED"
+  },
+  "xi_assessment_index": {
+    "assessment_at_utc": "2026-11-07T07:11:00+00:00",
+    "assessment_id": "XI-C-DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3",
+    "authority_mode": "DIRECT",
+    "contract": "XI_APPEND_ONLY_EXECUTION_INDEX_V1",
+    "custom_line_review": null,
+    "decision": "NOT_EVALUATED_NO_CURRENT_PRICE",
+    "decision_state_persistence_required": true,
+    "decision_state_readback_verified": false,
+    "evaluated_line": null,
+    "evaluated_odds": null,
+    "evidence_epoch_id": "DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "match_id": "K2-20261107-SEOUL-E-JEONNAM",
+    "match_minute": null,
+    "real_bet_fill_verified": false,
+    "request_id": "XI-DIRECT-K2-SEOUL-E-JEONNAM-20261107T071100Z-V3",
+    "score": null,
+    "screenshot_capture_reference": null,
+    "screenshot_observed_at_utc": null,
+    "source": "GITHUB_XI_RUNTIME_RESULT_NOT_ACTUAL_GOOGLE_SHEETS_READBACK",
+    "visible_user_quote_ladder": null
+  }
+}
