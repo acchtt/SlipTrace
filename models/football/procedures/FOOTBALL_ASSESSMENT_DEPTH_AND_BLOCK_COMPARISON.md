@@ -120,42 +120,35 @@ facts, update the ordinary Football C evidence fields and rerun the unchanged
 compiler. Otherwise freeze `CONFIRMED_REVIEW_ONLY`. Missing proof becomes
 `G3_BORDERLINE_RESEARCH_PENDING`, not a negative football verdict.
 
-## BLOCK_DISCRIMINATION_V3
+## BLOCK_DISCRIMINATION_V3 — lightweight selection mode
 
-For new production blocks from the V3 activation boundary, the old requirement
-to reconcile with global Football C /rank is retired. Global rank remains
-secondary audit metadata only.
+Effective for new /block calls from 2026-11-07.
 
-Each credible Grade-A/B block candidate must satisfy ASSESSMENT_DEPTH_V2,
-including source-backed activation evidence, and freeze a `block_comparison`
-object with equal-depth completion, candidate IDs, block rank, market
-independence, at least two football evidence references, and substantive bases
-for G3, G4, carrier/self-funding, reply dependence, endpoint exposure,
-continuation, tournament incentive, supported burden and beats-next reasoning.
+The previous production rule requiring every block candidate to complete
+ASSESSMENT_DEPTH_V2/V3 before comparison is retired because it duplicates /xi
+work and consumes excessive research/usage.
 
-The declared block order must reconcile with the deterministic
-`BLOCK_PRIORITY_V1` runtime order. That comparator uses only frozen prematch
-football evidence in this order:
+New /block is a two-stage selector:
 
-1. hard football viability / funded G3 accessibility;
-2. activation quality;
-3. opponent leakage / game-opening potential;
-4. continuation after goals;
-5. credible G4 / upper-tail state;
-6. 0-0 / 1-1 / 2-0 endpoint resistance;
-7. current chance quality;
-8. burden-completion quality;
-9. frozen 3+/4+ goal signal;
-10. protected-burden clearability;
-11. certificate robustness/depth; and
-12. G3 mechanism class as a late tiebreaker only.
+1. **block sweep:** resolve the entire unstarted cohort and freeze lightweight
+   goals-first intake evidence for every fixture;
+2. **block rank:** compare only qualified survivors and promote at most three
+   credible fixtures by default.
 
-Thus a carrier certificate cannot automatically defeat materially stronger
-activation, leakage, continuation and upper-tail evidence. Conversely, HIGH
-leakage alone cannot rescue LOW chance quality, a broken route or material
-suppression.
+The lightweight comparison may use current scoring-route signal, opponent
+leakage, recent comparable 3+/4+ signal, game-state/incentive pressure,
+endpoint/control risk and observability/XI readiness.
 
-BLOCK_PRIORITY_V1 is a selection comparator only. It changes no Football C
-certificate threshold and has no price/exposure authority. Screenshot
-ACT/BOOK/PASS still requires the existing XI deterministic runtime, Decision
-States persistence, independent readback and Step2 publication guard.
+It MUST NOT claim a Football C G3/G4 certificate, supported burden,
+ASSESSMENT_DEPTH_V3 completion, ACT/BOOK/PASS, or Decision States execution for
+a fixture that has only passed the lightweight block selector.
+
+A selected fixture receives full ASSESSMENT_DEPTH_V3 only when /xi is invoked
+(or when another explicit deep-assessment command requires it). /xi then owns
+H2H materiality, detailed failure mechanisms, G4 research, certificate
+compilation, screenshot price evaluation and persistence/readback.
+
+Historical equal-depth block receipts remain immutable/readable. This change is
+prospective and exists specifically to keep block selection materially cheaper
+than deep assessment of the entire cohort.
+
