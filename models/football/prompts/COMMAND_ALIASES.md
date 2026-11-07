@@ -152,9 +152,11 @@ ASSESSMENT_DEPTH_V3 research in that /xi turn and use DIRECT.
 
 Order:
 
-1. inherit the current BLOCK receipt when available, otherwise use the verified
-   RANKED compatibility path; if neither exists for an exact explicit /xi,
-   perform fresh full research and use DIRECT;
+1. inherit only a compatible historical/full BLOCK receipt when available,
+   otherwise use the verified RANKED compatibility path; a new lightweight
+   /block shortlist alone does not count as BLOCK authority, so if neither full
+   authority exists for an exact explicit /xi, perform fresh full research and
+   use DIRECT;
 2. refresh only genuinely changed Football C evidence;
 3. if the user supplied a screenshot/observed quote, evaluate that exact
    line/odds through the shared C quote policy;
