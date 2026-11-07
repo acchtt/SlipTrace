@@ -86,7 +86,14 @@ Resolve the complete unstarted cohort, then apply the **exact active V4 /sweep
 filter policy** inside that kickoff boundary: same inclusion/exclusion rules,
 user exclusions, eligibility/observability gates and goals-first qualification.
 /block must not maintain a separate or looser intake filter. Rank only the
-survivors using the bounded block-selection evidence. By default promote at most three
+survivors using the bounded block-selection evidence. **Do not use raw /sweep
+research priority as the final shortlist order.** After qualification, apply
+operational promotion bands: verified senior top-flight/continental fixtures
+(including verified women's top flights) ahead of comparable lower-tier
+fixtures; a regional/obscure lower-tier row may overtake only when its frozen
+goal signal is materially stronger (default >=15 priority-score points) AND
+its current researchability/XI channels are verified. A weak top-flight signal
+still cannot be rescued by league status. By default promote at most three
 fixtures; fewer when the block does not contain three credible candidates.
 
 Do **not** run ASSESSMENT_DEPTH_V3, G4 evidence research, full H2H/failure-tree
