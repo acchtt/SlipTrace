@@ -99,7 +99,14 @@ matches**. In addition to rankable survivors, include any unresolved
 frozen goal screen is `DISCOVERY_GOAL_QUALIFIED`) as
 `HIGH_SCORE_RESEARCH_BLOCKED`. Such a row may occupy a top-five display slot but
 must retain its blocker and has no /xi authority until the blocker is resolved.
-Show fewer than five only when the block has fewer credible/high-score rows.
+Also apply the Band-A `HIGH_4PLUS_RESCUE`: a `GOAL_REVIEW` /
+`RESERVE_SIGNAL` row must enter the five-match promotion comparison when its
+frozen mean 4+ rate is >=55%, carrier route >=1.75, low-draw-trap rate <=20%,
+and fixture identity/researchability is verified with no explicit exclusion or
+format blocker. This does not alter its frozen sweep lane and does not create a
+Football C certificate. Within Band A, compare rescued 4+ strength before raw
+priority score so a 55-59 composite score cannot be buried solely by the 60
+threshold. Show fewer than five only when the block has fewer credible/high-score rows.
 
 Do **not** run ASSESSMENT_DEPTH_V3, G4 evidence research, full H2H/failure-tree
 research, Football C certificate compilation, XI runtime or Decision States
