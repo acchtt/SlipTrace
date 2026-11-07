@@ -82,9 +82,11 @@ A user request such as `/block 23:00-00:00`, `assess the 23:00 block`, or
 `assess matches from 23:00 to 00:00` means **combine sweep + rank inside that
 kickoff block**, not deep-assess every fixture.
 
-Resolve the complete unstarted cohort, run lightweight goals-first sweep
-qualification on every fixture, then rank only the qualified survivors using
-the bounded block-selection evidence. By default promote at most three
+Resolve the complete unstarted cohort, then apply the **exact active V4 /sweep
+filter policy** inside that kickoff boundary: same inclusion/exclusion rules,
+user exclusions, eligibility/observability gates and goals-first qualification.
+/block must not maintain a separate or looser intake filter. Rank only the
+survivors using the bounded block-selection evidence. By default promote at most three
 fixtures; fewer when the block does not contain three credible candidates.
 
 Do **not** run ASSESSMENT_DEPTH_V3, G4 evidence research, full H2H/failure-tree
