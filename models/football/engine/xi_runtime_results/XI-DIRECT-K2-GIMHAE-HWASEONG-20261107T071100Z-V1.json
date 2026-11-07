@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_effect='SUPPRESSIVE_UPPER_TAIL'; allowed: MIXED, NOT_MATERIAL, OPEN, SUPPRESSIVE, UNAVAILABLE",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "a2009bf9f304932cdd2c55257b3618298a4e25b03fa63bd16e3c931accc10c43",
+  "ok": false,
+  "request_id": "XI-DIRECT-K2-GIMHAE-HWASEONG-20261107T071100Z-V1",
+  "runtime_commit": "f135954771011731afe47c7d97befcad4309151b",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
