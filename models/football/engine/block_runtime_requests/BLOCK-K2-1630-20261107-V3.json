@@ -1,0 +1,571 @@
+{
+  "schema_version": "football-block-runtime-v1",
+  "model": "c",
+  "matches": [
+    {
+      "country": "South Korea",
+      "competition": "K League 2",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "K League 2 is a senior professional domestic league with official schedule/table/competition-format evidence and strong current fixture observability; no popularity prior is used.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "MEDIUM",
+      "evidence_confidence": "HIGH",
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "ROUND_32_OF_34",
+      "competition_format": "17-team double round-robin; 32 league matches per club. Final positions 1-2 are automatically promoted and positions 3-6 enter the K League 2 promotion playoffs.",
+      "draw_resolution": "League draw stands after 90 minutes.",
+      "aggregate_state": "SINGLE_LEAGUE_MATCH_NO_AGGREGATE",
+      "simultaneous_results_status": "VERIFIED",
+      "simultaneous_results_note": "Other Round 32 fixtures can alter nearby positions, but this is not the final simultaneous round and the current points requirements are independently known.",
+      "tiebreak_margin_relevance": "YES",
+      "competition_structure_kind": "LEAGUE_TABLE",
+      "competition_structure_basis": "Official K League 2 2026 competition regulations define a 17-team, 34-round double round-robin; positions 1-2 promote automatically and 3-6 enter the promotion playoffs.",
+      "competition_structure_source_tier": "OFFICIAL_COMPETITION",
+      "competition_structure_evidence_refs": [
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BALANCED",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "NEUTRAL",
+      "match_context_basis": "No verified rivalry, compressed-rest, travel or fatigue factor is strong enough to override the current K League 2 scoring structure.",
+      "match_context_evidence_refs": [
+        "https://www.kleague.com/news_view.do?category=league&orderBy=seq&page=1&seq=96747&viewOption=album",
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "failure_attacks_route": false,
+      "material_suppression": false,
+      "upper_tail_competition_provenance_verified": true,
+      "upper_tail_competition_provenance_basis": "The primary scoring and tail evidence is from current K League 2 matches; no cup or friendly scoreline is used to create the certificate.",
+      "match_id": "K2-20261107-SEOUL-E-JEONNAM",
+      "home": "Seoul E-Land",
+      "away": "Jeonnam Dragons",
+      "kickoff_ict": "2026-11-07T16:30:00+07:00",
+      "operational_viability_reason": "Official standings/format plus current K League 2 form and last-known lineups are available; confirmed starting XIs are not yet published at the assessment freeze.",
+      "source_urls": [
+        "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+        "https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/",
+        "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557",
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "h2h_state": "CURRENT_COMPETITION_REVIEWED",
+      "h2h_effect": "SUPPRESSIVE_UPPER_TAIL",
+      "h2h_transferability": "HIGH",
+      "h2h_current_corroboration": "MIXED",
+      "h2h_material_effect": true,
+      "h2h_basis": "The 2026 reverse meeting finished Jeonnam 0-1 Seoul E-Land, which is highly transferable as an upper-tail control warning, although both teams' more recent K League 2 form has become substantially more open.",
+      "qualification_state": "Seoul E-Land are 3rd on 54 points from 29 matches, three points behind 2nd-place Suwon FC and one point ahead of Daegu. With three matches left, Seoul have direct-promotion and playoff-seeding incentive. Jeonnam are 15th on 25 and cannot reach the current top-six cutoff.",
+      "home_incentive": "MUST_WIN",
+      "away_incentive": "PLACEMENT_ONLY",
+      "incentive_effect": "EXPANSIVE",
+      "common_evidence_basis": "Seoul E-Land have scored 54 in 29 league matches and their last five include 6-2 over Gimhae and a 4-2 loss at Yongin. Jeonnam have conceded 52 in 29 and their last five are 2-2, 2-4, 1-2, 2-1 and 0-3; they scored in four of those five. The closest H2H this season was only 1-0, so G3 and G4 must be separated.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "STRONG",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "HIGH",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "burden_protection": "HIGH",
+      "completion_mode": "CARRIER_LED",
+      "burden_completion_quality": "HIGH",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Seoul can dominate and still reproduce the controlled 1-0/2-0 endpoint seen in the reverse fixture if Jeonnam's recent reply route disappears.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Seoul's strong current attack plus Jeonnam's heavy league leakage independently support the third goal, while the exact 1-0 reverse blocks automatic promotion to a protected fourth goal.",
+      "carrier_self_fund": true,
+      "carrier_self_fund_basis": "Seoul have scored six against Gimhae and two in multiple recent league matches, and their season attack is strong enough to retain a credible three-goal self-funding route against a 52-goal-conceded Jeonnam defense.",
+      "independent_upper_tail": true,
+      "independent_upper_tail_basis": "Recent Jeonnam league matches are highly open and can produce a fourth goal, but the exact 2026 reverse remained 1-0 so the upper tail is not transferable enough to certify G4.",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "The closest same-opponent K League 2 evidence is the 1-0 reverse, which overrides broader recent high totals for G4 transferability.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_comparable_context_basis": "Exact same-season opponent evidence is suppressive above G3 even though recent league form is expansive.",
+      "failure_attacks_route_basis": "The failure mechanism attacks continuation beyond the third goal rather than Seoul's primary scoring route.",
+      "material_suppression_basis": "No current evidence suppresses Seoul's scoring route; the main control risk is the upper tail.",
+      "goal_signal_priority_score": 78,
+      "goal_signal_mean_over_two_rate": 0.8,
+      "goal_signal_mean_over_three_rate": 0.4,
+      "goal_signal_low_draw_trap_rate": 0.18,
+      "g3_current_structure_verified": true,
+      "g3_current_structure_basis": "Seoul retain a STRONG current route, Jeonnam have scored in four of their last five while conceding heavily, and the current K League 2 structure verifies a strong-primary plus usable-reply third-goal path.",
+      "g3_current_structure_source_refs": [
+        "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+        "https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/"
+      ],
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "FAILED",
+      "g4_reply_path": "FAILED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "The recent league form creates fourth-goal potential, but the exact 1-0 reverse and only MEDIUM continuation prevent a protected G4.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Seoul can score multiple goals, but the exact reverse does not establish a dependable fourth goal from the home carrier alone.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Jeonnam's recent reply is usable but the exact same-season matchup did not support a 3+1 or 2+2 distribution.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557"
+          ],
+          "mechanism_ids": [
+            "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Jeonnam have scored in four of five recent matches, but were blanked by Seoul in the current-season reverse, so a post-third reply is not protected.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557"
+          ],
+          "mechanism_ids": [
+            "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL": {
+          "basis": "The current-season reverse finished Jeonnam 0-1 Seoul E-Land, showing that this matchup can remain controlled even when broader form is open.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "affected_paths": [
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Seoul's season scoring and current home attack remain reliable against a heavily conceding Jeonnam defense.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/"
+          ],
+          "mechanism_ids": []
+        },
+        "continuation_quality": {
+          "basis": "Recent totals are open but the exact reverse caps continuation at MEDIUM.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557"
+          ],
+          "mechanism_ids": [
+            "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "The 1-0 reverse keeps a real controlled endpoint despite recent high totals.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor"
+          ],
+          "mechanism_ids": [
+            "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "G3 can survive weak Jeonnam contribution through Seoul's carrier, but the total becomes more fragile beyond three.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.sportytrader.com/en/results-live/seoul-e-land-jeonnam-dragons-8273789/"
+          ],
+          "mechanism_ids": []
+        },
+        "independent_upper_tail": {
+          "basis": "A fourth goal is plausible from recent league form but fails transferability against the exact reverse.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+            "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557"
+          ],
+          "mechanism_ids": [
+            "SEOUL_JEONNAM_EXACT_REVERSE_CONTROL"
+          ]
+        }
+      },
+      "activation_quality": "MEDIUM",
+      "activation_basis": "Seoul's promotion pressure and both clubs' recent scoring create a live opening route, but no source-backed early-chance or early-concession evidence clears the V3 HIGH-activation requirement.",
+      "activation_evidence_refs": [
+        "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+        "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557"
+      ],
+      "activation_ignition": {
+        "current_attack_structure": "HIGH",
+        "early_chance_creation": "MEDIUM",
+        "early_concession_opening": "MEDIUM",
+        "game_state_force": "HIGH",
+        "weaker_side_state_change": "MEDIUM",
+        "basis": "Seoul have strong current attack structure and must chase automatic promotion; Jeonnam's recent openness provides a reply route, but verified early-opening evidence is insufficient for HIGH activation.",
+        "evidence_refs": [
+          "https://www.fotmob.com/matches/jeonnam-dragons-vs-seoul-e-land-fc/3cxipaor",
+          "https://www.365scores.com/football/match/k-league-2-5557/jeonnam-dragons-seoul-e-land-9818-24498-5557"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Strong Seoul route plus Jeonnam leakage fund G3; the exact reverse caps the upper tail."
+    },
+    {
+      "country": "South Korea",
+      "competition": "K League 2",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "K League 2 is a senior professional domestic league with official schedule/table/competition-format evidence and strong current fixture observability; no popularity prior is used.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "MEDIUM",
+      "evidence_confidence": "HIGH",
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "ROUND_32_OF_34",
+      "competition_format": "17-team double round-robin; 32 league matches per club. Final positions 1-2 are automatically promoted and positions 3-6 enter the K League 2 promotion playoffs.",
+      "draw_resolution": "League draw stands after 90 minutes.",
+      "aggregate_state": "SINGLE_LEAGUE_MATCH_NO_AGGREGATE",
+      "simultaneous_results_status": "VERIFIED",
+      "simultaneous_results_note": "Other Round 32 fixtures can alter nearby positions, but this is not the final simultaneous round and the current points requirements are independently known.",
+      "tiebreak_margin_relevance": "YES",
+      "competition_structure_kind": "LEAGUE_TABLE",
+      "competition_structure_basis": "Official K League 2 2026 competition regulations define a 17-team, 34-round double round-robin; positions 1-2 promote automatically and 3-6 enter the promotion playoffs.",
+      "competition_structure_source_tier": "OFFICIAL_COMPETITION",
+      "competition_structure_evidence_refs": [
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BALANCED",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "NEUTRAL",
+      "match_context_basis": "No verified rivalry, compressed-rest, travel or fatigue factor is strong enough to override the current K League 2 scoring structure.",
+      "match_context_evidence_refs": [
+        "https://www.kleague.com/news_view.do?category=league&orderBy=seq&page=1&seq=96747&viewOption=album",
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "failure_attacks_route": false,
+      "material_suppression": false,
+      "upper_tail_competition_provenance_verified": true,
+      "upper_tail_competition_provenance_basis": "The primary scoring and tail evidence is from current K League 2 matches; no cup or friendly scoreline is used to create the certificate.",
+      "match_id": "K2-20261107-GIMHAE-HWASEONG",
+      "home": "Gimhae City",
+      "away": "Hwaseong",
+      "kickoff_ict": "2026-11-07T16:30:00+07:00",
+      "operational_viability_reason": "Current K League 2 table, form, exact 2026 reverse result and last-known team structures are available; confirmed XIs are not yet published.",
+      "source_urls": [
+        "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+        "https://stadiro.com/teams/south-korea/gimhae/",
+        "https://stadiro.com/teams/south-korea/hwaseong/?follow=1",
+        "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/",
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "h2h_state": "CURRENT_COMPETITION_REVIEWED",
+      "h2h_effect": "SUPPRESSIVE_UPPER_TAIL",
+      "h2h_transferability": "HIGH",
+      "h2h_current_corroboration": "MIXED",
+      "h2h_material_effect": true,
+      "h2h_basis": "Hwaseong won the 2026 reverse 2-0. Older meetings are draw-heavy, so the exact current-season result is the relevant control anchor while Gimhae's recent defensive collapse is treated separately.",
+      "qualification_state": "Hwaseong are 6th on 45 points from 30 matches, the final promotion-playoff position, with Chungnam Asan three points behind and still having an extra match. Hwaseong therefore need a win to protect the top-six place. Gimhae are 17th on 18 points and are outside the promotion race.",
+      "home_incentive": "PLACEMENT_ONLY",
+      "away_incentive": "MUST_WIN",
+      "incentive_effect": "EXPANSIVE",
+      "common_evidence_basis": "Gimhae have conceded 60 in 29 league matches and have conceded in 15 consecutive matches; their last five totals are 3-3, 2-1, 2-6, 1-1 and 0-2. Hwaseong have 44 goals in 30 but are winless in five, scoring 0,1,2,0,2 in those games. The matchup therefore combines extreme Gimhae leakage with a currently inconsistent away carrier.",
+      "home_route": "USABLE",
+      "away_route": "STRONG",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "CARRIER_LED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Hwaseong's five-match winless run and the 2-0 reverse can produce another controlled away win, while Gimhae's home reply is not reliable enough to force a fourth goal.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Gimhae's 60 conceded and persistent concession streak give Hwaseong a matchup-specific STRONG route and HIGH leakage path to G3; current Hwaseong form and the 2-0 reverse prevent stronger upper-tail protection.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Hwaseong have the matchup edge but their current five-match scoring run is not strong enough to assume three goals alone.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "Gimhae's recent high totals create raw fourth-goal potential, but Hwaseong away matches and the exact reverse do not provide an independent transferable G4 mechanism.",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "The 2-0 reverse and Hwaseong's low-scoring recent away profile outweigh broader Gimhae openness above the third goal.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_comparable_context_basis": "Exact current-season H2H and Hwaseong's recent away results suppress the upper tail despite Gimhae leakage.",
+      "failure_attacks_route_basis": "The failure attacks continuation after Hwaseong establish control, not the primary away scoring route.",
+      "material_suppression_basis": "Gimhae's persistent defensive leakage keeps the primary scoring route live.",
+      "goal_signal_priority_score": 64,
+      "goal_signal_mean_over_two_rate": 0.5,
+      "goal_signal_mean_over_three_rate": 0.4,
+      "goal_signal_low_draw_trap_rate": 0.24,
+      "g3_current_structure_verified": false,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_carrier_path": "FAILED",
+      "g4_distributed_path": "FAILED",
+      "g4_reply_path": "FAILED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "G3 is leakage-funded, but neither a solo Hwaseong fourth-goal route nor a reliable Gimhae reply is established in the closest comparable evidence.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Hwaseong's current scoring form is too inconsistent to self-fund four against Gimhae despite the defensive mismatch.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://stadiro.com/teams/south-korea/hwaseong/?follow=1"
+          ],
+          "mechanism_ids": [
+            "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Gimhae can contribute, but the reverse 2-0 and Hwaseong's recent away totals do not protect a 3+1 or 2+2 distribution.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+          ],
+          "mechanism_ids": [
+            "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Gimhae have scored in four straight, but the exact reverse blank and Hwaseong's generally stronger defense prevent a dependable post-third reply.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+          ],
+          "mechanism_ids": [
+            "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL": {
+          "basis": "Hwaseong won the exact 2026 reverse 2-0 and have recently played several low-total away matches; that control mechanism can stop the game after two or three goals.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "The away route is supported by Gimhae's 60 conceded, but Hwaseong's recent form keeps reliability at MEDIUM.",
+          "evidence_refs": [
+            "https://stadiro.com/teams/south-korea/gimhae/",
+            "https://stadiro.com/teams/south-korea/hwaseong/?follow=1"
+          ],
+          "mechanism_ids": []
+        },
+        "continuation_quality": {
+          "basis": "Gimhae openness supports continuation, but the 2-0 reverse and Hwaseong's recent low totals cap it at MEDIUM.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+          ],
+          "mechanism_ids": [
+            "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "A controlled 0-2/1-1 endpoint remains credible despite Gimhae's leakage.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+          ],
+          "mechanism_ids": [
+            "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "The third goal can be supplied by matchup leakage, but the structure is not robust if Hwaseong's poor form persists.",
+          "evidence_refs": [
+            "https://stadiro.com/teams/south-korea/gimhae/",
+            "https://stadiro.com/teams/south-korea/hwaseong/?follow=1"
+          ],
+          "mechanism_ids": []
+        },
+        "independent_upper_tail": {
+          "basis": "The fourth goal has no independent same-opponent or current-away support.",
+          "evidence_refs": [
+            "https://www.fotmob.com/matches/gimhae-fc-2008-vs-hwaseong-fc/5hpfmhol",
+            "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+          ],
+          "mechanism_ids": [
+            "GIMHAE_HWASEONG_REVERSE_AND_AWAY_CONTROL"
+          ]
+        }
+      },
+      "activation_quality": "MEDIUM",
+      "activation_basis": "Gimhae have conceded in 15 straight and scored in four straight, while Hwaseong need a win for the playoff cutoff; however, verified early-opening evidence is insufficient for a V3 HIGH label.",
+      "activation_evidence_refs": [
+        "https://stadiro.com/teams/south-korea/gimhae/",
+        "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+      ],
+      "activation_ignition": {
+        "current_attack_structure": "MEDIUM",
+        "early_chance_creation": "MEDIUM",
+        "early_concession_opening": "MEDIUM",
+        "game_state_force": "HIGH",
+        "weaker_side_state_change": "MEDIUM",
+        "basis": "The table state should force Hwaseong and Gimhae's defense is persistently leaky, but the source set does not establish the required HIGH early-creation or early-concession signal.",
+        "evidence_refs": [
+          "https://stadiro.com/teams/south-korea/gimhae/",
+          "https://sportybell.com/football/match/gimhae-city-vs-hwaseong-3832430/"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "High Gimhae leakage creates a real G3 route for Hwaseong, but the certificate is expected to remain fragile and G4 is rejected."
+    },
+    {
+      "country": "South Korea",
+      "competition": "K League 2",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "K League 2 is a senior professional domestic league with official schedule/table/competition-format evidence and strong current fixture observability; no popularity prior is used.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "MEDIUM",
+      "evidence_confidence": "HIGH",
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "ROUND_32_OF_34",
+      "competition_format": "17-team double round-robin; 32 league matches per club. Final positions 1-2 are automatically promoted and positions 3-6 enter the K League 2 promotion playoffs.",
+      "draw_resolution": "League draw stands after 90 minutes.",
+      "aggregate_state": "SINGLE_LEAGUE_MATCH_NO_AGGREGATE",
+      "simultaneous_results_status": "VERIFIED",
+      "simultaneous_results_note": "Other Round 32 fixtures can alter nearby positions, but this is not the final simultaneous round and the current points requirements are independently known.",
+      "tiebreak_margin_relevance": "YES",
+      "competition_structure_kind": "LEAGUE_TABLE",
+      "competition_structure_basis": "Official K League 2 2026 competition regulations define a 17-team, 34-round double round-robin; positions 1-2 promote automatically and 3-6 enter the promotion playoffs.",
+      "competition_structure_source_tier": "OFFICIAL_COMPETITION",
+      "competition_structure_evidence_refs": [
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BALANCED",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "NEUTRAL",
+      "match_context_basis": "No verified rivalry, compressed-rest, travel or fatigue factor is strong enough to override the current K League 2 scoring structure.",
+      "match_context_evidence_refs": [
+        "https://www.kleague.com/news_view.do?category=league&orderBy=seq&page=1&seq=96747&viewOption=album",
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "failure_attacks_route": false,
+      "material_suppression": false,
+      "upper_tail_competition_provenance_verified": true,
+      "upper_tail_competition_provenance_basis": "The primary scoring and tail evidence is from current K League 2 matches; no cup or friendly scoreline is used to create the certificate.",
+      "match_id": "K2-20261107-GIMPO-ANSAN",
+      "home": "Gimpo FC",
+      "away": "Ansan Greeners",
+      "kickoff_ict": "2026-11-07T16:30:00+07:00",
+      "operational_viability_reason": "Current K League 2 table, recent form, exact current-season H2H and last-known lineups are available; confirmed XIs are not yet published.",
+      "source_urls": [
+        "https://www.fotmob.com/matches/ansan-greeners-vs-gimpo-fc/hhjlrv57",
+        "https://stadiro.com/matches/south-korea/k-league-2/2026-11-07/gimpo-fc-v-ansan-greeners/",
+        "https://www.sportytrader.com/en/results-live/gimpo-citizen-ansan-greeners-8273787/",
+        "https://www.kleague.com/about/competition.do"
+      ],
+      "h2h_state": "CURRENT_COMPETITION_REVIEWED",
+      "h2h_effect": "SUPPRESSIVE_TOTAL",
+      "h2h_transferability": "HIGH",
+      "h2h_current_corroboration": "YES",
+      "h2h_material_effect": true,
+      "h2h_basis": "Gimpo are unbeaten in the last seven league meetings and the current-season matchup was another narrow Gimpo win; repeated 1-0/2-0 style results materially constrain a generic recent-total signal.",
+      "qualification_state": "Gimpo are 8th on 38 points from 29 matches with three games left; 6th-place Hwaseong have 45 from 30. Gimpo therefore need a win and help elsewhere to keep a realistic top-six playoff path. Ansan are 16th on 25 from 30 and cannot reach the current playoff cutoff.",
+      "home_incentive": "MUST_WIN",
+      "away_incentive": "PLACEMENT_ONLY",
+      "incentive_effect": "EXPANSIVE",
+      "common_evidence_basis": "Gimpo's last five are 1-5, 1-2, 4-1, 0-1 and 1-0; Ansan's are 0-1, 1-3, 4-0, 1-4 and 2-3. Ansan have conceded 57 in 30, but Gimpo average only 1.28 goals per league match and have not shown a repeatable STRONG home scoring route. The recent high totals are therefore not enough by themselves.",
+      "home_route": "USABLE",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Despite Ansan's leakage, Gimpo lack a verified STRONG route and the matchup has repeatedly settled at 1-0/2-0; 1-0, 1-1 and 2-0 remain credible endpoints.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Recent totals and Ansan leakage make three goals plausible, but two merely USABLE routes plus a suppressive same-opponent history do not independently certify G3 under the repaired Football C rules.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Gimpo have one four-goal match in the recent sample but no repeatable evidence that they can self-fund three against Ansan.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No independent fourth-goal mechanism survives the current-season H2H suppression and absence of a strong carrier.",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "The closest same-opponent evidence is low-scoring and takes precedence over broader recent high-total form.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_comparable_context_basis": "Current and recent H2H favors controlled Gimpo results rather than sustained fourth-goal continuation.",
+      "failure_attacks_route_basis": "The failure mechanism is weak route quality plus matchup control rather than a single missing player.",
+      "material_suppression_basis": "The match is not globally suppressed because Ansan concede heavily and Gimpo must win, but the current routes remain insufficiently strong for a certificate.",
+      "goal_signal_priority_score": 70,
+      "goal_signal_mean_over_two_rate": 0.7,
+      "goal_signal_mean_over_three_rate": 0.6,
+      "goal_signal_low_draw_trap_rate": 0.2,
+      "g3_current_structure_verified": false,
+      "g4_research_status": "G4_NOT_APPLICABLE",
+      "activation_quality": "MEDIUM",
+      "activation_basis": "Gimpo's must-win table state and Ansan's recent high-total losses can open the game, but neither side has source-backed HIGH early-creation evidence and Gimpo's core scoring route remains only USABLE.",
+      "activation_evidence_refs": [
+        "https://www.fotmob.com/matches/ansan-greeners-vs-gimpo-fc/hhjlrv57",
+        "https://stadiro.com/matches/south-korea/k-league-2/2026-11-07/gimpo-fc-v-ansan-greeners/"
+      ],
+      "activation_ignition": {
+        "current_attack_structure": "MEDIUM",
+        "early_chance_creation": "MEDIUM",
+        "early_concession_opening": "MEDIUM",
+        "game_state_force": "HIGH",
+        "weaker_side_state_change": "MEDIUM",
+        "basis": "Gimpo have strong game-state pressure and Ansan concede heavily, but the model does not elevate route quality or early ignition from scoreline history alone.",
+        "evidence_refs": [
+          "https://www.fotmob.com/matches/ansan-greeners-vs-gimpo-fc/hhjlrv57",
+          "https://stadiro.com/matches/south-korea/k-league-2/2026-11-07/gimpo-fc-v-ansan-greeners/"
+        ]
+      },
+      "board_state": "C-WATCH",
+      "board_state_basis": "Recent totals are attractive but the repaired model rejects a two-USABLE-route promotion without a verified STRONG current scoring mechanism."
+    }
+  ],
+  "evidence_epochs": {
+    "K2-20261107-SEOUL-E-JEONNAM": "BLOCK-K2-1630-SEOUL-JEONNAM-20261107-V3",
+    "K2-20261107-GIMHAE-HWASEONG": "BLOCK-K2-1630-GIMHAE-HWASEONG-20261107-V3",
+    "K2-20261107-GIMPO-ANSAN": "BLOCK-K2-1630-GIMPO-ANSAN-20261107-V3"
+  }
+}
