@@ -281,6 +281,14 @@ require(
     "PENDING_FULL_COHORT_RESEARCH",
 )
 require(
+    "models/football/prompts/02A_NORMAL_CHAT_BLOCK_ASSESSMENT.md",
+    "HIGH_SIGNAL_RESERVE",
+    "at most 10 rows",
+    "Band A and Band B compete in one football-first pool",
+    "omission_audit",
+    "DISPLAY_CAP_ONLY",
+)
+require(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
     "RANK_ENGINE_POLICY_DRIFT",
     "rivalry/rest/travel/fatigue context",
