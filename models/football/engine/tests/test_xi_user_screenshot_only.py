@@ -356,7 +356,7 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         shot = snapshot(c, line=3.25, odds=2.04)
         out = run_xi(c, shot)
         check = out["price_check"]["model"]
-        self.assertEqual(check["conditional_action"], "BOOK")
+        self.assertEqual(check["conditional_action"], "BOOK", check)
         self.assertEqual(check["book_target_line"], 2.75)
         self.assertEqual(check["book_min_odds"], 1.85)
         self.assertIn(
