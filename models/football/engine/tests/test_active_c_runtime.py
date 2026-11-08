@@ -302,7 +302,10 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertTrue(result["goal3_funded"])
         self.assertEqual(result["board_state"], "FOCUS")
         self.assertNotEqual(result["g3_endpoint_control_pressure"], "HIGH")
-        self.assertEqual(result["direct_act_ceiling"], 2.5)
+        # G3 remains funded and selection-eligible, but the 2026-11-08
+        # FRAGILE safety quarantine removes direct ACT authority.
+        self.assertEqual(result["execution_strength"], "FRAGILE")
+        self.assertIsNone(result["direct_act_ceiling"])
         self.assertFalse(result["goal4_funded"])
 
     def test_verified_current_structure_thirty_percent_trap_remains_hard_veto(self):
