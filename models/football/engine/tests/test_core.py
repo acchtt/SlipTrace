@@ -1123,7 +1123,7 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
         self.assertFalse(c_goal4_funded(a))
         decision = decide_c(a, context(quote=Quote(3.5, 2.00)))
-        self.assertEqual(decision.action, Action.BOOK)
+        self.assertEqual(decision.action, Action.BOOK, decision)
         self.assertEqual(decision.book_target_line, 2.75)
         self.assertEqual(decision.book_min_odds, 1.85)
         self.assertFalse(decision.current_price_clears_book_target)
