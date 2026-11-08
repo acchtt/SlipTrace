@@ -278,9 +278,11 @@ def assess_user_screenshot(
         "line": result["selected_visible_line"],
         "odds": result["selected_visible_odds"],
     }
-    recheck_required = (
-        result.get("action") == "MARKET_DISAGREEMENT_RECHECK_REQUIRED"
-    )
+    recheck_action = result.get("action")
+    recheck_required = recheck_action in {
+        "MARKET_DISAGREEMENT_RECHECK_REQUIRED",
+        "BLOCK_G4_CONFLICT_RECHECK_REQUIRED",
+    }
     model = {
         "supported_line": result["supported_line"],
         "selected_visible_line": result["selected_visible_line"],
@@ -342,18 +344,36 @@ def assess_user_screenshot(
         "prior_certificate_reclassification_recheck_required": result.get(
             "prior_certificate_reclassification_recheck_required", False
         ),
+        "block_g4_conflict_recheck_required": result.get(
+            "block_g4_conflict_recheck_required", False
+        ),
+        "block_g4_conflict_recheck_completed": result.get(
+            "block_g4_conflict_recheck_completed", True
+        ),
+        "block_g4_conflict_recheck_fields": result.get(
+            "block_g4_conflict_recheck_fields", []
+        ),
+        "block_g4_conflict_recheck_evidence_refs": result.get(
+            "block_g4_conflict_recheck_evidence_refs", []
+        ),
+        "block_g4_conflict_recheck_basis": result.get(
+            "block_g4_conflict_recheck_basis"
+        ),
+        "block_g4_conflict_recheck_missing_fields": result.get(
+            "block_g4_conflict_recheck_missing_fields", []
+        ),
         "execution_authorized": False,
         "custom_line_review": custom_line_review,
         "calibration_record": xi_record(c_football, football_result, result),
     }
 
     if recheck_required:
-        limitations.append("MARKET_DISAGREEMENT_RECHECK_REQUIRED")
+        limitations.append(str(recheck_action))
 
     return {
         "ok": True,
         "status": (
-            "MARKET_DISAGREEMENT_RECHECK_REQUIRED"
+            str(recheck_action)
             if recheck_required
             else "OBSERVED_QUOTE_EVALUATED"
         ),
