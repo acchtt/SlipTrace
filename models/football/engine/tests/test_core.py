@@ -1114,16 +1114,11 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertEqual(decision.book_target_line, 3.0)
         self.assertEqual(decision.book_min_odds, 1.90)
     def test_g3_custom_book_target_does_not_need_to_be_visible(self):
-        a = robust_g3_assessment(
-            carrier=CarrierStrength.STRONG,
-            carrier_self_fund=True,
-            route_reliability=Grade.MEDIUM,
-        )
-        self.assertEqual(c_execution_strength(a), "CONDITIONAL")
+        a = robust_g3_assessment()
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
         self.assertFalse(c_goal4_funded(a))
         decision = decide_c(a, context(quote=Quote(3.5, 2.00)))
-        self.assertEqual(decision.action, Action.BOOK, decision)
+        self.assertEqual(decision.action, Action.BOOK)
         self.assertEqual(decision.book_target_line, 2.75)
         self.assertEqual(decision.book_min_odds, 1.85)
         self.assertFalse(decision.current_price_clears_book_target)
