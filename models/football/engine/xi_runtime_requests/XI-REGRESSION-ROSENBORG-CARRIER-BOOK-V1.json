@@ -1,0 +1,368 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-REGRESSION-ROSENBORG-CARRIER-BOOK-V1",
+  "c_football": {
+    "assessment_depth": {
+      "assessed_at_utc": "2026-11-07T16:48:34.061828+00:00",
+      "checks": {
+        "availability_replacements": "Screenshot Rosenborg XI: Wahlstedt; Witry, Mikkel Ceide, Nemcik, Dahl; Sahsah, Kjolo, Selnaes, Svensson; Chiakha, Emil Ceide. Bench Borgersen, Duris, Fossum, Islamovic, Mampassi, Mortensen, Reitan-Sunde, Sandberg, Soboczynski. Bomholt suspended; Bakke, Nordli, Pereira, Reitan injured. Start XI Sjoeng; Dashaev, Granheim, Norheim, Meyer, Toure; Ugland, Segberg, Mvoue; Lorentzen, Cornelius. Griesbeck/Husebo/Manojlovic unavailable, attacking bench includes Koutsakos and Schulze.",
+        "carrier_capacity": "Three successive 3-0 league wins plus retained Chiakha/Ceide support self-funded three independently of a Start reply. Bomholt, scorer against Fredrikstad, is suspended and Kjolo replaces him, but the primary forward/service spine remains. No replacement goals are invented.",
+        "continuation_2_0": "Three successive 3-0 league wins plus retained Chiakha/Ceide support self-funded three independently of a Start reply. Bomholt, scorer against Fredrikstad, is suspended and Kjolo replaces him, but the primary forward/service spine remains. No replacement goals are invented. THREE_GOAL_ENDPOINT: Rosenborg control 2-0/3-0 while Start fail to reply; delayed conversion is plausible despite the strong carrier. This single endpoint mechanism affects tail and continuation, not primary-route integrity. Starts survival needs do not automatically force successful attacking output.",
+        "current_chance_creation": "Rosenborg retain Chiakha, Emil Ceide, Sahsah, Selnaes and Svensson. Official Fredrikstad report records Chiakha scoring twice, Sahsah supplying the first and Ceide assisting Bomholt then winning the late penalty. HamKam report records Ceide supplying Chiakha and adding his own finish. These retained supplier/finisher roles support a STRONG route and repeatable home-three against Start's weak defence.",
+        "goal3_mechanism": "Three successive 3-0 league wins plus retained Chiakha/Ceide support self-funded three independently of a Start reply. Bomholt, scorer against Fredrikstad, is suspended and Kjolo replaces him, but the primary forward/service spine remains. No replacement goals are invented.",
+        "goal4_mechanism": "Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+        "h2h_transferability": "Official current Rosenborg preview confirms summer away win 3-0 over Start. That supports carrier-three and a possible clean-sheet endpoint, but not automatic fourth-goal continuation or a blanket under verdict. Old 2020 meetings and February friendly excluded from current competitive funding.",
+        "match_context": "Rosenborg last played October 31 and Start November 1: six/seven days rest, domestic travel to Trondheim, no continental/intercontinental fatigue identified. No verified derby or fatigue penalty. Suspensions and defensive availability are mapped to roles separately, net checked neutral.",
+        "named_failure_mechanism": "THREE_GOAL_ENDPOINT: Rosenborg control 2-0/3-0 while Start fail to reply; delayed conversion is plausible despite the strong carrier. This single endpoint mechanism affects tail and continuation, not primary-route integrity. Starts survival needs do not automatically force successful attacking output.",
+        "opponent_leakage": "Opponent leakage is corroborated by the frozen same-league sample and current defensive/attacking matchups, not by market handicap. Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+        "primary_scoring_route": "Rosenborg retain Chiakha, Emil Ceide, Sahsah, Selnaes and Svensson. Official Fredrikstad report records Chiakha scoring twice, Sahsah supplying the first and Ceide assisting Bomholt then winning the late penalty. HamKam report records Ceide supplying Chiakha and adding his own finish. These retained supplier/finisher roles support a STRONG route and repeatable home-three against Start's weak defence.",
+        "secondary_reply_route": "Start start Lorentzen and Cornelius ahead of Ugland, Segberg and Mvoue, but have blanked in three of the eight frozen league games and last lost 0-1. Rosenborg have three straight league clean sheets. Reply remains USABLE through the current forward pair and coach's acknowledgement of Start's better underlying play; it is not a required strong route.",
+        "stall_0_0": "MEDIUM activation: current supplier/finisher continuity is strong but recent HamKam opened only at 69 minutes and Fredrikstad at 44/45. This disproves promotion from full-time 3-0 scores to HIGH early ignition. Survival/table pressure alone is not an early-chance observation.",
+        "stall_1_1": "The primary carrier must continue to supply goals if 1-1 arises; neither draw nor motivation guarantees an extra goal. THREE_GOAL_ENDPOINT: Rosenborg control 2-0/3-0 while Start fail to reply; delayed conversion is plausible despite the strong carrier. This single endpoint mechanism affects tail and continuation, not primary-route integrity. Starts survival needs do not automatically force successful attacking output.",
+        "supported_burden_basis": "Three successive 3-0 league wins plus retained Chiakha/Ceide support self-funded three independently of a Start reply. Bomholt, scorer against Fredrikstad, is suspended and Kjolo replaces him, but the primary forward/service spine remains. No replacement goals are invented. Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+        "tournament_incentive": "Round 26 of the regular 16-team Eliteserien season, 30 rounds. Rosenborg have 43 points alongside Molde in the medal/European race; Start have 19 at the bottom and need survival points. Both prefer a win without a fixed score margin or mathematical must-win claim. A draw is valuable to Start but not an aggregate qualification outcome. Other contenders play later; no simultaneous live target is imposed."
+      },
+      "completed": true,
+      "contract": "ASSESSMENT_DEPTH_V3",
+      "evidence_epoch_id": "XI-REGRESSION-ROSENBORG-CARRIER-BOOK-V1",
+      "evidence_refs": [
+        "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+        "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+        "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar",
+        "https://www.fotball.no/kretser/hordaland/aktivitet/seniorfotball/seriespill/bestemmelser-om-opp--og-nedrykk-sesongen-2026/",
+        "https://www.fotball.no/fotballdata/lag/hjem/?fiksId=145",
+        "https://www.rbk.no/terminliste"
+      ],
+      "market_independent": true
+    },
+    "authority_commit": "09eab3a0dfb993f3154eb1e43651d3cb0953f066",
+    "context": {
+      "assessment_at_utc": "2026-11-07T16:48:34.061828+00:00",
+      "board_state": "C-FOCUS",
+      "certificate_upgrade_basis": "The 23:00–03:00 ICT lightweight block selected this exact fixture without a football certificate; fresh full DIRECT research supplies the first certificate.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "direct_request": true,
+      "direct_research_completed": true,
+      "direct_research_epoch_id": "DIRECT-1709312-20261107T164834Z",
+      "direct_revision": "INITIAL",
+      "direct_upstream_state": "NOT_RANKED",
+      "exception_flag": false,
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "market_disagreement_recheck_basis": "Independent football recheck confirms current route/supplier retention and checks continuation, same-league provenance, red cards, penalties, H2H and substitutions. Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto. THREE_GOAL_ENDPOINT: Rosenborg control 2-0/3-0 while Start fail to reply; delayed conversion is plausible despite the strong carrier. This single endpoint mechanism affects tail and continuation, not primary-route integrity. Starts survival needs do not automatically force successful attacking output.",
+      "market_disagreement_recheck_evidence_refs": [
+        "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+        "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+        "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar"
+      ],
+      "market_disagreement_recheck_fields": [
+        "upper_tail_transferability",
+        "upper_tail_comparable_context_signal",
+        "carrier_self_fund",
+        "independent_upper_tail",
+        "route_reliability",
+        "continuation_quality",
+        "g4_research_status",
+        "g4_carrier_path",
+        "g4_distributed_path",
+        "g4_reply_path"
+      ],
+      "market_disagreement_recheck_status": "COMPLETED",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "material_veto": false,
+      "primary_mechanism_intact": true,
+      "score": null,
+      "thesis_state": "PRESERVED"
+    },
+    "evidence_epoch_id": "XI-REGRESSION-ROSENBORG-CARRIER-BOOK-V1",
+    "match": {
+      "activation_basis": "MEDIUM activation: current supplier/finisher continuity is strong but recent HamKam opened only at 69 minutes and Fredrikstad at 44/45. This disproves promotion from full-time 3-0 scores to HIGH early ignition. Survival/table pressure alone is not an early-chance observation.",
+      "activation_evidence_refs": [
+        "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+        "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake"
+      ],
+      "activation_ignition": {
+        "basis": "MEDIUM activation: current supplier/finisher continuity is strong but recent HamKam opened only at 69 minutes and Fredrikstad at 44/45. This disproves promotion from full-time 3-0 scores to HIGH early ignition. Survival/table pressure alone is not an early-chance observation.",
+        "current_attack_structure": "HIGH",
+        "early_chance_creation": "MEDIUM",
+        "early_concession_opening": "MEDIUM",
+        "evidence_refs": [
+          "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+          "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake"
+        ],
+        "game_state_force": "MEDIUM",
+        "weaker_side_state_change": "MEDIUM"
+      },
+      "activation_quality": "MEDIUM",
+      "aggregate_state": "SINGLE_LEAGUE_MATCH_NO_AGGREGATE",
+      "availability_replacements": "Screenshot Rosenborg XI: Wahlstedt; Witry, Mikkel Ceide, Nemcik, Dahl; Sahsah, Kjolo, Selnaes, Svensson; Chiakha, Emil Ceide. Bench Borgersen, Duris, Fossum, Islamovic, Mampassi, Mortensen, Reitan-Sunde, Sandberg, Soboczynski. Bomholt suspended; Bakke, Nordli, Pereira, Reitan injured. Start XI Sjoeng; Dashaev, Granheim, Norheim, Meyer, Toure; Ugland, Segberg, Mvoue; Lorentzen, Cornelius. Griesbeck/Husebo/Manojlovic unavailable, attacking bench includes Koutsakos and Schulze.",
+      "away": "IK Start",
+      "away_incentive": "WIN_PREFERRED",
+      "away_route": "USABLE",
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Three successive 3-0 league wins plus retained Chiakha/Ceide support self-funded three independently of a Start reply. Bomholt, scorer against Fredrikstad, is suspended and Kjolo replaces him, but the primary forward/service spine remains. No replacement goals are invented.",
+      "burden_completion_quality": "HIGH",
+      "burden_protection": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "STRONG",
+      "carrier_self_fund": true,
+      "carrier_self_fund_basis": "Three successive 3-0 league wins plus retained Chiakha/Ceide support self-funded three independently of a Start reply. Bomholt, scorer against Fredrikstad, is suspended and Kjolo replaces him, but the primary forward/service spine remains. No replacement goals are invented.",
+      "chance_quality": "MEDIUM",
+      "common_evidence_basis": "Rosenborg retain Chiakha, Emil Ceide, Sahsah, Selnaes and Svensson. Official Fredrikstad report records Chiakha scoring twice, Sahsah supplying the first and Ceide assisting Bomholt then winning the late penalty. HamKam report records Ceide supplying Chiakha and adding his own finish. These retained supplier/finisher roles support a STRONG route and repeatable home-three against Start's weak defence. Start start Lorentzen and Cornelius ahead of Ugland, Segberg and Mvoue, but have blanked in three of the eight frozen league games and last lost 0-1. Rosenborg have three straight league clean sheets. Reply remains USABLE through the current forward pair and coach's acknowledgement of Start's better underlying play; it is not a required strong route.",
+      "competition": "Eliteserien",
+      "competition_format": "16-team regular league with home-and-away fixtures ending round 30.",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "competition_reliability_manual_override": "NONE",
+      "competition_reliability_reason": "Verified current senior top-flight fixture; no competition manual override asserted.",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_stage": "ROUND_26_REGULAR_LEAGUE",
+      "competition_structure_basis": "Official NFF competition description verifies 16-team Eliteserien; NFF/RBK schedule confirms ordinary round 26 and round-30 finish, not a knockout fixture.",
+      "competition_structure_evidence_refs": [
+        "https://www.fotball.no/kretser/hordaland/aktivitet/seniorfotball/seriespill/bestemmelser-om-opp--og-nedrykk-sesongen-2026/",
+        "https://www.rbk.no/terminliste"
+      ],
+      "competition_structure_kind": "LEAGUE_REGULAR",
+      "competition_structure_source_tier": "OFFICIAL_COMPETITION",
+      "completion_mode": "CARRIER_LED",
+      "continuation_quality": "MEDIUM",
+      "country": "Norway",
+      "demoted_probation": false,
+      "draw_resolution": "League draw stands after 90 minutes with ordinary points; no extra time.",
+      "evidence_confidence": "HIGH",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Retained primary route remains intact; availability changes affect continuation rather than a hard route veto.",
+      "failure_mechanisms": {
+        "CONTROL_ENDPOINT": {
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "THREE_GOAL_ENDPOINT: Rosenborg control 2-0/3-0 while Start fail to reply; delayed conversion is plausible despite the strong carrier. This single endpoint mechanism affects tail and continuation, not primary-route integrity. Starts survival needs do not automatically force successful attacking output.",
+          "evidence_refs": [
+            "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+            "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+            "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar"
+          ],
+          "kind": "CURRENT_ATTACK_AND_ENDPOINT_CONTROL"
+        }
+      },
+      "failure_resistance": "MEDIUM",
+      "fatigue_context": "NONE",
+      "g4_carrier_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_distributed_path": "MIXED",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+          "evidence_refs": [
+            "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+            "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+            "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+          "evidence_refs": [
+            "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+            "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+            "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Start start Lorentzen and Cornelius ahead of Ugland, Segberg and Mvoue, but have blanked in three of the eight frozen league games and last lost 0-1. Rosenborg have three straight league clean sheets. Reply remains USABLE through the current forward pair and coach's acknowledgement of Start's better underlying play; it is not a required strong route. Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+          "evidence_refs": [
+            "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+            "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+            "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar"
+          ]
+        }
+      },
+      "g4_reply_path": "MIXED",
+      "g4_research_basis": "Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "goal_signal_low_draw_trap_rate": 0.05,
+      "goal_signal_mean_over_three_rate": 0.5,
+      "goal_signal_mean_over_two_rate": 0.75,
+      "goal_signal_priority_score": 71,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "THREE_GOAL_ENDPOINT: Rosenborg control 2-0/3-0 while Start fail to reply; delayed conversion is plausible despite the strong carrier. This single endpoint mechanism affects tail and continuation, not primary-route integrity. Starts survival needs do not automatically force successful attacking output.",
+          "evidence_refs": [
+            "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+            "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+            "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar"
+          ],
+          "mechanism_ids": [
+            "CONTROL_ENDPOINT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Three successive 3-0 league wins plus retained Chiakha/Ceide support self-funded three independently of a Start reply. Bomholt, scorer against Fredrikstad, is suspended and Kjolo replaces him, but the primary forward/service spine remains. No replacement goals are invented. Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+          "evidence_refs": [
+            "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+            "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+            "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar"
+          ],
+          "mechanism_ids": []
+        },
+        "failure_resistance": {
+          "basis": "THREE_GOAL_ENDPOINT: Rosenborg control 2-0/3-0 while Start fail to reply; delayed conversion is plausible despite the strong carrier. This single endpoint mechanism affects tail and continuation, not primary-route integrity. Starts survival needs do not automatically force successful attacking output.",
+          "evidence_refs": [
+            "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+            "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+            "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar"
+          ],
+          "mechanism_ids": [
+            "CONTROL_ENDPOINT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+          "evidence_refs": [
+            "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+            "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+            "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar"
+          ],
+          "mechanism_ids": []
+        },
+        "route_reliability": {
+          "basis": "Rosenborg retain Chiakha, Emil Ceide, Sahsah, Selnaes and Svensson. Official Fredrikstad report records Chiakha scoring twice, Sahsah supplying the first and Ceide assisting Bomholt then winning the late penalty. HamKam report records Ceide supplying Chiakha and adding his own finish. These retained supplier/finisher roles support a STRONG route and repeatable home-three against Start's weak defence.",
+          "evidence_refs": [
+            "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+            "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+            "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "h2h_basis": "Official current Rosenborg preview confirms summer away win 3-0 over Start. That supports carrier-three and a possible clean-sheet endpoint, but not automatic fourth-goal continuation or a blanket under verdict. Old 2020 meetings and February friendly excluded from current competitive funding.",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_effect": "MIXED",
+      "h2h_material_effect": false,
+      "h2h_state": "REVIEWED_LIMITED",
+      "h2h_transferability": "LIMITED",
+      "home": "Rosenborg",
+      "home_incentive": "WIN_PREFERRED",
+      "home_route": "STRONG",
+      "incentive_effect": "NEUTRAL",
+      "independent_route_quality": "MEDIUM",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+      "kickoff_ict": "2026-11-08T00:00:00+07:00",
+      "main_failure": "THREE_GOAL_ENDPOINT: Rosenborg control 2-0/3-0 while Start fail to reply; delayed conversion is plausible despite the strong carrier. This single endpoint mechanism affects tail and continuation, not primary-route integrity. Starts survival needs do not automatically force successful attacking output.",
+      "market_observability": "HIGH",
+      "match_context_basis": "Rosenborg last played October 31 and Start November 1: six/seven days rest, domestic travel to Trondheim, no continental/intercontinental fatigue identified. No verified derby or fatigue penalty. Suspensions and defensive availability are mapped to roles separately, net checked neutral.",
+      "match_context_effect": "NEUTRAL",
+      "match_context_evidence_refs": [
+        "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+        "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+        "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar"
+      ],
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "match_id": "1709312",
+      "material_suppression": false,
+      "material_suppression_basis": "No hard match-wide suppression established; endpoint risks are graded explicitly.",
+      "operational_viability_grade": "A",
+      "operational_viability_reason": "User screenshots confirm both starting XIs, benches and exact prematch total; official sources confirm competition and timing.",
+      "opponent_leakage": "HIGH",
+      "qualification_state": "Round 26 of the regular 16-team Eliteserien season, 30 rounds. Rosenborg have 43 points alongside Molde in the medal/European race; Start have 19 at the bottom and need survival points. Both prefer a win without a fixed score margin or mathematical must-win claim. A draw is valuable to Start but not an aggregate qualification outcome. Other contenders play later; no simultaneous live target is imposed.",
+      "raw_operational_viability_grade": "A",
+      "rest_load_context": "BALANCED",
+      "rivalry_context": "NEUTRAL",
+      "route_reliability": "HIGH",
+      "simultaneous_results_note": "No final simultaneous round or live aggregate score target applies; current league positions still create ordinary win incentives.",
+      "simultaneous_results_status": "VERIFIED",
+      "source_fixture": {
+        "away": "IK Start",
+        "competition": "Eliteserien",
+        "competition_kind": "DOMESTIC_LEAGUE",
+        "country": "Norway",
+        "home": "Rosenborg",
+        "kickoff_utc": "2026-11-07T17:00:00+00:00",
+        "match_id": "1709312"
+      },
+      "source_urls": [
+        "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+        "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+        "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar",
+        "https://www.fotball.no/kretser/hordaland/aktivitet/seniorfotball/seriespill/bestemmelser-om-opp--og-nedrykk-sesongen-2026/",
+        "https://www.fotball.no/fotballdata/lag/hjem/?fiksId=145",
+        "https://www.rbk.no/terminliste"
+      ],
+      "supported_line": 2.5,
+      "supported_line_basis": "Three successive 3-0 league wins plus retained Chiakha/Ceide support self-funded three independently of a Start reply. Bomholt, scorer against Fredrikstad, is suspended and Kjolo replaces him, but the primary forward/service spine remains. No replacement goals are invented. Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+      "team_news_observability": "HIGH",
+      "tiebreak_margin_relevance": "YES",
+      "tournament_format_status": "VERIFIED",
+      "tournament_incentive_required": true,
+      "travel_load_context": "NORMAL",
+      "upper_tail_comparable_context_basis": "Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_competition_provenance_basis": "Frozen same-competition league sample excludes friendlies and cup/European games. Current official senior league reports supply causal continuation; red-card and penalty distortions are explicitly discounted.",
+      "upper_tail_competition_provenance_verified": true,
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Fourth-goal completion remains MIXED after reviewing Rosenborg's same-league 4-0/5-3 home results and Start's recent 1-6/2-4 losses. The latest three league wins all stopped at three, HamKam's opener came at 69 minutes, and Fredrikstad's third was a stoppage-time penalty. Current same-opponent league meeting also ended 3-0. Bomholt and Nordli unavailable reduce alternate completion. Historical four-plus games establish possibility, not a verified independent current fourth goal. G4 is rejected without a hard global veto.",
+      "xi_expected": "YES",
+      "xi_robustness": "MEDIUM"
+    },
+    "model": "c",
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment"
+  },
+  "authority": {
+    "mode": "DIRECT",
+    "direct_reference": "XI-REGRESSION-ROSENBORG-CARRIER-BOOK-V1",
+    "user_requested_direct_xi": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "XI-REGRESSION-ROSENBORG-CARRIER-BOOK-V1",
+      "researched_at_utc": "2026-11-07T16:48:34.061828+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "XI-REGRESSION-ROSENBORG-CARRIER-BOOK-V1",
+      "evidence_refs": [
+        "https://www.rbk.no/nyheter/vi-har-revansjelyst",
+        "https://www.rbk.no/nyheter/rosenborg-slo-knallhardt-tilbake",
+        "https://www.rbk.no/nyheter/monsterscoring-og-ceide-perle-i-storseier-pa-hamar",
+        "https://www.fotball.no/kretser/hordaland/aktivitet/seniorfotball/seriespill/bestemmelser-om-opp--og-nedrykk-sesongen-2026/",
+        "https://www.fotball.no/fotballdata/lag/hjem/?fiksId=145",
+        "https://www.rbk.no/terminliste"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "REGRESSION_REPLAY"
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "REGRESSION:XI-REGRESSION-ROSENBORG-CARRIER-BOOK-V1",
+    "match_id": "1709312",
+    "bookmaker": "Regression replay of recorded user quote",
+    "quote": {
+      "line": 3.5,
+      "odds": 1.99
+    },
+    "observed_at_utc": "2026-11-07T16:48:34.061828+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null,
+    "custom_lines_available": true
+  }
+}
