@@ -132,8 +132,22 @@ New /block is a two-stage selector:
 
 1. **block sweep:** resolve the entire unstarted cohort and freeze lightweight
    goals-first intake evidence for every fixture;
-2. **block rank:** compare only qualified survivors and promote at most three
-   credible fixtures by default.
+2. **block rank:** compare only qualified survivors, select **3–5 PRIMARY**
+   candidates, then retain the strongest remaining professional candidates in a
+   **HIGH_SIGNAL_RESERVE** lane up to **10 total visible rows**.
+
+Active deterministic comparison invariant: **BLOCK_PRIORITY_V1**. Lightweight
+/block does not run full depth on the entire cohort, but its declared football
+order must not contradict the goal-first principles of BLOCK_PRIORITY_V1.
+
+Band A and Band B form one football-first professional pool. Competition band or
+observability is not an early ranking bonus and cannot hide a materially stronger
+goal signal. Band C remains constrained by the active 15-point plus verified-
+researchability safeguard.
+
+Every completed block freezes an `omission_audit`. A qualified A/B candidate
+hidden solely because the 10-row display cap was reached is retained in that
+audit with `omission_reason=DISPLAY_CAP_ONLY`.
 
 The lightweight comparison may use current scoring-route signal, opponent
 leakage, recent comparable 3+/4+ signal, game-state/incentive pressure,
