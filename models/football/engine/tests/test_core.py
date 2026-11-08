@@ -1117,8 +1117,9 @@ class FootballCExecutionTests(unittest.TestCase):
         a = robust_g3_assessment(
             carrier=CarrierStrength.STRONG,
             carrier_self_fund=True,
+            route_reliability=Grade.MEDIUM,
         )
-        self.assertEqual(c_execution_strength(a), "ROBUST")
+        self.assertEqual(c_execution_strength(a), "CONDITIONAL")
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
         self.assertFalse(c_goal4_funded(a))
         decision = decide_c(a, context(quote=Quote(3.5, 2.00)))
