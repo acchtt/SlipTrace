@@ -369,12 +369,23 @@ profile** between G3/O2.50 and G4/O3.50.
 The certified line remains O2.50 unless G4 is actually funded. Intermediate
 authority is settlement-aware execution authority, not a certificate upgrade.
 BOOK remains zero exposure until fill confirmation.
-A non-visible/lower-line BOOK is also subject to **pre-goal reachability**: if the target line is more than 0.25 goals below the observed screenshot burden, it must not be published as a routine BOOK/decay target unless that exact lower line is independently observed/confirmed in a new price epoch. This prevents high-ignition matches from scoring before a distant target can realistically arrive. The user's bookmaker
-supports custom total lines/target odds, so a BOOK target does **not** need to
-appear in the screenshot ladder and is not limited by the visible-line gap.
-Screenshot-only authority still applies to observed prices: no unseen current
-price is inferred, and exposure exists only after the custom line/odds are
-independently selected and the fill is confirmed.
+
+Execution now distinguishes **decay** from **immediate custom selection**.
+A WAIT/decay target remains limited to 0.25 goals below the observed main total.
+Do not wait for a distant line to collapse in a high-ignition match. A custom
+line that the user's bookmaker can select immediately is not line decay and may
+sit farther below the displayed main total, but only under narrow deterministic
+authority:
+
+- ROBUST G4/G5/G6 may BOOK NOW at the exact protected certificate line;
+- G3-only may BOOK NOW O2.75 only through the strict self-funded carrier rescue
+  (STRONG carrier/primary route, HIGH burden completion, frozen 3+ >=75%,
+  trap <=10%, and canonical O2.75 intermediate authorization);
+- CONDITIONAL G4+ receives no generic lower-line rescue.
+
+The screenshot odds are never transferred to the unseen custom line. The BOOK
+instruction means check/select the line **now** at its stated minimum price,
+not wait for decay. Exposure remains zero until independently confirmed filled.
 
 G3 may be funded by the explicit C carrier, two-route, distributed or
 matchup-leakage mechanisms. Market prices cannot manufacture certificates.
@@ -528,6 +539,25 @@ transferability plus comparable context with non-market evidence. The market
 remains only the trigger and never creates G3/G4/G5/G6.
 
 Do not fetch a replacement quote.
+
+### XI execution-quality safeguards — 2026-11-08
+
+Two additional prospective safeguards apply before price publication.
+
+**Single-elimination regulation throttle.** For `SINGLE_ELIMINATION` or
+`FINAL`, a two-sided/mixed G3 cannot ACT O2.50 when continuation and failure
+resistance are only MEDIUM unless a self-funded carrier, HIGH continuation,
+HIGH failure resistance, or frozen 3+ >=70% supplies the counterweight. The
+certificate remains valid football evidence; only direct ACT is throttled.
+
+**Strong-block / G4-rejection conflict.** If frozen block evidence has 4+ >=55%,
+trap <=10%, and a STRONG route/carrier while deep /xi returns completed
+REJECTED/MIXED G4, runtime requires a bounded market-independent recheck of the
+three G4 paths, post-G3 continuation, transferability/comparable context,
+failure resistance and continuation quality. Until the context carries
+`block_g4_conflict_recheck_status=COMPLETED` with evidence refs and all named
+fields, priced publication fails closed as
+`BLOCK_G4_CONFLICT_RECHECK_REQUIRED`. This gate never upgrades G4 by itself.
 
 ### REVIEW_ONLY and conditional BOOK
 
