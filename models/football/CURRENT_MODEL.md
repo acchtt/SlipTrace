@@ -139,10 +139,15 @@ New /block calls are selection workflows, not full Football C assessments.
 Resolve the entire requested unstarted kickoff cohort, apply lightweight
 goals-first sweep qualification to every fixture, then rank the qualified
 survivors while preserving high-score research blockers in the display pool.
-The default block board contains **up to five matches**. A research-blocked row
-with frozen V4 goal priority score >=60 (or an already-qualified goal screen)
-may be displayed as `HIGH_SCORE_RESEARCH_BLOCKED`; the unresolved blocker stays
-binding and the row has no /xi authority until resolved.
+The default block board is now a bounded two-lane surface: **3–5 PRIMARY rows**
+plus enough **HIGH_SIGNAL_RESERVE** rows to show at most **10 total**. Band A and
+Band B compete in one football-first pool; operational band/observability cannot
+silently suppress a stronger professional goal signal. Band C remains tightly
+constrained by the 15-point + researchability rule. Every completed block freezes
+an `omission_audit`; a qualified A/B row omitted solely by the display cap is
+recorded as `DISPLAY_CAP_ONLY`. A research-blocked row may still be displayed
+as `HIGH_SCORE_RESEARCH_BLOCKED`; the unresolved blocker stays binding and the
+row has no /xi authority until resolved.
 
 The cost boundary is explicit: do not require ASSESSMENT_DEPTH_V3, full H2H,
 G4 research, failure-tree analysis, certificate compilation, XI runtime or
