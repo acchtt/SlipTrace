@@ -237,6 +237,8 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
     def test_full_visible_ladder_selects_lower_supported_line(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         row = robust_g3_book_match(
+            carrier="STRONG",
+            carrier_self_fund=True,
             independent_upper_tail=False,
             independent_upper_tail_basis="completed research rejects G4",
             g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
