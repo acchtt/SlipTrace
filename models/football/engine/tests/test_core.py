@@ -865,7 +865,7 @@ class RankingTests(unittest.TestCase):
 
 
 class FootballCExecutionTests(unittest.TestCase):
-    def test_fragile_funded_g3_floor_can_execute_without_hard_control(self):
+    def test_fragile_funded_g3_is_quarantined_from_direct_act(self):
         a = assessment(
             carrier=CarrierStrength.STRONG,
             route_reliability=Grade.MEDIUM,
@@ -881,7 +881,7 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertTrue(clearing_goal_funded(a, 2.5))
         self.assertEqual(c_execution_strength(a), "FRAGILE")
         self.assertEqual(c_endpoint_control_pressure(a), "MODERATE")
-        self.assertEqual(c_direct_act_ceiling(a), 2.5)
+        self.assertIsNone(c_direct_act_ceiling(a))
         for line, odds in ((2.5, 1.96), (2.25, 1.89)):
             with self.subTest(line=line):
                 ctx = context(
@@ -890,7 +890,7 @@ class FootballCExecutionTests(unittest.TestCase):
                     quote=Quote(line, odds),
                 )
                 result = decide_c(a, ctx)
-                self.assertEqual(result.action, Action.BET)
+                self.assertEqual(result.action, Action.PASS)
     def test_strong_carrier_retains_legitimate_bet_when_robust(self):
         a = robust_g3_assessment(
             carrier=CarrierStrength.STRONG,
@@ -1253,7 +1253,7 @@ class FootballCExecutionTests(unittest.TestCase):
         )
         self.assertEqual(c_endpoint_control_pressure(a), "HIGH")
 
-    def test_fragile_g4_retains_only_funded_g3_floor_not_upper_tail(self):
+    def test_fragile_g4_is_quarantined_from_direct_act_despite_funded_g3(self):
         a = assessment(
             match_id="fragile_tail_with_g3_floor",
             home_route=RouteStrength.USABLE,
@@ -1283,10 +1283,10 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertEqual(certified_supported_burden(a, "c"), 3.5)
         self.assertEqual(c_execution_strength(a), "FRAGILE")
         self.assertEqual(c_endpoint_control_pressure(a), "MODERATE")
-        self.assertEqual(c_direct_act_ceiling(a), 2.5)
+        self.assertIsNone(c_direct_act_ceiling(a))
         self.assertEqual(
             decide_c(a, context(quote=Quote(2.5, 1.70))).action,
-            Action.BET,
+            Action.PASS,
         )
         self.assertEqual(
             decide_c(a, context(quote=Quote(3.25, 1.81))).action,
