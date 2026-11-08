@@ -214,6 +214,11 @@ class MatchAssessment:
     c2_opponent_leakage: Grade | None = None
     c2_opponent_leakage_basis: str | None = None
 
+    # Explicit verified competition structure used only by narrow execution
+    # safeguards (for example, regulation-total throttling in single-elimination
+    # matches). It never creates a scoring certificate.
+    competition_structure_kind: str = "OTHER_VERIFIED"
+
     # Common frozen tournament context. These are research inputs, never
     # bookmaker-derived. Unresolved tournament state remains neutral and must
     # be rechecked by Step 2 before any action is authorized.
@@ -334,6 +339,14 @@ class MatchAssessment:
             and self.c2_opponent_leakage_basis.strip()
         ):
             raise ValueError("C2 leakage grade requires independent non-empty basis")
+
+        allowed_structure_kinds = {
+            "LEAGUE_REGULAR", "GROUP_STAGE", "KNOCKOUT_FIRST_LEG",
+            "KNOCKOUT_SECOND_LEG", "SINGLE_ELIMINATION", "FINAL",
+            "OTHER_VERIFIED",
+        }
+        if self.competition_structure_kind not in allowed_structure_kinds:
+            raise ValueError("invalid competition_structure_kind")
 
         allowed_resolution = {"NOT_APPLICABLE", "VERIFIED", "INCENTIVE_RECHECK_REQUIRED"}
         if self.tournament_incentive_resolution not in allowed_resolution:
@@ -2844,16 +2857,11 @@ def _c_book_target_is_pregoal_reachable(
     ctx: ModelQuoteContext,
     target_line: float,
 ) -> bool:
-    """Require lower-line BOOK targets to be realistically reachable pre-goal.
+    """Legacy decay-path reachability check.
 
-    A non-visible/custom BOOK target is still a future entry plan. It must not
-    bypass the same line-decay realism that already applies to WAIT simply
-    because the bookmaker can expose alternate totals. If the requested target
-    sits more than one normal Asian-total step (0.25) below the observed line,
-    the target is treated as execution-invalid unless that exact lower line was
-    independently observed/confirmed in a separate price epoch.
-
-    Same-line price-only targets are unaffected here.
+    This helper applies only when the instruction is to WAIT for the market
+    total itself to decay. A custom line that the user's bookmaker can select
+    immediately is governed separately by _c_immediate_custom_book_allowed().
     """
 
     _validate_quarter_line(target_line)
@@ -2863,6 +2871,95 @@ def _c_book_target_is_pregoal_reachable(
         ctx.quote.line - target_line
         <= MAX_C_PREGOAL_BOOK_DROP + 1e-9
     )
+
+
+def c_strict_carrier_custom_book_rescue(a: MatchAssessment) -> bool:
+    """Allow one narrow immediate O2.75 custom target for a strong G3 carrier.
+
+    The protected certificate remains O2.50. This does not fund G4 and does
+    not wait for line decay. It only permits the user to check/select O2.75
+    immediately when the bookmaker exposes custom totals.
+    """
+
+    require_c_completion(a)
+    compiled = certified_supported_burden(a, "c")
+    if compiled is None or abs(compiled - 2.50) > 1e-9:
+        return False
+    if not c_goal3_funded(a) or c_goal4_funded(a):
+        return False
+    if a.carrier != CarrierStrength.STRONG or not a.carrier_self_fund:
+        return False
+    if max(a.home_route, a.away_route) != RouteStrength.STRONG:
+        return False
+    if a.burden_completion_quality != Grade.HIGH:
+        return False
+    if a.goal_signal_mean_over_two_rate is None or a.goal_signal_mean_over_two_rate < 0.75:
+        return False
+    if a.goal_signal_low_draw_trap_rate is None or a.goal_signal_low_draw_trap_rate > 0.10:
+        return False
+    if a.material_suppression or a.failure_attacks_route:
+        return False
+    bridge = c_intermediate_burden_profile(a)
+    return bool(bridge["eligible"]) and 2.75 in set(bridge["authorized_lines"])
+
+
+def _c_immediate_custom_book_allowed(
+    a: MatchAssessment,
+    target_line: float,
+) -> bool:
+    """Authorize a custom line selected NOW, distinct from waiting for decay.
+
+    Deep robust certificates may be selected immediately at their exact
+    protected burden regardless of the displayed main-total gap. G3-only
+    cases get only the narrow strong-carrier O2.75 rescue. Conditional G4+
+    certificates do not receive a generic lower-line rescue.
+    """
+
+    _validate_quarter_line(target_line)
+    compiled = certified_supported_burden(a, "c")
+    if compiled is None:
+        return False
+    if (
+        certificate_robustness(a, "c") >= 2
+        and abs(target_line - compiled) <= 1e-9
+    ):
+        return True
+    return (
+        abs(compiled - 2.50) <= 1e-9
+        and abs(target_line - 2.75) <= 1e-9
+        and c_strict_carrier_custom_book_rescue(a)
+    )
+
+
+def c_two_sided_knockout_g3_act_throttled(
+    a: MatchAssessment,
+    line: float,
+) -> bool:
+    """Block marginal regulation O2.50 ACTs in level-tolerant knockouts.
+
+    A single-elimination G3 driven mainly by two-sided 2+1/1+2 structure may
+    not ACT O2.50 when both continuation and failure resistance are only
+    MEDIUM, unless a self-funded carrier, a HIGH continuation/failure grade,
+    or materially stronger frozen 3+ evidence supplies the counterweight.
+    """
+
+    require_c_completion(a)
+    if a.competition_structure_kind not in {"SINGLE_ELIMINATION", "FINAL"}:
+        return False
+    if abs(line - 2.50) > 1e-9:
+        return False
+    if a.completion_mode not in {CompletionMode.TWO_SIDED, CompletionMode.MIXED}:
+        return False
+    if a.carrier_self_fund:
+        return False
+    if a.continuation_quality == Grade.HIGH or a.failure_resistance == Grade.HIGH:
+        return False
+    if (
+        a.goal_signal_mean_over_two_rate is not None
+        and a.goal_signal_mean_over_two_rate >= 0.70
+    ):
+        return False
+    return True
 
 
 def _c_wait_target_is_pregoal_reachable(
@@ -3069,6 +3166,17 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     )
     line_funded = market_line_funded(a, ctx.quote.line, "c")
 
+    if line_funded and c_two_sided_knockout_g3_act_throttled(a, ctx.quote.line):
+        return Decision(
+            Action.PASS,
+            (
+                "single-elimination regulation O2.50 is funded only by a "
+                "two-sided G3 with MEDIUM continuation/failure resistance; "
+                "no self-funded carrier, HIGH continuation/failure grade, or "
+                "materially stronger frozen 3+ signal clears the ACT throttle"
+            ),
+        )
+
     if not line_funded:
         intermediate = c_intermediate_burden_profile(a)
         authorized_intermediate = (
@@ -3126,19 +3234,30 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             if (
                 not same_line_observed
                 and not _c_book_target_is_pregoal_reachable(ctx, target_line)
+                and not _c_immediate_custom_book_allowed(a, target_line)
             ):
                 return Decision(
                     Action.PASS,
                     (
                         f"custom BOOK O{target_line:.2f} is {ctx.quote.line - target_line:.2f} "
-                        "goals below the observed burden; more than 0.25 is not a "
-                        "realistically reachable pre-goal line-decay target"
+                        "goals below the observed burden and does not clear the "
+                        "immediate custom-line carrier rescue; do not wait for decay"
                     ),
                 )
             if not same_line_observed:
+                immediate_now = _c_immediate_custom_book_allowed(a, target_line)
                 reason = (
-                    f"G3 protected certificate remains O2.50; reachable custom "
-                    f"BOOK O{target_line:.2f} @ {target_min_odds:.2f}+ is authorized; "
+                    (
+                        f"G3 protected certificate remains O2.50; BOOK NOW custom "
+                        f"O{target_line:.2f} only if currently offered @ "
+                        f"{target_min_odds:.2f}+; do not wait for line decay; "
+                    )
+                    if immediate_now
+                    else (
+                        f"G3 protected certificate remains O2.50; reachable custom "
+                        f"BOOK O{target_line:.2f} @ {target_min_odds:.2f}+ is authorized; "
+                    )
+                ) + (
                     "the visible higher-line odds are not reused for this target; "
                     "PENDING_UNFILLED with zero exposure until the custom fill is confirmed"
                 )
@@ -3172,21 +3291,33 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             and custom_target is not None
         ):
             target_line, target_min_odds = custom_target
-            if not _c_book_target_is_pregoal_reachable(ctx, target_line):
+            immediate_now = _c_immediate_custom_book_allowed(a, target_line)
+            if (
+                not _c_book_target_is_pregoal_reachable(ctx, target_line)
+                and not immediate_now
+            ):
                 return Decision(
                     Action.PASS,
                     (
                         f"custom BOOK O{target_line:.2f} is {ctx.quote.line - target_line:.2f} "
-                        "goals below the observed burden; more than 0.25 is not a "
-                        "realistically reachable pre-goal line-decay target"
+                        "goals below the observed burden; it is neither a realistic "
+                        "decay target nor an authorized immediate custom-line target"
                     ),
                 )
             return Decision(
                 Action.BOOK,
                 (
-                    f"custom non-visible BOOK target O{target_line:.2f} "
-                    f"@ {target_min_odds:.2f}+ is football-authorized; "
-                    "screenshot does not need to display the target line or price; "
+                    (
+                        f"BOOK NOW custom O{target_line:.2f} only if currently offered "
+                        f"@ {target_min_odds:.2f}+; do not wait for line decay; "
+                    )
+                    if immediate_now
+                    else (
+                        f"custom non-visible BOOK target O{target_line:.2f} "
+                        f"@ {target_min_odds:.2f}+ is football-authorized; "
+                    )
+                ) + (
+                    "screenshot odds are not transferred to the custom line; "
                     "zero exposure until independently selected and fill-confirmed"
                 ),
                 book_target_line=target_line,
