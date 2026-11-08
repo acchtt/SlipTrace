@@ -935,6 +935,9 @@ def parse_assessment(
             if require_c_completion and obj.get("g4_research_status") is not None
             else None
         ),
+        competition_structure_kind=(
+            str(obj.get("competition_structure_kind", "OTHER_VERIFIED")).strip().upper()
+        ),
         c2_opponent_leakage=(
             _enum(Grade, _required(obj, "c2_opponent_leakage"), "c2_opponent_leakage")
             if not require_c_completion and "c2_opponent_leakage" in obj else None
@@ -1707,7 +1710,13 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         compile_c_board_state(a) if model == "c" else declared_board_state
     )
     incentive = validate_tournament_incentive(match_obj)
+    g4_conflict_gate = _block_g4_conflict_recheck_gate(ctx, a)
     needs = []
+    if (
+        g4_conflict_gate["block_g4_conflict_recheck_required"]
+        and not g4_conflict_gate["block_g4_conflict_recheck_completed"]
+    ):
+        needs.append("BLOCK_G4_CONFLICT_RECHECK_REQUIRED")
     if status == "UNKNOWN":
         needs.append("CURRENT_FIXTURE_STATUS_UNVERIFIED")
     if status in {"STARTED", "HALFTIME"} and (minute is None or score is None):
@@ -1768,6 +1777,7 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         "declared_supported_line_basis": a.supported_line_basis,
         **tail_profile,
         **g4_profile,
+        **g4_conflict_gate,
         "certificate_diagnostics": g4_diagnostics(a),
         "production_scope": scope_profile(match_obj, ctx),
         "frozen_line_not_live_executable": True,
@@ -1857,6 +1867,91 @@ CERTIFICATE_UPGRADE_FIELDS = frozenset({
     "g4_reply_path",
     "g4_continuation_after_g3",
 })
+
+BLOCK_G4_CONFLICT_RECHECK_FIELDS = frozenset({
+    "g4_carrier_path",
+    "g4_distributed_path",
+    "g4_reply_path",
+    "g4_continuation_after_g3",
+    "upper_tail_transferability",
+    "upper_tail_comparable_context_signal",
+    "failure_resistance",
+    "continuation_quality",
+})
+
+
+def _block_g4_conflict_recheck_gate(
+    ctx_obj: dict[str, Any],
+    a: MatchAssessment,
+) -> dict[str, Any]:
+    """Fail closed when strong frozen 4+ evidence conflicts with G4 rejection."""
+
+    over_four = a.goal_signal_mean_over_three_rate
+    trap = a.goal_signal_low_draw_trap_rate
+    strong_route_shape = (
+        a.carrier == CarrierStrength.STRONG
+        or a.home_route == RouteStrength.STRONG
+        or a.away_route == RouteStrength.STRONG
+    )
+    required = (
+        a.g4_research_status in {
+            "G4_RESEARCH_COMPLETE_REJECTED",
+            "G4_RESEARCH_COMPLETE_MIXED",
+        }
+        and over_four is not None
+        and over_four >= 0.55
+        and trap is not None
+        and trap <= 0.10
+        and strong_route_shape
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+    if not required:
+        return {
+            "block_g4_conflict_recheck_required": False,
+            "block_g4_conflict_recheck_completed": True,
+            "block_g4_conflict_recheck_basis": "NOT_REQUIRED",
+            "block_g4_conflict_recheck_fields": [],
+            "block_g4_conflict_recheck_evidence_refs": [],
+            "block_g4_conflict_recheck_missing_fields": [],
+        }
+
+    status = ctx_obj.get("block_g4_conflict_recheck_status")
+    basis = ctx_obj.get("block_g4_conflict_recheck_basis")
+    fields = ctx_obj.get("block_g4_conflict_recheck_fields")
+    refs = ctx_obj.get("block_g4_conflict_recheck_evidence_refs")
+    normalized_fields = (
+        [x.strip() for x in fields]
+        if isinstance(fields, list)
+        and all(isinstance(x, str) and x.strip() for x in fields)
+        else []
+    )
+    missing = sorted(BLOCK_G4_CONFLICT_RECHECK_FIELDS - set(normalized_fields))
+    completed = (
+        status == "COMPLETED"
+        and isinstance(basis, str)
+        and bool(basis.strip())
+        and isinstance(refs, list)
+        and bool(refs)
+        and all(isinstance(x, str) and x.strip() for x in refs)
+        and not missing
+    )
+    return {
+        "block_g4_conflict_recheck_required": True,
+        "block_g4_conflict_recheck_completed": completed,
+        "block_g4_conflict_recheck_basis": (
+            basis.strip() if isinstance(basis, str) and basis.strip() else None
+        ),
+        "block_g4_conflict_recheck_fields": normalized_fields,
+        "block_g4_conflict_recheck_evidence_refs": (
+            [x.strip() for x in refs]
+            if isinstance(refs, list)
+            and all(isinstance(x, str) and x.strip() for x in refs)
+            else []
+        ),
+        "block_g4_conflict_recheck_missing_fields": missing,
+    }
+
 
 MATERIAL_MARKET_DISAGREEMENT_GOALS = 0.50
 
@@ -2217,6 +2312,7 @@ def evaluate_observed_quote(
         compiled_burden=compiled_burden,
         observed_line=observed.line,
     )
+    block_g4_conflict_gate = _block_g4_conflict_recheck_gate(ctx_obj, a)
     book_profile = (
         c_g3_book_extension_profile(a)
         if model == "c"
@@ -2227,6 +2323,31 @@ def evaluate_observed_quote(
             "basis": "retired/non-C path",
         }
     )
+
+    if (
+        block_g4_conflict_gate["block_g4_conflict_recheck_required"]
+        and not block_g4_conflict_gate["block_g4_conflict_recheck_completed"]
+    ):
+        return {
+            "schema_version": SCHEMA_VERSION,
+            "stage": "observed_quote_evaluation",
+            "model": model,
+            "match_id": a.match_id,
+            "action": "BLOCK_G4_CONFLICT_RECHECK_REQUIRED",
+            "reason": (
+                "frozen block 4+ signal conflicts with a completed G4 rejection; "
+                "recheck the named fourth-goal paths, continuation and comparable "
+                "context before publishing ACT/BOOK/PASS"
+            ),
+            "supported_line": compiled_burden,
+            "observed_line": observed.line,
+            "observed_odds": observed.odds,
+            "line_relation": relation,
+            **block_g4_conflict_gate,
+            "execution_authorized": False,
+            "publication_authorized": False,
+            "model_exposure_created": False,
+        }
 
     if (
         disagreement_gate["market_disagreement_recheck_required"]
@@ -2419,6 +2540,7 @@ def evaluate_observed_quote(
         "wait_requires_negative_info": wait_negative,
         **upgrade_gate,
         **disagreement_gate,
+        **block_g4_conflict_gate,
         "execution_authorized": False,
         "publication_authorized": False,
         "model_exposure_created": False,
@@ -2591,6 +2713,15 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     upgrade_gate = _certificate_upgrade_gate(
         ctx_obj, compiled_burden, model=model
     )
+    block_g4_conflict_gate = _block_g4_conflict_recheck_gate(ctx_obj, a)
+    if (
+        model == "c"
+        and block_g4_conflict_gate["block_g4_conflict_recheck_required"]
+        and not block_g4_conflict_gate["block_g4_conflict_recheck_completed"]
+    ):
+        raise ContractError(
+            "DECISION BLOCKED — BLOCK_G4_CONFLICT_RECHECK_REQUIRED"
+        )
 
     if "tournament_incentive_rechecked" not in ctx_obj:
         raise ContractError(
@@ -2867,6 +2998,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         ),
         **prospective_goal_funding(a, model),
         **upgrade_gate,
+        **block_g4_conflict_gate,
         "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
         "wait_target_line": wait_target_line,
         "wait_min_odds": wait_min_odds,
