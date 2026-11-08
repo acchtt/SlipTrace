@@ -1,0 +1,371 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-REGRESSION-KANSAS-KNOCKOUT-THROTTLE-V1",
+  "c_football": {
+    "assessment_depth": {
+      "assessed_at_utc": "2026-11-07T16:59:58.493009+00:00",
+      "checks": {
+        "availability_replacements": "User XI: KC Lorena; Rouse, Robinson, Sharples, Rodriguez; LaBonta, DiBernardo; Cooper, Bethune, Chawinga; Hopkins. Bench Ball, Debinha, Feist, Gemelli, Hocking, Jordan, Nyadiou, Rocky Rodriguez, White. Angel City Anderson; Shores, Gorden, Sams, King; Martin, Ary Borges; Chilufya, Sentnor, Thompson; Jonsdottir. Bench Cherry, DiMaria, Emslie, Lageyre, Niehues, Mattice, Seabert, Suarez, Tiernan. Main creative/finishing roles are retained on both sides. No absence-only downgrade; Niehues benching is balanced by current starting contributors and actual substitutes.",
+        "carrier_capacity": "Carrier USABLE rather than self-funded-three: KC have a league-leading 39 home goals but face an Angel City defence allowing 32 in 30 with ten shutouts. Both co-lead with 54 season goals, but balanced high scoring does not establish either team scoring three alone in this playoff.",
+        "continuation_2_0": "The trailing team has a substantive reply route but the leader can protect two goals in a knockout; advancement needs are not a third-goal guarantee. LEVEL_KNOCKOUT_ENDPOINT: 1-1 can persist to extra time while a leader can protect 1-0/2-0. The draw at 90 minutes does not eliminate either side. Retained attackers and the strong reply prevent a hard suppression veto, but defending quality limits third/fourth completion. This is one shared continuation risk, not multiple independent penalties.",
+        "current_chance_creation": "Kansas City retain Chawinga and Hopkins, each 12 regular-season goals, with Hopkins scoring seven in the final five games. Bethune starts after a record 11-assist season; DiBernardo starts after five contributions in five games, including both corner supplies in the latest 2-0. Cooper offers width. This is a STRONG current route through both open play and retained set-piece delivery. Angel City retain Jonsdottir (ten goals), Sentnor, Thompson and Chilufya, with Shores (eight assists) supplying from fullback. Latest official 4-1 report documents Sentnor assisting Martin, Jonsdottir crossing for Shores and a separate transition finish. Current-season 2-1 and 1-1 meetings confirm a substantive STRONG reply. Niehues, Emslie, Suarez and Tiernan are real bench alternatives, not presumed starters.",
+        "goal3_mechanism": "Goal three is a concrete 2+1/1+2 path: Hopkins/Chawinga finishing, Bethune open-play creation and DiBernardo corners on one side; Jonsdottir/Sentnor/Thompson plus Shores delivery on the other. HIGH independent-route quality reflects the separately documented delivery mechanisms, not a route-count bonus. Current chance quality HIGH, completion and continuation MEDIUM because a level knockout can remain level into extra time.",
+        "goal4_mechanism": "Fourth-goal research complete with MIXED paths: both teams' 54 goals and recent Angel City 4-1 demonstrate capability, but the closest current H2Hs are 2-1 and 1-1, ACFC concede only 1.07 per game and KC's recent finale was controlled 2-0. Neither self-funded-three plus reply nor repeatable 2+2 is independently verified against this current defensive opposition. G4 rejected; no G5 or G6.",
+        "h2h_transferability": "Current official club preview confirms Angel City won 2-1 in May and drew 1-1 in Kansas City in August. These are current same-league matchup observations supporting both a reply and a low draw endpoint, but current Hopkins/DiBernardo form and personnel changes prevent treating old 1-1 as a hard predictive veto. Limited material transfer, no verified suppressive H2H veto.",
+        "match_context": "Both teams last played November 1, now November 7: six days recovery. Angel City travel domestically from California to Kansas City; no intercontinental schedule or independently verified fatigue diagnosis. Playoff rivalry is competitive context, not a local derby. No automatic under from travel or knockout status; net context checked neutral, regulation endpoint risk assessed explicitly.",
+        "named_failure_mechanism": "LEVEL_KNOCKOUT_ENDPOINT: 1-1 can persist to extra time while a leader can protect 1-0/2-0. The draw at 90 minutes does not eliminate either side. Retained attackers and the strong reply prevent a hard suppression veto, but defending quality limits third/fourth completion. This is one shared continuation risk, not multiple independent penalties.",
+        "opponent_leakage": "Both sides are high scoring but Angel City conceded 32 in 30 with ten clean sheets; KC have recent controlled shutouts. Leakage is MEDIUM, not a high-leakage promotion.",
+        "primary_scoring_route": "Kansas City retain Chawinga and Hopkins, each 12 regular-season goals, with Hopkins scoring seven in the final five games. Bethune starts after a record 11-assist season; DiBernardo starts after five contributions in five games, including both corner supplies in the latest 2-0. Cooper offers width. This is a STRONG current route through both open play and retained set-piece delivery.",
+        "secondary_reply_route": "Angel City retain Jonsdottir (ten goals), Sentnor, Thompson and Chilufya, with Shores (eight assists) supplying from fullback. Latest official 4-1 report documents Sentnor assisting Martin, Jonsdottir crossing for Shores and a separate transition finish. Current-season 2-1 and 1-1 meetings confirm a substantive STRONG reply. Niehues, Emslie, Suarez and Tiernan are real bench alternatives, not presumed starters.",
+        "stall_0_0": "Current creators and retained set-piece service can break the initial deadlock, but opposing defences and playoff level-state preservation leave MEDIUM risk. MEDIUM activation: Angel City's latest report records chances at 3 and 10 minutes and a 17th-minute goal; KC scored at 15 minutes through a retained set-piece supplier. Those weaker regular-season opponents do not prove HIGH early-opening behaviour for this evenly matched playoff; no second HIGH ignition signal asserted.",
+        "stall_1_1": "LEVEL_KNOCKOUT_ENDPOINT: 1-1 can persist to extra time while a leader can protect 1-0/2-0. The draw at 90 minutes does not eliminate either side. Retained attackers and the strong reply prevent a hard suppression veto, but defending quality limits third/fourth completion. This is one shared continuation risk, not multiple independent penalties.",
+        "supported_burden_basis": "Goal three is a concrete 2+1/1+2 path: Hopkins/Chawinga finishing, Bethune open-play creation and DiBernardo corners on one side; Jonsdottir/Sentnor/Thompson plus Shores delivery on the other. HIGH independent-route quality reflects the separately documented delivery mechanisms, not a route-count bonus. Current chance quality HIGH, completion and continuation MEDIUM because a level knockout can remain level into extra time. Fourth-goal research complete with MIXED paths: both teams' 54 goals and recent Angel City 4-1 demonstrate capability, but the closest current H2Hs are 2-1 and 1-1, ACFC concede only 1.07 per game and KC's recent finale was controlled 2-0. Neither self-funded-three plus reply nor repeatable 2+2 is independently verified against this current defensive opposition. G4 rejected; no G5 or G6.",
+        "tournament_incentive": "Official 2026 NWSL single-elimination quarterfinal: fourth-seed KC host fifth-seed Angel City, no second leg or aggregate. Winner advances. If tied at 90 minutes, two full 15-minute extra-time periods then penalties; a regulation draw therefore preserves both teams' advancement opportunity. Both win-preferred, not required to win within 90 minutes; no margin or simultaneous-results target. Screenshot full-match totals assessed for regulation plus stoppage, extra-time goals are not used to fund this total."
+      },
+      "completed": true,
+      "contract": "ASSESSMENT_DEPTH_V3",
+      "evidence_epoch_id": "XI-REGRESSION-KANSAS-KNOCKOUT-THROTTLE-V1",
+      "evidence_refs": [
+        "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+        "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+        "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+        "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2",
+        "https://angelcity.com/2026-nwsl-playoffs",
+        "https://www.nwslsoccer.com/news/quarterfinal-round-set-ahead-of-2026-nwsl-playoffs-presented-by-google-pixel"
+      ],
+      "market_independent": true
+    },
+    "authority_commit": "09eab3a0dfb993f3154eb1e43651d3cb0953f066",
+    "context": {
+      "assessment_at_utc": "2026-11-07T16:59:58.493009+00:00",
+      "board_state": "C-FOCUS",
+      "certificate_upgrade_basis": "Lightweight block flagged this exact fixture pending playoff proof; official single-elimination rules are now verified through fresh full DIRECT research.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "direct_request": true,
+      "direct_research_completed": true,
+      "direct_research_epoch_id": "DIRECT-1914753-20261107T165958Z",
+      "direct_revision": "INITIAL",
+      "direct_upstream_state": "NOT_RANKED",
+      "exception_flag": false,
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "market_disagreement_recheck_basis": "Initial football-only research before exact screenshot ladder evaluation.",
+      "market_disagreement_recheck_evidence_refs": [],
+      "market_disagreement_recheck_fields": [],
+      "market_disagreement_recheck_status": "NOT_REQUIRED",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "material_veto": false,
+      "primary_mechanism_intact": true,
+      "score": null,
+      "thesis_state": "PRESERVED"
+    },
+    "evidence_epoch_id": "XI-REGRESSION-KANSAS-KNOCKOUT-THROTTLE-V1",
+    "match": {
+      "activation_basis": "MEDIUM activation: Angel City's latest report records chances at 3 and 10 minutes and a 17th-minute goal; KC scored at 15 minutes through a retained set-piece supplier. Those weaker regular-season opponents do not prove HIGH early-opening behaviour for this evenly matched playoff; no second HIGH ignition signal asserted.",
+      "activation_evidence_refs": [
+        "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+        "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+      ],
+      "activation_ignition": {
+        "basis": "MEDIUM activation: Angel City's latest report records chances at 3 and 10 minutes and a 17th-minute goal; KC scored at 15 minutes through a retained set-piece supplier. Those weaker regular-season opponents do not prove HIGH early-opening behaviour for this evenly matched playoff; no second HIGH ignition signal asserted.",
+        "current_attack_structure": "MEDIUM",
+        "early_chance_creation": "MEDIUM",
+        "early_concession_opening": "MEDIUM",
+        "evidence_refs": [
+          "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+          "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+        ],
+        "game_state_force": "MEDIUM",
+        "weaker_side_state_change": "MEDIUM"
+      },
+      "activation_quality": "MEDIUM",
+      "aggregate_state": "SINGLE_ELIMINATION_NO_AGGREGATE",
+      "availability_replacements": "User XI: KC Lorena; Rouse, Robinson, Sharples, Rodriguez; LaBonta, DiBernardo; Cooper, Bethune, Chawinga; Hopkins. Bench Ball, Debinha, Feist, Gemelli, Hocking, Jordan, Nyadiou, Rocky Rodriguez, White. Angel City Anderson; Shores, Gorden, Sams, King; Martin, Ary Borges; Chilufya, Sentnor, Thompson; Jonsdottir. Bench Cherry, DiMaria, Emslie, Lageyre, Niehues, Mattice, Seabert, Suarez, Tiernan. Main creative/finishing roles are retained on both sides. No absence-only downgrade; Niehues benching is balanced by current starting contributors and actual substitutes.",
+      "away": "Angel City FC",
+      "away_incentive": "WIN_PREFERRED",
+      "away_route": "STRONG",
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Goal three is a concrete 2+1/1+2 path: Hopkins/Chawinga finishing, Bethune open-play creation and DiBernardo corners on one side; Jonsdottir/Sentnor/Thompson plus Shores delivery on the other. HIGH independent-route quality reflects the separately documented delivery mechanisms, not a route-count bonus. Current chance quality HIGH, completion and continuation MEDIUM because a level knockout can remain level into extra time.",
+      "burden_completion_quality": "MEDIUM",
+      "burden_protection": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "USABLE",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Carrier USABLE rather than self-funded-three: KC have a league-leading 39 home goals but face an Angel City defence allowing 32 in 30 with ten shutouts. Both co-lead with 54 season goals, but balanced high scoring does not establish either team scoring three alone in this playoff.",
+      "chance_quality": "HIGH",
+      "common_evidence_basis": "Kansas City retain Chawinga and Hopkins, each 12 regular-season goals, with Hopkins scoring seven in the final five games. Bethune starts after a record 11-assist season; DiBernardo starts after five contributions in five games, including both corner supplies in the latest 2-0. Cooper offers width. This is a STRONG current route through both open play and retained set-piece delivery. Angel City retain Jonsdottir (ten goals), Sentnor, Thompson and Chilufya, with Shores (eight assists) supplying from fullback. Latest official 4-1 report documents Sentnor assisting Martin, Jonsdottir crossing for Shores and a separate transition finish. Current-season 2-1 and 1-1 meetings confirm a substantive STRONG reply. Niehues, Emslie, Suarez and Tiernan are real bench alternatives, not presumed starters.",
+      "competition": "National Women's Soccer League: Play-off",
+      "competition_format": "Eight-team single-elimination playoff; one quarterfinal, not two legs; winner advances.",
+      "competition_kind": "WOMENS_TOP_FLIGHT",
+      "competition_reliability_manual_override": "NONE",
+      "competition_reliability_reason": "Verified professional NWSL playoff with official organizer and club format proof; no manual override asserted.",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_stage": "QUARTERFINAL_SINGLE_ELIMINATION",
+      "competition_structure_basis": "Official NWSL quarterfinal announcement identifies this single playoff fixture; current official club playoff rules confirm extra time and penalties rather than aggregate or replay.",
+      "competition_structure_evidence_refs": [
+        "https://www.nwslsoccer.com/news/quarterfinal-round-set-ahead-of-2026-nwsl-playoffs-presented-by-google-pixel",
+        "https://angelcity.com/2026-nwsl-playoffs"
+      ],
+      "competition_structure_kind": "SINGLE_ELIMINATION",
+      "competition_structure_source_tier": "OFFICIAL_COMPETITION",
+      "completion_mode": "TWO_SIDED",
+      "continuation_quality": "MEDIUM",
+      "country": "USA",
+      "demoted_probation": false,
+      "draw_resolution": "At 90 minutes level: two full 15-minute extra-time periods, then penalties if still tied.",
+      "evidence_confidence": "HIGH",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Retained attacking roles survive the absences; no full-route destruction is asserted.",
+      "failure_mechanisms": {
+        "LEVEL_KNOCKOUT_ENDPOINT": {
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "LEVEL_KNOCKOUT_ENDPOINT: 1-1 can persist to extra time while a leader can protect 1-0/2-0. The draw at 90 minutes does not eliminate either side. Retained attackers and the strong reply prevent a hard suppression veto, but defending quality limits third/fourth completion. This is one shared continuation risk, not multiple independent penalties.",
+          "evidence_refs": [
+            "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+            "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+            "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+            "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+          ],
+          "kind": "CURRENT_ATTACK_AND_ENDPOINT_CONTROL"
+        }
+      },
+      "failure_resistance": "MEDIUM",
+      "fatigue_context": "NONE",
+      "g3_current_structure_basis": "Goal three is a concrete 2+1/1+2 path: Hopkins/Chawinga finishing, Bethune open-play creation and DiBernardo corners on one side; Jonsdottir/Sentnor/Thompson plus Shores delivery on the other. HIGH independent-route quality reflects the separately documented delivery mechanisms, not a route-count bonus. Current chance quality HIGH, completion and continuation MEDIUM because a level knockout can remain level into extra time. The bounded recheck verifies the present 2+1/1+2 mechanisms from both clubs; the only missing historical threshold is blended 3+ rate 0.60 versus 0.65, not a missing scoring route.",
+      "g3_current_structure_source_refs": [
+        "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+        "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+        "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+        "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+      ],
+      "g3_current_structure_verified": true,
+      "g4_carrier_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_distributed_path": "MIXED",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Fourth-goal research complete with MIXED paths: both teams' 54 goals and recent Angel City 4-1 demonstrate capability, but the closest current H2Hs are 2-1 and 1-1, ACFC concede only 1.07 per game and KC's recent finale was controlled 2-0. Neither self-funded-three plus reply nor repeatable 2+2 is independently verified against this current defensive opposition. G4 rejected; no G5 or G6.",
+          "evidence_refs": [
+            "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+            "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+            "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+            "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Fourth-goal research complete with MIXED paths: both teams' 54 goals and recent Angel City 4-1 demonstrate capability, but the closest current H2Hs are 2-1 and 1-1, ACFC concede only 1.07 per game and KC's recent finale was controlled 2-0. Neither self-funded-three plus reply nor repeatable 2+2 is independently verified against this current defensive opposition. G4 rejected; no G5 or G6.",
+          "evidence_refs": [
+            "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+            "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+            "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+            "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Fourth-goal research complete with MIXED paths: both teams' 54 goals and recent Angel City 4-1 demonstrate capability, but the closest current H2Hs are 2-1 and 1-1, ACFC concede only 1.07 per game and KC's recent finale was controlled 2-0. Neither self-funded-three plus reply nor repeatable 2+2 is independently verified against this current defensive opposition. G4 rejected; no G5 or G6.",
+          "evidence_refs": [
+            "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+            "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+            "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+            "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+          ]
+        }
+      },
+      "g4_reply_path": "MIXED",
+      "g4_research_basis": "Fourth-goal research complete with MIXED paths: both teams' 54 goals and recent Angel City 4-1 demonstrate capability, but the closest current H2Hs are 2-1 and 1-1, ACFC concede only 1.07 per game and KC's recent finale was controlled 2-0. Neither self-funded-three plus reply nor repeatable 2+2 is independently verified against this current defensive opposition. G4 rejected; no G5 or G6.",
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "goal_signal_low_draw_trap_rate": 0.1,
+      "goal_signal_mean_over_three_rate": 0.45,
+      "goal_signal_mean_over_two_rate": 0.6,
+      "goal_signal_priority_score": 60,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "LEVEL_KNOCKOUT_ENDPOINT: 1-1 can persist to extra time while a leader can protect 1-0/2-0. The draw at 90 minutes does not eliminate either side. Retained attackers and the strong reply prevent a hard suppression veto, but defending quality limits third/fourth completion. This is one shared continuation risk, not multiple independent penalties.",
+          "evidence_refs": [
+            "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+            "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+            "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+            "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+          ],
+          "mechanism_ids": [
+            "LEVEL_KNOCKOUT_ENDPOINT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "LEVEL_KNOCKOUT_ENDPOINT: 1-1 can persist to extra time while a leader can protect 1-0/2-0. The draw at 90 minutes does not eliminate either side. Retained attackers and the strong reply prevent a hard suppression veto, but defending quality limits third/fourth completion. This is one shared continuation risk, not multiple independent penalties.",
+          "evidence_refs": [
+            "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+            "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+            "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+            "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+          ],
+          "mechanism_ids": []
+        },
+        "failure_resistance": {
+          "basis": "LEVEL_KNOCKOUT_ENDPOINT: 1-1 can persist to extra time while a leader can protect 1-0/2-0. The draw at 90 minutes does not eliminate either side. Retained attackers and the strong reply prevent a hard suppression veto, but defending quality limits third/fourth completion. This is one shared continuation risk, not multiple independent penalties.",
+          "evidence_refs": [
+            "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+            "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+            "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+            "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+          ],
+          "mechanism_ids": [
+            "LEVEL_KNOCKOUT_ENDPOINT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "Fourth-goal research complete with MIXED paths: both teams' 54 goals and recent Angel City 4-1 demonstrate capability, but the closest current H2Hs are 2-1 and 1-1, ACFC concede only 1.07 per game and KC's recent finale was controlled 2-0. Neither self-funded-three plus reply nor repeatable 2+2 is independently verified against this current defensive opposition. G4 rejected; no G5 or G6.",
+          "evidence_refs": [
+            "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+            "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+            "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+            "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+          ],
+          "mechanism_ids": []
+        },
+        "route_reliability": {
+          "basis": "Kansas City retain Chawinga and Hopkins, each 12 regular-season goals, with Hopkins scoring seven in the final five games. Bethune starts after a record 11-assist season; DiBernardo starts after five contributions in five games, including both corner supplies in the latest 2-0. Cooper offers width. This is a STRONG current route through both open play and retained set-piece delivery. Angel City retain Jonsdottir (ten goals), Sentnor, Thompson and Chilufya, with Shores (eight assists) supplying from fullback. Latest official 4-1 report documents Sentnor assisting Martin, Jonsdottir crossing for Shores and a separate transition finish. Current-season 2-1 and 1-1 meetings confirm a substantive STRONG reply. Niehues, Emslie, Suarez and Tiernan are real bench alternatives, not presumed starters.",
+          "evidence_refs": [
+            "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+            "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+            "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+            "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "h2h_basis": "Current official club preview confirms Angel City won 2-1 in May and drew 1-1 in Kansas City in August. These are current same-league matchup observations supporting both a reply and a low draw endpoint, but current Hopkins/DiBernardo form and personnel changes prevent treating old 1-1 as a hard predictive veto. Limited material transfer, no verified suppressive H2H veto.",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_effect": "MIXED",
+      "h2h_material_effect": false,
+      "h2h_state": "REVIEWED_LIMITED",
+      "h2h_transferability": "LIMITED",
+      "home": "Kansas City Current",
+      "home_incentive": "WIN_PREFERRED",
+      "home_route": "STRONG",
+      "incentive_effect": "NEUTRAL",
+      "independent_route_quality": "HIGH",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "Fourth-goal research complete with MIXED paths: both teams' 54 goals and recent Angel City 4-1 demonstrate capability, but the closest current H2Hs are 2-1 and 1-1, ACFC concede only 1.07 per game and KC's recent finale was controlled 2-0. Neither self-funded-three plus reply nor repeatable 2+2 is independently verified against this current defensive opposition. G4 rejected; no G5 or G6.",
+      "kickoff_ict": "2026-11-08T00:00:00+07:00",
+      "main_failure": "LEVEL_KNOCKOUT_ENDPOINT: 1-1 can persist to extra time while a leader can protect 1-0/2-0. The draw at 90 minutes does not eliminate either side. Retained attackers and the strong reply prevent a hard suppression veto, but defending quality limits third/fourth completion. This is one shared continuation risk, not multiple independent penalties.",
+      "market_observability": "HIGH",
+      "match_context_basis": "Both teams last played November 1, now November 7: six days recovery. Angel City travel domestically from California to Kansas City; no intercontinental schedule or independently verified fatigue diagnosis. Playoff rivalry is competitive context, not a local derby. No automatic under from travel or knockout status; net context checked neutral, regulation endpoint risk assessed explicitly.",
+      "match_context_effect": "NEUTRAL",
+      "match_context_evidence_refs": [
+        "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+        "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+        "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+        "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2"
+      ],
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "match_id": "1914753",
+      "material_suppression": false,
+      "material_suppression_basis": "Normal league incentive and defensive changes do not establish a hard suppression veto; endpoint risks remain MEDIUM.",
+      "operational_viability_grade": "A",
+      "operational_viability_reason": "Exact user XI and full visible prematch quote ladder, official fixture and playoff rules independently verified.",
+      "opponent_leakage": "MEDIUM",
+      "qualification_state": "Official 2026 NWSL single-elimination quarterfinal: fourth-seed KC host fifth-seed Angel City, no second leg or aggregate. Winner advances. If tied at 90 minutes, two full 15-minute extra-time periods then penalties; a regulation draw therefore preserves both teams' advancement opportunity. Both win-preferred, not required to win within 90 minutes; no margin or simultaneous-results target. Screenshot full-match totals assessed for regulation plus stoppage, extra-time goals are not used to fund this total.",
+      "raw_operational_viability_grade": "A",
+      "rest_load_context": "BALANCED",
+      "rivalry_context": "NEUTRAL",
+      "route_reliability": "MEDIUM",
+      "simultaneous_results_note": "Independent single knockout; no parallel result or target margin affects the advancement requirement.",
+      "simultaneous_results_status": "VERIFIED",
+      "source_fixture": {
+        "away": "Angel City FC",
+        "competition": "National Women's Soccer League: Play-off",
+        "competition_kind": "WOMENS_TOP_FLIGHT",
+        "country": "USA",
+        "home": "Kansas City Current",
+        "kickoff_utc": "2026-11-07T17:00:00+00:00",
+        "match_id": "1914753"
+      },
+      "source_urls": [
+        "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+        "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+        "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+        "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2",
+        "https://angelcity.com/2026-nwsl-playoffs",
+        "https://www.nwslsoccer.com/news/quarterfinal-round-set-ahead-of-2026-nwsl-playoffs-presented-by-google-pixel"
+      ],
+      "supported_line": 2.5,
+      "supported_line_basis": "Goal three is a concrete 2+1/1+2 path: Hopkins/Chawinga finishing, Bethune open-play creation and DiBernardo corners on one side; Jonsdottir/Sentnor/Thompson plus Shores delivery on the other. HIGH independent-route quality reflects the separately documented delivery mechanisms, not a route-count bonus. Current chance quality HIGH, completion and continuation MEDIUM because a level knockout can remain level into extra time. Fourth-goal research complete with MIXED paths: both teams' 54 goals and recent Angel City 4-1 demonstrate capability, but the closest current H2Hs are 2-1 and 1-1, ACFC concede only 1.07 per game and KC's recent finale was controlled 2-0. Neither self-funded-three plus reply nor repeatable 2+2 is independently verified against this current defensive opposition. G4 rejected; no G5 or G6.",
+      "team_news_observability": "HIGH",
+      "tiebreak_margin_relevance": "NO",
+      "tournament_format_status": "VERIFIED",
+      "tournament_incentive_required": true,
+      "travel_load_context": "NORMAL",
+      "upper_tail_comparable_context_basis": "Fourth-goal research complete with MIXED paths: both teams' 54 goals and recent Angel City 4-1 demonstrate capability, but the closest current H2Hs are 2-1 and 1-1, ACFC concede only 1.07 per game and KC's recent finale was controlled 2-0. Neither self-funded-three plus reply nor repeatable 2+2 is independently verified against this current defensive opposition. G4 rejected; no G5 or G6.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_competition_provenance_basis": "Current NWSL regular-season match reports and exact same-season H2Hs are used. No friendlies, other leagues or extra-time goals enter regulation certificate funding.",
+      "upper_tail_competition_provenance_verified": true,
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Fourth-goal research complete with MIXED paths: both teams' 54 goals and recent Angel City 4-1 demonstrate capability, but the closest current H2Hs are 2-1 and 1-1, ACFC concede only 1.07 per game and KC's recent finale was controlled 2-0. Neither self-funded-three plus reply nor repeatable 2+2 is independently verified against this current defensive opposition. G4 rejected; no G5 or G6.",
+      "xi_expected": "YES",
+      "xi_robustness": "HIGH"
+    },
+    "model": "c",
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment"
+  },
+  "authority": {
+    "mode": "DIRECT",
+    "direct_reference": "XI-REGRESSION-KANSAS-KNOCKOUT-THROTTLE-V1",
+    "user_requested_direct_xi": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "XI-REGRESSION-KANSAS-KNOCKOUT-THROTTLE-V1",
+      "researched_at_utc": "2026-11-07T16:59:58.493009+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "XI-REGRESSION-KANSAS-KNOCKOUT-THROTTLE-V1",
+      "evidence_refs": [
+        "https://www.kansascitycurrent.com/news/match-preview-now-playing-kansas-city-current-vs-angel-city-in-2026-nwsl-quarterfinals-at-cpkc-stadium",
+        "https://angelcity.com/acfc-post/acfc-takes-10-game-unbeaten-streak-into-nwsl-quarterfinal-against-kansas-city-current",
+        "https://angelcity.com/acfc-post/acfc-notches-4-1-win-over-boston-legacy-fc",
+        "https://www.kansascitycurrent.com/news/match-recap-kansas-city-current-closes-regular-season-with-2",
+        "https://angelcity.com/2026-nwsl-playoffs",
+        "https://www.nwslsoccer.com/news/quarterfinal-round-set-ahead-of-2026-nwsl-playoffs-presented-by-google-pixel"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "REGRESSION_REPLAY"
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "REGRESSION:XI-REGRESSION-KANSAS-KNOCKOUT-THROTTLE-V1",
+    "match_id": "1914753",
+    "bookmaker": "Regression replay of recorded user quote",
+    "quote": {
+      "line": 2.5,
+      "odds": 1.69
+    },
+    "observed_at_utc": "2026-11-07T16:59:58.493009+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null,
+    "custom_lines_available": true
+  }
+}
