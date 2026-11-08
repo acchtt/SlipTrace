@@ -237,9 +237,6 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
     def test_full_visible_ladder_selects_lower_supported_line(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         row = robust_g3_book_match(
-            carrier="STRONG",
-            carrier_self_fund=True,
-            route_reliability="MEDIUM",
             independent_upper_tail=False,
             independent_upper_tail_basis="completed research rejects G4",
             g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
@@ -356,7 +353,7 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         shot = snapshot(c, line=3.25, odds=2.04)
         out = run_xi(c, shot)
         check = out["price_check"]["model"]
-        self.assertEqual(check["conditional_action"], "BOOK", check)
+        self.assertEqual(check["conditional_action"], "BOOK")
         self.assertEqual(check["book_target_line"], 2.75)
         self.assertEqual(check["book_min_odds"], 1.85)
         self.assertIn(
