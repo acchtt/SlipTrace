@@ -80,31 +80,34 @@ is a workload order; block promotion is a separate operational selection step.
 
 First assign every qualified survivor an operational promotion band:
 
-- **Band A — preferred:** senior top-flight men/women, senior continental
-  competition, or another established professional competition with current
-  fixture identity and researchability channels verified. Women's domestic
-  top flights explicitly belong here when identity is verified.
-- **Band B — normal:** researched professional lower divisions / second tiers
-  with adequate current channels.
+- **Band A — production-ready professional:** senior top-flight men/women,
+  senior continental competition, or another established professional
+  competition with current fixture identity and researchability verified.
+  Women's domestic top flights explicitly belong here when identity is verified.
+- **Band B — professional reserve-observability:** researched professional lower
+  divisions / second tiers with adequate current channels.
 - **Band C — low-tier caution:** regional, semi-professional, amateur, reserve,
   obscure lower-tier or otherwise weak-observability competitions.
 
-A Band C fixture may not displace a credible Band A fixture merely because its
-raw recent-goal score is extreme. Cross-band promotion from C over A requires
-both:
+**Band A and Band B compete in one football-first pool.** Band is operational
+metadata, not a popularity or prestige ranking bonus. A Band-B fixture must not
+be hidden merely because five Band-A fixtures exist. Compare A/B candidates by
+the same frozen goal evidence first; use observability only as a late operational
+tiebreak when the football evidence is materially tied.
 
-1. a materially stronger frozen goal signal (default: at least **15 priority
-   score points** higher); and
+Band C remains constrained. It may enter the visible reserve lane only when it
+has both:
+
+1. a materially stronger frozen goal signal than the weakest visible A/B row
+   (default: at least **15 priority score points** higher); and
 2. verified current researchability plus likely XI/team-news availability.
 
-If either condition fails, keep the low-tier fixture as RESERVE even when its
-raw 3+/4+ rates are huge. This is an operational reliability rule, not a
-league-prestige prediction bonus: a weak Band A goal signal is still screened
-out and cannot be rescued by status.
+If either condition fails, keep the Band-C fixture outside the visible board
+even when raw 3+/4+ rates are huge. This is an observability safeguard, not a
+league-prestige prediction bonus.
 
-Before the normal within-band ordering, apply one narrow **HIGH_4PLUS_RESCUE**
-to Band-A fixtures only. A `GOAL_REVIEW` / `RESERVE_SIGNAL` row enters the
-five-match promotion comparison when all frozen sweep conditions are true:
+Apply **HIGH_4PLUS_RESCUE** to Band-A **or Band-B** `GOAL_REVIEW` /
+`RESERVE_SIGNAL` rows when all frozen sweep conditions are true:
 
 - mean 4+ rate >= **0.55**;
 - carrier route >= **1.75**;
@@ -112,18 +115,10 @@ five-match promotion comparison when all frozen sweep conditions are true:
 - fixture identity/researchability is verified;
 - no explicit exclusion or unresolved competition-format blocker applies.
 
-This is a promotion rescue, not a goal certificate and not an automatic top-five
-slot. It exists specifically to prevent the composite-score threshold from
-burying a top-flight fixture whose upper-tail sample is already strong. Do not
-require priority_score >=60 for this rescue, and do not convert the row to
-GOAL_PRIORITY in the frozen sweep receipt.
+This is display/selection rescue only, never a goal certificate. Do not require
+priority_score >=60 and do not convert the frozen sweep lane to GOAL_PRIORITY.
 
-For rescued rows, compare the **4+ rate before the raw priority score**. A
-rescued row may outrank a non-rescued same-band candidate when its upper-tail
-signal is materially stronger, even if its composite score is lower. Never
-use league status alone to trigger the rescue.
-
-Within the same promotion band compare:
+For the common A/B pool compare, in order:
 
 1. current scoring-route strength;
 2. opponent leakage / opening tendency;
@@ -131,28 +126,43 @@ Within the same promotion band compare:
 4. recent comparable 3+ signal;
 5. game-state / incentive pressure;
 6. endpoint/control risk;
-7. observability and XI readiness;
-8. raw composite priority score as a later tiebreak, not a threshold cliff.
+7. raw composite priority score;
+8. observability and XI readiness only as a late operational tiebreak.
 
 Do not compile a protected O2.50/O3.50 certificate at /block. Do not run the
 full Football C XI runtime for every candidate.
 
-Default output is a compact **five-match block board**. Fill up to five slots
-from the strongest rankable candidates plus eligible high-score blocked rows.
+Default output is a bounded **two-lane block board with at most 10 rows**:
+
+- **PRIMARY:** the strongest **3 to 5** credible candidates, maximum five;
+- **HIGH-SIGNAL RESERVE:** fill from the remaining qualified A/B pool up to a
+  maximum **10 total visible rows**. Do not pad when fewer credible rows exist.
+
 Use explicit display states:
 
-- `PROMOTED_FOR_XI` — lightweight block selection cleared;
-- `HIGH_4PLUS_RESCUE` — Band-A review/reserve row admitted to promotion
-  comparison by the 4+ >=55%, carrier >=1.75, trap <=20% rescue;
-- `RESERVE_SIGNAL` — qualified but below the promoted priority;
-- `HIGH_SCORE_RESEARCH_BLOCKED` — frozen score >=60 / GOAL_PRIORITY-quality,
-  but unresolved research/format/identity/observability blocks normal promotion.
+- `PROMOTED_FOR_XI` — PRIMARY lightweight selection;
+- `HIGH_4PLUS_RESCUE` — A/B review/reserve row admitted by the 4+ rescue;
+- `HIGH_SIGNAL_RESERVE` — qualified A/B candidate outside PRIMARY but retained
+  visibly because its frozen goal signal remains credible;
+- `HIGH_SCORE_RESEARCH_BLOCKED` — strong frozen signal but unresolved
+  research/format/identity blocker; zero /xi authority until resolved.
 
-A `HIGH_SCORE_RESEARCH_BLOCKED` row may appear inside the five-match board when
-its frozen signal is stronger than lower displayed reserves, but it has **zero
-/xi authority until the named blocker is resolved**. Do not silently replace it
-with a weaker ready match merely to keep the board all-actionable. If fewer than
-five credible/high-score rows exist, show fewer; never pad with weak matches.
+A `HIGH_SCORE_RESEARCH_BLOCKED` row may appear in PRIMARY or reserve according
+to its frozen goal signal, but the blocker stays binding. Do not silently replace
+it with a weaker ready match merely to make the board all-actionable.
+
+Every completed /block receipt must also freeze an `omission_audit` containing:
+
+- `qualified_for_block_rank_count`;
+- `primary_visible_count`;
+- `high_signal_reserve_visible_count`;
+- `hidden_qualified_count`;
+- the strongest hidden **A/B** rows (up to 10) with match id, frozen score,
+  3+, 4+, trap, promotion band and `omission_reason`.
+
+For a qualified A/B row hidden only because the 10-row display cap was reached,
+the reason must be exactly `DISPLAY_CAP_ONLY`. A qualified A/B row may not
+silently disappear from the receipt.
 
 ## 4. Relationship to /xi
 
