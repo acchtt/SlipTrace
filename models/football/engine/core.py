@@ -2913,27 +2913,25 @@ def _c_immediate_custom_book_allowed(
     a: MatchAssessment,
     target_line: float,
 ) -> bool:
-    """Authorize a custom line selected NOW, distinct from waiting for decay.
+    """Authorize an already-selectable custom line NOW, not market-line decay.
 
-    Deep robust certificates may be selected immediately at their exact
-    protected burden regardless of the displayed main-total gap. G3-only
-    cases get only the narrow strong-carrier O2.75 rescue. Conditional G4+
-    certificates do not receive a generic lower-line rescue.
+    The visible main total is only the observed screenshot quote. When Football C
+    has already authorized a CONDITIONAL/ROBUST direct ceiling, the user's custom
+    line may be selected immediately at that exact ceiling regardless of how far
+    below the displayed main total it sits. The screenshot price is never reused:
+    BOOK remains zero exposure until the custom line and its actual odds are
+    independently confirmed.
+
+    This does not relax the legacy 0.25-goal decay/WAIT reachability limit.
     """
 
     _validate_quarter_line(target_line)
-    compiled = certified_supported_burden(a, "c")
-    if compiled is None:
+    if certificate_robustness(a, "c") < 1:
         return False
-    if (
-        certificate_robustness(a, "c") >= 2
-        and abs(target_line - compiled) <= 1e-9
-    ):
-        return True
+    ceiling = c_direct_act_ceiling(a)
     return (
-        abs(compiled - 2.50) <= 1e-9
-        and abs(target_line - 2.75) <= 1e-9
-        and c_strict_carrier_custom_book_rescue(a)
+        ceiling is not None
+        and abs(target_line - ceiling) <= 1e-9
     )
 
 

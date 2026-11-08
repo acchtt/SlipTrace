@@ -1147,6 +1147,59 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertEqual(decision.book_min_odds, 1.65)
         self.assertFalse(decision.current_price_clears_book_target)
 
+    def test_custom_book_visible_gap_does_not_require_market_decay(self):
+        a = assessment(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.MEDIUM,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            goal_signal_priority_score=70,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.50,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertEqual(c_execution_strength(a), "CONDITIONAL")
+        self.assertEqual(c_direct_act_ceiling(a), 3.25)
+        decision = decide_c(
+            a,
+            context(
+                quote=Quote(4.0, 1.90),
+                wait_reachable=False,
+            ),
+        )
+        self.assertEqual(decision.action, Action.BOOK)
+        self.assertEqual(decision.book_target_line, 3.25)
+        self.assertEqual(decision.book_min_odds, 1.65)
+        self.assertIn("BOOK NOW custom O3.25", decision.reason)
+        self.assertIn("do not wait for line decay", decision.reason)
+        self.assertFalse(decision.current_price_clears_book_target)
+
+    def test_fragile_certificate_still_cannot_use_custom_book_gap_bypass(self):
+        a = assessment(
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            goal_signal_priority_score=70,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.50,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertEqual(c_execution_strength(a), "FRAGILE")
+        decision = decide_c(a, context(quote=Quote(3.5, 1.90)))
+        self.assertEqual(decision.action, Action.PASS)
+
     def test_high_stall_g3_does_not_gain_book_extension(self):
         a = assessment(
             carrier=CarrierStrength.USABLE,
