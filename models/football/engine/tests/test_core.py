@@ -1114,7 +1114,11 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertEqual(decision.book_target_line, 3.0)
         self.assertEqual(decision.book_min_odds, 1.90)
     def test_g3_custom_book_target_does_not_need_to_be_visible(self):
-        a = robust_g3_assessment()
+        a = robust_g3_assessment(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+        )
+        self.assertEqual(c_execution_strength(a), "ROBUST")
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
         self.assertFalse(c_goal4_funded(a))
         decision = decide_c(a, context(quote=Quote(3.5, 2.00)))
@@ -1866,7 +1870,7 @@ class ProductionIncidentExecutionControls(unittest.TestCase):
 
 
 class LatestSelectionInversionRepairTests(unittest.TestCase):
-    def test_high_evidence_confidence_cannot_promote_robustness_but_floor_survives(self):
+    def test_high_evidence_confidence_cannot_promote_robustness_and_fragile_floor_is_quarantined(self):
         a = assessment(
             match_id="mynavi_nojima_frozen_shape",
             home_route=RouteStrength.STRONG,
@@ -1894,11 +1898,13 @@ class LatestSelectionInversionRepairTests(unittest.TestCase):
         self.assertTrue(c_distributed_goal3_funded(a))
         self.assertEqual(c_goal3_mechanism_class(a), "DISTRIBUTED")
         self.assertEqual(certificate_robustness(a, "c"), 0)
+        # The frozen G3 floor remains a diagnostic certificate, but the
+        # provisional FRAGILE quarantine removes exposure authority.
         self.assertTrue(c_goal3_execution_floor_authorized(a))
-        self.assertEqual(c_direct_act_ceiling(a), 2.5)
+        self.assertIsNone(c_direct_act_ceiling(a))
         self.assertEqual(
             decide_c(a, context(quote=Quote(2.5, 2.09))).action,
-            Action.BET,
+            Action.PASS,
         )
 
     def test_current_carrier_precedes_frozen_high_total_signal_after_floor(self):
