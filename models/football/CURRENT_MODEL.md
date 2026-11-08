@@ -575,9 +575,11 @@ Active Football C has three user-facing prematch price actions:
 Legacy WAIT fields remain only as internal compatibility evidence. Active C
 uses BOOK for zero-exposure target instructions. A custom BOOK may be created
 for **CONDITIONAL or ROBUST** football at the deterministic direct ACT ceiling;
-FRAGILE still cannot create BOOK. A FRAGILE REVIEW_ONLY exception may retain a
-direct O2.50 ACT only when G3 itself is already funded, the current G3
-execution-floor checks clear, and endpoint-control pressure is not HIGH.
+FRAGILE still cannot create BOOK. Effective 2026-11-08, FRAGILE football is
+also provisionally quarantined from direct ACT at every line, including a funded
+O2.50 G3 floor. The frozen certificate remains visible for research, ranking and
+audit, but only CONDITIONAL or ROBUST execution strength can create new ACT
+exposure. This is an exposure-reducing safety quarantine pending prospective QA.
 
 For an unsupported higher observed burden, the visible-line gap does not limit a
 custom BOOK because the user can directly select a different total line. The
