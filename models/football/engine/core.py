@@ -1309,8 +1309,14 @@ def c_direct_act_ceiling(a: MatchAssessment) -> float | None:
         return None
 
     base: float | None
+    # Provisional safety quarantine (2026-11-08): FRAGILE football may keep
+    # its frozen G3 certificate for research/ranking diagnostics, but it may
+    # not create direct ACT exposure at any lower/equal market line. Recent
+    # discovery showed the old O2.50 floor exception concentrated losses in
+    # FRAGILE distributed/leakage G3 profiles. CONDITIONAL/ROBUST authority is
+    # unchanged and this tightening creates no new exposure.
     if robustness <= 0:
-        base = min(anchor, 2.50) if c_goal3_execution_floor_authorized(a) else None
+        base = None
     elif robustness == 1:
         if anchor <= 2.50 and c_goal3_execution_floor_authorized(a):
             base = anchor
