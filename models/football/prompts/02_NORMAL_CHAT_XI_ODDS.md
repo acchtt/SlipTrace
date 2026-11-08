@@ -566,6 +566,54 @@ that the order is **not exposure until independently confirmed filled**.
 Do not mention retired models unless the user asks for historical audit.
 
 
-## BOOK pre-goal reachability repair — 2026-11-07
+## XI execution repair V1 — 2026-11-08
 
-A lower-line/non-visible BOOK target may not sit more than 0.25 goals below the observed screenshot burden and still be described as reachable. A gap of 0.50+ requires either an independently observed/confirmed lower custom quote in a new price epoch or PASS at the original screenshot. Do not use a distant decay target to chase a high-ignition match.
+Separate **line decay** from an **immediately selectable custom total**.
+
+- A WAIT/decay path remains limited to one 0.25-goal step. Never tell the user
+  to wait for a distant main total to collapse before the first goal.
+- A custom line available from the user's bookmaker is different: the runtime
+  may publish `BOOK NOW O<target> @ <minimum>+` without reusing the screenshot
+  odds. This means **select/check that custom line immediately**, not wait.
+- The immediate custom path is intentionally narrow. ROBUST G4/G5/G6 football
+  may use the exact protected certificate line. G3-only football may use a
+  distant O2.75 custom target only through the strict carrier rescue: STRONG
+  self-funded carrier, STRONG primary route, HIGH burden completion, frozen
+  3+ >=75%, trap <=10%, and the canonical O2.75 intermediate profile already
+  authorized. It never manufactures G4.
+- CONDITIONAL G4+ does not receive a generic lower custom-line rescue. This
+  prevents the old Bayern-style O3.25 target from returning merely because a
+  custom selector exists.
+- Every custom BOOK remains **PENDING/UNFILLED, zero exposure** until the user
+  independently confirms the actual custom quote/fill.
+
+### Single-elimination G3 ACT throttle
+
+For regulation totals in `SINGLE_ELIMINATION` or `FINAL`, a two-sided/mixed
+G3 may not ACT O2.50 when continuation and failure resistance are only MEDIUM,
+unless at least one of these counterweights exists: a self-funded carrier, HIGH
+continuation, HIGH failure resistance, or frozen 3+ >=70%. This prevents a
+Kansas-style level-tolerant knockout profile from receiving the easiest ACT
+merely because the bookmaker line is low.
+
+### Strong-block / G4-rejection conflict gate
+
+When frozen block evidence has **4+ >=55%, trap <=10%, and a STRONG route/carrier**
+but deep /xi returns `G4_RESEARCH_COMPLETE_REJECTED` or
+`G4_RESEARCH_COMPLETE_MIXED`, do not seal ACT/BOOK/PASS immediately. Complete
+one bounded market-independent recheck and freeze:
+
+- `g4_carrier_path`;
+- `g4_distributed_path`;
+- `g4_reply_path`;
+- `g4_continuation_after_g3`;
+- `upper_tail_transferability`;
+- `upper_tail_comparable_context_signal`;
+- `failure_resistance`;
+- `continuation_quality`.
+
+Set `block_g4_conflict_recheck_status=COMPLETED` with a substantive basis and
+source refs, then rerun the deterministic runtime. The recheck is not an
+automatic G4 upgrade; it only prevents generic control/absence caution from
+silently erasing a strong frozen upper-tail signal. Until completed, runtime
+returns `BLOCK_G4_CONFLICT_RECHECK_REQUIRED`.
